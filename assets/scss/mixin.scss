@@ -1,0 +1,54 @@
+@use 'sass:map';
+@use 'sass:math';
+
+@mixin media-breakpoint-up($mediaBreakpoint) {
+  @if $mediaBreakpoint == 'sm' {
+    @media (min-width: 576px) {
+      @content;
+    }
+  } @else if $mediaBreakpoint == 'md' {
+    @media (min-width: 768px) {
+      @content;
+    }
+  } @else if $mediaBreakpoint == 'lg' {
+    @media (min-width: 992px) {
+      @content;
+    }
+  } @else if $mediaBreakpoint == 'xl' {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  } @else if $mediaBreakpoint == 'xxl' {
+    @media (min-width: 1400px) {
+      @content;
+    }
+  }
+}
+
+@mixin mt($s: '.36s') {
+  --s: #{$s};
+  transition: all var(--s) ease-in-out;
+}
+
+@function rem($pxval) {
+  @if $output-bourbon-deprecation-warnings == true {
+    @warn "[Bourbon] [Deprecation] `rem` is deprecated and will be " +
+    "removed in 5.0.0.";
+  }
+
+  $user-deprecation-warnings-setting: $output-bourbon-deprecation-warnings;
+  $output-bourbon-deprecation-warnings: false !global;
+
+  @if not unitless($pxval) {
+    $pxval: strip-units($pxval);
+  }
+
+  $base: $em-base;
+  @if not unitless($base) {
+    $base: strip-units($base);
+  }
+
+  $output-bourbon-deprecation-warnings: $user-deprecation-warnings-setting !global;
+
+  @return math.div($pxval, $base) * 1rem;
+}

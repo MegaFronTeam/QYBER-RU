@@ -1,0 +1,12 @@
+@import 'mixin.scss';
+
+$em-base: 16;
+
+html,
+body {
+  font-size: $em-base * 1px;
+}
+body {
+  background-color: var(--body-bg);
+  color: var(--body-color);
+}
