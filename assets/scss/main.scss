@@ -1,83 +1,13 @@
+@import 'vars.scss';
 @import 'mixin.scss';
 @import '_root.scss';
 @import './themes/lightTheme/theme.scss';
 @import './dark-theme.scss';
 
-$em-base: 16;
+@import './base.scss';
 
-html,
-body {
-  font-size: rem($em-base);
-  background-color: var(--body-bg);
-  color: var(--body-color);
-}
-
-h1,
-.h1,
-h2,
-.h2,
-h3,
-.h3,
-h4,
-.h4,
-h5,
-.h5,
-h6,
-.h6 {
-  color: var(--body-color);
-  font-weight: 700;
-  line-height: 1.25;
-}
-
-h1,
-.h1 {
-  font-size: rem(24);
-  @include media-breakpoint-up(md) {
-    font-size: rem(48);
-  }
-}
-h2,
-.h2 {
-  font-size: rem(20);
-  @include media-breakpoint-up(md) {
-    font-size: rem(40);
-  }
-}
-h3,
-.h3 {
-  font-size: rem(16);
-  @include media-breakpoint-up(md) {
-    font-size: rem(36);
-  }
-}
-h4,
-.h4 {
-  font-size: rem(14);
-  @include media-breakpoint-up(md) {
-    font-size: rem(30);
-  }
-}
-h5,
-.h5 {
-  font-size: rem(12);
-  @include media-breakpoint-up(md) {
-    font-size: rem(24);
-  }
-}
-h6,
-.h6 {
-  font-size: rem(10);
-  @include media-breakpoint-up(md) {
-    font-size: rem(20);
-  }
-}
-
-.p-button {
-  line-height: calc(20 / 14);
-  padding: rem(11) rem(24);
-  font-size: rem(14);
-  border-radius: rem(12);
-  font-weight: 600;
-  &-primary {
-  }
-}
+// Components
+@import './components/header.scss';
+@import './components/footer.scss';
+@import './components/sNews.scss';
+@import './components/sNewsCard.scss';
