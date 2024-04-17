@@ -1,0 +1,28 @@
+.contacts {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  @include media-breakpoint-up(lg) {
+    justify-content: flex-end;
+  }
+  li {
+    flex: 0 0 auto;
+    &:not(:last-child) {
+      margin-right: rem(6);
+    }
+  }
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(44);
+    height: rem(44);
+    border-radius: rem(10);
+    background-color: var(--gray-50);
+    color: var(--gray-500);
+    .icons {
+      font-size: rem(16);
+    }
+  }
+}

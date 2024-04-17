@@ -27,6 +27,44 @@ body {
   }
 }
 
+.row {
+  display: flex;
+  align-items: center;
+  @include roww($m: m);
+}
+
+.col {
+  flex: 1 0 0%;
+}
+
+.d-none {
+  display: none !important;
+}
+.d-block {
+  display: block !important;
+}
+.d-flex {
+  display: block !important;
+}
+
+@each $key, $val in $grid-breakpoints {
+  .d-#{$key}-none {
+    @include media-breakpoint-up($key) {
+      display: none !important;
+    }
+  }
+  .d-#{$key}-block {
+    @include media-breakpoint-up($key) {
+      display: block !important;
+    }
+  }
+  .d-#{$key}-flex {
+    @include media-breakpoint-up($key) {
+      display: flex !important;
+    }
+  }
+}
+
 h1,
 .h1,
 h2,
@@ -104,6 +142,8 @@ h6,
   height: 1em;
   &-logo {
     font-size: rem(160);
+    width: 1em;
+    height: 0.3em;
   }
 }
 
