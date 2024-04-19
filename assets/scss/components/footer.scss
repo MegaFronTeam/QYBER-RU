@@ -23,6 +23,9 @@
     @include media-breakpoint-up(lg) {
       margin: 0 auto rem(60) auto;
     }
+    svg {
+      width: 100%;
+    }
   }
   &__row-wrap {
     padding-bottom: rem(24);
@@ -177,7 +180,6 @@
   .p-scrolltop {
     position: relative;
     margin-left: auto;
-    flex: 0 0 auto;
     width: rem(44);
     height: rem(44);
     background-color: var(--gray-50);
@@ -186,6 +188,9 @@
     bottom: 0;
     right: 0;
     margin-left: rem(66);
+    @include media-breakpoint-up(lg) {
+      margin-left: auto;
+    }
     &:before {
       content: 'Наверх';
       position: absolute;

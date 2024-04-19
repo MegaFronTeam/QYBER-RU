@@ -13,8 +13,8 @@
     </template>
     <template #title>
       <div class="date">{{ formattedDate }}</div>
-      {{ newsData.title.rendered }}</template
-    >
+      <h5>{{ newsData.title.rendered }}</h5>
+    </template>
     <template #content>
       <div v-html="newsData.excerpt.rendered"></div>
     </template>
