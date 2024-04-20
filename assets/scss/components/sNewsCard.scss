@@ -42,6 +42,7 @@
   }
   h5 {
     font-size: rem(18);
+    color: var(--gray-700);
     @include media-breakpoint-up(lg) {
       font-size: rem(24);
     }

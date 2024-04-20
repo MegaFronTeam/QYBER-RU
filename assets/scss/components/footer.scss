@@ -188,6 +188,12 @@
     bottom: 0;
     right: 0;
     margin-left: rem(66);
+    &:hover {
+      background-color: var(--primary-300);
+      svg {
+        color: var(--gray-100);
+      }
+    }
     @include media-breakpoint-up(lg) {
       margin-left: auto;
     }

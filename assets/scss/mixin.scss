@@ -11,6 +11,16 @@
   }
 }
 
+@mixin media-breakpoint-down($mediaBreakpoint) {
+  @each $key, $val in $grid-breakpoints {
+    @if $mediaBreakpoint == $key {
+      @media screen and (max-width: ($val - 0.1)) {
+        @content;
+      }
+    }
+  }
+}
+
 @mixin mt($s: '.36s') {
   --s: #{$s};
   transition: all var(--s) ease-in-out;
