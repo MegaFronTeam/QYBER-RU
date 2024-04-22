@@ -187,5 +187,6 @@ $primaryTextColor: #292d36;
   --maskbg: #{$maskBg};
   --highlight-bg: #{$highlightBg};
   --highlight-text-color: #{$highlightTextColor};
+  --body-color: var(--gray-700);
   color-scheme: light;
 }

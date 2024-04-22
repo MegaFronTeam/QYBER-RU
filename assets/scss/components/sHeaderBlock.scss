@@ -5,7 +5,7 @@
     flex-direction: column;
     border-radius: rem(20);
     border: 1px solid var(--gray-100);
-    padding: rem(23) rem(30);
+    padding: rem(30) rem(23);
     overflow: hidden;
     text-align: center;
     @include media-breakpoint-up(lg) {
@@ -30,32 +30,15 @@
   }
   h1 {
     color: #fff;
+    letter-spacing: rem(-1.92);
   }
-  .p-breadcrumb {
-    padding: 0;
-    background-color: transparent;
-    border: none;
-    margin-bottom: rem(12);
-    &-list {
-      justify-content: center;
-      .p-menuitem {
-        font-size: rem(12);
-        line-height: 1.33;
-        a {
-          @include mt;
-          color: #fff;
-          &:hover {
-            color: var(--primary-300);
-          }
-        }
-        &:last-child {
-          color: rgba(255, 255, 255, 0.64);
-        }
-      }
-      .p-menuitem-separator {
-        margin: 0 rem(6);
-        color: #fff;
-      }
+  p {
+    margin-top: rem(12);
+    font-size: rem(16);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.64);
+    @include media-breakpoint-up(lg) {
+      margin-bottom: auto;
     }
   }
   &__filter {
@@ -87,6 +70,61 @@
       border-color: var(--primary-300);
       color: $textColor;
       backdrop-filter: none;
+    }
+  }
+  &__author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include media-breakpoint-up(lg) {
+      justify-content: flex-start;
+    }
+  }
+  &__author-img {
+    flex: 0 0 auto;
+    width: rem(40);
+    height: rem(40);
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: rem(10);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__author-title {
+    color: #fff;
+    font-size: rem(12);
+    font-weight: 600;
+    line-height: 1.33;
+    margin-right: rem(24);
+  }
+  &__author-date {
+    font-size: rem(14);
+    font-weight: 400;
+    line-height: 1.42;
+    color: #9e9fa3;
+  }
+  &--content {
+    .sHeaderBlock {
+      &__wrap {
+        min-height: rem(440);
+        max-width: rem(960);
+        margin: 0 auto;
+        justify-content: flex-start;
+        padding: rem(24);
+        @include media-breakpoint-up(lg) {
+          min-height: rem(480);
+          text-align: left;
+          padding: rem(48);
+        }
+      }
+    }
+    .p-breadcrumb-list {
+      justify-content: flex-start;
+    }
+    h1 {
     }
   }
 }

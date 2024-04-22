@@ -11,6 +11,9 @@
     &:not(:last-child) {
       margin-right: rem(6);
     }
+    &::before {
+      content: unset;
+    }
   }
   &__link {
     display: flex;
@@ -24,5 +27,11 @@
     .icons {
       font-size: rem(16);
     }
+  }
+  &--center {
+    justify-content: center;
+    // @include media-breakpoint-up(lg) {
+    //   justify-content: center;
+    // }
   }
 }
