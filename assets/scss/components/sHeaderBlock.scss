@@ -8,6 +8,7 @@
     padding: rem(30) rem(23);
     overflow: hidden;
     text-align: center;
+    justify-content: center;
     @include media-breakpoint-up(lg) {
       min-height: rem(380);
       justify-content: center;
@@ -31,12 +32,16 @@
   h1 {
     color: #fff;
     letter-spacing: rem(-1.92);
+    max-width: rem(960);
+    margin: 0 auto;
   }
   p {
     margin-top: rem(12);
     font-size: rem(16);
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.64);
+    max-width: rem(960);
+    margin: 0 auto;
     @include media-breakpoint-up(lg) {
       margin-bottom: auto;
     }
@@ -56,20 +61,20 @@
     @include media-breakpoint-up(md) {
       flex-direction: row;
     }
-  }
-  button {
-    width: 100%;
-    justify-content: center;
-    background-color: rgba(12, 16, 26, 0.4);
-    border-color: transparent;
-    color: rgba(255, 255, 255, 0.64);
-    backdrop-filter: blur(6px);
-    &:hover,
-    &.active {
-      background-color: var(--primary-300);
-      border-color: var(--primary-300);
-      color: $textColor;
-      backdrop-filter: none;
+    button {
+      width: 100%;
+      justify-content: center;
+      background-color: rgba(12, 16, 26, 0.4);
+      border-color: transparent;
+      color: rgba(255, 255, 255, 0.64);
+      backdrop-filter: blur(6px);
+      &:hover,
+      &.active {
+        background-color: var(--primary-300);
+        border-color: var(--primary-300);
+        color: $textColor;
+        backdrop-filter: none;
+      }
     }
   }
   &__author {
@@ -106,6 +111,12 @@
     line-height: 1.42;
     color: #9e9fa3;
   }
+  &__btn {
+    padding: rem(17) rem(24);
+    width: 100%;
+    max-width: rem(187);
+    margin: rem(24) auto 0 auto;
+  }
   &--content {
     .sHeaderBlock {
       &__wrap {
@@ -119,12 +130,21 @@
           text-align: left;
           padding: rem(48);
         }
+        p {
+          margin-left: 0;
+        }
       }
     }
     .p-breadcrumb-list {
-      justify-content: flex-start;
+      margin: 0;
     }
-    h1 {
+  }
+  &--max-height {
+    .sHeaderBlock__wrap {
+      min-height: rem(460);
+      @include media-breakpoint-up(lg) {
+        min-height: rem(600);
+      }
     }
   }
 }

@@ -19,8 +19,10 @@
 </template>
 
 <script setup>
-const breadcrumb = [
+import { ref } from 'vue';
+
+const breadcrumb = ref([
   { label: 'Новости', route: '/news' },
   { label: 'Начало турнира Кибер Атланты Осень 2024 по Dota 2' },
-];
+]);
 </script>

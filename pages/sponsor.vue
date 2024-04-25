@@ -1,3 +1,26 @@
 <template>
-  <h1>This is {{ $route.name }}</h1>
+  <HeaderBlock
+    title="Давайте начнем продвигать киберспорт в массы вместе"
+    :breadcrumbArr="breadcrumb"
+    bg="headerBlock-bg-3.jpg"
+    class="sHeaderBlock sHeaderBlock--max-height"
+  >
+    <Button class="sHeaderBlock__btn" label="Стать спонсором" />
+  </HeaderBlock>
+  <CurrentSponsors />
+  <SponsorsAdvantages />
 </template>
+
+<script setup>
+import { ref } from 'vue';
+
+const breadcrumb = ref([
+  { label: 'Пункт 1', route: '/' },
+  { label: 'Пункт 2', route: '/' },
+  { label: 'Пункт 3', route: '/' },
+  { label: 'Личный кабинет', route: '/' },
+  { label: 'Личный кабинет', route: '/' },
+  { label: 'Личный кабинет', route: '/' },
+  { label: 'Личный кабинет' },
+]);
+</script>

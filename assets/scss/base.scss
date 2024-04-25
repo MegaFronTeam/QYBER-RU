@@ -177,7 +177,6 @@ p {
   align-items: center;
   img {
     max-width: 100%;
-    max-height: 100%;
     height: auto;
   }
   img.object-fit-js {
@@ -326,7 +325,8 @@ p {
   border: none;
   margin: 0 rem(-24) rem(12) rem(-24);
   &-list {
-    justify-content: center;
+    margin: 0 auto;
+    max-width: max-content;
     .p-menuitem {
       font-size: rem(12);
       line-height: 1.33;
@@ -354,5 +354,19 @@ p {
       margin: 0 rem(6);
       color: #fff;
     }
+  }
+}
+
+.p-badge {
+  font-size: rem(12);
+  font-weight: 600;
+  line-height: 1.33;
+  padding: rem(6) rem(10);
+  border-radius: rem(8);
+  min-height: rem(28);
+  height: auto;
+  &-secondary {
+    background-color: var(--bluegray-400);
+    color: #fff;
   }
 }
