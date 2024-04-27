@@ -62,6 +62,7 @@
     font-weight: 400;
     line-height: 1.33;
     a {
+      @include mt;
       text-decoration: none;
       color: var(--primary-300);
       &:hover {

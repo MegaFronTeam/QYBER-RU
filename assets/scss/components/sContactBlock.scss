@@ -59,6 +59,7 @@
       letter-spacing: rem(-1.2);
     }
     a {
+      @include mt;
       text-decoration: none;
       &:hover {
         color: var(--primary-300);
