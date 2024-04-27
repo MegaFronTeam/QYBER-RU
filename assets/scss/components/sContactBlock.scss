@@ -1,0 +1,82 @@
+.sContactBlock {
+  padding-top: rem(6);
+  padding-bottom: rem(6);
+  @include media-breakpoint-up(lg) {
+    padding-top: rem(12);
+    padding-bottom: rem(12);
+  }
+  &__row {
+    --gutter-y: #{rem(6)};
+
+    align-items: stretch;
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+    }
+  }
+  &__col {
+    flex-grow: 1;
+  }
+  .template {
+    height: 100%;
+    @include media-breakpoint-down(lg) {
+      padding: rem(24);
+    }
+  }
+  &__profile {
+    text-align: center;
+  }
+  &__img-wrap {
+    @include ratio(1, 1);
+    width: 100%;
+    max-width: rem(120);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: rem(24);
+    border-radius: rem(20);
+    overflow: hidden;
+    @include media-breakpoint-up(lg) {
+      max-width: rem(160);
+    }
+  }
+  &__profile-info {
+    &:not(:last-child) {
+      margin-bottom: rem(24);
+    }
+    span {
+      display: block;
+      font-size: rem(14);
+      font-weight: 600;
+      line-height: 1.42;
+      margin-bottom: rem(6);
+      color: var(--gray-500);
+    }
+    h2 {
+      line-height: 1.125;
+      letter-spacing: rem(-1.92);
+    }
+    .h4 {
+      line-height: 1.2;
+      letter-spacing: rem(-1.2);
+    }
+    a {
+      text-decoration: none;
+      &:hover {
+        color: var(--primary-300);
+      }
+    }
+  }
+  &__btn {
+    width: 100%;
+    max-width: rem(235);
+    .icons {
+      font-size: rem(16);
+      margin-right: rem(10);
+      color: var(--social-telegram-main);
+    }
+  }
+  .form-wrap {
+    h2 {
+      text-align: center;
+    }
+  }
+}

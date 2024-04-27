@@ -152,9 +152,25 @@ p {
       border: 1px solid var(--bluegray-100);
     }
   }
+  &-gray {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-50);
+    color: var(--gray-500);
+    &:hover {
+      color: var(--gray-700);
+    }
+    &:focus {
+      background: var(--gray-200);
+      border: 1px solid var(--gray-200);
+      color: var(--gray-700);
+    }
+  }
   .p-disabled,
   .p-component:disabled {
     opacity: 0.6;
+  }
+  &.btn-lg {
+    padding: rem(17) rem(24);
   }
 }
 
@@ -369,4 +385,8 @@ p {
     background-color: var(--bluegray-400);
     color: #fff;
   }
+}
+
+.text-center {
+  text-align: center;
 }
