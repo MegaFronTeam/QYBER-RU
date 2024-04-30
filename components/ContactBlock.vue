@@ -68,8 +68,9 @@
                   />
                 </InputGroup>
                 <InputGroup>
-                  <label for="email">Ваше сообщение</label>
+                  <label for="textarea">Ваше сообщение</label>
                   <Textarea
+                    id="textarea"
                     v-model="textAreaValue"
                     placeholder="Введите ваше сообщение"
                     autoResize

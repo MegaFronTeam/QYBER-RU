@@ -17,7 +17,7 @@
 <script setup>
 const defineProps = defineProps({
   errorMsg: {
-    type: String,
+    type: Number,
     required: false,
   },
 });
