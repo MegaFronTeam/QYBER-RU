@@ -2,5 +2,5 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['nuxt-primevue', '@nuxt/image', '@nuxtjs/svg-sprite'],
-  primevue: {},
+  ssr: true,
 });

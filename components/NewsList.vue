@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-const { data } = await useFetch('https://qyber.ru/wordpress/wp-json/wp/v2/posts');
+const { data: data } = await useLazyFetch('https://qyber.ru/wordpress/wp-json/wp/v2/posts');
 
 const totalRecords = ref(120);
 const rowsPerPage = ref([10, 50, 100]);

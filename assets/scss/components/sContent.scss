@@ -8,6 +8,12 @@
   .container {
     position: relative;
   }
+  &__title {
+    line-height: 1.2;
+    letter-spacing: rem(-1.6);
+    max-width: rem(960);
+    margin: 0 auto rem(24) auto;
+  }
   &__wrap {
     max-width: rem(960);
     margin: 0 auto;
@@ -17,7 +23,8 @@
     h2 {
       line-height: 1.2;
       letter-spacing: rem(-1.6);
-      margin-bottom: rem(24);
+      max-width: rem(960);
+      margin: 0 auto rem(24) auto;
     }
     p {
       font-size: rem(14);

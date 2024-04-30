@@ -1,27 +1,8 @@
 <template>
   <section class="sContent">
     <div class="container">
-      <div class="sContent__wrap">
-        <h2>Начались отборочные игры на турнир Кибер Атланты Осень 2024 по Dota 2</h2>
-        <p>
-          Учитывая ключевые сценарии поведения, выбранный нами инновационный путь играет
-          определяющее значение для существующих финансовых и административных условий. А ещё
-          предприниматели в сети интернет описаны максимально подробно. Приятно, граждане,
-          наблюдать, как действия представителей оппозиции, инициированные исключительно
-          синтетически, функционально разнесены на независимые элементы.
-        </p>
-        <h3>Какие команды могут участвовать в турнире?</h3>
-        <ul>
-          <li>Команды корпоративных компаний</li>
-          <li>Команды студентов ВУЗов</li>
-        </ul>
-        <NuxtImg src="img/sContent-img-1.jpg" alt="content img" />
-        <h4>Процесс записи на турнир</h4>
-        <ol>
-          <li>Команды корпоративных компаний</li>
-          <li>Команды студентов ВУЗов</li>
-        </ol>
-      </div>
+      <h2 class="sContent__title">{{ title }}</h2>
+      <div class="sContent__wrap" v-html="content"></div>
       <DataTable :value="products">
         <Column
           :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
@@ -90,6 +71,17 @@
 
 <script setup>
 import { ref } from 'vue';
+
+const props = defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+});
 
 const products = ref([
   {
