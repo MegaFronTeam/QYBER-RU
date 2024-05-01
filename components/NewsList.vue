@@ -3,7 +3,16 @@
     <div class="container">
       <div class="template">
         <div class="sNews__list">
-          <NewsCard v-for="item of data" :newsData="item" :key="item.id" />
+          <NewsCard
+            v-for="item of data"
+            :newsData="{
+              id: item.id,
+              title: item.title.rendered,
+              date: item.date,
+              excerpt: item.excerpt.rendered,
+            }"
+            :key="item.id"
+          />
         </div>
       </div>
       <!-- v-if="data.length > rowsPerPage[0]" -->

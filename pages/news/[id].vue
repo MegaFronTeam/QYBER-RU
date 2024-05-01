@@ -5,7 +5,7 @@
     bg="headerBlock-bg-2.jpg"
     class="sHeaderBlock--content"
   >
-    <p>{{ data.excerpt.rendered }}</p>
+    <p>Стартовал ежегодный корпоративный турнир Кибер Атланты</p>
     <div class="sHeaderBlock__author">
       <div class="sHeaderBlock__author-img">
         <NuxtImg src="img/avatar-img-1.jpg" alt="author" />
@@ -15,6 +15,7 @@
     </div>
   </HeaderBlock>
   <Content :title="data.title.rendered" :content="data.content.rendered" />
+  <RelatedNews :data="data.related" />
 </template>
 
 <script setup>

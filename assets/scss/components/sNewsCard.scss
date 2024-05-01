@@ -6,6 +6,7 @@
   box-shadow: none;
   border-radius: rem(12);
   border: 1px solid var(--gray-100);
+  overflow: hidden;
   &__img-wrap {
     @include ratio(280, 411);
     position: relative;

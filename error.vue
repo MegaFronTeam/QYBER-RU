@@ -18,8 +18,3 @@ const props = defineProps({
     <AppFooter />
   </div>
 </template>
-
-<style>
-@import './assets/scss/normalize.scss';
-@import './assets/scss/main.scss';
-</style>
