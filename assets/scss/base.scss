@@ -165,6 +165,18 @@ p {
       color: var(--gray-700);
     }
   }
+  &-danger {
+    background: var(--red-300);
+    border: 1px solid var(--red-300);
+    &:hover {
+      background: var(--red-200);
+      border: 1px solid var(--red-200);
+    }
+    &:focus {
+      background: var(--red-100);
+      border: 1px solid var(--red-100);
+    }
+  }
   .p-disabled,
   .p-component:disabled {
     opacity: 0.6;
@@ -193,6 +205,7 @@ p {
   align-items: center;
   img {
     max-width: 100%;
+    max-height: 100%;
     height: auto;
   }
   img.object-fit-js {
@@ -472,4 +485,8 @@ p {
 
 .p-component-overlay {
   background-color: rgba(12, 16, 26, 0.4) !important;
+}
+
+.mb-2 {
+  margin-bottom: rem(12);
 }

@@ -1,6 +1,6 @@
 <template>
   <section class="sContent">
-    <div class="container">
+    <div ref="parent" class="container">
       <h2 class="sContent__title">{{ title }}</h2>
       <div class="sContent__wrap" v-html="content"></div>
       <DataTable :value="products">
@@ -56,8 +56,12 @@
         </Column>
       </DataTable>
       <Contacts class="contacts--center" />
-      <div class="banner bg-wrap">
-        <NuxtImg class="picture-bg" src="img/banner-bg-1.jpg" />
+      <div
+        ref="stickyElement"
+        :style="`--stickyTop: ${stickyTop}`"
+        class="banner bg-wrap sticky-element"
+      >
+        <NuxtImg class="picture-bg" src="img/banner-bg-1.jpg" alt="bg" />
         <div class="h5">Подпишитесь на актуальные новости в нашем Telelgram-канале</div>
         <p>Узнавайте о новостях одним из первых</p>
         <Button>
@@ -106,4 +110,39 @@ const products = ref([
     name: 'Константин Завгородний',
   },
 ]);
+</script>
+
+<script>
+export default {
+  data() {
+    return {
+      parent: null,
+      stickyElement: null,
+      stickyTop: null,
+    };
+  },
+  mounted() {
+    this.parent = this.$refs.parent;
+    this.stickyElement = this.$refs.stickyElement;
+    this.calculateStickyTop();
+    window.addEventListener('scroll', this.calculateStickyTop);
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.calculateStickyTop);
+  },
+  methods: {
+    calculateStickyTop() {
+      const parentRect = this.parent.getBoundingClientRect();
+      const stickyElementRect = this.stickyElement.getBoundingClientRect();
+
+      this.stickyTop = `${parentRect.top}px`;
+
+      if (stickyElementRect.top > 0) {
+        this.stickyTop = `-${Math.abs(parentRect.top)}px`;
+      } else {
+        this.stickyTop = null;
+      }
+    },
+  },
+};
 </script>

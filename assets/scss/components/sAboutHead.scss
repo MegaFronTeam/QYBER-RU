@@ -1,0 +1,96 @@
+.sAboutHead {
+  padding-top: rem(6);
+  padding-bottom: rem(15);
+  @include media-breakpoint-up(lg) {
+    padding-top: rem(12);
+    padding-bottom: rem(6);
+  }
+  &__row {
+    --gutter-y: #{rem(6)};
+
+    align-items: stretch;
+    margin-bottom: rem(6);
+    flex-wrap: wrap;
+    @include media-breakpoint-up(lg) {
+      margin-bottom: rem(12);
+    }
+    .col {
+      flex: 1 0 calc(100% - var(--gutter-x));
+      @include media-breakpoint-up(md) {
+        flex: 1 0 calc(50% - var(--gutter-x));
+      }
+      @include media-breakpoint-up(xxl) {
+        flex: 1 0 0%;
+      }
+    }
+  }
+  &__item {
+    text-align: center;
+    padding: rem(23);
+    border-radius: rem(20);
+    border: 1px solid var(--gray-100);
+    background-color: var(--gray-50);
+    height: 100%;
+    @include media-breakpoint-up(lg) {
+      padding: rem(47);
+    }
+    .icons {
+      font-size: rem(36);
+      margin-bottom: rem(18);
+      @include media-breakpoint-up(lg) {
+        font-size: rem(48);
+        margin-bottom: rem(24);
+      }
+    }
+    h4 {
+      margin-bottom: rem(12);
+      line-height: 1.2;
+      letter-spacing: rem(-0.8);
+    }
+    p {
+      font-size: rem(14);
+      line-height: 1.42;
+      color: var(--gray-500);
+    }
+  }
+  &__content {
+    padding: rem(24);
+    @include media-breakpoint-up(lg) {
+      padding: rem(48);
+    }
+    p {
+      line-height: 1.5;
+      color: var(--gray-500);
+      &:not(:last-child) {
+        margin-bottom: rem(17);
+        @include media-breakpoint-up(lg) {
+          margin-bottom: rem(34);
+        }
+      }
+    }
+    .row {
+      --gutter-y: #{rem(32)};
+      --gutter-x: #{rem(48)};
+      flex-direction: column;
+      justify-content: center;
+      align-items: stretch;
+      @include media-breakpoint-up(lg) {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+      }
+    }
+  }
+  &__img-wrap {
+    @include ratio(504, 816);
+    overflow: hidden;
+    border-radius: rem(20);
+    width: 100%;
+    max-width: rem(816);
+    svg {
+      max-width: 100%;
+      max-height: 100%;
+      height: auto;
+    }
+  }
+}

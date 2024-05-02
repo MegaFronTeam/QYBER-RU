@@ -3,8 +3,10 @@
     <div class="container">
       <div class="template">
         <div class="sNews__list">
+          <NewsCard v-if="pending" :skeleton="true" :newsData="{}" v-for="n in 6" />
           <NewsCard
             v-for="item of data"
+            v-else
             :newsData="{
               id: item.id,
               title: item.title.rendered,
@@ -39,7 +41,9 @@
 </template>
 
 <script setup>
-const { data: data } = await useLazyFetch('https://qyber.ru/wordpress/wp-json/wp/v2/posts');
+const { data: data, pending } = await useLazyFetch(
+  'https://qyber.ru/wordpress/wp-json/wp/v2/posts',
+);
 
 const totalRecords = ref(120);
 const rowsPerPage = ref([10, 50, 100]);
