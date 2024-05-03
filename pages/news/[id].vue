@@ -2,15 +2,15 @@
   <HeaderBlock
     :title="data.title.rendered"
     :breadcrumbArr="breadcrumb"
-    bg="headerBlock-bg-2.jpg"
+    :bg="data.post_thumbnail"
     class="sHeaderBlock--content"
   >
-    <p>Стартовал ежегодный корпоративный турнир Кибер Атланты</p>
+    <div class="sHeaderBlock__text" v-html="subtitle"></div>
     <div class="sHeaderBlock__author">
       <div class="sHeaderBlock__author-img">
-        <NuxtImg src="img/avatar-img-1.jpg" alt="author" />
+        <NuxtImg :src="data.author_post.avatar.url" :alt="data.author_post.avatar.alt" />
       </div>
-      <div class="sHeaderBlock__author-title">Сергей Иванов</div>
+      <div class="sHeaderBlock__author-title">{{ data.author_post.name }}</div>
       <div class="sHeaderBlock__author-date">{{ formattedDate }}, {{ formattedTime }}</div>
     </div>
   </HeaderBlock>
@@ -24,8 +24,8 @@ import { ref } from 'vue';
 const { id } = useRoute().params;
 const { data } = await useFetch(`https://qyber.ru/wordpress/wp-json/wp/v2/posts/${id}`);
 
-// console.log(data._rawValue);
-
+const subtitle = data._rawValue.excerpt.rendered;
+// console.log(subtitle.split('<'));
 const date = new Date(data._rawValue.date);
 const formattedDate = date
   .toLocaleDateString('ru-RU', {

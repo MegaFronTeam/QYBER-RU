@@ -295,37 +295,13 @@
 </template>
 
 <script setup>
-const items = ref([
-  {
-    label: 'О проекте',
-    icon: 'rocket-lunch',
-    href: '/about-project',
+const props = defineProps({
+  menubarItems: {
+    type: Array,
+    required: true,
   },
-  {
-    label: 'Турниры',
-    icon: 'star',
-    href: '/tournaments',
-  },
-  {
-    label: 'Рейтинги',
-    icon: 'cup',
-    href: '/rating',
-  },
-  {
-    label: 'Спонсоры',
-    icon: 'handshake',
-    href: '/sponsor',
-  },
-  {
-    label: 'Новости',
-    icon: 'newspaper',
-    href: '/news',
-  },
-  {
-    label: 'Контакты',
-    icon: 'user',
-    href: '/contacts',
-  },
-]);
+});
+const { menubarItems } = props;
+const items = ref(menubarItems);
 const year = new Date().getFullYear();
 </script>

@@ -12,6 +12,7 @@
               title: item.title.rendered,
               date: item.date,
               excerpt: item.excerpt.rendered,
+              thumbnail: item.post_thumbnail,
             }"
             :key="item.id"
           />
@@ -41,10 +42,8 @@
 </template>
 
 <script setup>
-const { data: data, pending } = await useLazyFetch(
-  'https://qyber.ru/wordpress/wp-json/wp/v2/posts',
-);
+const { data, pending } = await useLazyFetch('https://qyber.ru/wordpress/wp-json/wp/v2/posts');
 
-const totalRecords = ref(120);
-const rowsPerPage = ref([10, 50, 100]);
+const totalRecords = ref(10);
+const rowsPerPage = ref([5, 10, 50, 100]);
 </script>

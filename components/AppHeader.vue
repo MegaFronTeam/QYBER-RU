@@ -174,11 +174,7 @@
         </NuxtLink>
         <Menubar :model="items" breakpoint="992px">
           <template #item="{ item, props }">
-            <Button v-if="item.label == 'Авторизация'" variant="primary">
-              <svg-icon name="rocket-lunch.svg" />
-              <span class="p-button-label">Авторизация</span>
-            </Button>
-            <NuxtLink v-else v-slot="{ href, navigate }" :to="item.href" custom>
+            <NuxtLink v-slot="{ href, navigate }" :to="item.href" custom>
               <a
                 :href="href"
                 v-bind="props.action"
@@ -190,6 +186,14 @@
               </a>
             </NuxtLink>
           </template>
+          <tenplate #end>
+            <div>
+              <Button class="13123" variant="primary">
+                <svg-icon name="rocket-lunch.svg" />
+                <span class="p-button-label">Авторизация</span>
+              </Button>
+            </div>
+          </tenplate>
         </Menubar>
         <InputSwitch @click="toggleTheme" v-model="checked" />
         <Button class="header__btn-user d-lg-none" variant="primary">
@@ -206,6 +210,7 @@
 
 <script>
 import { ref } from 'vue';
+
 export default {
   data() {
     return {
@@ -213,43 +218,43 @@ export default {
       checked: ref(false),
       currentTheme: this.$locally.getItem('theme'),
       newTheme: this.currentTheme === 'dark-theme' ? 'light-theme' : 'dark-theme',
-      items: ref([
-        {
-          label: 'О проекте',
-          icon: 'rocket-lunch',
-          href: '/about-project',
-        },
-        {
-          label: 'Турниры',
-          icon: 'star',
-          href: '/tournaments',
-        },
-        {
-          label: 'Рейтинги',
-          icon: 'cup',
-          href: '/rating',
-        },
-        {
-          label: 'Спонсоры',
-          icon: 'handshake',
-          href: '/sponsor',
-        },
-        {
-          label: 'Новости',
-          icon: 'newspaper',
-          href: '/news',
-        },
-        {
-          label: 'Контакты',
-          icon: 'user',
-          href: '/contacts',
-        },
-        {
-          label: 'Авторизация',
-          icon: 'rocket-lunch',
-          href: '/contacts',
-        },
-      ]),
+      // items: ref([
+      //   {
+      //     label: 'О проекте',
+      //     icon: 'rocket-lunch',
+      //     href: '/about-project',
+      //   },
+      //   {
+      //     label: 'Турниры',
+      //     icon: 'star',
+      //     href: '/tournaments',
+      //   },
+      //   {
+      //     label: 'Рейтинги',
+      //     icon: 'cup',
+      //     href: '/rating',
+      //   },
+      //   {
+      //     label: 'Спонсоры',
+      //     icon: 'handshake',
+      //     href: '/sponsor',
+      //   },
+      //   {
+      //     label: 'Новости',
+      //     icon: 'newspaper',
+      //     href: '/news',
+      //   },
+      //   {
+      //     label: 'Контакты',
+      //     icon: 'user',
+      //     href: '/contacts',
+      //   },
+      //   {
+      //     label: 'Авторизация',
+      //     icon: 'rocket-lunch',
+      //     href: '/contacts',
+      //   },
+      // ]),
     };
   },
   mounted() {
@@ -275,4 +280,20 @@ export default {
     },
   },
 };
+</script>
+
+<script setup>
+const props = defineProps({
+  menubarItems: {
+    type: Array,
+    required: true,
+  },
+});
+const { menubarItems } = props;
+menubarItems.push({
+  label: 'Авторизация',
+  icon: 'rocket-lunch',
+  href: '/contacts',
+});
+const items = ref(menubarItems);
 </script>
