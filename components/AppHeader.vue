@@ -186,14 +186,6 @@
               </a>
             </NuxtLink>
           </template>
-          <tenplate #end>
-            <div>
-              <Button class="13123" variant="primary">
-                <svg-icon name="rocket-lunch.svg" />
-                <span class="p-button-label">Авторизация</span>
-              </Button>
-            </div>
-          </tenplate>
         </Menubar>
         <InputSwitch @click="toggleTheme" v-model="checked" />
         <Button class="header__btn-user d-lg-none" variant="primary">
