@@ -33,8 +33,16 @@
       margin-left: 0;
     }
   }
-  .row {
-    align-items: flex-end;
+  &__row {
+    --gutter-y: #{rem(18)};
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-direction: column;
+    @include media-breakpoint-up(lg) {
+      --gutter-x: #{rem(24)};
+      align-items: flex-end;
+      flex-direction: row;
+    }
   }
   &__img-wrap {
     @include ratio(1, 1);
@@ -136,8 +144,38 @@
       color: rgba(255, 255, 255, 0.64);
       line-height: 1.33;
       margin-bottom: rem(4);
+      font-weight: 400;
     }
   }
   &__games-progressbar {
+    width: 100%;
+    position: relative;
+    height: rem(6);
+    background-color: var(--grayscale-20);
+    border-radius: rem(6);
+    overflow: hidden;
+    &:before {
+      content: '';
+      position: absolute;
+      display: block;
+      height: 100%;
+      width: calc(var(--winRate) * 1%);
+      background-color: var(--green-300);
+      border-radius: rem(6) 0 0 rem(6);
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      height: 100%;
+      width: calc(var(--loseRate) * 1%);
+      background-color: var(--red-300);
+      border-radius: 0 rem(6) rem(6) 0;
+      right: 0;
+      top: 0;
+    }
   }
 }

@@ -27,7 +27,7 @@
           </template>
         </Breadcrumb>
         <NuxtImg src="/img/profile-bg-1.jpg" class="picture-bg" />
-        <div class="row">
+        <div class="sProfileHead__row row">
           <div class="sProfileHead__img-wrap">
             <div class="img-wrap-center">
               <span class="letter">M</span>
@@ -48,22 +48,22 @@
             </div>
           </div>
           <div class="sProfileHead__games-played">
-            <div class="sProfileHead__games-title">Сыграно 678 матчей</div>
+            <div class="sProfileHead__games-title">Сыграно {{ allMaches }} матчей</div>
             <div class="sProfileHead__games-info">
               <div class="sProfileHead__games-text">
                 <span>Победы</span>
-                479 (72%)
+                {{ winMaches }} ({{ ((winMaches / allMaches) * 100).toFixed(0) }}%)
               </div>
               <div class="sProfileHead__games-text">
                 <span>Ничья</span>
-                0
+                {{ drawMaches }} ({{ ((drawMaches / allMaches) * 100).toFixed(0) }}%)
               </div>
               <div class="sProfileHead__games-text">
                 <span>Поражения</span>
-                112 (28%)
+                {{ looseMaches }} ({{ ((looseMaches / allMaches) * 100).toFixed(0) }}%)
               </div>
             </div>
-            <div class="sProfileHead__games-progressbar"></div>
+            <div class="sProfileHead__games-progressbar" :style="progressBarStyle"></div>
           </div>
         </div>
       </div>
@@ -79,4 +79,16 @@ const home = ref({
 });
 
 const breadcrumbArr = ref([{ label: 'Игроки', route: '/' }, { label: 'Рейтинги' }]);
+const allMaches = 678;
+const winMaches = 479;
+const looseMaches = 112;
+const drawMaches = 87;
+const progressBarStyle = computed(() => {
+  const winRate = ((winMaches / allMaches) * 100).toFixed(0);
+  const loseRate = ((looseMaches / allMaches) * 100).toFixed(0);
+  return {
+    '--winRate': `${winRate}`,
+    '--loseRate': `${loseRate}`,
+  };
+});
 </script>
