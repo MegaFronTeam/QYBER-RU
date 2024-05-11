@@ -1,0 +1,85 @@
+.sPlayerTeams {
+  padding-top: rem(6);
+  padding-bottom: rem(6);
+  @include media-breakpoint-up(lg) {
+    padding-top: rem(12);
+    padding-bottom: rem(12);
+  }
+  .template {
+    overflow: auto;
+    h3 {
+      margin: rem(24) rem(18) rem(18) rem(18);
+      @include media-breakpoint-up(lg) {
+        margin: 0 0 rem(24) 0;
+      }
+    }
+  }
+  .p-datatable {
+    &-wrapper {
+      overflow: visible !important;
+      &--footer,
+      &--header {
+        overflow: hidden !important;
+      }
+    }
+    th {
+      @include media-breakpoint-down(lg) {
+        &:nth-child(1) {
+          min-width: rem(168);
+        }
+        &:nth-child(2) {
+          min-width: rem(173);
+        }
+        &:nth-child(3) {
+          min-width: rem(149);
+        }
+        &:nth-child(4) {
+          min-width: rem(177);
+        }
+        &:nth-child(5) {
+          min-width: rem(221);
+        }
+      }
+      @include media-breakpoint-up(lg) {
+        width: 16.7%;
+        &:nth-child(5) {
+          width: 40%;
+        }
+      }
+    }
+    .p-badge {
+      &-gray {
+        display: flex;
+        align-items: center;
+        color: var(--gray-500);
+        background-color: var(--gray-50);
+        max-width: max-content;
+        svg {
+          font-size: rem(16);
+          margin-right: rem(6);
+          flex: 0 0 auto;
+          color: var(--games-dota-2-main);
+        }
+      }
+      &-secondary {
+        color: var(--bluegray-300);
+        border: 1px solid var(--bluegray-300);
+        background-color: var(--surface-a);
+        padding: rem(5) rem(9);
+      }
+    }
+    .text {
+      color: var(--gray-500);
+      font-size: rem(12);
+      font-weight: 400;
+      line-height: 1.33;
+    }
+    button {
+      margin-left: auto;
+      font-size: rem(14);
+      font-weight: 600;
+      line-height: 1.42;
+      padding: rem(9) rem(19);
+    }
+  }
+}

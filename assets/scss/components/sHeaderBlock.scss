@@ -78,6 +78,11 @@
         color: $textColor;
         backdrop-filter: none;
       }
+      .icons {
+        flex: 0 0 auto;
+        font-size: rem(16);
+        margin-right: rem(10);
+      }
     }
   }
   &__author {

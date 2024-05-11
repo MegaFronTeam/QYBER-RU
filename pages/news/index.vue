@@ -14,10 +14,16 @@
         <Button>Все дисциплины</Button>
       </li>
       <li>
-        <Button>Counter Strike 2</Button>
+        <Button>
+          <svg-icon name="cs.svg" />
+          Counter Strike 2
+        </Button>
       </li>
       <li>
-        <Button>Dota 2</Button>
+        <Button>
+          <svg-icon name="dota.svg" />
+          Dota 2
+        </Button>
       </li>
     </ul>
   </HeaderBlock>
