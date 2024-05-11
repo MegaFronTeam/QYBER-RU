@@ -2,7 +2,7 @@
   <section class="sProfileHead">
     <div class="container">
       <div class="sProfileHead__wrap bg-wrap">
-        <Breadcrumb :home="home" :model="[{ label: 'Рейтинги' }]">
+        <Breadcrumb :home="home" :model="breadcrumbArr">
           <template #item="{ item, props }">
             <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
               <a :href="href" v-bind="props.action" @click="navigate">
@@ -34,16 +34,16 @@
             </div>
           </div>
           <div class="sProfileHead__content">
-            <h1>mihailivanov</h1>
-            <span>Михаил Иванов</span>
+            <h1 class="verifired">mihailivanov</h1>
+            <span class="sProfileHead__name">Михаил Иванов</span>
             <div class="sProfileHead__status online">Онлайн</div>
             <div class="sProfileHead__time">На сайте с 20 декабря 2023</div>
             <div class="row">
               <div class="col-auto">
-                <Badge value="Кибер Таланты" />
+                <Badge severity="secondary" value="Кибер Таланты" class="p-badge-outline" />
               </div>
               <div class="col-auto">
-                <Badge value="Кибер Атланты" />
+                <Badge severity="danger" value="Кибер Атланты" class="p-badge-outline" />
               </div>
             </div>
           </div>
@@ -71,4 +71,12 @@
   </section>
 </template>
 
-<script></script>
+<script setup>
+import { ref } from 'vue';
+const home = ref({
+  label: 'Главная',
+  route: '/',
+});
+
+const breadcrumbArr = ref([{ label: 'Игроки', route: '/' }, { label: 'Рейтинги' }]);
+</script>

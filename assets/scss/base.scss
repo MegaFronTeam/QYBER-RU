@@ -433,6 +433,20 @@ p {
   &-secondary {
     background-color: var(--bluegray-400);
     color: #fff;
+    &.p-badge-outline {
+      background-color: transparent;
+      border: 1px solid var(--bluegray-400);
+      color: var(--bluegray-400);
+      padding: rem(5) rem(11);
+    }
+  }
+  &-danger {
+    &.p-badge-outline {
+      background-color: transparent;
+      border: 1px solid var(--red-300);
+      color: var(--red-300);
+      padding: rem(5) rem(11);
+    }
   }
 }
 
