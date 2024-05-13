@@ -14,6 +14,7 @@
     top: 0;
     height: 100%;
     width: 50%;
+    background-color: var(--gray-700);
     @include media-breakpoint-down(lg) {
       display: none;
     }
@@ -43,9 +44,8 @@
     margin-bottom: rem(24);
   }
   &__text {
-    font-weight: 600;
-    color: var(--text-colorSecondary);
-    margin-bottom: em(36);
+    color: var(--text-colorSecondary, #6D7076);
+    margin-bottom: rem(24);
   }
   &__main {
     padding: rem(48) 18px;
@@ -55,7 +55,7 @@
   &__body {
     margin: auto;
     padding-block: rem(36px);
-    max-width: rem(424px);
+    max-width: rem(430px);
     width: 100%;
   }
   &__footer {
@@ -91,4 +91,18 @@
   .btn-lg{
     margin-bottom: rem(24);
   }
+
+}
+
+.success-icon-block{
+  width: rem(72);
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: var(--L, #{rem(18)});
+  border-radius: var(--S, 10px);
+  background: var(--bg-colorSecondary, #F5F5F6);
 }

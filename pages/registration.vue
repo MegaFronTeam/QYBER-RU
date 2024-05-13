@@ -9,7 +9,7 @@
           aria-describedby="email-help"
           placeholder="Введите Email"
         />
-        <small class="p-error" id="password-help">{{ errorsForm.email }}</small>
+        <small class="p-error" id="email-help">{{ errorsForm.email }}</small>
       </InputGroup>
       <InputGroup>
         <label for="steamNick">Никнейм в Steam</label>
@@ -19,16 +19,16 @@
           aria-describedby="steamNick-help"
           placeholder="Никнейм в Steam"
         />
-        <small class="p-error" id="password-help">{{ errorsForm.steamNick }}</small>
+        <small class="p-error" id="steamNick-help">{{ errorsForm.steamNick }}</small>
       </InputGroup>
 
       <InputGroup>
-        <label for="password">Password</label>
+        <label for="password">Пароль</label>
         <Password
           id="password"
           v-model="dataForm.password"
           aria-describedby="password-help"
-          placeholder="Your password"
+          placeholder="Введите пароль"
           :feedback="false"
           toggleMask
         />
@@ -40,16 +40,16 @@
         <Password
           id="passwordConfirm"
           v-model="dataForm.passwordConfirm"
-          aria-describedby="password-help"
+          aria-describedby="passwordConfirm-help"
           :feedback="false"
           placeholder="Повторите пароль"
           toggleMask
         />
-        <small class="p-error" id="password-help">{{ errorsForm.passwordConfirm }}</small>
+        <small class="p-error" id="passwordConfirm-help">{{ errorsForm.passwordConfirm }}</small>
       </InputGroup>
 
       <AgreementForm :agreement="agreement" />
-      <div class="mb-4">
+      <div class="mb-4 mt-4">
         <Button type="submit" disabled :label="params.btnName" class="w-100 btn-lg" />
       </div>
       <div class="mb-3 text-center" style="font-size: 14px">
@@ -66,7 +66,8 @@ const dataForm = ref({
   email: '',
   steamNick: '',
   password: '',
-  passwordConfirm: ''
+  passwordConfirm: '',
+  agreement: true
 });
 const errorsForm = ref({
   email: '',
@@ -78,12 +79,11 @@ const params = {
   title: 'Регистрация',
   // text: 'Enter your credentials to access your account',
   bgImage: '/img/reg-bg-1.jpg',
-  asideTitle: 'The simplest way to manage <br> your workforce',
   btnName: 'Зарегистрироваться'
 }
 
-// definePageMeta({
-//   layout: 'auth',
-// });
+definePageMeta({
+  layout: 'auth',
+});
 
 </script>

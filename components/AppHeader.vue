@@ -191,10 +191,13 @@
         <Button class="header__btn-user d-lg-none" variant="primary">
           <svg-icon name="user.svg" />
         </Button>
-        <Button class="header__btn d-none d-lg-flex" variant="primary">
-          <svg-icon name="rocket-lunch.svg" />
-          <span class="p-button-label">Авторизация</span>
-        </Button>
+        <NuxtLink to="/login">
+
+          <Button class="header__btn d-none d-lg-flex" variant="primary">
+            <svg-icon name="rocket-lunch.svg" />
+            <span class="p-button-label">Авторизация</span>
+          </Button>
+        </NuxtLink>
       </div>
     </div>
   </header>

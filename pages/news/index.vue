@@ -1,9 +1,11 @@
 <template>
-  <HeaderBlock
+  <div>
+
+    <HeaderBlock
     title="Новости"
     :breadcrumbArr="[{ label: 'Новости' }]"
     bg="/img/headerBlock-bg-1.jpg"
-  >
+    >
     <ul class="sHeaderBlock__filter">
       <li>
         <Button class="active">Все лиги</Button>
@@ -32,6 +34,7 @@
     </ul>
   </HeaderBlock>
   <NewsList />
+</div>
 </template>
 
 <script setup lang="ts"></script>

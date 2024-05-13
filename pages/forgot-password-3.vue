@@ -1,24 +1,13 @@
 <template>
   <sFormPage v-bind="params"> 
-    <form action="">
+    <form action=""> 
       <InputGroup>
-        <label for="email">Email</label>
-        <InputText
-          id="email"
-          v-model="dataForm.email"
-          aria-describedby="email-help"
-          placeholder="Введите Email"
-        />
-        <small class="p-error" id="password-help">{{ errorsForm.email }}</small>
-      </InputGroup>
-
-      <InputGroup>
-        <label for="password">Пароль</label>
+        <label for="password">Новый пароль</label>
         <Password
           id="password"
           v-model="dataForm.password"
           aria-describedby="password-help"
-          placeholder="Введите пароль"
+          placeholder="Введите новый пароль"
           :feedback="false"
           toggleMask
         />
@@ -32,20 +21,15 @@
           v-model="dataForm.passwordConfirm"
           aria-describedby="password-help"
           :feedback="false"
-          placeholder="Повторите пароль"
+          placeholder="Повторите новый пароль"
           toggleMask
         />
         <small class="p-error" id="password-help">{{ errorsForm.passwordConfirm }}</small>
       </InputGroup>
-
-      <AgreementForm :agreement="agreement" />
+ 
       <div class="mb-4 mt-4">
         <Button type="submit" disabled :label="params.btnName" class="w-100 btn-lg" />
-      </div>
-      <div class="mb-3 text-center" style="font-size: 14px">
-        Еще нет аккаунта?
-        <NuxtLink to="/registration" class="text-primary">Регистрация</NuxtLink>
-      </div>
+      </div> 
     </form>
   </sFormPage>
 </template>
@@ -65,10 +49,10 @@ const errorsForm = ref({
   passwordConfirm: ''
 });
 const params = {
-  title: 'Авторизация',
+  title: 'Установите новый пароль',
   // text: 'Enter your credentials to access your account',
-  bgImage: '/img/reg-bg-2.jpg',
-  btnName: 'Войти'
+  bgImage: '/img/reg-bg-3.jpg',
+  btnName: 'Подтвердить'
 }
 
 definePageMeta({

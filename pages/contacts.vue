@@ -1,11 +1,14 @@
 <template>
-  <HeaderBlock
+  <div>
+
+    <HeaderBlock
     title="Контактная информация"
     :breadcrumbArr="breadcrumb"
     bg="/img/headerBlock-bg-4.jpg"
     class="sHeaderBlock sHeaderBlock--max-height"
-  />
-  <ContactBlock />
+    />
+    <ContactBlock />
+  </div>
 </template>
 
 <script setup>

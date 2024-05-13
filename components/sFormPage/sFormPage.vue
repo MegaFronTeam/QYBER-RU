@@ -174,9 +174,12 @@
         </NuxtLink>
       </div>
       <div class="sFormPage__body">
-        <div class="text-center">
+        <div class="text-center"> 
+          <div class="success-icon-block" v-if="success">
+            <svg-icon name="check.svg" />
+          </div>
           <div class="sFormPage__title h1">{{ title }}</div>
-          <div class="sFormPage__text h6" v-if="text" v-html="text"></div>
+          <div class="sFormPage__text" v-if="text" v-html="text"></div>
         </div>
         <slot></slot>
       </div>
@@ -209,6 +212,10 @@ const props = defineProps({
   text: {
     type: String,
     default: ''
+  },
+  success: {
+    type: Boolean,
+    default: false
   }
   // Add your component's props here
 })

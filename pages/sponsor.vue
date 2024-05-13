@@ -1,14 +1,17 @@
 <template>
-  <HeaderBlock
+  <div>
+
+    <HeaderBlock
     title="Давайте начнем продвигать киберспорт в массы вместе"
     :breadcrumbArr="breadcrumb"
     bg="/img/headerBlock-bg-3.jpg"
     class="sHeaderBlock sHeaderBlock--max-height"
-  >
+    >
     <Button class="sHeaderBlock__btn" label="Стать спонсором" />
-  </HeaderBlock>
-  <CurrentSponsors />
-  <SponsorsAdvantages />
+    </HeaderBlock>
+    <CurrentSponsors />
+    <SponsorsAdvantages />
+  </div>
 </template>
 
 <script setup>
