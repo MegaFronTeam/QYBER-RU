@@ -1,5 +1,9 @@
 <template>
-  <HeaderBlock title="Новости" :breadcrumbArr="[{ label: 'Новости' }]" bg="headerBlock-bg-1.jpg">
+  <HeaderBlock
+    title="Новости"
+    :breadcrumbArr="[{ label: 'Новости' }]"
+    bg="/img/headerBlock-bg-1.jpg"
+  >
     <ul class="sHeaderBlock__filter">
       <li>
         <Button class="active">Все лиги</Button>

@@ -181,7 +181,7 @@
                 :class="item.href == '/' + $route.name ? 'active' : ''"
                 @click="navigate"
               >
-                <svg-icon :name="`${item.icon}.svg`" />
+                <svg-icon v-if="item.icon" :name="`${item.icon}.svg`" />
                 <span>{{ item.label }}</span>
               </a>
             </NuxtLink>
@@ -250,13 +250,7 @@ export default {
     };
   },
   mounted() {
-    if (this.currentTheme == 'dark-theme') {
-      document.documentElement.setAttribute('data-theme', 'dark-theme');
-      this.checked = true;
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light-theme');
-      this.checked = false;
-    }
+    this.currentTheme == 'dark-theme' ? (this.checked = true) : (this.checked = false);
   },
   methods: {
     toggleTheme() {

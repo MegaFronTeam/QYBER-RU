@@ -2,7 +2,7 @@
   <HeaderBlock
     title="Давайте начнем продвигать киберспорт в массы вместе"
     :breadcrumbArr="breadcrumb"
-    bg="headerBlock-bg-3.jpg"
+    bg="/img/headerBlock-bg-3.jpg"
     class="sHeaderBlock sHeaderBlock--max-height"
   >
     <Button class="sHeaderBlock__btn" label="Стать спонсором" />
