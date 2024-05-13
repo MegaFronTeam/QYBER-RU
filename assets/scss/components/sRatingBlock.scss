@@ -7,65 +7,16 @@
   }
   .template {
     overflow: auto;
-    &--header {
-      padding: 0;
-      display: flex;
-      align-items: center;
-      // justify-content: center;
-      overflow: hidden;
-      button {
-        position: relative;
-        font-size: rem(14);
-        font-weight: 600;
-        line-height: 1.715;
-        background-color: transparent;
-        padding: rem(18) rem(18);
-        color: var(--gray-500);
-        border: none;
-        @include mt;
-        &:after {
-          @include mt;
-          content: '';
-          position: absolute;
-          display: block;
-          width: 100%;
-          height: rem(2);
-          left: 0;
-          bottom: rem(-1);
-          background-color: transparent;
-        }
-        .p-badge {
-          border: 1px solid var(--gray-200);
-          padding: 0;
-          font-size: rem(10);
-          font-weight: 600;
-          line-height: 1.6;
-          letter-spacing: 0.2px;
-          color: var(--gray-500);
-          background-color: transparent;
-          width: rem(27);
-          height: rem(24);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: rem(20);
-          min-height: auto;
-        }
-        &.active {
-          color: var(--gray-700);
-          &:after {
-            background-color: var(--primary-300);
-          }
-        }
-      }
-    }
+    // &--header {
+
+    // }
   }
-  .p-tabview-nav-container {
-    display: none;
-  }
-  .p-tabview-panels {
-    padding: 0;
-  }
+  // .p-tabview-nav-container {
+  //   display: none;
+  // }
+  // .p-tabview-panels {
+  //   padding: 0;
+  // }
   .p-datatable {
     &-wrapper {
       overflow: visible !important;

@@ -2,7 +2,7 @@
   <div class="sRatingBlock">
     <div class="container">
       <div class="template template--header">
-        <div class="template-wrap">
+        <div class="btn-wrap template-wrap">
           <Button @click="active = 0" :class="active === 0 ? 'active' : ''"> Предстоящие </Button>
           <Button @click="active = 1" :class="active === 1 ? 'active' : ''">
             Текущие

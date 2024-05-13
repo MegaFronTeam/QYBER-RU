@@ -2,7 +2,7 @@
   <section class="sProfileHead">
     <div class="container">
       <div class="sProfileHead__wrap bg-wrap">
-        <Breadcrumb :home="home" :model="breadcrumbArr">
+        <Breadcrumb :home="home" :model="items">
           <template #item="{ item, props }">
             <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
               <a :href="href" v-bind="props.action" @click="navigate">
@@ -30,22 +30,12 @@
         <div class="sProfileHead__row row">
           <div class="sProfileHead__img-wrap">
             <div class="img-wrap-center">
-              <span class="letter">M</span>
+              <img alt="avatar" :src="img" v-if="img" />
+              <span v-else class="letter">M</span>
             </div>
           </div>
           <div class="sProfileHead__content">
-            <h1 class="verifired">mihailivanov</h1>
-            <span class="sProfileHead__name">Михаил Иванов</span>
-            <div class="sProfileHead__status online">Онлайн</div>
-            <div class="sProfileHead__time">На сайте с 20 декабря 2023</div>
-            <div class="row">
-              <div class="col-auto">
-                <Badge severity="secondary" value="Кибер Таланты" class="p-badge-outline" />
-              </div>
-              <div class="col-auto">
-                <Badge severity="danger" value="Кибер Атланты" class="p-badge-outline" />
-              </div>
-            </div>
+            <slot> </slot>
           </div>
           <div class="sProfileHead__games-played">
             <div class="sProfileHead__games-title">Сыграно {{ allMaches }} матчей</div>
@@ -73,12 +63,24 @@
 
 <script setup>
 import { ref } from 'vue';
+const props = defineProps({
+  breadcrumbArr: {
+    type: Array,
+    required: true,
+  },
+  img: {
+    type: String,
+    required: false,
+  },
+});
+const { breadcrumbArr, img } = props;
+
 const home = ref({
   label: 'Главная',
   route: '/',
 });
 
-const breadcrumbArr = ref([{ label: 'Игроки', route: '/' }, { label: 'Рейтинги' }]);
+const items = ref(breadcrumbArr);
 const allMaches = 678;
 const winMaches = 479;
 const looseMaches = 112;

@@ -1,0 +1,8 @@
+.sMyTeamBlock {
+  h4 {
+    margin-top: rem(24);
+    @include media-breakpoint-up(lg) {
+      margin-top: rem(48);
+    }
+  }
+}
