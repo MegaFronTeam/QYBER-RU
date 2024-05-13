@@ -1,3 +1,14 @@
+a{
+  color: var(--text-primary);
+  &:hover{
+    color: var(--text-primary-hover);
+  }
+  &.active,
+  &:active,
+  &:focus{
+    color: var(--text-primary-active);
+  }
+}
 html,
 body {
   font-size: rem($em-base);
