@@ -8,17 +8,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
 definePageMeta({
   layout: 'auth',
-});
-
-onMounted(() => {
-  const { $locally } = useNuxtApp();
-  if ($locally.getItem('theme') === 'light-theme') {
-    document.documentElement.setAttribute('data-theme', 'light-theme');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'dark-theme');
-  }
 });
 </script>
