@@ -42,7 +42,7 @@
             <div class="sProfileHead__games-info">
               <div class="sProfileHead__games-text">
                 <span>Победы</span>
-                {{ winMaches }} ({{ ((winMaches / allMaches) * 100).toFixed(0) }}%)
+                {{ winMaches }} ({{ Math.floor((winMaches / allMaches) * 100).toFixed(0) }}%)
               </div>
               <div class="sProfileHead__games-text">
                 <span>Ничья</span>
@@ -50,7 +50,7 @@
               </div>
               <div class="sProfileHead__games-text">
                 <span>Поражения</span>
-                {{ looseMaches }} ({{ ((looseMaches / allMaches) * 100).toFixed(0) }}%)
+                {{ looseMaches }} ({{ Math.ceil((looseMaches / allMaches) * 100).toFixed(0) }}%)
               </div>
             </div>
             <div class="sProfileHead__games-progressbar" :style="progressBarStyle"></div>
@@ -86,8 +86,8 @@ const winMaches = 479;
 const looseMaches = 112;
 const drawMaches = 87;
 const progressBarStyle = computed(() => {
-  const winRate = ((winMaches / allMaches) * 100).toFixed(0);
-  const loseRate = ((looseMaches / allMaches) * 100).toFixed(0);
+  const winRate = (winMaches / allMaches) * 100;
+  const loseRate = (looseMaches / allMaches) * 100;
   return {
     '--winRate': `${winRate}`,
     '--loseRate': `${loseRate}`,
