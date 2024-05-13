@@ -68,12 +68,8 @@ const dataForm = ref({
   password: '',
   passwordConfirm: ''
 });
-const errorsForm = ref({
-  email: '',
-  steamNick: '',
-  password: '',
-  passwordConfirm: ''
-});
+
+
 const params = {
   title: 'Регистрация',
   // text: 'Enter your credentials to access your account',
