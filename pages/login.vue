@@ -40,7 +40,7 @@
 
       <AgreementForm :agreement="agreement" />
       <div class="mb-4 mt-4">
-        <Button type="submit" disabled :label="params.btnName" class="w-100 btn-lg" />
+        <Button type="submit"  :label="params.btnName" class="w-100 btn-lg" />
       </div>
       <div class="mb-3 text-center" style="font-size: 14px">
         Еще нет аккаунта?

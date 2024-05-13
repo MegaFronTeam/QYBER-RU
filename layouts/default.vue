@@ -10,7 +10,8 @@
 </template>
 
 <script setup>
-const data = await $fetch('https://qyber.ru/wordpress/wp-json/menu/v1/main');
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+const data = await $fetch(`${BASE_URL}/menu/v1/main`);
 const menubar = [];
 
 for (const item of data) {
