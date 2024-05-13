@@ -1,3 +1,15 @@
+a{
+  color: var(--text-primary);
+  text-decoration: none;
+  &:hover{
+    color: var(--text-primary-hover);
+  }
+  &.active,
+  &:active,
+  &:focus{
+    color: var(--text-primary-active);
+  }
+}
 html,
 body {
   font-size: rem($em-base);
@@ -94,7 +106,9 @@ h6,
 h1,
 .h1 {
   font-size: rem(30);
+  letter-spacing: rem(-1.5);
   @include media-breakpoint-up(lg) {
+    letter-spacing: rem(-1.92);
     font-size: rem(48);
   }
 }

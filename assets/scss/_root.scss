@@ -100,9 +100,9 @@
   --text-colorprimary: null;
   --text-colorsecondary: null;
   --text-oncolor: null;
-  --text-primary: null;
-  --text-primary-hover: null;
-  --text-primary-active: null;
+  --text-primary: var(--yellow-300);
+  --text-primary-hover: var(--yellow-200);
+  --text-primary-active: var(--yellow-100);
   --text-secondary: null;
   --text-secondary-hover: null;
   --text-secondary-active: null;

@@ -221,7 +221,7 @@
             </div>
             <div class="col">
               <div class="footer__contacts">
-                <a href="mail:info@qyber.ru" target="_blank" class="footer__contact">
+                <a href="mailto:info@qyber.ru" target="_blank" class="footer__contact">
                   <div class="footer__contact-icon">
                     <svg-icon name="mail.svg" />
                   </div>

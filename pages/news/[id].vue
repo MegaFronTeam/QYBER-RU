@@ -1,4 +1,5 @@
 <template>
+  <div>
   <HeaderBlock
     :title="data.title.rendered"
     :breadcrumbArr="breadcrumb"
@@ -16,6 +17,7 @@
   </HeaderBlock>
   <Content :title="data.title.rendered" :content="data.content.rendered" />
   <RelatedNews :data="data.related" />
+  </div>
 </template>
 
 <script setup>

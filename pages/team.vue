@@ -1,12 +1,14 @@
 <template>
-  <ProfileHead
+  <div>
+
+    <ProfileHead
     img="/img/team-img-1.png"
     :breadcrumbArr="[
       { label: 'Личный кабинет', route: '/' },
       { label: 'Мои команды', route: '/' },
       { label: 'Team Rogue' },
     ]"
-  >
+    >
     <h1 class="mb-12">Team Rogue</h1>
     <div class="row mb-12">
       <div class="col-auto">
@@ -23,6 +25,7 @@
     <div class="sProfileHead__time mb-0">ИНН 772331755151</div>
   </ProfileHead>
   <TeamBlock />
+  </div>
 </template>
 
 <script></script>

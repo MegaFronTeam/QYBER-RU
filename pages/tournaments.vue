@@ -1,3 +1,6 @@
 <template>
-  <h1>This is {{ $route.name }}</h1>
+  <div>
+
+    <h1>This is {{ $route.name }}</h1>
+  </div>
 </template>

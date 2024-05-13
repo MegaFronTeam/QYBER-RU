@@ -1,0 +1,108 @@
+.sFormPage {
+  display: grid;
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  flex-grow: 1;
+
+  &__aside {
+    position: relative;
+    z-index: 2;
+    max-height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    background-color: var(--gray-700);
+    @include media-breakpoint-down(lg) {
+      display: none;
+    }
+
+    img {
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      object-position: top;
+    }
+    // align-content: end;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  &__aside-title {
+    margin-top: auto;
+    text-wrap: balance;
+    margin: 0 auto rem(120);
+    max-width: rem(660);
+    text-align: center;
+    // @include mt;
+  }
+  &__title {
+    margin-bottom: rem(24);
+  }
+  &__text {
+    color: var(--text-colorSecondary, #6D7076);
+    margin-bottom: rem(24);
+  }
+  &__main {
+    padding: rem(48) 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  &__body {
+    margin: auto;
+    padding-block: rem(36px);
+    max-width: rem(430px);
+    width: 100%;
+  }
+  &__footer {
+    text-align: center;
+  }
+  .p-button-lg {
+    min-width: rem(200);
+  }
+  &__divider {
+    position: relative;
+    margin-block: rem(36);
+    text-align: center;
+    span {
+      background-color: var(--bg-colorPrimary);
+      position: relative;
+
+      color: var(--text-colorSecondary);
+      font-size: rem(14);
+      z-index: 2;
+      padding-inline: rem(5);
+    }
+    &::before {
+      content: '';
+      background: var(--border-colorPrimary);
+      height: 1px;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 58%;
+    }
+  }
+
+  .btn-lg{
+    margin-bottom: rem(24);
+  }
+
+}
+
+.success-icon-block{
+  width: rem(72);
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: var(--L, #{rem(18)});
+  border-radius: var(--S, 10px);
+  background: var(--bg-colorSecondary, #F5F5F6);
+}

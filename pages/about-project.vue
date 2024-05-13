@@ -1,13 +1,15 @@
 <template>
-  <HeaderBlock
+  <div> 
+    <HeaderBlock
     title="Добро пожаловать на захватывающий киберспортивный турнир высокого уровня QYBER.RU"
     :breadcrumbArr="breadcrumb"
     bg="/img/headerBlock-bg-5.jpg"
     class="sHeaderBlock sHeaderBlock--max-height"
-  >
-  </HeaderBlock>
-  <AboutHead />
-  <AboutBody />
+    >
+    </HeaderBlock>
+    <AboutHead />
+    <AboutBody />
+  </div>
 </template>
 
 <script setup>
