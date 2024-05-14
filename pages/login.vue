@@ -1,6 +1,6 @@
 <template>
-  <sFormPage v-bind="params" > 
-    <form @submit.prevent="submit">
+  <sFormPage v-bind="params" >  
+    <form  @submit="submit">
       <InputGroup>
         <label for="email">Email</label>
         <InputText
@@ -32,7 +32,7 @@
       <div class="mb-3 text-center" style="font-size: 14px">
         Еще нет аккаунта?
         <NuxtLink to="/registration" class="text-primary">Регистрация</NuxtLink>
-      </div>
+      </div> 
     </form>
   </sFormPage>
 </template>
@@ -40,8 +40,8 @@
 <script setup> 
 
 import Auth from '@/services/auth';
-
 const {$locally} = useNuxtApp();
+const router = useRouter();
 
 definePageMeta({
   layout: 'auth',
@@ -66,10 +66,12 @@ const params = {
 
 
  
-const submit = () => { 
+const submit = (event) => { 
+  event.preventDefault();
   Auth.login(dataForm.value.email, dataForm.value.password)
   .then((response) => {
     $locally.setItem('token', response[0]);
+    router.push('/profile');
     console.log(response);
   }).catch((error) => {
     console.log(error);
