@@ -71,6 +71,7 @@ const submit = (event) => {
   Auth.login(dataForm.value.email, dataForm.value.password)
   .then((response) => {
     $locally.setItem('token', response[0]);
+    $locally.setItem(email, dataForm.value.email);
     router.push('/profile');
     console.log(response);
   }).catch((error) => {

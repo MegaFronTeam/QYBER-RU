@@ -49,7 +49,7 @@ router.beforeEach((to) => {
   ]
   
   const profilePages = [
-    'profile',
+    'myProfile',
     'profile-edit',
     'profile-password',
     'profile-contacts',
@@ -60,8 +60,8 @@ router.beforeEach((to) => {
     'profile-contacts-error',
   ]
   const isAuth = $locally.getItem('token');
-
-  if (isAuth) {
+  console.log(to.name);
+  if (isAuth) { 
     if (loginPages.includes(to.name)) {
       return '/'
     }
