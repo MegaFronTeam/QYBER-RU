@@ -57,25 +57,32 @@
     }
   }
   .p-datatable {
-    .p-badge {
-      &-gray {
-        display: flex;
-        align-items: center;
-        color: var(--gray-500);
-        background-color: var(--gray-50);
-        max-width: max-content;
-        svg {
-          font-size: rem(16);
-          margin-right: rem(6);
-          flex: 0 0 auto;
-          color: var(--games-dota-2-main);
+    table {
+      th {
+        &:nth-child(1) {
+          width: rem(168);
+          @include media-breakpoint-up(md) {
+            width: rem(280);
+          }
         }
-      }
-      &-secondary {
-        color: var(--bluegray-300);
-        border: 1px solid var(--bluegray-300);
-        background-color: var(--surface-a);
-        padding: rem(5) rem(9);
+        &:nth-child(2) {
+          width: rem(168);
+          @include media-breakpoint-up(md) {
+            width: rem(280);
+          }
+        }
+        &:nth-child(3) {
+          width: rem(168);
+          @include media-breakpoint-up(md) {
+            width: rem(280);
+          }
+        }
+        &:nth-child(4) {
+          width: rem(168);
+          @include media-breakpoint-up(md) {
+            width: rem(280);
+          }
+        }
       }
     }
   }

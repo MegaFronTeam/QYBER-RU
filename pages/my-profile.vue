@@ -18,4 +18,9 @@
   </div>
 </template>
 
-<script></script>
+<script>
+const API_URL = import.meta.env.VITE_BASE_URL;
+const { data } = $fetch(`${API_URL}/profile/v1/my`, {});
+
+console.log(data);
+</script>

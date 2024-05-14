@@ -57,11 +57,11 @@
                       />
                     </InputGroup>
                     <InputGroup>
-                      <label for="name">Дата рождения</label>
+                      <label>Дата рождения</label>
                       <Calendar v-model="date" dateFormat="dd.mm.yy" placeholder="__.__.____" />
                     </InputGroup>
                     <InputGroup>
-                      <label for="name">Пол</label>
+                      <label>Пол</label>
                       <Dropdown
                         v-model="selectedGender"
                         :options="genders"
@@ -70,27 +70,20 @@
                       />
                     </InputGroup>
                     <InputGroup>
-                      <label for="name">Telegram</label>
+                      <label>Telegram</label>
                       <InputText
-                        id="name"
                         type="text"
                         v-model="telegramValue"
                         placeholder="Введите свой Telegram"
                       />
                     </InputGroup>
                     <InputGroup>
-                      <label for="name">Город</label>
-                      <InputText
-                        id="name"
-                        type="text"
-                        v-model="cityValue"
-                        placeholder="Введите город"
-                      />
+                      <label>Город</label>
+                      <InputText type="text" v-model="cityValue" placeholder="Введите город" />
                     </InputGroup>
                     <InputGroup>
-                      <label for="name">Учебное заведение</label>
+                      <label>Учебное заведение</label>
                       <InputText
-                        id="name"
                         type="text"
                         v-model="schoolValue"
                         placeholder="Введите учебное заведение"
@@ -98,9 +91,8 @@
                       />
                     </InputGroup>
                     <InputGroup>
-                      <label for="name">Компания</label>
+                      <label>Компания</label>
                       <InputText
-                        id="name"
                         type="text"
                         v-model="companyValue"
                         placeholder="Введите rомпанию"
@@ -108,9 +100,8 @@
                       />
                     </InputGroup>
                     <InputGroup>
-                      <label for="name">ИНН компании</label>
+                      <label>ИНН компании</label>
                       <InputText
-                        id="name"
                         type="text"
                         v-model="INNValue"
                         placeholder="Введите ИНН компании"
@@ -168,10 +159,9 @@
             <h3>Мои команды</h3>
             <DataTable :value="products">
               <Column
-                style="width: 30%"
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
                 field="nickname"
-                header="Никнейм"
+                header="Название"
                 sortable
               >
                 <template #sorticon="slotProps">
@@ -219,7 +209,7 @@
                 </template>
                 <template #body="slotProps">
                   <span class="p-badge p-badge-gray">
-                    <svg-icon name="dota.svg" />
+                    <svg-icon :name="slotProps.data.game.icon" />
                     {{ slotProps.data.game.label }}
                   </span>
                 </template>
@@ -246,13 +236,17 @@
                   </svg>
                 </template>
                 <template #body="slotProps">
-                  <Badge severity="secondary" :value="slotProps.data.league" />
+                  <Badge
+                    :severity="slotProps.data.league.severity"
+                    class="p-badge-outline"
+                    :value="slotProps.data.league.label"
+                  />
                 </template>
               </Column>
               <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
-                field="league"
-                header="Лига"
+                field="playersCount"
+                header="Количество игроков"
                 sortable
               >
                 <template #sorticon="slotProps">
@@ -276,8 +270,8 @@
               </Column>
               <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
-                field="league"
-                header="Лига"
+                field="role"
+                header="Роль"
                 sortable
               >
                 <template #sorticon="slotProps">
@@ -296,7 +290,15 @@
                   </svg>
                 </template>
                 <template #body="slotProps">
-                  <span class="small-text">{{ slotProps.data.role }}</span>
+                  <div class="d-flex align-items-center">
+                    <span class="small-text">{{ slotProps.data.role }}</span>
+                    <Button
+                      v-if="slotProps.data.role === 'Капитан'"
+                      label="Управлять"
+                      class="btn-sm ms-auto"
+                    />
+                    <Button v-else severity="gray" label="Перейти" class="btn-sm ms-auto" />
+                  </div>
                 </template>
               </Column>
             </DataTable>
@@ -334,14 +336,34 @@ const products = ref([
   {
     nickname: {
       avatar: 'avatar-img-1.jpg',
+      text: 'INTZ Genesis',
+    },
+    game: {
+      icon: 'dota.svg',
+      label: 'Dota 2',
+    },
+    league: {
+      severity: 'secondary',
+      label: 'Кибер Атланты',
+    },
+    playersCount: '5',
+    role: 'Капитан',
+  },
+  {
+    nickname: {
+      avatar: 'avatar-img-1.jpg',
       text: 'Dando',
     },
     game: {
-      label: 'Dota 2',
+      icon: 'csFilled.svg',
+      label: 'Counter Strike 2',
     },
-    league: 'Кибер Атланты',
+    league: {
+      severity: 'danger',
+      label: 'Кибер Таланты',
+    },
     playersCount: '5',
-    role: 'Капитан',
+    role: 'Игрок',
   },
 ]);
 

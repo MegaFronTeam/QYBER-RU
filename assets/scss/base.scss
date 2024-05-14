@@ -737,6 +737,35 @@ p {
       color: var(--gray-500);
       font-weight: 400;
     }
+    .p-badge {
+      &-gray {
+        display: flex;
+        align-items: center;
+        color: var(--gray-500);
+        background-color: var(--gray-50);
+        max-width: max-content;
+        .icons {
+          font-size: rem(16);
+          margin-right: rem(6);
+          flex: 0 0 auto;
+          color: var(--games-dota-2-main);
+        }
+      }
+      &-secondary {
+        &.p-badge-secondary {
+          color: var(--bluegray-300);
+          border: 1px solid var(--bluegray-300);
+          background-color: var(--surface-a);
+          padding: rem(5) rem(9);
+        }
+        &.p-badge-danger {
+          color: var(--red-300);
+          border: 1px solid var(--red-300);
+          background-color: var(--surface-a);
+          padding: rem(5) rem(9);
+        }
+      }
+    }
   }
 }
 
