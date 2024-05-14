@@ -11,7 +11,7 @@
         />
         <small class="p-error" id="email-help">{{ errorsForm.email }}</small>
       </InputGroup>
-      <InputGroup>
+      <!-- <InputGroup>
         <label for="steamNick">Никнейм в Steam</label>
         <InputText
           id="steamNick"
@@ -20,7 +20,7 @@
           placeholder="Никнейм в Steam"
         />
         <small class="p-error" id="steamNick-help">{{ errorsForm.steamNick }}</small>
-      </InputGroup>
+      </InputGroup> -->
 
       <InputGroup>
         <label for="password">Пароль</label>
@@ -64,14 +64,14 @@
 
 const dataForm = ref({
   email: '',
-  steamNick: '',
+  // steamNick: '',
   password: '',
   passwordConfirm: '',
   agreement: true
 });
 const errorsForm = ref({
   email: '',
-  steamNick: '',
+  // steamNick: '',
   password: '',
   passwordConfirm: ''
 });
