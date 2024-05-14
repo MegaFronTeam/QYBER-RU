@@ -328,8 +328,7 @@
 </template>
 
 <script setup>
-// import Badge from 'primevue/badge';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const active = ref(0);
 const products = ref([

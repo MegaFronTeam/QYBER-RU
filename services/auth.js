@@ -1,18 +1,23 @@
 import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+const { $locally } = useNuxtApp();
 
 class Auth {
   async login(email, password, redirect = '/') {
     try {
-      const response = await axios.post(`${BASE_URL}/auth/v1/login`, {
-        email: email,
-        password: password
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      
+      const response = await axios.post(
+        `${BASE_URL}/auth/v1/login`,
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
       return response.data;
     } catch (error) {
       console.error(error);
@@ -22,14 +27,18 @@ class Auth {
 
   async singUp(email, password) {
     try {
-      const response = await axios.post(`${BASE_URL}/auth/v1/signup`, {
-        email: email,
-        password: password
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      const response = await axios.post(
+        `${BASE_URL}/auth/v1/signup`,
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
       return response.data;
     } catch (error) {
       console.error(error);
@@ -43,17 +52,16 @@ class Auth {
     try {
       const response = await axios.get(`${BASE_URL}/auth/v1/my`, {
         headers: {
-          'Authorization': 'Basic ' + btoa(`email:${API_KEY}`)
+          Authorization: 'Basic ' + btoa(`email:${API_KEY}`),
         },
-        email: email // Remove the extra curly braces here
+        email: email, // Remove the extra curly braces here
       });
       return response.data;
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
     }
-
-}
+  }
 }
 
 export default new Auth();
