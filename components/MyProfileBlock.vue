@@ -17,6 +17,78 @@
             <div class="sMyProfileBlock__row row">
               <div class="col">
                 <div class="sMyProfileBlock__head">Персональная информация</div>
+                <div class="form-wrap">
+                  <form>
+                    <InputGroup>
+                      <label for="name">Никнейм</label>
+                      <InputText
+                        id="name"
+                        type="text"
+                        v-model="textValue"
+                        placeholder="Введите никнейм"
+                      />
+                    </InputGroup>
+                    <InputGroup>
+                      <label for="name">Email</label>
+                      <InputText
+                        id="email"
+                        type="email"
+                        v-model="emailValue"
+                        placeholder="Введите почту"
+                      />
+                    </InputGroup>
+                    <InputGroup>
+                      <label for="name">Имя и Фамилия</label>
+                      <InputText
+                        id="text"
+                        type="text"
+                        v-model="nameValue"
+                        placeholder="Введите имя и фамилию"
+                      />
+                    </InputGroup>
+                    <InputGroup>
+                      <label for="name">Телефон</label>
+                      <InputMask
+                        id="tel"
+                        type="tel"
+                        v-model="telValue"
+                        placeholder="Введите телефон"
+                        mask="+7 (999) 999-99-99"
+                      />
+                    </InputGroup>
+                    <InputGroup>
+                      <label for="name">Дата рождения</label>
+                      <Calendar v-model="date" dateFormat="dd.mm.yy" placeholder="__.__.____" />
+                    </InputGroup>
+                    <InputGroup>
+                      <label for="name">Пол</label>
+                      <Dropdown
+                        v-model="selectedGender"
+                        :options="genders"
+                        optionLabel="name"
+                        placeholder="Выберите пол"
+                      />
+                    </InputGroup>
+                    <InputGroup>
+                      <label for="name">Telegram</label>
+                      <InputText
+                        id="name"
+                        type="text"
+                        v-model="telegramValue"
+                        placeholder="Введите свой Telegram"
+                      />
+                    </InputGroup>
+                    <InputGroup>
+                      <label for="name">Город</label>
+                      <InputText
+                        id="name"
+                        type="text"
+                        v-model="cityValue"
+                        placeholder="Введите город"
+                      />
+                    </InputGroup>
+                  </form>
+                </div>
               </div>
               <div class="col">
                 <div class="sMyProfileBlock__head">Сменить пароль</div>
@@ -99,6 +171,19 @@ const products = ref([
 
 const totalRecords = ref(10);
 const rowsPerPage = ref([5, 10, 50, 100]);
+const genders = ref([
+  { name: 'Мужской', code: 'Male' },
+  { name: 'Женский', code: 'Female' },
+]);
+
+const textValue = ref(null);
+const emailValue = ref(null);
+const nameValue = ref(null);
+const telValue = ref(null);
+const date = ref();
+const selectedGender = ref();
+const telegramValue = ref(null);
+const cityValue = ref(null);
 </script>
 
 <style scoped lang="scss">

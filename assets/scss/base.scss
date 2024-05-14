@@ -1,12 +1,12 @@
-a{
+a {
   color: var(--text-primary);
   text-decoration: none;
-  &:hover{
+  &:hover {
     color: var(--text-primary-hover);
   }
   &.active,
   &:active,
-  &:focus{
+  &:focus {
     color: var(--text-primary-active);
   }
 }
@@ -772,4 +772,9 @@ p {
       display: block;
     }
   }
+}
+
+.p-datepicker {
+  width: rem(300);
+  min-width: rem(300);
 }

@@ -1,10 +1,9 @@
 <template>
   <div>
-
     <HeaderBlock
-    title="Рейтинги"
-    :breadcrumbArr="[{ label: 'Рейтинги' }]"
-    :bg="`/img/headerBlock-bg-1.jpg`"
+      title="Рейтинги"
+      :breadcrumbArr="[{ label: 'Рейтинги' }]"
+      :bg="`/img/headerBlock-bg-1.jpg`"
     >
       <ul class="sHeaderBlock__filter">
         <li>

@@ -23,4 +23,21 @@
       margin-bottom: rem(24);
     }
   }
+  .form-wrap {
+    .p-inputgroup {
+      @include media-breakpoint-up(md) {
+        flex-direction: row;
+        align-items: center;
+        &:not(:last-child) {
+          margin-bottom: rem(12);
+        }
+        label {
+          margin-bottom: 0;
+          width: auto;
+          margin-right: rem(20);
+          min-width: rem(160);
+        }
+      }
+    }
+  }
 }

@@ -1,15 +1,17 @@
 <template>
-  <MainHeader />
-  <Welcome />
-  <MainContentBlock
-    :sectionTitle="sectionTitleTournamentsProps"
-    :footerLink="footerLinkTournamentsProps"
-  >
-    Need cards for tournaments
-  </MainContentBlock>
-  <MainContentBlock :sectionTitle="sectionTitleNewsProps" :footerLink="footerLinkNewsProps">
-    Need content for 4 last cards
-  </MainContentBlock>
+  <div>
+    <MainHeader />
+    <Welcome />
+    <MainContentBlock
+      :sectionTitle="sectionTitleTournamentsProps"
+      :footerLink="footerLinkTournamentsProps"
+    >
+      Need cards for tournaments
+    </MainContentBlock>
+    <MainContentBlock :sectionTitle="sectionTitleNewsProps" :footerLink="footerLinkNewsProps">
+      Need content for 4 last cards
+    </MainContentBlock>
+  </div>
 </template>
 
 <script setup>
