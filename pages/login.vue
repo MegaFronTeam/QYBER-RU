@@ -1,6 +1,6 @@
 <template>
-  <sFormPage v-bind="params"> 
-    <form action="">
+  <sFormPage v-bind="params" > 
+    <form @submit.prevent="submit">
       <InputGroup>
         <label for="email">Email</label>
         <InputText
@@ -25,19 +25,6 @@
         <small class="p-error" id="password-help">{{ errorsForm.password }}</small>
       </InputGroup>
 
-      <InputGroup  >
-        <label for="password">Повторите пароль</label>
-        <Password
-          id="passwordConfirm"
-          v-model="dataForm.passwordConfirm"
-          aria-describedby="password-help"
-          :feedback="false"
-          placeholder="Повторите пароль"
-          toggleMask
-        />
-        <small class="p-error" id="password-help">{{ errorsForm.passwordConfirm }}</small>
-      </InputGroup>
-
       <AgreementForm :agreement="agreement" />
       <div class="mb-4 mt-4">
         <Button type="submit"  :label="params.btnName" class="w-100 btn-lg" />
@@ -52,11 +39,17 @@
 
 <script setup> 
 
+import Auth from '@/services/auth';
+
+const {$locally} = useNuxtApp();
+
+definePageMeta({
+  layout: 'auth',
+});
+import { ref } from 'vue'
 const dataForm = ref({
-  email: '',
-  steamNick: '',
-  password: '',
-  passwordConfirm: '',
+  email: 'wol1414@gmail.com',
+  password: 'Qwerty1414;',
   agreement: true
 });
 const errorsForm = ref({
@@ -66,13 +59,22 @@ const errorsForm = ref({
 });
 const params = {
   title: 'Авторизация',
-  // text: 'Enter your credentials to access your account',
+  // text: 'E-nter your credentials to access your account',
   bgImage: '/img/reg-bg-2.jpg',
   btnName: 'Войти'
 }
 
-definePageMeta({
-  layout: 'auth',
-});
+
+ 
+const submit = () => { 
+  Auth.login(dataForm.value.email, dataForm.value.password)
+  .then((response) => {
+    $locally.setItem('token', response[0]);
+    console.log(response);
+  }).catch((error) => {
+    console.log(error);
+  });
+  // console.log(data());
+}
 
 </script>

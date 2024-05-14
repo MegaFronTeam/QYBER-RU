@@ -201,10 +201,6 @@ const props = defineProps({
     type: String,
     required: true
   },
-  asideTitle: {
-    type: String,
-    required: true
-  },
   title: {
     type: String,
     default: ''
