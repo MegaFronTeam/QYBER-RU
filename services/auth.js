@@ -18,6 +18,23 @@ class Auth {
       return Promise.reject(error);
     }
   }
+
+  async singUp(email, password) {
+    try {
+      const response = await axios.post(`${BASE_URL}/auth/v1/signup`, {
+        email: email,
+        password: password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  }
 }
 
 export default new Auth();

@@ -57,8 +57,9 @@ const profilePages = [
   'profile-contacts-error',
 ]
 
+
 router.beforeEach((to) => {
-  // const isAuth = $locally.getItem('token');
+  const isAuth = $locally.getItem('token');
 
   // if (isAuth) {
   //   if (loginPages.includes(to.name)) {

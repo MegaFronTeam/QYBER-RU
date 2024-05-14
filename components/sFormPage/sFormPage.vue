@@ -181,8 +181,10 @@
           <div class="sFormPage__title h1">{{ title }}</div>
           <div class="sFormPage__text" v-if="text" v-html="text"></div>
         </div>
-        <slot></slot>
-      </div>
+        <form  @submit.prevent="submit">
+          <slot></slot>
+        </form>
+        </div>
       <div class="sFormPage__footer">{{ copyRight }}</div>
     </div>
     <div class="sFormPage__aside">

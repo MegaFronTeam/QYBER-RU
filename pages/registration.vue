@@ -1,6 +1,6 @@
 <template>
   <sFormPage v-bind="params"> 
-    <form action="">
+    <form  @submit="submit">
       <InputGroup>
         <label for="email">Email</label>
         <InputText
@@ -50,7 +50,7 @@
 
       <AgreementForm :agreement="agreement" />
       <div class="mb-4 mt-4">
-        <Button type="submit" disabled :label="params.btnName" class="w-100 btn-lg" />
+        <Button type="submit"  :label="params.btnName" class="w-100 btn-lg" />
       </div>
       <div class="mb-3 text-center" style="font-size: 14px">
         Уже есть аккаунт? 
@@ -61,12 +61,18 @@
 </template>
 
 <script setup> 
+definePageMeta({
+  layout: 'auth',
+});
+
+import Auth from '@/services/auth';
+const {$locally} = useNuxtApp();
+const router = useRouter();
 
 const dataForm = ref({
-  email: '',
-  // steamNick: '',
-  password: '',
-  passwordConfirm: '',
+  email: 'wol12414@gmail.com',
+  password: 'Qwerty1414;',
+  passwordConfirm: 'Qwerty1414;',
   agreement: true
 });
 const errorsForm = ref({
@@ -82,8 +88,19 @@ const params = {
   btnName: 'Зарегистрироваться'
 }
 
-definePageMeta({
-  layout: 'auth',
-});
+const submit = (event) => { 
+  event.preventDefault();
+  Auth.singUp(dataForm.value.email, dataForm.value.password)
+  .then((response) => {
+    $locally.setItem('token', response[0]);
+    router.push('/profile');
+    console.log(response);
+  }).catch((error) => {
+    console.log(error);
+  });
+  // console.log(data());
+}
+
+
 
 </script>
