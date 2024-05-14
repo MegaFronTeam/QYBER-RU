@@ -83,6 +83,21 @@
       background-size: contain;
       z-index: 10;
     }
+    background: var(--surface-a);
+    .p-dropdown-items {
+    }
+  }
+}
+.p-dropdown-panel {
+  background: var(--surface-a);
+  color: var(--gray-700);
+  .p-dropdown-item {
+    background: var(--surface-a);
+    color: var(--gray-700);
+    &:hover {
+      background-color: var(--primary-300);
+      color: var(--grayscale-88);
+    }
   }
 }
 
