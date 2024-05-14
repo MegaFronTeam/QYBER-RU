@@ -12,6 +12,7 @@ class Auth {
           'Content-Type': 'application/json'
         }
       });
+      
       return response.data;
     } catch (error) {
       console.error(error);
@@ -35,6 +36,24 @@ class Auth {
       return Promise.reject(error);
     }
   }
+
+  async myProfile() {
+    const API_KEY = localStorage.getItem('API_KEY');
+    const email = localStorage.getItem('email');
+    try {
+      const response = await axios.get(`${BASE_URL}/auth/v1/my`, {
+        headers: {
+          'Authorization': 'Basic ' + btoa(`email:${API_KEY}`)
+        },
+        email: email // Remove the extra curly braces here
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+
+}
 }
 
 export default new Auth();

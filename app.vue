@@ -33,43 +33,43 @@ import { onMounted } from 'vue';
 const {$locally} = useNuxtApp();
 const router = useRouter();
 
-const  loginPages = [
-  'login',
-  'registration',
-  'forgot-password',
-  'reset-password',
-  'confirm-email',
-  'confirm-phone',
-  'confirm-code',
-  'confirm-success',
-  'confirm-error',
-]
-
-const profilePages = [
-  'profile',
-  'profile-edit',
-  'profile-password',
-  'profile-contacts',
-  'profile-contacts-edit',
-  'profile-contacts-add',
-  'profile-contacts-delete',
-  'profile-contacts-success',
-  'profile-contacts-error',
-]
 
 
 router.beforeEach((to) => {
+  const  loginPages = [
+    'login',
+    'registration',
+    'forgot-password',
+    'reset-password',
+    'confirm-email',
+    'confirm-phone',
+    'confirm-code',
+    'confirm-success',
+    'confirm-error',
+  ]
+  
+  const profilePages = [
+    'profile',
+    'profile-edit',
+    'profile-password',
+    'profile-contacts',
+    'profile-contacts-edit',
+    'profile-contacts-add',
+    'profile-contacts-delete',
+    'profile-contacts-success',
+    'profile-contacts-error',
+  ]
   const isAuth = $locally.getItem('token');
 
-  // if (isAuth) {
-  //   if (loginPages.includes(to.name)) {
-  //     return '/'
-  //   }
-  // } else {
-  //   if (profilePages.includes(to.name)) {
-  //     return '/login'
-  //   }
-  // }
+  if (isAuth) {
+    if (loginPages.includes(to.name)) {
+      return '/'
+    }
+  } else {
+    if (profilePages.includes(to.name)) {
+      return '/login'
+    }
+  }
 })
 
 

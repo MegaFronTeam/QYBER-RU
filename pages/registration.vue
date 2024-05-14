@@ -92,8 +92,7 @@ const submit = (event) => {
   event.preventDefault();
   Auth.singUp(dataForm.value.email, dataForm.value.password)
   .then((response) => {
-    $locally.setItem('token', response[0]);
-    router.push('/profile');
+    router.push('/login');
     console.log(response);
   }).catch((error) => {
     console.log(error);
