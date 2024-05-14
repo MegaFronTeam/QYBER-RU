@@ -23,6 +23,13 @@
       margin-bottom: rem(24);
     }
   }
+  .template {
+    overflow-x: auto;
+    overflow-y: hidden;
+    .btn-wrap {
+      min-width: max-content;
+    }
+  }
   .form-wrap {
     .p-inputgroup {
       @include media-breakpoint-up(md) {
@@ -37,6 +44,38 @@
           margin-right: rem(20);
           min-width: rem(160);
         }
+      }
+    }
+    button {
+      display: block;
+      max-width: max-content;
+      margin-left: auto;
+      margin-top: rem(18);
+      @include media-breakpoint-up(md) {
+        margin-top: rem(24);
+      }
+    }
+  }
+  .p-datatable {
+    .p-badge {
+      &-gray {
+        display: flex;
+        align-items: center;
+        color: var(--gray-500);
+        background-color: var(--gray-50);
+        max-width: max-content;
+        svg {
+          font-size: rem(16);
+          margin-right: rem(6);
+          flex: 0 0 auto;
+          color: var(--games-dota-2-main);
+        }
+      }
+      &-secondary {
+        color: var(--bluegray-300);
+        border: 1px solid var(--bluegray-300);
+        background-color: var(--surface-a);
+        padding: rem(5) rem(9);
       }
     }
   }

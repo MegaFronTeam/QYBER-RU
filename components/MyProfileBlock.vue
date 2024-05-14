@@ -87,11 +87,80 @@
                         placeholder="Введите город"
                       />
                     </InputGroup>
+                    <InputGroup>
+                      <label for="name">Учебное заведение</label>
+                      <InputText
+                        id="name"
+                        type="text"
+                        v-model="schoolValue"
+                        placeholder="Введите учебное заведение"
+                        disabled
+                      />
+                    </InputGroup>
+                    <InputGroup>
+                      <label for="name">Компания</label>
+                      <InputText
+                        id="name"
+                        type="text"
+                        v-model="companyValue"
+                        placeholder="Введите rомпанию"
+                        disabled
+                      />
+                    </InputGroup>
+                    <InputGroup>
+                      <label for="name">ИНН компании</label>
+                      <InputText
+                        id="name"
+                        type="text"
+                        v-model="INNValue"
+                        placeholder="Введите ИНН компании"
+                        disabled
+                      />
+                    </InputGroup>
+                    <Button label="Сохранить изменения" type="submit" />
                   </form>
                 </div>
               </div>
               <div class="col">
                 <div class="sMyProfileBlock__head">Сменить пароль</div>
+                <div class="form-wrap">
+                  <form>
+                    <InputGroup>
+                      <label for="password">Текущий пароль</label>
+                      <Password
+                        id="password"
+                        v-model="currentPassword"
+                        aria-describedby="password-help"
+                        placeholder="Введите текущий пароль"
+                        :feedback="false"
+                        toggleMask
+                      />
+                    </InputGroup>
+                    <InputGroup>
+                      <label for="password">Новый пароль</label>
+                      <Password
+                        id="password"
+                        v-model="newPassword"
+                        aria-describedby="password-help"
+                        placeholder="Введите новый пароль"
+                        :feedback="false"
+                        toggleMask
+                      />
+                    </InputGroup>
+                    <InputGroup>
+                      <label for="password">Повторите пароль</label>
+                      <Password
+                        id="password"
+                        v-model="confrimNewPassword"
+                        aria-describedby="password-help"
+                        placeholder="Повторите новый пароль"
+                        :feedback="false"
+                        toggleMask
+                      />
+                    </InputGroup>
+                    <Button label="Сохранить изменения" disabled />
+                  </form>
+                </div>
               </div>
             </div>
           </TabPanel>
@@ -125,6 +194,109 @@
                     <NuxtImg :src="`/img/${slotProps.data.nickname.avatar}`" alt="Avatar" />
                     <span>{{ slotProps.data.nickname.text }}</span>
                   </div>
+                </template>
+              </Column>
+              <Column
+                :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
+                field="game"
+                header="Дисциплина"
+                sortable
+              >
+                <template #sorticon="slotProps">
+                  <svg
+                    :class="slotProps.sortOrder == 1 ? `sorted` : ``"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.20493 4.5H8.79494C8.89382 4.50041 8.99036 4.53014 9.07236 4.58542C9.15435 4.6407 9.21811 4.71906 9.25557 4.81057C9.29303 4.90209 9.30252 5.00266 9.28282 5.09957C9.26313 5.19647 9.21515 5.28536 9.14494 5.355L6.35494 8.145C6.30845 8.19186 6.25315 8.22906 6.19222 8.25445C6.13129 8.27983 6.06594 8.2929 5.99994 8.2929C5.93393 8.2929 5.86858 8.27983 5.80765 8.25445C5.74672 8.22906 5.69142 8.19186 5.64494 8.145L2.85494 5.355C2.78472 5.28536 2.73674 5.19647 2.71705 5.09957C2.69735 5.00266 2.70684 4.90209 2.7443 4.81057C2.78176 4.71906 2.84552 4.6407 2.92751 4.58542C3.00951 4.53014 3.10605 4.50041 3.20493 4.5Z"
+                      fill="#9E9FA3"
+                    />
+                  </svg>
+                </template>
+                <template #body="slotProps">
+                  <span class="p-badge p-badge-gray">
+                    <svg-icon name="dota.svg" />
+                    {{ slotProps.data.game.label }}
+                  </span>
+                </template>
+              </Column>
+              <Column
+                :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
+                field="league"
+                header="Лига"
+                sortable
+              >
+                <template #sorticon="slotProps">
+                  <svg
+                    :class="slotProps.sortOrder == 1 ? `sorted` : ``"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.20493 4.5H8.79494C8.89382 4.50041 8.99036 4.53014 9.07236 4.58542C9.15435 4.6407 9.21811 4.71906 9.25557 4.81057C9.29303 4.90209 9.30252 5.00266 9.28282 5.09957C9.26313 5.19647 9.21515 5.28536 9.14494 5.355L6.35494 8.145C6.30845 8.19186 6.25315 8.22906 6.19222 8.25445C6.13129 8.27983 6.06594 8.2929 5.99994 8.2929C5.93393 8.2929 5.86858 8.27983 5.80765 8.25445C5.74672 8.22906 5.69142 8.19186 5.64494 8.145L2.85494 5.355C2.78472 5.28536 2.73674 5.19647 2.71705 5.09957C2.69735 5.00266 2.70684 4.90209 2.7443 4.81057C2.78176 4.71906 2.84552 4.6407 2.92751 4.58542C3.00951 4.53014 3.10605 4.50041 3.20493 4.5Z"
+                      fill="#9E9FA3"
+                    />
+                  </svg>
+                </template>
+                <template #body="slotProps">
+                  <Badge severity="secondary" :value="slotProps.data.league" />
+                </template>
+              </Column>
+              <Column
+                :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
+                field="league"
+                header="Лига"
+                sortable
+              >
+                <template #sorticon="slotProps">
+                  <svg
+                    :class="slotProps.sortOrder == 1 ? `sorted` : ``"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.20493 4.5H8.79494C8.89382 4.50041 8.99036 4.53014 9.07236 4.58542C9.15435 4.6407 9.21811 4.71906 9.25557 4.81057C9.29303 4.90209 9.30252 5.00266 9.28282 5.09957C9.26313 5.19647 9.21515 5.28536 9.14494 5.355L6.35494 8.145C6.30845 8.19186 6.25315 8.22906 6.19222 8.25445C6.13129 8.27983 6.06594 8.2929 5.99994 8.2929C5.93393 8.2929 5.86858 8.27983 5.80765 8.25445C5.74672 8.22906 5.69142 8.19186 5.64494 8.145L2.85494 5.355C2.78472 5.28536 2.73674 5.19647 2.71705 5.09957C2.69735 5.00266 2.70684 4.90209 2.7443 4.81057C2.78176 4.71906 2.84552 4.6407 2.92751 4.58542C3.00951 4.53014 3.10605 4.50041 3.20493 4.5Z"
+                      fill="#9E9FA3"
+                    />
+                  </svg>
+                </template>
+                <template #body="slotProps">
+                  <span class="small-text">{{ slotProps.data.playersCount }}</span>
+                </template>
+              </Column>
+              <Column
+                :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
+                field="league"
+                header="Лига"
+                sortable
+              >
+                <template #sorticon="slotProps">
+                  <svg
+                    :class="slotProps.sortOrder == 1 ? `sorted` : ``"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.20493 4.5H8.79494C8.89382 4.50041 8.99036 4.53014 9.07236 4.58542C9.15435 4.6407 9.21811 4.71906 9.25557 4.81057C9.29303 4.90209 9.30252 5.00266 9.28282 5.09957C9.26313 5.19647 9.21515 5.28536 9.14494 5.355L6.35494 8.145C6.30845 8.19186 6.25315 8.22906 6.19222 8.25445C6.13129 8.27983 6.06594 8.2929 5.99994 8.2929C5.93393 8.2929 5.86858 8.27983 5.80765 8.25445C5.74672 8.22906 5.69142 8.19186 5.64494 8.145L2.85494 5.355C2.78472 5.28536 2.73674 5.19647 2.71705 5.09957C2.69735 5.00266 2.70684 4.90209 2.7443 4.81057C2.78176 4.71906 2.84552 4.6407 2.92751 4.58542C3.00951 4.53014 3.10605 4.50041 3.20493 4.5Z"
+                      fill="#9E9FA3"
+                    />
+                  </svg>
+                </template>
+                <template #body="slotProps">
+                  <span class="small-text">{{ slotProps.data.role }}</span>
                 </template>
               </Column>
             </DataTable>
@@ -164,8 +336,12 @@ const products = ref([
       avatar: 'avatar-img-1.jpg',
       text: 'Dando',
     },
-    name: 'Константин Завгородний',
-    role: 'Игрок',
+    game: {
+      label: 'Dota 2',
+    },
+    league: 'Кибер Атланты',
+    playersCount: '5',
+    role: 'Капитан',
   },
 ]);
 
@@ -176,14 +352,22 @@ const genders = ref([
   { name: 'Женский', code: 'Female' },
 ]);
 
-const textValue = ref(null);
-const emailValue = ref(null);
-const nameValue = ref(null);
-const telValue = ref(null);
+const textValue = ref('mihailivanov');
+const emailValue = ref('mihailivanov@mail.ru');
+const nameValue = ref('Михаил Иванов');
+const telValue = ref('+7 (939) 299-30-30');
 const date = ref();
 const selectedGender = ref();
-const telegramValue = ref(null);
-const cityValue = ref(null);
+const telegramValue = ref('@user214');
+const cityValue = ref('Самара');
+const schoolValue = ref('СГСПУ');
+const companyValue = ref(' ООО Датекс Софт');
+const INNValue = ref('7727563778');
+
+// Pass
+const currentPassword = ref(null);
+const newPassword = ref(null);
+const confrimNewPassword = ref(null);
 </script>
 
 <style scoped lang="scss">

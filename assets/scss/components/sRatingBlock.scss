@@ -6,7 +6,8 @@
     padding-bottom: rem(12);
   }
   .template {
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     // &--header {
 
     // }

@@ -2,9 +2,9 @@
   <div class="main-wrapper">
     <AppHeader :menubarItems="menubar" />
     <main>
-      <slot></slot>
-      <Subscribe />
+      <slot> </slot>
     </main>
+    <Subscribe />
     <AppFooter :menubarItems="menubar" />
   </div>
 </template>
