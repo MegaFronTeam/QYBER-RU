@@ -47,7 +47,7 @@ class Auth {
   }
 
   async myProfile() {
-    const API_KEY = localStorage.getItem('API_KEY');
+    const API_KEY = localStorage.getItem('token');
     const email = localStorage.getItem('email');
     try {
       const response = await axios.get(`${BASE_URL}/auth/v1/my`, {
