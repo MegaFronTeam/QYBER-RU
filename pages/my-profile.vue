@@ -1,7 +1,7 @@
 <template>
   <div>
     <ProfileHead :breadcrumbArr="[{ label: 'Личный кабинет' }]">
-      <h1 class="verifired">{{ data.user_nicename }}</h1>
+      <!-- <h1 class="verifired">{{ data.user_nicename }}</h1> -->
       <span class="sProfileHead__name">Михаил Иванов</span>
       <div class="sProfileHead__status online">Онлайн</div>
       <div class="sProfileHead__time">На сайте с 20 декабря 2023</div>
@@ -21,30 +21,37 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 const { $locally } = useNuxtApp();
-// import Auth from '@/services/auth';
+import Auth from '@/services/auth';
 
 // const profileData = ref();
-// Auth.myProfile().then((response) => {
-//   data.value = response;
-//   // console.log(response);
-// });
+Auth.myProfile().then((response) => {
+  // data.value = response;
+  console.log(response);
+});
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-const API_KEY = $locally.getItem('token');
-const email = 'janis.paberzs18@gmail.com';
+// const BASE_URL = import.meta.env.VITE_BASE_URL;
+// const API_KEY = ref($locally.getItem('token')).value;
+// const email = 'janis.paberzs18@gmail.com';
 
-const myHeaders = new Headers();
-const encodeToken = btoa(`${email}:${API_KEY}`);
+// console.log(API_KEY);
 
-myHeaders.append('Authorization', `Basic ${encodeToken}`);
+// const myHeaders = new Headers();
+// const encodeToken = btoa(`${email}:${API_KEY}`);
 
-const requestOptions = {
-  'Content-Type': 'application/json',
-  method: 'GET',
-  headers: myHeaders,
-  redirect: 'follow',
-};
+// myHeaders.append('Authorization', `Basic ${encodeToken}`);
 
-const { data } = await useFetch(`${BASE_URL}/profile/v1/my`, requestOptions);
-console.log(data);
+// const requestOptions = {
+//   'Content-Type': 'application/json',
+//   method: 'GET',
+//   headers: myHeaders,
+//   redirect: 'follow',
+// };
+
+// const { data } = await useFetch(`${BASE_URL}/profile/v1/my`, requestOptions);
+// console.log(data);
+// // onMounted(() => {
+// // });
+// const nickname = ref(data._rawValue.user_nicename);
+
+// console.log(nickname.value);
 </script>

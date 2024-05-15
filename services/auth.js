@@ -47,14 +47,16 @@ class Auth {
   }
 
   async myProfile() {
-    const API_KEY = localStorage.getItem('API_KEY');
-    const email = localStorage.getItem('email');
+    const API_KEY = localStorage.getItem('token');
+    // const email = localStorage.getItem('email');
+    const email = 'janis.paberzs18@gmail.com';
+
     try {
-      const response = await axios.get(`${BASE_URL}/auth/v1/my`, {
+      const response = await axios.get(`${BASE_URL}/profile/v1/my`, {
         headers: {
-          Authorization: 'Basic ' + btoa(`email:${API_KEY}`),
+          Authorization: 'Basic ' + btoa(`${email}:${API_KEY}`),
         },
-        email: email, // Remove the extra curly braces here
+        // email: email, // Remove the extra curly braces here
       });
       return response.data;
     } catch (error) {
