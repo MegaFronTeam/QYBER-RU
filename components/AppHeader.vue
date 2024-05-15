@@ -190,88 +190,48 @@
         <InputSwitch @click="toggleTheme" v-model="checked" />
         <Button class="header__btn-user d-lg-none" variant="primary">
           <svg-icon name="user.svg" />
-        </Button>
-        <NuxtLink to="/login">
+        </Button> 
+          <NuxtLink to="/my-profile"  v-if="isAuthenticated">
+            
+            <Button class="header__btn d-none d-lg-flex" variant="primary">
+              <svg-icon name="rocket-lunch.svg" />
+              <span class="p-button-label">Кабинет</span>
+            </Button>
+          </NuxtLink> 
+        
+        <NuxtLink to="/login"  v-else>
 
           <Button class="header__btn d-none d-lg-flex" variant="primary">
             <svg-icon name="rocket-lunch.svg" />
             <span class="p-button-label">Авторизация</span>
           </Button>
-        </NuxtLink>
+        </NuxtLink> 
+
       </div>
     </div>
   </header>
 </template>
 
-<script>
-import { ref } from 'vue';
 
-export default {
-  data() {
-    return {
-      $locally: useNuxtApp(),
-      checked: ref(false),
-      currentTheme: this.$locally.getItem('theme'),
-      newTheme: this.currentTheme === 'dark-theme' ? 'light-theme' : 'dark-theme',
-      // items: ref([
-      //   {
-      //     label: 'О проекте',
-      //     icon: 'rocket-lunch',
-      //     href: '/about-project',
-      //   },
-      //   {
-      //     label: 'Турниры',
-      //     icon: 'star',
-      //     href: '/tournaments',
-      //   },
-      //   {
-      //     label: 'Рейтинги',
-      //     icon: 'cup',
-      //     href: '/rating',
-      //   },
-      //   {
-      //     label: 'Спонсоры',
-      //     icon: 'handshake',
-      //     href: '/sponsor',
-      //   },
-      //   {
-      //     label: 'Новости',
-      //     icon: 'newspaper',
-      //     href: '/news',
-      //   },
-      //   {
-      //     label: 'Контакты',
-      //     icon: 'user',
-      //     href: '/contacts',
-      //   },
-      //   {
-      //     label: 'Авторизация',
-      //     icon: 'rocket-lunch',
-      //     href: '/contacts',
-      //   },
-      // ]),
-    };
-  },
-  mounted() {
-    this.currentTheme == 'dark-theme' ? (this.checked = true) : (this.checked = false);
-  },
-  methods: {
-    toggleTheme() {
-      if (this.currentTheme === 'dark-theme') {
-        document.documentElement.setAttribute('data-theme', 'light-theme');
-        this.$locally.setItem('theme', 'light-theme');
-        this.currentTheme = 'light-theme';
-      } else {
-        document.documentElement.setAttribute('data-theme', 'dark-theme');
-        this.$locally.setItem('theme', 'dark-theme');
-        this.currentTheme = 'dark-theme';
-      }
-    },
-  },
-};
-</script>
+<script setup> 
+const {$locally } = useNuxtApp();
+const colorMode = useColorMode();
+// console.log($ifAuthenticated);
+const isAuthenticated = ref( $locally.getItem('token') && $locally.getItem('token'));
 
-<script setup>
+const  checked =  ref(colorMode.preference === 'dark' ? false : true);
+
+const toggleTheme = () => {
+  if(colorMode.value === 'dark'){
+    colorMode.preference = 'light';
+    checked.value = true;
+  } else {
+    colorMode.preference = 'dark';
+    checked.value = false;
+  }
+}
+// toggleTheme();
+
 const props = defineProps({
   menubarItems: {
     type: Array,

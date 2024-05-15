@@ -1,27 +1,15 @@
 <template>
   <div>
     <div class="container head-messages">
-      <Message severity="warn" :closable="false">
-        <div style="margin-block: 0.3rem">
-          Для того чтобы пользоваться сервисом и участвовать в турнирах вам необходимо пройти
-          аккредитацию.
-        </div>
-
-        <Button
-          class="ms-auto btn-sm p-button-outlined"
-          outlined=""
-          type="button"
-          label="Аккредитация"
-        />
-      </Message>
+      <Acredition v-if="userData.user_verification === false" />
     </div>
-    <ProfileHead :breadcrumbArr="[{ label: 'Личный кабинет' }]">
-      <h1 :class="userData.user_verification === true ? 'verifired' : ''">
+    <ProfileHead :breadcrumbArr="[{ label: 'Личный кабинет' }]" :profileData="userData">
+      <h1 :class="userData.user_verification == true ? 'verifired' : ''">
         {{ userData.user_nicename }}
       </h1>
       <span class="sProfileHead__name">{{ userData.display_name }}</span>
       <div class="sProfileHead__status online">Онлайн</div>
-      <div class="sProfileHead__time">На сайте с {{ userData.user_registered }}</div>
+      <div class="sProfileHead__time">На сайте с {{ user_registered }}</div>
       <div class="row">
         <div class="col-auto">
           <Badge severity="secondary" value="Кибер Таланты" class="p-badge-outline" />
@@ -59,26 +47,34 @@ const userData = ref({
   user_verification: '',
 });
 
+const user_registered = ref('');
+
 Object.keys(userData.value).forEach((key) => {
   if ($locally.getItem(key)) {
     userData.value[key] = $locally.getItem(key);
   }
 });
+if ($locally.getItem('user_registered')) {
+  const date = new Date($locally.getItem('user_registered'));
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  user_registered.value = new Intl.DateTimeFormat('ru-RU', options).format(date).split(' г.')[0];
+}
+
 onMounted(() => {
   Auth.getMyProfileData().then((response) => {
-    // console.log(response);
-
     Object.keys(userData.value).forEach((key) => {
-      if ($locally.getItem(key) !== response[key]) {
-        $locally.setItem(key, response[key]);
-        userData.value[key] = response[key];
-        // userData.value[key] = response[key];
-      }
-      if (!$locally.getItem(key)) {
+      if (!$locally.getItem(key) || $locally.getItem(key) != response[key]) {
         $locally.setItem(key, response[key]);
         userData.value[key] = response[key];
       }
     });
+    if (!user_registered.value) {
+      const date = new Date(response.user_registered);
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      user_registered.value = new Intl.DateTimeFormat('ru-RU', options)
+        .format(date)
+        .split(' г.')[0];
+    }
   });
 });
 </script>

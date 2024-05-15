@@ -3,6 +3,20 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 // const { $locally } = useNuxtApp();
 
 class Auth {
+  get localData() {
+    return {
+      token: localStorage.getItem('token'),
+      email: localStorage.getItem('user_email'),
+    };
+  }
+  checkAuth() {
+    if (this.localData.every((item) => item !== null)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   async login(email, password) {
     try {
       const response = await axios.post(
@@ -47,14 +61,12 @@ class Auth {
   }
 
   async getMyProfileData() {
-    const API_KEY = localStorage.getItem('token');
-    const email = localStorage.getItem('user_email');
-    // const email = 'janis.paberzs18@gmail.com';
+    const { token, email } = this.localData;
     console.log(email);
     try {
       const response = await axios.get(`${BASE_URL}/profile/v1/my`, {
         headers: {
-          Authorization: 'Basic ' + btoa(`${email}:${API_KEY}`),
+          Authorization: 'Basic ' + btoa(`${email}:${token}`),
         },
       });
       return response.data;
@@ -65,13 +77,12 @@ class Auth {
   }
 
   async updateMyProfileData(data) {
-    const API_KEY = localStorage.getItem('token');
-    const email = localStorage.getItem('user_email');
-    // console.log(data);
+    const { token, email } = this.localData;
+    console.log(data);
     try {
       const response = await axios.post(`${BASE_URL}/profile/v1/update`, data, {
         headers: {
-          Authorization: 'Basic ' + btoa(`${email}:${API_KEY}`),
+          Authorization: 'Basic ' + btoa(`${email}:${token}`),
         },
       });
       return response.data;
@@ -82,13 +93,11 @@ class Auth {
   }
 
   async updatePassword(data) {
-    const API_KEY = localStorage.getItem('token');
-    const email = localStorage.getItem('user_email');
-
+    const { token, email } = this.localData;
     try {
       const response = await axios.post(`${BASE_URL}/profile/v1/update-password`, data, {
         headers: {
-          Authorization: 'Basic ' + btoa(`${email}:${API_KEY}`),
+          Authorization: 'Basic ' + btoa(`${email}:${token}`),
         },
       });
       return response.data;

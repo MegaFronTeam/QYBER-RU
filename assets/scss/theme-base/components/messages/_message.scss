@@ -108,7 +108,7 @@
         background: $warningMessageBg;
         border: $warningMessageBorder;
         border-width: $messageBorderWidth;
-        color: $warningMessageTextColor;
+        // color: var(--text-color);
 
         .p-message-icon {
             color: $warningMessageIconColor;

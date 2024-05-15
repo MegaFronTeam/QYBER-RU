@@ -31,7 +31,7 @@
           <div class="sProfileHead__img-wrap">
             <div class="img-wrap-center">
               <img alt="avatar" :src="img" v-if="img" />
-              <span v-else class="letter">M</span>
+              <span v-else class="letter">{{ profileData.user_nicename[0]}}</span>
             </div>
           </div>
           <div class="sProfileHead__content">
@@ -72,13 +72,22 @@ const props = defineProps({
     type: String,
     required: false,
   },
+  profileData: {
+    type: Object,
+    required: '',
+  },
+  isOnline: {
+    type: String,
+    required: '',
+  },
 });
-const { breadcrumbArr, img } = props;
+const { breadcrumbArr, img, profileData } = props;
 
 const home = ref({
   label: 'Главная',
   route: '/',
 });
+ 
 
 const items = ref(breadcrumbArr);
 const allMaches = 678;
