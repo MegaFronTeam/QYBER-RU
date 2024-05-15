@@ -221,11 +221,8 @@ const isAuthenticated = ref( $locally.getItem('token') && $locally.getItem('toke
 
 const  checked =  ref(colorMode.preference === 'dark' ? false : true);
 
-console.log(colorMode.preference);
-
-
 const toggleTheme = () => {
-  if(colorMode.preference === 'dark'){
+  if(colorMode.value === 'dark'){
     colorMode.preference = 'light';
     checked.value = true;
   } else {

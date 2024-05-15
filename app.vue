@@ -9,10 +9,6 @@ definePageMeta({
   colorMode: 'light',
 })
 
-const { $locally } = useNuxtApp();
-let dataLoaded = false;
-
-
 </script> 
 
 <style>
