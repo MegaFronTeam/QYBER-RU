@@ -72,7 +72,7 @@ const submit = (event) => {
   .then((response) => {
     $locally.setItem('token', response[0]);
     $locally.setItem('email', dataForm.value.email);
-    router.push('/Myprofile');
+    router.push('/my-profile');
     console.log(dataForm.value.email);
   }).catch((error) => {
     console.log(error);

@@ -34,9 +34,9 @@ const {$locally} = useNuxtApp();
 const router = useRouter();
 
 const localStorageObj = ref({
-  isAuth: '',
+  isAuth: $locally.getItem('token'),
   theme: $locally.getItem('theme'),
-  email: '',
+  email:  $locally.getItem('email'),
 });
 
 const  loginPages = [
@@ -52,7 +52,7 @@ const  loginPages = [
 ]
 
 const profilePages = [
-  'myProfile',
+  'my-profile',
   'profile-edit',
   'profile-password',
   'profile-contacts',
@@ -64,7 +64,9 @@ const profilePages = [
 ]
 
 onMounted(() => { 
+  
   router.beforeEach((to) => {
+    console.log(to.name);
     localStorageObj.value.isAuth = $locally.getItem('token');
     localStorageObj.value.email = $locally.getItem('email');
     if (localStorageObj.value.isAuth && localStorageObj.value.email) { 

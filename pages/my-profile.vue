@@ -1,7 +1,7 @@
 <template>
   <div>
     <ProfileHead :breadcrumbArr="[{ label: 'Личный кабинет' }]">
-      <h1 class="verifired">{{ data.user_nicename }}</h1>
+      <!-- <h1 class="verifired">{{ data.user_nicename }}</h1> -->
       <span class="sProfileHead__name">Михаил Иванов</span>
       <div class="sProfileHead__status online">Онлайн</div>
       <div class="sProfileHead__time">На сайте с 20 декабря 2023</div>
@@ -31,7 +31,7 @@ const { $locally } = useNuxtApp();
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_KEY = $locally.getItem('token');
-const email = 'janis.paberzs18@gmail.com';
+const email = $locally.getItem('email');
 
 const myHeaders = new Headers();
 const encodeToken = btoa(`${email}:${API_KEY}`);
