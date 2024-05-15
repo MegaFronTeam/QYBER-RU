@@ -24,20 +24,17 @@ export default defineNuxtRouteMiddleware(async (to) => {
     'profile-contacts-success',
     'profile-contacts-error',
   ];
-    const isAuth = $locally.getItem('token');
-    const email = $locally.getItem('user_email');
-
-    if (process.client) {
-    console.log(1, isAuth, email); 
-    if ($locally.getItem('token') && $locally.getItem('user_email')) {
+  
+  if (process.client) {
+      const isAuth = $locally.getItem('token');
+      const user_email = $locally.getItem('user_email');
+    if (isAuth && user_email) {
       if (loginPages.includes(to.name)) {
-        return navigateTo('/');
-      }
-      else{
-        return;
+        console.log(1, isAuth, user_email); 
+        // return navigateTo('/');
       }
     } else {
-      console.log(2, $locally.getItem('token'), $locally.getItem('user_email')); 
+      console.log(2, isAuth, user_email); 
       if (profilePages.includes(to.name)) {
         return  navigateTo('/login');
       }

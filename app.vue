@@ -1,8 +1,20 @@
 <template>
-  <NuxtLayout dir="routing/middleware">
+  <NuxtLayout dir="routing/middleware" v-if="dataLoaded">
     <NuxtPage />
   </NuxtLayout>
 </template>
+
+<script setup>
+const { $locally } = useNuxtApp();
+let dataLoaded = false;
+
+if (process.client) { 
+
+  document.documentElement.setAttribute('data-theme', $locally.getItem('theme'));
+  dataLoaded = true;
+}
+
+</script> 
 
 <style>
 @import './assets/scss/normalize.scss';
@@ -26,29 +38,3 @@
   filter: blur(1rem);
 }
 </style>
-
-<script setup>
-import { onMounted } from 'vue';
-
-const { $locally } = useNuxtApp();
-// const router = useRouter();
-
-if (process.client) {
-const localStorageObj = ref({
-  theme: $locally.getItem('theme'),
-//   isAuth: $locally.getItem('token'),
-//   email: $locally.getItem('email'),
-});
-
-
-onMounted(() => {
-
-  localStorageObj.value.theme = $locally.getItem('theme');
-  if (localStorageObj.value.theme === 'light-theme') {
-    document.documentElement.setAttribute('data-theme', 'light-theme');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'dark-theme');
-  }
-});
-}
-</script>

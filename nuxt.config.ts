@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['nuxt-primevue', '@nuxt/image', '@nuxtjs/svg-sprite'],
+  // mode: universal,
   ssr: true,
   app: {
     layoutTransition: { name: 'layout', mode: 'out-in' },

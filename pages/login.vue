@@ -47,8 +47,10 @@ definePageMeta({
 });
 import { ref } from 'vue';
 const dataForm = ref({
-  email: '',
-  password: '',
+  // email: '',
+  // password: '',
+  email: 'wol1414@gmail.com',
+  password: 'Qwerty1414;',
   agreement: true,
 });
 const errorsForm = ref({

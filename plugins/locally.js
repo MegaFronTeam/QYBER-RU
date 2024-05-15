@@ -1,21 +1,30 @@
 export default defineNuxtPlugin(() => {
+  const isClient = process.client;
+  const localStorage = isClient ? window.localStorage : null;
+
   return {
     provide: {
       locally: {
         getItem(item) {
-          if (process.client) {
+          if (localStorage) {
             return localStorage.getItem(item);
-          } else {
-            return undefined;
           }
         },
 
         setItem(item, value) {
-          if (process.client) {
+          if (localStorage) {
             return localStorage.setItem(item, value);
           }
         },
       },
+
+      ifAuthenticated() {
+        if (this.$locally.getItem('token') && this.$locally.getItem('email')) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     },
   };
 });
