@@ -215,23 +215,25 @@
 
 <script setup> 
 const {$locally } = useNuxtApp();
+const colorMode = useColorMode();
 // console.log($ifAuthenticated);
 const isAuthenticated = ref( $locally.getItem('token') && $locally.getItem('token'));
 
-const  checked =  ref(false);
-const  currentTheme =  ref($locally.getItem('theme'));
+const  checked =  ref(colorMode.preference === 'dark' ? false : true);
+
+console.log(colorMode.preference);
+
 
 const toggleTheme = () => {
-  if (currentTheme.value === 'dark-theme') {
-    document.documentElement.setAttribute('data-theme', 'light-theme');
-    $locally.setItem('theme', 'light-theme');
-    currentTheme.value = 'light-theme';
+  if(colorMode.preference === 'dark'){
+    colorMode.preference = 'light';
+    checked.value = true;
   } else {
-    document.documentElement.setAttribute('data-theme', 'dark-theme');
-    $locally.setItem('theme', 'dark-theme');
-    currentTheme.value = 'dark-theme';
+    colorMode.preference = 'dark';
+    checked.value = false;
   }
 }
+// toggleTheme();
 
 const props = defineProps({
   menubarItems: {

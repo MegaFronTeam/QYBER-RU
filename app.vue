@@ -1,18 +1,17 @@
-<template>
-  <NuxtLayout dir="routing/middleware" v-if="dataLoaded">
+<template >
+  <NuxtLayout dir="routing/middleware" >
     <NuxtPage />
   </NuxtLayout>
 </template>
 
 <script setup>
+definePageMeta({
+  colorMode: 'light',
+})
+
 const { $locally } = useNuxtApp();
 let dataLoaded = false;
 
-if (process.client) { 
-
-  document.documentElement.setAttribute('data-theme', $locally.getItem('theme'));
-  dataLoaded = true;
-}
 
 </script> 
 

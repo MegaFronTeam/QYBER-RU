@@ -31,7 +31,7 @@
           <div class="sProfileHead__img-wrap">
             <div class="img-wrap-center">
               <img alt="avatar" :src="img" v-if="img" />
-              <span v-else class="letter">M</span>
+              <span v-else class="letter">{{ user_nicename[0].toUpperCase() }}</span>
             </div>
           </div>
           <div class="sProfileHead__content">
@@ -71,6 +71,14 @@ const props = defineProps({
   img: {
     type: String,
     required: false,
+  },
+  user_nicename: {
+    type: String,
+    required: true,
+  },
+  isOnline: {
+    type: String,
+    required: '',
   },
 });
 const { breadcrumbArr, img } = props;

@@ -61,12 +61,12 @@ class Auth {
   }
 
   async getMyProfileData() {
-    const {API_KEY, email} = this.localData;
+    const { token, email} = this.localData;
     console.log(email);
     try {
       const response = await axios.get(`${BASE_URL}/profile/v1/my`, {
         headers: {
-          Authorization: 'Basic ' + btoa(`${email}:${API_KEY}`),
+          Authorization: 'Basic ' + btoa(`${email}:${token}`),
         },
       });
       return response.data;
@@ -77,12 +77,12 @@ class Auth {
   }
 
   async updateMyProfileData(data) {
-    const {API_KEY, email} = this.localData;
+    const {token, email} = this.localData;
     console.log(data);
     try {
       const response = await axios.post(`${BASE_URL}/profile/v1/update`, data, {
         headers: {
-          Authorization: 'Basic ' + btoa(`${email}:${API_KEY}`),
+          Authorization: 'Basic ' + btoa(`${email}:${token}`),
         },
       });
       return response.data;
@@ -93,11 +93,11 @@ class Auth {
   }
 
   async updatePassword(data) {
-    const {API_KEY, email} = this.localData;
+    const {token, email} = this.localData;
     try {
       const response = await axios.post(`${BASE_URL}/profile/v1/update-password`, data, {
         headers: {
-          Authorization: 'Basic ' + btoa(`${email}:${API_KEY}`),
+          Authorization: 'Basic ' + btoa(`${email}:${token}`),
         },
       });
       return response.data;
