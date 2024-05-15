@@ -4,7 +4,7 @@
       <div class="template template--header">
         <div class="btn-wrap template-wrap">
           <Button @click="active = 0" :class="active === 0 ? 'active' : ''"> Мой профиль </Button>
-          <Button @click="active = 1" :class="active === 1 ? 'active' : ''">
+          <Button v-if="false" @click="active = 1" :class="active === 1 ? 'active' : ''">
             Мои команды
             <Badge value="4"></Badge>
           </Button>
@@ -158,7 +158,7 @@
               </div>
             </div>
           </TabPanel>
-          <TabPanel>
+          <TabPanel v-if="false">
             <h3>Мои команды</h3>
             <DataTable :value="products">
               <Column
@@ -308,7 +308,7 @@
           </TabPanel>
         </TabView>
       </div>
-      <div v-if="active === 1" class="template template--footer">
+      <div v-if="active === 1 && false" class="template template--footer">
         <Paginator
           :rows="rowsPerPage[0]"
           :totalRecords="totalRecords"
