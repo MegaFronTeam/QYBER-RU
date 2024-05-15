@@ -1,5 +1,6 @@
 import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+// const { $locally } = useNuxtApp();
 
 class Auth {
   async login(email, password) {
@@ -45,17 +46,16 @@ class Auth {
     }
   }
 
-  async myProfile() {
+  async getMyProfileData() {
     const API_KEY = localStorage.getItem('token');
-    // const email = localStorage.getItem('email');
-    const email = 'janis.paberzs18@gmail.com';
-
+    const email = localStorage.getItem('user_email');
+    // const email = 'janis.paberzs18@gmail.com';
+    console.log(email);
     try {
       const response = await axios.get(`${BASE_URL}/profile/v1/my`, {
         headers: {
           Authorization: 'Basic ' + btoa(`${email}:${API_KEY}`),
         },
-        // email: email, // Remove the extra curly braces here
       });
       return response.data;
     } catch (error) {

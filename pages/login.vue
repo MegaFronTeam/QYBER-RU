@@ -1,6 +1,6 @@
 <template>
-  <sFormPage v-bind="params" >  
-    <form  @submit="submit">
+  <sFormPage v-bind="params">
+    <form @submit="submit">
       <InputGroup>
         <label for="email">Email</label>
         <InputText
@@ -27,57 +27,54 @@
 
       <AgreementForm :agreement="agreement" />
       <div class="mb-4 mt-4">
-        <Button type="submit"  :label="params.btnName" class="w-100 btn-lg" />
+        <Button type="submit" :label="params.btnName" class="w-100 btn-lg" />
       </div>
       <div class="mb-3 text-center" style="font-size: 14px">
         Еще нет аккаунта?
         <NuxtLink to="/registration" class="text-primary">Регистрация</NuxtLink>
-      </div> 
+      </div>
     </form>
   </sFormPage>
 </template>
 
-<script setup> 
-
+<script setup>
 import Auth from '@/services/auth';
-const {$locally} = useNuxtApp();
+const { $locally } = useNuxtApp();
 const router = useRouter();
 
 definePageMeta({
   layout: 'auth',
 });
-import { ref } from 'vue'
+import { ref } from 'vue';
 const dataForm = ref({
   email: 'wol1414@gmail.com',
   password: 'Qwerty1414;',
-  agreement: true
+  agreement: true,
 });
 const errorsForm = ref({
   email: '',
   password: '',
-  passwordConfirm: ''
+  passwordConfirm: '',
 });
 const params = {
   title: 'Авторизация',
   // text: 'E-nter your credentials to access your account',
   bgImage: '/img/reg-bg-2.jpg',
-  btnName: 'Войти'
-}
+  btnName: 'Войти',
+};
 
-
- 
-const submit = (event) => { 
+const submit = (event) => {
   event.preventDefault();
   Auth.login(dataForm.value.email, dataForm.value.password)
-  .then((response) => {
-    $locally.setItem('token', response[0]);
-    $locally.setItem('email', dataForm.value.email);
-    router.push('/my-profile');
-    console.log(dataForm.value.email);
-  }).catch((error) => {
-    console.log(error);
-  });
+    .then((response) => {
+      $locally.setItem('token', response[0]);
+      $locally.setItem('user_email', dataForm.value.email);
+      router.push('/my-profile');
+      console.log(dataForm.value.email);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   // console.log(data());
-}
-
+};
 </script>
