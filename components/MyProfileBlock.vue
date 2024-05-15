@@ -24,7 +24,7 @@
                       <InputText
                         id="name"
                         type="text"
-                        v-model="textValue"
+                        v-model="profileData.user_nicename"
                         placeholder="Введите никнейм"
                       />
                     </InputGroup>
@@ -33,7 +33,7 @@
                       <InputText
                         id="email"
                         type="email"
-                        v-model="emailValue"
+                        v-model="profileData.user_email"
                         placeholder="Введите почту"
                       />
                     </InputGroup>
@@ -42,7 +42,7 @@
                       <InputText
                         id="text"
                         type="text"
-                        v-model="nameValue"
+                        v-model="profileData.display_name"
                         placeholder="Введите имя и фамилию"
                       />
                     </InputGroup>
@@ -51,20 +51,24 @@
                       <InputMask
                         id="tel"
                         type="tel"
-                        v-model="telValue"
+                        v-model="profileData.user_phone"
                         placeholder="Введите телефон"
                         mask="+7 (999) 999-99-99"
                       />
                     </InputGroup>
                     <InputGroup>
                       <label>Дата рождения</label>
-                      <Calendar v-model="date" dateFormat="dd.mm.yy" placeholder="__.__.____" />
+                      <Calendar
+                        v-model="profileData.user_birthday"
+                        dateFormat="dd.mm.yy"
+                        placeholder="__.__.____"
+                      />
                     </InputGroup>
                     <InputGroup>
                       <label>Пол</label>
                       <Dropdown
                         v-model="selectedGender"
-                        :options="genders"
+                        :options="profileData.user_gender"
                         optionLabel="name"
                         placeholder="Выберите пол"
                       />
@@ -73,19 +77,23 @@
                       <label>Telegram</label>
                       <InputText
                         type="text"
-                        v-model="telegramValue"
+                        v-model="profileData.user_telegram"
                         placeholder="Введите свой Telegram"
                       />
                     </InputGroup>
                     <InputGroup>
                       <label>Город</label>
-                      <InputText type="text" v-model="cityValue" placeholder="Введите город" />
+                      <InputText
+                        type="text"
+                        v-model="profileData.user_city"
+                        placeholder="Введите город"
+                      />
                     </InputGroup>
                     <InputGroup>
                       <label>Учебное заведение</label>
                       <InputText
                         type="text"
-                        v-model="schoolValue"
+                        v-model="profileData.user_educational_institution"
                         placeholder="Введите учебное заведение"
                         disabled
                       />
@@ -94,7 +102,7 @@
                       <label>Компания</label>
                       <InputText
                         type="text"
-                        v-model="companyValue"
+                        v-model="profileData.user_company"
                         placeholder="Введите rомпанию"
                         disabled
                       />
@@ -103,7 +111,7 @@
                       <label>ИНН компании</label>
                       <InputText
                         type="text"
-                        v-model="INNValue"
+                        v-model="profileData.user_inn"
                         placeholder="Введите ИНН компании"
                         disabled
                       />
@@ -388,38 +396,40 @@ const genders = ref([
   { name: 'Женский', code: 'Female' },
 ]);
 
-const textValue = ref(profileData.user_nicename);
-const emailValue = ref(profileData.user_email);
-const nameValue = ref(profileData.display_name);
-const telValue = ref(profileData.user_phone);
-const date = ref(profileData.user_birthday);
-const selectedGender = ref(profileData.user_gender);
-const telegramValue = ref(profileData.user_telegram);
-const cityValue = ref(profileData.user_city);
-const schoolValue = ref(profileData.user_educational_institution);
-const companyValue = ref(profileData.user_company);
-const INNValue = ref(profileData.user_inn);
+// const userData = ref(profileData);
+
+// Object.keys(profileData).forEach((key) => {
+// if ($locally.getItem(key)) {
+//   userData.value[key] = $locally.getItem(key);
+// }
+// });
+
+// console.log(userData);
+
+// const textValue = ref(profileData.user_nicename);
+// const emailValue = ref(profileData.user_email);
+// const nameValue = ref(profileData.display_name);
+// const telValue = ref(profileData.user_phone);
+// const date = ref(profileData.user_birthday);
+// const selectedGender = ref(profileData.user_gender);
+// const telegramValue = ref(profileData.user_telegram);
+// const cityValue = ref(profileData.user_city);
+// const schoolValue = ref(profileData.user_educational_institution);
+// const companyValue = ref(profileData.user_company);
+// const INNValue = ref(profileData.user_inn);
 
 const submitProfileData = (event) => {
   event.preventDefault();
 
   auth
-    .updateMyProfileData({
-      first_name: nameValue.value.split(' ')[0],
-      last_name: nameValue.value.split(' ')[1],
-      email: emailValue.value,
-      display_name: textValue.value,
-      phone: telValue.value,
-      birthday: date.value,
-      gender: selectedGender.value.name,
-      telegram: telegramValue.value,
-      city: cityValue.value,
-      educational_institution: schoolValue.value,
-      company: companyValue.value,
-      inn: INNValue.value,
-    })
+    .updateMyProfileData(profileData)
     .then((response) => {
       console.log(response);
+      if (response) {
+        Object.keys(profileData).forEach((key) => {
+          $locally.setItem(key, profileData[key]);
+        });
+      }
     })
     .catch((error) => {
       console.log(error);
