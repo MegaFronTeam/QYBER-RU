@@ -4,9 +4,13 @@
       <div class="template template--header">
         <div class="btn-wrap template-wrap">
           <Button @click="active = 0" :class="active === 0 ? 'active' : ''"> Мой профиль </Button>
-          <Button v-if="false" @click="active = 1" :class="active === 1 ? 'active' : ''">
+          <Button
+            v-if="teamsArr.length > 0"
+            @click="active = 1"
+            :class="active === 1 ? 'active' : ''"
+          >
             Мои команды
-            <Badge value="4"></Badge>
+            <Badge :value="teamsArr.length"></Badge>
           </Button>
         </div>
       </div>
@@ -67,10 +71,10 @@
                     <InputGroup>
                       <label>Пол</label>
                       <Dropdown
-                        v-model="selectedGender"
-                        :options="profileData.user_gender"
+                        v-model="profileData.user_gender"
+                        :options="genders"
                         optionLabel="name"
-                        placeholder="Выберите пол"
+                        :placeholder="profileData.user_gender"
                       />
                     </InputGroup>
                     <InputGroup>
@@ -166,9 +170,9 @@
               </div>
             </div>
           </TabPanel>
-          <TabPanel v-if="false">
+          <TabPanel v-if="teamsArr.length > 0">
             <h3>Мои команды</h3>
-            <DataTable :value="products">
+            <DataTable :value="teamsArr">
               <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
                 field="nickname"
@@ -192,12 +196,12 @@
                 </template>
                 <template #body="slotProps">
                   <div class="table-wrap">
-                    <NuxtImg :src="`/img/${slotProps.data.nickname.avatar}`" alt="Avatar" />
-                    <span>{{ slotProps.data.nickname.text }}</span>
+                    <!-- <NuxtImg :src="`/img/${slotProps.data.nickname.avatar}`" alt="Avatar" /> -->
+                    <span>{{ slotProps.data.post_title }}</span>
                   </div>
                 </template>
               </Column>
-              <Column
+              <!-- <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
                 field="game"
                 header="Дисциплина"
@@ -253,7 +257,7 @@
                     :value="slotProps.data.league.label"
                   />
                 </template>
-              </Column>
+              </Column> -->
               <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
                 field="playersCount"
@@ -276,7 +280,7 @@
                   </svg>
                 </template>
                 <template #body="slotProps">
-                  <span class="small-text">{{ slotProps.data.playersCount }}</span>
+                  <span class="small-text">{{ slotProps.data.members.length }}</span>
                 </template>
               </Column>
               <Column
@@ -302,9 +306,9 @@
                 </template>
                 <template #body="slotProps">
                   <div class="d-flex align-items-center">
-                    <span class="small-text">{{ slotProps.data.role }}</span>
+                    <span class="small-text">{{ teamRole }}</span>
                     <Button
-                      v-if="slotProps.data.role === 'Капитан'"
+                      v-if="teamRole === 'Капитан'"
                       label="Управлять"
                       class="btn-sm ms-auto"
                     />
@@ -316,7 +320,7 @@
           </TabPanel>
         </TabView>
       </div>
-      <div v-if="active === 1 && false" class="template template--footer">
+      <div v-if="active === 1 && teamIDs.length > 0" class="template template--footer">
         <Paginator
           :rows="rowsPerPage[0]"
           :totalRecords="totalRecords"
@@ -341,6 +345,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import auth from '~/services/auth';
+import { getMyTeams, getTeam } from '~/services/team';
 const { $locally } = useNuxtApp();
 const props = defineProps({
   profileData: {
@@ -351,9 +356,10 @@ const props = defineProps({
 
 const { profileData } = props;
 
-console.log(profileData);
+// console.log(profileData);
+// console.log(profileData.user_gender);
 
-const active = ref(0);
+const active = ref(1);
 const products = ref([
   {
     nickname: {
@@ -396,28 +402,6 @@ const genders = ref([
   { name: 'Женский', code: 'Female' },
 ]);
 
-// const userData = ref(profileData);
-
-// Object.keys(profileData).forEach((key) => {
-// if ($locally.getItem(key)) {
-//   userData.value[key] = $locally.getItem(key);
-// }
-// });
-
-// console.log(userData);
-
-// const textValue = ref(profileData.user_nicename);
-// const emailValue = ref(profileData.user_email);
-// const nameValue = ref(profileData.display_name);
-// const telValue = ref(profileData.user_phone);
-// const date = ref(profileData.user_birthday);
-// const selectedGender = ref(profileData.user_gender);
-// const telegramValue = ref(profileData.user_telegram);
-// const cityValue = ref(profileData.user_city);
-// const schoolValue = ref(profileData.user_educational_institution);
-// const companyValue = ref(profileData.user_company);
-// const INNValue = ref(profileData.user_inn);
-
 const submitProfileData = (event) => {
   event.preventDefault();
 
@@ -427,7 +411,12 @@ const submitProfileData = (event) => {
       console.log(response);
       if (response) {
         Object.keys(profileData).forEach((key) => {
-          $locally.setItem(key, profileData[key]);
+          if (key == 'user_gender') {
+            // console.log(profileData[key]);
+            $locally.setItem(key, profileData[key].name);
+          } else {
+            $locally.setItem(key, profileData[key]);
+          }
         });
       }
     })
@@ -458,6 +447,30 @@ const submitNewPassword = (event) => {
       console.log(error);
     });
 };
+
+// Team
+const teamIDs = ref([]);
+const teamsArr = ref([]);
+const teamRole = ref([]);
+onMounted(() => {
+  getMyTeams()
+    .then((response) => {
+      response.forEach((item) => {
+        // teamIDs.value.push(item.ID);
+        getTeam(item.ID).then((response) => {
+          teamsArr.value.push(response);
+          teamsArr.value.map((item) => {
+            console.log(item);
+            item.members.filter((member) => member.id === 18);
+          });
+          // console.log(teamsArr.value);
+        });
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 </script>
 
 <style scoped lang="scss">

@@ -67,7 +67,7 @@ class Auth {
   async updateMyProfileData(data) {
     const API_KEY = localStorage.getItem('token');
     const email = localStorage.getItem('user_email');
-    console.log(data);
+    // console.log(data);
     try {
       const response = await axios.post(`${BASE_URL}/profile/v1/update`, data, {
         headers: {

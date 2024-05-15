@@ -1,13 +1,18 @@
 <template>
   <div>
     <div class="container head-messages">
-
-      <Message severity="warn" :closable="false" >
-        <div style="margin-block: .3rem;">
-          Для того чтобы пользоваться сервисом и участвовать в турнирах вам необходимо пройти аккредитацию.
+      <Message severity="warn" :closable="false">
+        <div style="margin-block: 0.3rem">
+          Для того чтобы пользоваться сервисом и участвовать в турнирах вам необходимо пройти
+          аккредитацию.
         </div>
 
-        <Button class="ms-auto btn-sm p-button-outlined" outlined="" type="button" label="Аккредитация" /> 
+        <Button
+          class="ms-auto btn-sm p-button-outlined"
+          outlined=""
+          type="button"
+          label="Аккредитация"
+        />
       </Message>
     </div>
     <ProfileHead :breadcrumbArr="[{ label: 'Личный кабинет' }]">
@@ -35,39 +40,22 @@ import { ref, onMounted } from 'vue';
 const { $locally } = useNuxtApp();
 import Auth from '@/services/auth';
 
-
-
-
 const userData = ref({
   ID: '',
   user_login: '',
-
   user_email: '',
-
   user_registered: '',
-
   user_nicename: '',
-
   display_name: '',
-
   user_avatar: '',
-
   user_phone: '',
-
   user_birthday: '',
-
   user_gender: '',
-
   user_telegram: '',
-
   user_city: '',
-
   user_educational_institution: '',
-
   user_company: '',
-
   user_inn: '',
-
   user_verification: '',
 });
 
@@ -78,7 +66,7 @@ Object.keys(userData.value).forEach((key) => {
 });
 onMounted(() => {
   Auth.getMyProfileData().then((response) => {
-    console.log(response);
+    // console.log(response);
 
     Object.keys(userData.value).forEach((key) => {
       if ($locally.getItem(key) !== response[key]) {
@@ -94,10 +82,9 @@ onMounted(() => {
   });
 });
 </script>
-<style lang="scss" >
-.head-messages{
-
-  .p-message-warn .p-message-text{
+<style lang="scss">
+.head-messages {
+  .p-message-warn .p-message-text {
     display: flex;
     align-items: center;
     justify-content: space-between;
