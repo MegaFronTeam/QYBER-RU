@@ -1,9 +1,8 @@
 import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-const { $locally } = useNuxtApp();
 
 class Auth {
-  async login(email, password, redirect = '/') {
+  async login(email, password) {
     try {
       const response = await axios.post(
         `${BASE_URL}/auth/v1/login`,

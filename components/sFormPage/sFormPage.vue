@@ -180,10 +180,8 @@
           </div>
           <div class="sFormPage__title h1">{{ title }}</div>
           <div class="sFormPage__text" v-if="text" v-html="text"></div>
-        </div>
-        <form  @submit.prevent="submit">
-          <slot></slot>
-        </form>
+        </div> 
+          <slot></slot> 
         </div>
       <div class="sFormPage__footer">{{ copyRight }}</div>
     </div>

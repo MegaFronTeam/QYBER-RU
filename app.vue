@@ -33,49 +33,55 @@ import { onMounted } from 'vue';
 const {$locally} = useNuxtApp();
 const router = useRouter();
 
+const localStorageObj = ref({
+  isAuth: $locally.getItem('token'),
+  theme: $locally.getItem('theme'),
+  email:  $locally.getItem('email'),
+});
 
+const  loginPages = [
+  'login',
+  'registration',
+  'forgot-password',
+  'reset-password',
+  'confirm-email',
+  'confirm-phone',
+  'confirm-code',
+  'confirm-success',
+  'confirm-error',
+]
 
-router.beforeEach((to) => {
-  const  loginPages = [
-    'login',
-    'registration',
-    'forgot-password',
-    'reset-password',
-    'confirm-email',
-    'confirm-phone',
-    'confirm-code',
-    'confirm-success',
-    'confirm-error',
-  ]
+const profilePages = [
+  'my-profile',
+  'profile-edit',
+  'profile-password',
+  'profile-contacts',
+  'profile-contacts-edit',
+  'profile-contacts-add',
+  'profile-contacts-delete',
+  'profile-contacts-success',
+  'profile-contacts-error',
+]
+
+onMounted(() => { 
   
-  const profilePages = [
-    'myProfile',
-    'profile-edit',
-    'profile-password',
-    'profile-contacts',
-    'profile-contacts-edit',
-    'profile-contacts-add',
-    'profile-contacts-delete',
-    'profile-contacts-success',
-    'profile-contacts-error',
-  ]
-  const isAuth = $locally.getItem('token');
-  console.log(to.name);
-  if (isAuth) { 
-    if (loginPages.includes(to.name)) {
-      return '/'
+  router.beforeEach((to) => {
+    console.log(to.name);
+    localStorageObj.value.isAuth = $locally.getItem('token');
+    localStorageObj.value.email = $locally.getItem('email');
+    if (localStorageObj.value.isAuth && localStorageObj.value.email) { 
+      if (loginPages.includes(to.name)) {
+        return '/'
+      }
+    } else {
+      if (profilePages.includes(to.name)) {
+        return '/login'
+      }
     }
-  } else {
-    if (profilePages.includes(to.name)) {
-      return '/login'
-    }
-  }
-})
-
-
-onMounted(() => {
-  const { $locally } = useNuxtApp();
-  if ($locally.getItem('theme') === 'light-theme') {
+  })
+  
+  localStorageObj.value.theme = $locally.getItem('theme');
+  if (localStorageObj.value.theme === 'light-theme') {
     document.documentElement.setAttribute('data-theme', 'light-theme');
   } else {
     document.documentElement.setAttribute('data-theme', 'dark-theme');
