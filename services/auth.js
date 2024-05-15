@@ -63,6 +63,23 @@ class Auth {
       return Promise.reject(error);
     }
   }
+
+  // async updateMyProfileData() {
+  //   const API_KEY = localStorage.getItem('token');
+  //   const email = localStorage.getItem('user_email');
+
+  //   try {
+  //     const response = await axios.get(`${BASE_URL}/profile/v1/my`, {
+  //       headers: {
+  //         Authorization: 'Basic ' + btoa(`${email}:${API_KEY}`),
+  //       },
+  //     });
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error(error);
+  //     return Promise.reject(error);
+  //   }
+  // }
 }
 
 export default new Auth();

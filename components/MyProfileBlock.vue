@@ -330,6 +330,17 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
+const props = defineProps({
+  profileData: {
+    type: Object,
+    required: false,
+  },
+});
+
+const { profileData } = props;
+
+console.log(profileData);
+
 const active = ref(0);
 const products = ref([
   {
@@ -373,17 +384,17 @@ const genders = ref([
   { name: 'Женский', code: 'Female' },
 ]);
 
-const textValue = ref('mihailivanov');
-const emailValue = ref('mihailivanov@mail.ru');
-const nameValue = ref('Михаил Иванов');
-const telValue = ref('+7 (939) 299-30-30');
-const date = ref();
-const selectedGender = ref();
-const telegramValue = ref('@user214');
-const cityValue = ref('Самара');
-const schoolValue = ref('СГСПУ');
-const companyValue = ref(' ООО Датекс Софт');
-const INNValue = ref('7727563778');
+const textValue = ref(profileData.user_nicename);
+const emailValue = ref(profileData.user_email);
+const nameValue = ref(profileData.display_name);
+const telValue = ref(profileData.user_phone);
+const date = ref(profileData.user_birthday);
+const selectedGender = ref(profileData.user_gender);
+const telegramValue = ref(profileData.user_telegram);
+const cityValue = ref(profileData.user_city);
+const schoolValue = ref(profileData.user_educational_institution);
+const companyValue = ref(profileData.user_company);
+const INNValue = ref(profileData.user_inn);
 
 // Pass
 const currentPassword = ref(null);

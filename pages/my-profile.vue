@@ -16,7 +16,7 @@
         </div>
       </div>
     </ProfileHead>
-    <MyProfileBlock />
+    <MyProfileBlock :profileData="userData" />
   </div>
 </template>
 
@@ -57,43 +57,22 @@ const userData = ref({
 
   user_verification: '',
 });
-// const profileData = ref();
-Auth.getMyProfileData().then((response) => {
-  // data.value = response;
-  console.log(response);
-  // userData.value.user_login = response.user_login;
-  // userData.value.nickname = response.user_nicename;
-  Object.keys(userData.value).forEach((key) => {
-    if (!$locally.getItem(key)) {
-      $locally.setItem(key, response[key]);
-    }
-    userData.value[key] = $locally.getItem(key, response[key]);
+
+Object.keys(userData.value).forEach((key) => {
+  if ($locally.getItem(key)) {
+    userData.value[key] = $locally.getItem(key);
+  }
+});
+onMounted(() => {
+  Auth.getMyProfileData().then((response) => {
+    // console.log(response);
+
+    Object.keys(userData.value).forEach((key) => {
+      if (!$locally.getItem(key)) {
+        $locally.setItem(key, response[key]);
+        userData.value[key] = response[key];
+      }
+    });
   });
 });
-
-// const BASE_URL = import.meta.env.VITE_BASE_URL;
-// const API_KEY = ref($locally.getItem('token')).value;
-// const email = 'janis.paberzs18@gmail.com';
-
-// console.log(API_KEY);
-
-// const myHeaders = new Headers();
-// const encodeToken = btoa(`${email}:${API_KEY}`);
-
-// myHeaders.append('Authorization', `Basic ${encodeToken}`);
-
-// const requestOptions = {
-//   'Content-Type': 'application/json',
-//   method: 'GET',
-//   headers: myHeaders,
-//   redirect: 'follow',
-// };
-
-// const { data } = await useFetch(`${BASE_URL}/profile/v1/my`, requestOptions);
-// console.log(data);
-// // onMounted(() => {
-// // });
-// const nickname = ref(data._rawValue.user_nicename);
-
-// console.log(nickname.value);
 </script>
