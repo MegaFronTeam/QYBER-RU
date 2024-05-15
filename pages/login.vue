@@ -47,8 +47,8 @@ definePageMeta({
 });
 import { ref } from 'vue';
 const dataForm = ref({
-  email: 'wol1414@gmail.com',
-  password: 'Qwerty1414;',
+  email: '',
+  password: '',
   agreement: true,
 });
 const errorsForm = ref({
@@ -56,6 +56,7 @@ const errorsForm = ref({
   password: '',
   passwordConfirm: '',
 });
+
 const params = {
   title: 'Авторизация',
   // text: 'E-nter your credentials to access your account',
