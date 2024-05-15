@@ -3,7 +3,7 @@
     <div class="container head-messages">
       <Acredition v-if="userData.user_verification === false" />
     </div>
-    <ProfileHead :breadcrumbArr="[{ label: 'Личный кабинет' }]" :user_nicename="userData.user_nicename" >
+    <ProfileHead :breadcrumbArr="[{ label: 'Личный кабинет' }]" :profileData="userData" >
       <h1 :class="userData.user_verification == true ? 'verifired' : ''">
         {{ userData.user_nicename }}
       </h1>
@@ -64,31 +64,39 @@ const userData = ref({
   user_verification: '',
 });
 
-const date = new Date('2024-05-13 19:22:53');
-const options = { day: 'numeric', month: 'long', year: 'numeric' };
-const user_registered = new Intl.DateTimeFormat('ru-RU', options).format(date).split(' г.')[0];
+const user_registered = ref('');
+
+
+
 
 Object.keys(userData.value).forEach((key) => {
   if ($locally.getItem(key)) {
     userData.value[key] = $locally.getItem(key);
   }
 });
+if($locally.getItem('user_registered')){
+  const date = new Date($locally.getItem('user_registered'));
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  user_registered.value = new Intl.DateTimeFormat('ru-RU', options).format(date).split(' г.')[0];
+}
+
 onMounted(() => {
   Auth.getMyProfileData().then((response) => {
-    console.log(response);
 
     Object.keys(userData.value).forEach((key) => {
-      if ($locally.getItem(key) !== response[key]) {
-        $locally.setItem(key, response[key]);
-        userData.value[key] = response[key];
-        // userData.value[key] = response[key];
-      }
       if (!$locally.getItem(key) || $locally.getItem(key) != response[key]){
         $locally.setItem(key, response[key]);
         userData.value[key] = response[key];
       }
     });
+    if( !user_registered.value) {
+      const date = new Date(response.user_registered);
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      user_registered.value = new Intl.DateTimeFormat('ru-RU', options).format(date).split(' г.')[0];
+    }
   });
+
+
 });
 </script>
 <style lang="scss" >

@@ -5,6 +5,10 @@
 </template>
 
 <script setup>
+useSeoMeta({
+  favicon: '/favicon.svg',
+})
+
 definePageMeta({
   colorMode: 'light',
 })
