@@ -4,7 +4,7 @@
       <div class="template template--header">
         <div class="btn-wrap template-wrap">
           <Button @click="active = 0" :class="active === 0 ? 'active' : ''"> Мой профиль </Button>
-          <Button @click="active = 1" :class="active === 1 ? 'active' : ''">
+          <Button v-if="false" @click="active = 1" :class="active === 1 ? 'active' : ''">
             Мои команды
             <Badge value="4"></Badge>
           </Button>
@@ -18,7 +18,7 @@
               <div class="col">
                 <div class="sMyProfileBlock__head">Персональная информация</div>
                 <div class="form-wrap">
-                  <form>
+                  <form @submit="submitProfileData">
                     <InputGroup>
                       <label for="name">Никнейм</label>
                       <InputText
@@ -115,7 +115,7 @@
               <div class="col">
                 <div class="sMyProfileBlock__head">Сменить пароль</div>
                 <div class="form-wrap">
-                  <form>
+                  <form @submit="submitNewPassword">
                     <InputGroup>
                       <label for="password">Текущий пароль</label>
                       <Password
@@ -125,6 +125,7 @@
                         placeholder="Введите текущий пароль"
                         :feedback="false"
                         toggleMask
+                        required
                       />
                     </InputGroup>
                     <InputGroup>
@@ -136,6 +137,7 @@
                         placeholder="Введите новый пароль"
                         :feedback="false"
                         toggleMask
+                        required
                       />
                     </InputGroup>
                     <InputGroup>
@@ -147,15 +149,16 @@
                         placeholder="Повторите новый пароль"
                         :feedback="false"
                         toggleMask
+                        required
                       />
                     </InputGroup>
-                    <Button label="Сохранить изменения" disabled />
+                    <Button type="submit" label="Сохранить изменения" />
                   </form>
                 </div>
               </div>
             </div>
           </TabPanel>
-          <TabPanel>
+          <TabPanel v-if="false">
             <h3>Мои команды</h3>
             <DataTable :value="products">
               <Column
@@ -305,7 +308,7 @@
           </TabPanel>
         </TabView>
       </div>
-      <div v-if="active === 1" class="template template--footer">
+      <div v-if="active === 1 && false" class="template template--footer">
         <Paginator
           :rows="rowsPerPage[0]"
           :totalRecords="totalRecords"
@@ -329,7 +332,8 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-
+import auth from '~/services/auth';
+const { $locally } = useNuxtApp();
 const props = defineProps({
   profileData: {
     type: Object,
@@ -396,10 +400,54 @@ const schoolValue = ref(profileData.user_educational_institution);
 const companyValue = ref(profileData.user_company);
 const INNValue = ref(profileData.user_inn);
 
+const submitProfileData = (event) => {
+  event.preventDefault();
+
+  auth
+    .updateMyProfileData({
+      first_name: nameValue.value.split(' ')[0],
+      last_name: nameValue.value.split(' ')[1],
+      email: emailValue.value,
+      display_name: textValue.value,
+      phone: telValue.value,
+      birthday: date.value,
+      gender: selectedGender.value.name,
+      telegram: telegramValue.value,
+      city: cityValue.value,
+      educational_institution: schoolValue.value,
+      company: companyValue.value,
+      inn: INNValue.value,
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 // Pass
 const currentPassword = ref(null);
 const newPassword = ref(null);
 const confrimNewPassword = ref(null);
+
+const submitNewPassword = (event) => {
+  event.preventDefault();
+
+  auth
+    .updatePassword({
+      current_password: currentPassword.value,
+      new_password: newPassword.value,
+      repeat_password: confrimNewPassword.value,
+    })
+    .then((response) => {
+      console.log(response);
+      $locally.setItem('token', response[0]);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 </script>
 
 <style scoped lang="scss">

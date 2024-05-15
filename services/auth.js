@@ -64,22 +64,39 @@ class Auth {
     }
   }
 
-  // async updateMyProfileData() {
-  //   const API_KEY = localStorage.getItem('token');
-  //   const email = localStorage.getItem('user_email');
+  async updateMyProfileData(data) {
+    const API_KEY = localStorage.getItem('token');
+    const email = localStorage.getItem('user_email');
+    console.log(data);
+    try {
+      const response = await axios.post(`${BASE_URL}/profile/v1/update`, data, {
+        headers: {
+          Authorization: 'Basic ' + btoa(`${email}:${API_KEY}`),
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  }
 
-  //   try {
-  //     const response = await axios.get(`${BASE_URL}/profile/v1/my`, {
-  //       headers: {
-  //         Authorization: 'Basic ' + btoa(`${email}:${API_KEY}`),
-  //       },
-  //     });
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error(error);
-  //     return Promise.reject(error);
-  //   }
-  // }
+  async updatePassword(data) {
+    const API_KEY = localStorage.getItem('token');
+    const email = localStorage.getItem('user_email');
+
+    try {
+      const response = await axios.post(`${BASE_URL}/profile/v1/update-password`, data, {
+        headers: {
+          Authorization: 'Basic ' + btoa(`${email}:${API_KEY}`),
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  }
 }
 
 export default new Auth();
