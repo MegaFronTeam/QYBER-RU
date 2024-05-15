@@ -306,9 +306,9 @@
                 </template>
                 <template #body="slotProps">
                   <div class="d-flex align-items-center">
-                    <span class="small-text">{{ teamRole }}</span>
+                    <span class="small-text">{{ slotProps.data.role }}</span>
                     <Button
-                      v-if="teamRole === 'Капитан'"
+                      v-if="slotProps.data.role === 'Капитан'"
                       label="Управлять"
                       class="btn-sm ms-auto"
                     />
@@ -320,7 +320,7 @@
           </TabPanel>
         </TabView>
       </div>
-      <div v-if="active === 1 && teamIDs.length > 0" class="template template--footer">
+      <div v-if="active === 1 && teamsArr.length > 0" class="template template--footer">
         <Paginator
           :rows="rowsPerPage[0]"
           :totalRecords="totalRecords"
@@ -449,20 +449,20 @@ const submitNewPassword = (event) => {
 };
 
 // Team
-const teamIDs = ref([]);
 const teamsArr = ref([]);
-const teamRole = ref([]);
 onMounted(() => {
   getMyTeams()
     .then((response) => {
-      response.forEach((item) => {
-        // teamIDs.value.push(item.ID);
-        getTeam(item.ID).then((response) => {
-          teamsArr.value.push(response);
-          teamsArr.value.map((item) => {
-            console.log(item);
-            item.members.filter((member) => member.id === 18);
+      const idArr = response.map((item) => item.ID);
+      // console.log(id);
+      idArr.forEach((id) => {
+        getTeam(id).then((response) => {
+          response.members.forEach((member) => {
+            if (+member.id === +profileData.ID) {
+              response.role = member.role;
+            }
           });
+          teamsArr.value.push(response);
           // console.log(teamsArr.value);
         });
       });
@@ -470,6 +470,7 @@ onMounted(() => {
     .catch((error) => {
       console.log(error);
     });
+  // console.log(teamsArr.value);
 });
 </script>
 
