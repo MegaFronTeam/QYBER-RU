@@ -773,35 +773,35 @@ p {
   margin-left: auto;
 }
 
-.auth {
-  display: flex;
-  min-height: 100vh;
-  width: 100%;
-  .reg {
-    flex-grow: 1;
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    h1 {
-      line-height: 1.12;
-      letter-spacing: rem(-1.92);
-      margin-bottom: rem(18);
-      text-align: center;
-      @include media-breakpoint-up(lg) {
-        margin-bottom: rem(24);
-      }
-    }
-  }
-  .bg {
-    flex-grow: 1;
-    width: 50%;
-    display: none;
-    @include media-breakpoint-up(lg) {
-      display: block;
-    }
-  }
-}
+// .auth {
+//   display: flex;
+//   min-height: 100vh;
+//   width: 100%;
+//   .reg {
+//     flex-grow: 1;
+//     width: 50%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     h1 {
+//       line-height: 1.12;
+//       letter-spacing: rem(-1.92);
+//       margin-bottom: rem(18);
+//       text-align: center;
+//       @include media-breakpoint-up(lg) {
+//         margin-bottom: rem(24);
+//       }
+//     }
+//   }
+//   .bg {
+//     flex-grow: 1;
+//     width: 50%;
+//     display: none;
+//     @include media-breakpoint-up(lg) {
+//       display: block;
+//     }
+//   }
+// }
 
 .p-datepicker {
   width: rem(300);

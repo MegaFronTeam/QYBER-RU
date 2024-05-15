@@ -1,5 +1,5 @@
 <template>
-  <NuxtLayout>
+  <NuxtLayout dir="routing/middleware">
     <NuxtPage />
   </NuxtLayout>
 </template>
@@ -31,53 +31,17 @@
 import { onMounted } from 'vue';
 
 const { $locally } = useNuxtApp();
-const router = useRouter();
+// const router = useRouter();
 
+if (process.client) {
 const localStorageObj = ref({
-  isAuth: $locally.getItem('token'),
   theme: $locally.getItem('theme'),
-  email: $locally.getItem('email'),
+//   isAuth: $locally.getItem('token'),
+//   email: $locally.getItem('email'),
 });
 
-const loginPages = [
-  'login',
-  'registration',
-  'forgot-password',
-  'reset-password',
-  'confirm-email',
-  'confirm-phone',
-  'confirm-code',
-  'confirm-success',
-  'confirm-error',
-];
-
-const profilePages = [
-  'my-profile',
-  'profile-edit',
-  'profile-password',
-  'profile-contacts',
-  'profile-contacts-edit',
-  'profile-contacts-add',
-  'profile-contacts-delete',
-  'profile-contacts-success',
-  'profile-contacts-error',
-];
 
 onMounted(() => {
-  router.beforeEach((to) => {
-    console.log(to.name);
-    localStorageObj.value.isAuth = $locally.getItem('token');
-    localStorageObj.value.email = $locally.getItem('user_email');
-    if (localStorageObj.value.isAuth && localStorageObj.value.email) {
-      if (loginPages.includes(to.name)) {
-        return '/';
-      }
-    } else {
-      if (profilePages.includes(to.name)) {
-        return '/login';
-      }
-    }
-  });
 
   localStorageObj.value.theme = $locally.getItem('theme');
   if (localStorageObj.value.theme === 'light-theme') {
@@ -86,4 +50,5 @@ onMounted(() => {
     document.documentElement.setAttribute('data-theme', 'dark-theme');
   }
 });
+}
 </script>
