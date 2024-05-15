@@ -16,7 +16,7 @@ $messageIconFontSize: 1.5rem;
 
 /// Font size of a message text
 /// @group message
-$messageTextFontSize: 1rem;
+$messageTextFontSize: .8rem;
 
 /// Font weight of a message text
 /// @group message
@@ -112,7 +112,7 @@ $successMessageIconColor: #ffffff;
 
 /// Background of a warning message
 /// @group message
-$warningMessageBg: #FFB300;
+$warningMessageBg: var(--bg-caution-subdued, rgba(219, 175, 79, 0.12));
 
 /// Border of a warning message
 /// @group message
@@ -124,7 +124,7 @@ $warningMessageTextColor: $textColor;
 
 /// Icon color of a warning message
 /// @group message
-$warningMessageIconColor: $textColor;
+$warningMessageIconColor: #DBAF4F;
 
 /// Background of an error message
 /// @group message

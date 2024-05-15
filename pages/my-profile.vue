@@ -1,5 +1,15 @@
 <template>
   <div>
+    <div class="container head-messages">
+
+      <Message severity="warn" :closable="false" >
+        <div style="margin-block: .3rem;">
+          Для того чтобы пользоваться сервисом и участвовать в турнирах вам необходимо пройти аккредитацию.
+        </div>
+
+        <Button class="ms-auto btn-sm p-button-outlined" outlined="" type="button" label="Аккредитация" /> 
+      </Message>
+    </div>
     <ProfileHead :breadcrumbArr="[{ label: 'Личный кабинет' }]">
       <h1 :class="userData.user_verification === true ? 'verifired' : ''">
         {{ userData.user_nicename }}
@@ -84,3 +94,15 @@ onMounted(() => {
   });
 });
 </script>
+<style lang="scss" >
+.head-messages{
+
+  .p-message-warn .p-message-text{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+    flex-wrap: wrap;
+  }
+}
+</style>
