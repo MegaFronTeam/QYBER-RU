@@ -1,5 +1,5 @@
-<template >
-  <NuxtLayout dir="routing/middleware" >
+<template>
+  <NuxtLayout dir="routing/middleware">
     <NuxtPage />
   </NuxtLayout>
 </template>
@@ -8,9 +8,8 @@
 
 definePageMeta({
   colorMode: 'light',
-})
-
-</script> 
+});
+</script>
 
 <style>
 @import './assets/scss/normalize.scss';

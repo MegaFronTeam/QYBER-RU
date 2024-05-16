@@ -86,6 +86,26 @@ class Team {
       return Promise.reject(error);
     }
   }
+
+  async deleteTeamMember(TEAM_ID, USER_ID) {
+    const { token, email } = this.localData;
+    console.log(TEAM_ID, USER_ID);
+    try {
+      const response = await axios.delete(
+        `${BASE_URL}/teams/v1/team/${TEAM_ID}/member/${USER_ID}`,
+        {
+          headers: {
+            Authorization: 'Basic ' + btoa(`${email}:${token}`),
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  }
 }
 
 export default new Team();

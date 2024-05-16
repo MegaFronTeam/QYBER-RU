@@ -23,11 +23,17 @@
       margin-bottom: rem(24);
     }
   }
+  &__head-row {
+    margin-bottom: rem(18);
+  }
   .template {
     overflow-x: auto;
     overflow-y: hidden;
     .btn-wrap {
       min-width: max-content;
+    }
+    h3 {
+      margin-bottom: 0;
     }
   }
   .form-wrap {
@@ -63,26 +69,26 @@
     table {
       th {
         &:nth-child(1) {
-          width: rem(168);
-          @include media-breakpoint-up(md) {
+          min-width: rem(168);
+          @include media-breakpoint-up(lg) {
             width: rem(280);
           }
         }
         &:nth-child(2) {
-          width: rem(168);
-          @include media-breakpoint-up(md) {
+          min-width: rem(168);
+          @include media-breakpoint-up(lg) {
             width: rem(280);
           }
         }
         &:nth-child(3) {
-          width: rem(168);
-          @include media-breakpoint-up(md) {
+          min-width: rem(168);
+          @include media-breakpoint-up(lg) {
             width: rem(280);
           }
         }
         &:nth-child(4) {
-          width: rem(168);
-          @include media-breakpoint-up(md) {
+          min-width: rem(168);
+          @include media-breakpoint-up(lg) {
             width: rem(280);
           }
         }

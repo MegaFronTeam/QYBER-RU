@@ -1,6 +1,6 @@
 <template>
-  <sFormPage v-bind="params"> 
-    <form  @submit="submit">
+  <sFormPage v-bind="params">
+    <form @submit="submit">
       <InputGroup>
         <label for="email">Email</label>
         <InputText
@@ -35,7 +35,7 @@
         <small class="p-error" id="password-help">{{ errorsForm.password }}</small>
       </InputGroup>
 
-      <InputGroup  >
+      <InputGroup>
         <label for="password">Повторите пароль</label>
         <Password
           id="passwordConfirm"
@@ -50,56 +50,54 @@
 
       <AgreementForm :agreement="agreement" />
       <div class="mb-4 mt-4">
-        <Button type="submit"  :label="params.btnName" class="w-100 btn-lg" />
+        <Button type="submit" :label="params.btnName" class="w-100 btn-lg" />
       </div>
       <div class="mb-3 text-center" style="font-size: 14px">
-        Уже есть аккаунт? 
+        Уже есть аккаунт?
         <NuxtLink to="/login" class="text-primary">Войти</NuxtLink>
       </div>
     </form>
   </sFormPage>
 </template>
 
-<script setup> 
+<script setup>
 definePageMeta({
   layout: 'auth',
 });
 
 import Auth from '@/services/auth';
-const {$locally} = useNuxtApp();
+const { $locally } = useNuxtApp();
 const router = useRouter();
 
 const dataForm = ref({
   email: 'wol12414@gmail.com',
   password: 'Qwerty1414;',
   passwordConfirm: 'Qwerty1414;',
-  agreement: true
+  agreement: true,
 });
 const errorsForm = ref({
   email: '',
   // steamNick: '',
   password: '',
-  passwordConfirm: ''
+  passwordConfirm: '',
 });
 const params = {
   title: 'Регистрация',
   // text: 'Enter your credentials to access your account',
   bgImage: '/img/reg-bg-1.jpg',
-  btnName: 'Зарегистрироваться'
-}
+  btnName: 'Зарегистрироваться',
+};
 
-const submit = (event) => { 
+const submit = (event) => {
   event.preventDefault();
   Auth.singUp(dataForm.value.email, dataForm.value.password)
-  .then((response) => {
-    router.push('/login');
-    console.log(response);
-  }).catch((error) => {
-    console.log(error);
-  });
+    .then((response) => {
+      router.push('/login');
+      // console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   // console.log(data());
-}
-
-
-
+};
 </script>
