@@ -62,6 +62,7 @@ if ($locally.getItem('user_registered')) {
 
 onMounted(() => {
   Auth.getMyProfileData().then((response) => {
+    console.log(response);
     Object.keys(userData.value).forEach((key) => {
       if (!$locally.getItem(key) || $locally.getItem(key) != response[key]) {
         $locally.setItem(key, response[key]);
