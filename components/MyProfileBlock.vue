@@ -461,10 +461,10 @@ onMounted(() => {
   Team.getMyTeams()
     .then((response) => {
       const idArr = response.map((item) => item.ID);
-      // console.log(id);
+      console.log(response);
       idArr.forEach((id) => {
         Team.getTeam(id).then((response) => {
-          console.log(response);
+          // console.log(response);
           response.members.forEach((member) => {
             if (+member.id === +profileData.ID) {
               response.role = member.role;
@@ -478,7 +478,7 @@ onMounted(() => {
     .catch((error) => {
       console.log(error);
     });
-  // console.log(teamsArr.value);
+  console.log(teamsArr.value);
 });
 </script>
 
