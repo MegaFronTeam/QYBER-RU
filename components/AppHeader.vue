@@ -188,24 +188,30 @@
           </template>
         </Menubar>
         <InputSwitch @click="toggleTheme" v-model="checked" />
-        <Button class="header__btn-user d-lg-none" variant="primary">
-          <svg-icon name="user.svg" />
-        </Button> 
-          <NuxtLink to="/my-profile"  v-if="isAuthenticated">
-            
+        <template v-if="isAuthenticated">
+          <NuxtLink to="/my-profile"  >
+            <Button class="header__btn-user d-lg-none" variant="primary">
+              <svg-icon name="user.svg" />
+            </Button> 
             <Button class="header__btn d-none d-lg-flex" variant="primary">
-              <svg-icon name="rocket-lunch.svg" />
+              <svg-icon name="user.svg" />
               <span class="p-button-label">Кабинет</span>
             </Button>
           </NuxtLink> 
-        
-        <NuxtLink to="/login"  v-else>
-
+        </template>
+        <template v-else>
+          
+          <NuxtLink to="/login"   >
+            
+            <Button class="header__btn-user d-lg-none" variant="primary">
+              <svg-icon name="rocket-lunch.svg" />
+            </Button> 
           <Button class="header__btn d-none d-lg-flex" variant="primary">
             <svg-icon name="rocket-lunch.svg" />
             <span class="p-button-label">Авторизация</span>
           </Button>
         </NuxtLink> 
+        </template>
 
       </div>
     </div>
