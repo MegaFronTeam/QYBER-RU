@@ -171,7 +171,14 @@
             </div>
           </TabPanel>
           <TabPanel v-if="teamsArr.length > 0">
-            <h3>Мои команды</h3>
+            <div class="row">
+              <div class="col">
+                <h3>Мои команды</h3>
+              </div>
+              <div class="col-auto">
+                <CreateTeam/>
+              </div>
+            </div>
             <DataTable :value="teamsArr">
               <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
@@ -320,7 +327,7 @@
           </TabPanel>
         </TabView>
       </div>
-      <div v-if="active === 1 && teamsArr.length > 0" class="template template--footer">
+      <!-- <div v-if="active === 1 && teamsArr.length > 0" class="template template--footer">
         <Paginator
           :rows="rowsPerPage[0]"
           :totalRecords="totalRecords"
@@ -337,7 +344,7 @@
             из {{ totalRecords }} данных
           </template>
         </Paginator>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
@@ -345,7 +352,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import auth from '~/services/auth';
-import { getMyTeams, getTeam } from '~/services/team';
+import Team from '~/services/team';
 const { $locally } = useNuxtApp();
 const props = defineProps({
   profileData: {
@@ -451,12 +458,13 @@ const submitNewPassword = (event) => {
 // Team
 const teamsArr = ref([]);
 onMounted(() => {
-  getMyTeams()
+  Team.getMyTeams()
     .then((response) => {
       const idArr = response.map((item) => item.ID);
       // console.log(id);
       idArr.forEach((id) => {
-        getTeam(id).then((response) => {
+        Team.getTeam(id).then((response) => {
+          console.log(response);
           response.members.forEach((member) => {
             if (+member.id === +profileData.ID) {
               response.role = member.role;

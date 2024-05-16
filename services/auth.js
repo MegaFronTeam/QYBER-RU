@@ -22,8 +22,8 @@ class Auth {
       const response = await axios.post(
         `${BASE_URL}/auth/v1/login`,
         {
-          email: email,
-          password: password,
+          email,
+          password,
         },
         {
           headers: {
@@ -44,8 +44,8 @@ class Auth {
       const response = await axios.post(
         `${BASE_URL}/auth/v1/signup`,
         {
-          email: email,
-          password: password,
+          email,
+          password,
         },
         {
           headers: {
