@@ -14,7 +14,7 @@
       <div class="template">
         <TabView v-model:activeIndex="active">
           <TabPanel>
-            <DataTable :value="products">
+            <DataTable :value="teamData.members">
               <Column
                 style="width: 33%"
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
@@ -39,8 +39,8 @@
                 </template>
                 <template #body="slotProps">
                   <div class="table-wrap">
-                    <NuxtImg :src="`/img/${slotProps.data.nickname.avatar}`" alt="Avatar" />
-                    <span>{{ slotProps.data.nickname.text }}</span>
+                    <!-- <NuxtImg :src="`/img/${slotProps.data.nickname.avatar}`" alt="Avatar" /> -->
+                    <span>{{ slotProps.data.user_nicename }}</span>
                   </div>
                 </template>
               </Column>
@@ -68,7 +68,7 @@
                 </template>
                 <template #body="slotProps">
                   <span class="small-text">
-                    {{ slotProps.data.name }}
+                    {{ slotProps.data.user_login }}
                   </span>
                 </template>
               </Column>
@@ -193,7 +193,7 @@
           </TabPanel>
         </TabView>
       </div>
-      <div class="template template--footer">
+      <!-- <div class="template template--footer">
         <Paginator
           :rows="rowsPerPage[0]"
           :totalRecords="totalRecords"
@@ -210,16 +210,24 @@
             из {{ totalRecords }} данных
           </template>
         </Paginator>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
 
 <script setup>
 // import Badge from 'primevue/badge';
-import { ref } from 'vue';
+import { ref, defineProps } from 'vue';
 
-const active = ref(1);
+const props = defineProps({
+  teamData: {
+    type: Object,
+    required: false,
+  },
+});
+
+const { teamData } = props;
+const active = ref(0);
 const products = ref([
   {
     nickname: {

@@ -13,9 +13,9 @@
       </div>
       <div class="template">
         <TabView v-model:activeIndex="active">
-          <TabPanel>
+          <TabPanel v-if="teamData.members.length > 0">
             <h3>Состав команды</h3>
-            <DataTable :value="products">
+            <DataTable :value="teamData.members">
               <Column
                 style="width: 30%"
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
@@ -40,8 +40,8 @@
                 </template>
                 <template #body="slotProps">
                   <div class="table-wrap">
-                    <NuxtImg :src="`/img/${slotProps.data.nickname.avatar}`" alt="Avatar" />
-                    <span>{{ slotProps.data.nickname.text }}</span>
+                    <!-- <NuxtImg :src="`/img/${slotProps.data.nickname.avatar}`" alt="Avatar" /> -->
+                    <span>{{ slotProps.data.user_nicename }}</span>
                   </div>
                 </template>
               </Column>
@@ -69,7 +69,7 @@
                 </template>
                 <template #body="slotProps">
                   <span class="small-text">
-                    {{ slotProps.data.name }}
+                    {{ slotProps.data.user_login }}
                   </span>
                 </template>
               </Column>
@@ -100,7 +100,13 @@
                     <span class="small-text">
                       {{ slotProps.data.role }}
                     </span>
-                    <Button severity="danger" outlined class="btn-sm ms-auto">Удалить</Button>
+                    <Button
+                      v-if="slotProps.data.role !== 'Капитан'"
+                      severity="danger"
+                      outlined
+                      class="btn-sm ms-auto"
+                      >Удалить</Button
+                    >
                   </div>
                 </template>
               </Column>
@@ -171,7 +177,7 @@
           <TabPanel> Content </TabPanel>
         </TabView>
       </div>
-      <div class="template template--footer">
+      <!-- <div class="template template--footer">
         <Paginator
           :rows="rowsPerPage[0]"
           :totalRecords="totalRecords"
@@ -188,26 +194,28 @@
             из {{ totalRecords }} данных
           </template>
         </Paginator>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
 
 <script setup>
-// import Badge from 'primevue/badge';
-import { ref } from 'vue';
+import { ref, defineProps, onMounted } from 'vue';
 
-const active = ref(1);
-const products = ref([
-  {
-    nickname: {
-      avatar: 'avatar-img-1.jpg',
-      text: 'Dando',
-    },
-    name: 'Константин Завгородний',
-    role: 'Игрок',
+const props = defineProps({
+  teamData: {
+    type: Object,
+    required: false,
   },
-]);
+});
+
+const { teamData } = props;
+
+const active = ref(0);
+// const test2 = ref(teamData);
+// const test = ref(teamData.members);
+// console.log(test2.value);
+
 const addNew = ref([
   {
     nickname: {
@@ -218,8 +226,12 @@ const addNew = ref([
   },
 ]);
 
-const totalRecords = ref(10);
-const rowsPerPage = ref([5, 10, 50, 100]);
+onMounted(() => {
+  // console.log(teamData);
+});
+
+// const totalRecords = ref(10);
+// const rowsPerPage = ref([5, 10, 50, 100]);
 </script>
 
 <style scoped lang="scss">
