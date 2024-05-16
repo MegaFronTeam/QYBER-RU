@@ -54,8 +54,9 @@
                   mode="basic"
                   name="logo"
                   id="logo" 
-                  url="/api/upload"
                   accept="image/*" 
+                  maxFileSize="5000000" 
+                  url="/api/upload"
                   @select="customBase64Uploader" 
                   chooseLabel="Загрузить аватар команды"
                 >
@@ -103,8 +104,7 @@ Team.getDisciplines()
 
 const leaguesOptions = ref([]);
 Team.getLeagues()
-  .then((response) => {
-    console.log(response);
+  .then((response) => { 
     leaguesOptions.value = response;
   })
   .catch((error) => {

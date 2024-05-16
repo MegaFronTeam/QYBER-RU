@@ -106,6 +106,23 @@ class Auth {
       return Promise.reject(error);
     }
   }
+
+  async setUserVerification(data) {
+    const { token, email } = this.localData;
+
+    try {
+      const response = await axios.post(`${BASE_URL}/profile/v1/verification`, data, {
+        headers: {
+          Authorization: 'Basic ' + btoa(`${email}:${token}`),
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  }
 }
 
 export default new Auth();

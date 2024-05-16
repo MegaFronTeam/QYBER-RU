@@ -15,6 +15,11 @@ export default defineNuxtPlugin(() => {
             return localStorage.setItem(item, value);
           }
         },
+        removeItem(item) {
+          if (process.client) {
+            return localStorage.removeItem(item);
+          }
+        }
       },
     },
   };

@@ -15,8 +15,22 @@
     flex: 0 0 auto;
   }
   &__btn {
+    @include media-breakpoint-down(lg){
+      width: rem(40);
+    height: rem(40);
+    padding: 0;
+    align-items: center;
+    justify-content: center;
     .icons {
-      margin-right: rem(10);
+      flex: 0 0 auto;
+      font-size: rem(16);
+    }
+    }
+    .icons {
+      @include media-breakpoint-up(lg){
+
+        margin-right: rem(10);
+      }
     }
   }
   .icons {

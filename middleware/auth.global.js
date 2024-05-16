@@ -29,12 +29,10 @@ export default defineNuxtRouteMiddleware(async (to) => {
       const isAuth = $locally.getItem('token');
       const user_email = $locally.getItem('user_email');
     if (isAuth && user_email) {
-      if (loginPages.includes(to.name)) {
-        console.log(1, isAuth, user_email); 
-        // return navigateTo('/');
+      if (loginPages.includes(to.name)) { 
+        return navigateTo('/');
       }
     } else {
-      console.log(2, isAuth, user_email); 
       if (profilePages.includes(to.name)) {
         return  navigateTo('/login');
       }
