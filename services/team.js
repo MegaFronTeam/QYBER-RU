@@ -77,7 +77,7 @@ class Team {
       const response = await axios.post(`${BASE_URL}/teams/v1/create`, data, {
         headers: {
           Authorization: 'Basic ' + btoa(`${email}:${token}`),
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
         },
       });
       return response.data;
