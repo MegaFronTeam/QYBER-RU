@@ -14,12 +14,12 @@
 
           <InputGroup>
             <label for="discipline">Дисциплина</label> 
-            <Dropdown v-model="discipline" :options="disciplineList" optionLabel="name" placeholder="Выбрать" class="w-full" />
+            <Dropdown v-model="discipline" :options="disciplineList" optionValue="slug" optionLabel="name" placeholder="Выбрать" class="w-full" />
           </InputGroup>
 
           <InputGroup class="select-team">
             <label for="leagues">Лига</label>
-            <SelectButton id="leagues" v-model="leagues" :options="leaguesOptions" aria-labelledby="basic" :allowEmpty="false"  />
+            <SelectButton id="leagues" v-model="leagues"  optionValue="slug" optionLabel="name" :options="leaguesOptions" aria-labelledby="basic" :allowEmpty="false"  />
           </InputGroup>
           
           <InputGroup>
@@ -49,7 +49,7 @@ import Team from '@/services/team';
 
 const name = ref();
 const isSend = ref(false);
-const discipline = ref();
+const discipline = ref([]);
 const disciplineList = ref([]);
 
 Team.getDisciplines()
@@ -59,9 +59,18 @@ Team.getDisciplines()
   .catch((error) => {
     console.log(error);
   });
+  
+  const leagues = ref([]);
+  const leaguesOptions = ref([]);
+  Team.getLeagues()
+  .then((response) => {
+    console.log(response);
+    leaguesOptions.value = response;
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
-const leagues = ref('Кибер Атланты');
-const leaguesOptions = ref(['Кибер Атланты', 'Кибер Таланты']);
 const customBase64Uploader = async (event) => {
     const file = event.files[0];
     const reader = new FileReader();
@@ -78,8 +87,10 @@ const customBase64Uploader = async (event) => {
 
 
 const submit = (event) => { 
+  
   event.preventDefault();
-  Team.createTeam({name, discipline, leagues})
+  console.log(name.value, discipline.value, leagues.value);
+  Team.createTeam({name: name.value, discipline: discipline.value, leagues: leagues.value })
   .then((response) => {
     isSend.value = true;
     console.log(response);
