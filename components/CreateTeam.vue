@@ -56,7 +56,7 @@
                   url="/api/upload"
                   accept="image/*"
                   customUpload
-                  @uploader="customBase64Uploader"
+                  @select="customBase64Uploader"
                   chooseLabel="Загрузить аватар команды"
                 >
                 </FileUpload>
@@ -83,6 +83,7 @@
 const visibleShow = ref(false);
 import Team from '@/services/team';
 
+const logo = ref('');
 const name = ref();
 const isSend = ref(false);
 const discipline = ref([]);
@@ -107,22 +108,51 @@ Team.getLeagues()
     console.log(error);
   });
 
+// const customBase64Uploader = async (event) => {
+//   const file = event.files[0];
+//   const reader = new FileReader();
+//   let base64data = '';
+//   let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
+
+//   reader.readAsDataURL(blob);
+
+//   reader.onloadend = function () {
+//     base64data = reader.result;
+//   };
+//   logo.value = base64data;
+//   console.log(base64data);
+// };
+
 const customBase64Uploader = async (event) => {
-  const file = event.files[0];
-  const reader = new FileReader();
-  let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
+  const files = event.files;
+  if (!files || files.length === 0) return;
 
-  reader.readAsDataURL(blob);
+  const file = files[0];
+  const base64data = await getBase64(file);
+  logo.value = base64data;
+  // logo.value = file.objectURL;
+  // console.log(logo.value);
+};
 
-  reader.onloadend = function () {
-    const base64data = reader.result;
-  };
+const getBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 };
 
 const submit = (event) => {
   event.preventDefault();
-  console.log(name.value, discipline.value, leagues.value);
-  Team.createTeam({ name: name.value, discipline: discipline.value, leagues: leagues.value })
+  console.log(name.value, discipline.value, leagues.value, logo.value);
+  Team.createTeam({
+    name: name.value,
+    discipline: discipline.value,
+    leagues: leagues.value,
+    logo: logo.value,
+  })
     .then((response) => {
       isSend.value = true;
       console.log(response);
