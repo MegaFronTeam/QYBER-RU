@@ -109,6 +109,7 @@
                       severity="danger"
                       outlined
                       class="btn-sm ms-auto"
+                      @click="deletePlayer(slotProps.data.id)"
                       >Удалить</Button
                     >
                   </div>
@@ -205,21 +206,22 @@
 
 <script setup>
 import { ref, defineProps, onMounted } from 'vue';
+import Team from '~/services/team';
 
 const props = defineProps({
   teamData: {
     type: Object,
     required: false,
   },
+  pageID: {
+    type: String,
+    required: false,
+  },
 });
 
-const { teamData } = props;
+const { teamData, pageID } = props;
 
 const active = ref(0);
-// const test2 = ref(teamData);
-// const test = ref(teamData.members);
-// console.log(test2.value);
-
 const addNew = ref([
   {
     nickname: {
@@ -229,6 +231,18 @@ const addNew = ref([
     name: 'Константин Завгородний',
   },
 ]);
+
+const deletePlayer = (USER_ID) => {
+  console.log(pageID, USER_ID);
+  Team.deleteTeamMember(pageID, USER_ID)
+    .then((response) => {
+      if (!response) return;
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 onMounted(() => {
   // console.log(teamData);

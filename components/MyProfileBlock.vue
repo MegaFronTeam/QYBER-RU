@@ -171,7 +171,7 @@
             </div>
           </TabPanel>
           <TabPanel v-if="teamsArr.length > 0">
-            <div class="row">
+            <div class="sMyProfileBlock__head-row row">
               <div class="col">
                 <h3>Мои команды</h3>
               </div>
@@ -203,12 +203,16 @@
                 </template>
                 <template #body="slotProps">
                   <div class="table-wrap">
-                    <!-- <NuxtImg :src="`/img/${slotProps.data.nickname.avatar}`" alt="Avatar" /> -->
+                    <NuxtImg
+                      v-if="slotProps.data.thumbnail_url"
+                      :src="`${slotProps.data.thumbnail_url}`"
+                      alt="Avatar"
+                    />
                     <span>{{ slotProps.data.post_title }}</span>
                   </div>
                 </template>
               </Column>
-              <!-- <Column
+              <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
                 field="game"
                 header="Дисциплина"
@@ -231,8 +235,8 @@
                 </template>
                 <template #body="slotProps">
                   <span class="p-badge p-badge-gray">
-                    <svg-icon :name="slotProps.data.game.icon" />
-                    {{ slotProps.data.game.label }}
+                    <!-- <svg-icon :name="slotProps.data.game.icon" /> -->
+                    {{ slotProps.data.discipline.name }}
                   </span>
                 </template>
               </Column>
@@ -259,12 +263,14 @@
                 </template>
                 <template #body="slotProps">
                   <Badge
-                    :severity="slotProps.data.league.severity"
+                    :severity="
+                      slotProps.data.leagues.name === 'Кибер таланты' ? 'secondary' : 'danger'
+                    "
                     class="p-badge-outline"
-                    :value="slotProps.data.league.label"
+                    :value="slotProps.data.leagues.name"
                   />
                 </template>
-              </Column> -->
+              </Column>
               <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
                 field="playersCount"
@@ -287,7 +293,7 @@
                   </svg>
                 </template>
                 <template #body="slotProps">
-                  <span class="small-text">{{ slotProps.data.members.length }}</span>
+                  <span class="small-text">{{ slotProps.data.count_members }}</span>
                 </template>
               </Column>
               <Column
@@ -313,13 +319,17 @@
                 </template>
                 <template #body="slotProps">
                   <div class="d-flex align-items-center">
-                    <span class="small-text">{{ slotProps.data.role }}</span>
-                    <Button
-                      v-if="slotProps.data.role === 'Капитан'"
-                      label="Управлять"
-                      class="btn-sm ms-auto"
-                    />
-                    <Button v-else severity="gray" label="Перейти" class="btn-sm ms-auto" />
+                    <span class="small-text" style="margin-right: 1rem">{{
+                      slotProps.data.post_author === profileData.ID ? 'Капитан' : 'Игрок'
+                    }}</span>
+                    <NuxtLink :to="`team/${slotProps.data.ID}`" class="ms-auto">
+                      <Button
+                        v-if="slotProps.data.post_author === profileData.ID"
+                        label="Управлять"
+                        class="btn-sm"
+                      />
+                      <Button v-else severity="gray" label="Перейти" class="btn-sm" />
+                    </NuxtLink>
                   </div>
                 </template>
               </Column>
@@ -362,48 +372,9 @@ const props = defineProps({
 });
 
 const { profileData } = props;
-
-// console.log(profileData);
-// console.log(profileData.user_gender);
-
 const active = ref(0);
-const products = ref([
-  {
-    nickname: {
-      avatar: 'avatar-img-1.jpg',
-      text: 'INTZ Genesis',
-    },
-    game: {
-      icon: 'dota.svg',
-      label: 'Dota 2',
-    },
-    league: {
-      severity: 'secondary',
-      label: 'Кибер Атланты',
-    },
-    playersCount: '5',
-    role: 'Капитан',
-  },
-  {
-    nickname: {
-      avatar: 'avatar-img-1.jpg',
-      text: 'Dando',
-    },
-    game: {
-      icon: 'csFilled.svg',
-      label: 'Counter Strike 2',
-    },
-    league: {
-      severity: 'danger',
-      label: 'Кибер Таланты',
-    },
-    playersCount: '5',
-    role: 'Игрок',
-  },
-]);
-
-const totalRecords = ref(10);
-const rowsPerPage = ref([5, 10, 50, 100]);
+// const totalRecords = ref(10);
+// const rowsPerPage = ref([5, 10, 50, 100]);
 const genders = ref([
   { name: 'Мужской', code: 'Male' },
   { name: 'Женский', code: 'Female' },
@@ -415,7 +386,7 @@ const submitProfileData = (event) => {
   auth
     .updateMyProfileData(profileData)
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       if (response) {
         Object.keys(profileData).forEach((key) => {
           if (key == 'user_gender') {
@@ -447,7 +418,7 @@ const submitNewPassword = (event) => {
       repeat_password: confrimNewPassword.value,
     })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       $locally.setItem('token', response[0]);
     })
     .catch((error) => {
@@ -460,25 +431,12 @@ const teamsArr = ref([]);
 onMounted(() => {
   Team.getMyTeams()
     .then((response) => {
-      const idArr = response.map((item) => item.ID);
-      console.log(response);
-      idArr.forEach((id) => {
-        Team.getTeam(id).then((response) => {
-          // console.log(response);
-          response.members.forEach((member) => {
-            if (+member.id === +profileData.ID) {
-              response.role = member.role;
-            }
-          });
-          teamsArr.value.push(response);
-          // console.log(teamsArr.value);
-        });
-      });
+      teamsArr.value = response;
+      console.log(teamsArr.value);
     })
     .catch((error) => {
       console.log(error);
     });
-  console.log(teamsArr.value);
 });
 </script>
 

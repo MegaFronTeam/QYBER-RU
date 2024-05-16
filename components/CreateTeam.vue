@@ -4,7 +4,10 @@
       class="ms-auto btn-sm"
       severity="primary"
       outlined
-      @click="visibleShow = true; isSend = false"
+      @click="
+        visibleShow = true;
+        isSend = false;
+      "
       label="Создать команду"
     />
 
@@ -53,14 +56,14 @@
                 <FileUpload
                   mode="basic"
                   name="logo"
-                  id="logo" 
+                  id="logo"
                   url="/api/upload"
-                  accept="image/*" 
-                  @select="customBase64Uploader" 
+                  accept="image/*"
+                  @select="customBase64Uploader"
                   chooseLabel="Загрузить аватар команды"
                 >
                 </FileUpload>
-                
+
                 <br />
                 <p class="text-center">
                   Максимальный вес 5 мб. Соотношение сторон 1:1, размер не более 1080х1080 пикс.
@@ -87,11 +90,10 @@ import Team from '@/services/team';
 const name = ref();
 const leagues = ref([]);
 const discipline = ref([]);
-const logo =  ref();
+const logo = ref();
 
 const isSend = ref(false);
 const disciplineList = ref([]);
-
 
 Team.getDisciplines()
   .then((response) => {
@@ -104,7 +106,7 @@ Team.getDisciplines()
 const leaguesOptions = ref([]);
 Team.getLeagues()
   .then((response) => {
-    console.log(response);
+    // console.log(response);
     leaguesOptions.value = response;
   })
   .catch((error) => {
@@ -112,18 +114,18 @@ Team.getLeagues()
   });
 
 const customBase64Uploader = async (event) => {
-    const file = event.files[0];
-    logo.value = file;
-  
+  const file = event.files[0];
+  logo.value = file;
+
   const reader = new FileReader();
-  let blob = await fetch( file.objectURL).then((r) => r.blob()); //blob:url
+  let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
 
   reader.readAsDataURL(blob);
 
   reader.onloadend = function () {
     const base64data = reader.result;
   };
-  console.log(logo.value );
+  console.log(logo.value);
 };
 
 // const onUpload = (event) => {
@@ -131,17 +133,17 @@ const customBase64Uploader = async (event) => {
 // };
 
 const submit = (event) => {
-  event.preventDefault(); 
+  event.preventDefault();
   const formData = new FormData();
   formData.append('name', name.value);
   formData.append('discipline', discipline.value);
   formData.append('leagues', leagues.value);
-  formData.append('logo', logo.value );
+  formData.append('logo', logo.value);
 
   Team.createTeam(formData)
     .then((response) => {
       isSend.value = true;
-      console.log(response);
+      // console.log(response);
       name.value = '';
       discipline.value = [];
       leagues.value = [];
@@ -151,7 +153,6 @@ const submit = (event) => {
       console.log(error);
     });
 };
-
 </script>
 
 <style lang="scss" scoped>

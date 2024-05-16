@@ -42,7 +42,7 @@
     </div>
     <div v-else>
       <TeamBlock v-if="!isCaptain" :teamData="teamsData" />
-      <MyTeamBlock v-if="isCaptain" :teamData="teamsData" />
+      <MyTeamBlock v-if="isCaptain" :teamData="teamsData" :pageID="id" />
     </div>
   </div>
 </template>
@@ -61,17 +61,19 @@ const breadcrumbArr = ref([
 const isCaptain = ref(false);
 const pending = ref(true);
 const teamsData = ref({});
+
+// console.log(typeof id);
 onMounted(() => {
   team
     .getTeam(id)
     .then((response) => {
+      if (!response) return;
       pending.value = false;
-      response.members.forEach((member) => {
-        if (+member.id === +$locally.getItem('ID') && member.role === 'Капитан')
-          isCaptain.value = true;
-        teamsData.value = response;
-      });
+      teamsData.value = response;
       breadcrumbArr.value.push({ label: response.post_title });
+      response.members.forEach((member) => {
+        if (+member.id === +$locally.getItem('ID')) isCaptain.value = true;
+      });
       console.log(response);
     })
     .catch((err) => {

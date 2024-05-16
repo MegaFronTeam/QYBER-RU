@@ -807,38 +807,38 @@ p {
   width: rem(300);
 }
 
-
 .p-icon-field > .p-input-icon {
   z-index: 10;
 }
 
-
-.select-team{
-  .p-selectbutton{
+.select-team {
+  .p-selectbutton {
     display: grid;
     gap: 12px;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
-  .p-button{
+  .p-button {
     width: 100%;
-    border: 1px solid var(--color, var(--border-colorPrimary, #292D36));
-    color: var(--bg-color, var(--text-colorSecondary, #9E9FA3));
+    border: 1px solid var(--color, var(--border-colorPrimary, #292d36));
+    color: var(--bg-color, var(--text-colorSecondary, #9e9fa3));
     background: none;
-    &:first-child{
-
-
-      &:hover , &.p-highlight{
-
-        --color: var(--border-secondary, #6180FF);
-        --bg-color: var(--border-secondary, #6180FF);
+    &:first-child {
+      &:hover,
+      &.p-highlight {
+        --color: var(--border-secondary, #6180ff);
+        --bg-color: var(--border-secondary, #6180ff);
       }
     }
-    &:nth-child(2){
-      &:hover, &.p-highlight{
-
-        --color: var(--border-tertiary, #EC614C);
-        --bg-color: var(--border-tertiary, #EC614C)
+    &:nth-child(2) {
+      &:hover,
+      &.p-highlight {
+        --color: var(--border-tertiary, #ec614c);
+        --bg-color: var(--border-tertiary, #ec614c);
       }
     }
   }
+}
+
+.p-skeleton {
+  background-color: var(--surface-c);
 }
