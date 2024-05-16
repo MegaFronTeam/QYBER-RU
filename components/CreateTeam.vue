@@ -1,11 +1,12 @@
 <template>
   <div>
 
-        <Button class="ms-auto btn-sm p-button-outlined" outlined="" @click="visibleShow = true" label="Создать команду" />  
+    <Button class="ms-auto btn-sm p-button-outlined" outlined="" @click="visibleShow = true" label="Создать команду" />  
 
-      <Dialog v-model:visible="visibleShow" modal header="Создание команды">
+    <Dialog v-model:visible="visibleShow" modal header="Создание команды">
       <div class="form-wrap">
-        <form @submit="submit">
+        <transition name="fade">
+        <form @submit="submit" v-if="!isSend">
           <InputGroup>
             <label for="name">Название команды</label>
             <InputText id="name" type="text" v-model="name" placeholder="Введите Название команды" />
@@ -32,6 +33,11 @@
           </InputGroup> 
           <Button type="submit" class="btn-lg">Создать команду</Button>
         </form>
+        <div v-else>
+          <p>Команда успешно создана</p>
+          <Button @click="visibleShow = false" label="Закрыть" />
+          </div>
+        </transition>
       </div>
     </Dialog>
   </div>
@@ -76,7 +82,7 @@ const submit = (event) => {
   Team.createTeam({name, discipline, leagues})
   .then((response) => {
     isSend.value = true;
-
+    console.log(response);
   }).catch((error) => {
     console.log(error);
   });
