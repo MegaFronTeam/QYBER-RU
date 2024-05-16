@@ -176,7 +176,7 @@
                 <h3>Мои команды</h3>
               </div>
               <div class="col-auto">
-                <CreateTeam/>
+                <CreateTeam />
               </div>
             </div>
             <DataTable :value="teamsArr">
@@ -366,7 +366,7 @@ const { profileData } = props;
 // console.log(profileData);
 // console.log(profileData.user_gender);
 
-const active = ref(1);
+const active = ref(0);
 const products = ref([
   {
     nickname: {
