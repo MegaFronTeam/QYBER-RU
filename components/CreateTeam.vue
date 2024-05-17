@@ -56,11 +56,11 @@
                 <FileUpload
                   mode="basic"
                   name="logo"
-                  id="logo" 
-                  accept="image/*" 
-                  maxFileSize="5000000" 
+                  id="logo"
+                  accept="image/*"
+                  maxFileSize="5000000"
                   url="/api/upload"
-                  @select="customBase64Uploader" 
+                  @select="customBase64Uploader"
                   chooseLabel="Загрузить аватар команды"
                 >
                 </FileUpload>
@@ -106,12 +106,8 @@ Team.getDisciplines()
 
 const leaguesOptions = ref([]);
 Team.getLeagues()
-<<<<<<< HEAD
-  .then((response) => { 
-=======
   .then((response) => {
     // console.log(response);
->>>>>>> 6aa6c9f7b17a08788df9fa37c370d76c0e1d7c3f
     leaguesOptions.value = response;
   })
   .catch((error) => {

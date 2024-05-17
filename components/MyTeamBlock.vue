@@ -14,8 +14,15 @@
       <div class="template">
         <TabView v-model:activeIndex="active">
           <TabPanel v-if="teamData.members.length > 0">
-            <h3>Состав команды</h3>
-            <DataTable :value="teamData.members">
+            <div class="sMyTeamBlock__head-row">
+              <div class="col">
+                <h3>Состав команды</h3>
+              </div>
+              <!-- <div class="col-auto">
+                <Button label="Пригласить в команду" class="ms-auto btn-sm" />
+              </div> -->
+            </div>
+            <DataTable :value="teamDataRef.members">
               <Column
                 style="width: 30%"
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
@@ -42,7 +49,7 @@
                   <div class="table-wrap">
                     <NuxtImg
                       v-if="slotProps.data.avatar"
-                      :src="`/img/${slotProps.data.slotProps.data}`"
+                      :src="`${slotProps.data.avatar.url}`"
                       alt="Avatar"
                     />
                     <span>{{ slotProps.data.user_nicename }}</span>
@@ -116,7 +123,7 @@
                 </template>
               </Column>
             </DataTable>
-            <h4>Добавить игроков в команду</h4>
+            <!--<h4>Добавить игроков в команду</h4>
             <DataTable :value="addNew">
               <Column
                 style="width: 30%"
@@ -177,7 +184,7 @@
                   </div>
                 </template>
               </Column>
-            </DataTable>
+            </DataTable> -->
           </TabPanel>
           <TabPanel> Content </TabPanel>
         </TabView>
@@ -222,34 +229,27 @@ const props = defineProps({
 const { teamData, pageID } = props;
 
 const active = ref(0);
-const addNew = ref([
-  {
-    nickname: {
-      avatar: 'avatar-img-1.jpg',
-      text: 'Dando',
-    },
-    name: 'Константин Завгородний',
-  },
-]);
+// const addNew = ref([
+//   {
+//     nickname: {
+//       avatar: 'avatar-img-1.jpg',
+//       text: 'Dando',
+//     },
+//     name: 'Константин Завгородний',
+//   },
+// ]);
 
+const teamDataRef = ref(teamData);
 const deletePlayer = (USER_ID) => {
-  console.log(pageID, USER_ID);
+  teamDataRef.value.members = teamDataRef.value.members.filter((element) => element.id != USER_ID);
   Team.deleteTeamMember(pageID, USER_ID)
     .then((response) => {
       if (!response) return;
-      console.log(response);
     })
     .catch((error) => {
       console.log(error);
     });
 };
-
-onMounted(() => {
-  // console.log(teamData);
-});
-
-// const totalRecords = ref(10);
-// const rowsPerPage = ref([5, 10, 50, 100]);
 </script>
 
 <style scoped lang="scss">

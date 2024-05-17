@@ -44,7 +44,7 @@
                 :class="item.href == '/' + $route.name ? 'active' : ''"
                 @click="navigate"
               >
-                <svg-icon :name="`${item.icon}.svg`" />
+                <svg-icon v-if="item.icon" :name="`${item.icon}.svg`" />
                 <span>{{ item.label }}</span>
               </a>
             </NuxtLink>
@@ -230,7 +230,7 @@
                     <div class="h6">info@qyber.ru</div>
                   </div>
                 </a>
-                <a href="t.me/manager_qyber" target="_blank" class="footer__contact">
+                <a href="https://t.me/manager_qyber" target="_blank" class="footer__contact">
                   <div class="footer__contact-icon">
                     <svg-icon name="telegram.svg" />
                   </div>
@@ -242,7 +242,14 @@
               </div>
             </div>
             <div class="col">
-              <Contacts />
+              <Contacts
+                :linkArr="{
+                  youtube: true,
+                  twitch: true,
+                  vk: true,
+                  telegram: true,
+                }"
+              />
             </div>
           </div>
         </div>
@@ -252,8 +259,18 @@
               <div class="footer__copyright">© {{ year }} QYBER.RU. Все права защищены.</div>
             </div>
             <div class="col">
-              <a class="footer__info-link" href="#">Пользовательское соглашение</a>
-              <a class="footer__info-link" href="#">Политика использования файлов cookie</a>
+              <a
+                class="footer__info-link"
+                href="https://qyber.ru/wordpress/terms-of-use/"
+                target="_blank"
+                >Пользовательское соглашение</a
+              >
+              <a
+                class="footer__info-link"
+                href="https://qyber.ru/wordpress/cookie-policy/"
+                target="_blank"
+                >Политика использования файлов cookie</a
+              >
             </div>
             <div class="col">
               <ScrollTop :threshold="0" />

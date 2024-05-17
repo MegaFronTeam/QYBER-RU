@@ -8,7 +8,7 @@
       <div class="template">
         <slot></slot>
       </div>
-      <div class="footer-link">
+      <div v-if="footerLink" class="footer-link">
         <NuxtLink :to="footerLink.href">
           {{ footerLink.text }}
           <svg-icon name="chevron-right" />
@@ -22,11 +22,11 @@
 const props = defineProps({
   sectionTitle: {
     type: Object,
-    required: true,
+    required: false,
   },
   footerLink: {
     type: Object,
-    required: true,
+    required: false,
   },
 });
 
