@@ -1,15 +1,25 @@
 <template>
   <div>
-    <ProfileHead img="/img/team-img-1.png" :breadcrumbArr="breadcrumbArr">
+    <ProfileHead :img="imgRef" :breadcrumbArr="breadcrumbArr">
       <h1 class="mb-12">{{ teamsData.post_title }}</h1>
-      <div class="row mb-12">
-        <div class="col-auto">
-          <Badge severity="secondary" value="Кибер Атланты" class="p-badge-outline" />
+      <div v-if="teamsData.leagues && teamsData.discipline" class="row mb-12">
+        <div v-if="teamsData.leagues" class="col-auto">
+          <Badge
+            v-for="league in teamsData.leagues"
+            :key="league.term_id"
+            :severity="league.name == 'Кибер атланты' ? 'secondary' : 'danger'"
+            :value="league.name"
+            class="p-badge-outline"
+          />
         </div>
-        <div class="col-auto">
-          <span class="p-badge p-badge-gray">
-            <svg-icon name="dota.svg" />
-            Dota 2
+        <div v-if="teamsData.discipline" class="col-auto">
+          <span
+            v-for="discipline in teamsData.discipline"
+            :key="discipline.term_id"
+            class="p-badge p-badge-gray"
+          >
+            <!-- <svg-icon name="dota.svg" /> -->
+            {{ discipline.name }}
           </span>
         </div>
       </div>
@@ -59,6 +69,7 @@ const breadcrumbArr = ref([
   { label: 'Мои команды', route: '/' },
 ]);
 const isCaptain = ref(false);
+const imgRef = ref(null);
 const pending = ref(true);
 const teamsData = ref({});
 
@@ -71,6 +82,7 @@ onMounted(() => {
       pending.value = false;
       teamsData.value = response;
       breadcrumbArr.value.push({ label: response.post_title });
+      imgRef.value = response.post_thumbnail;
       response.members.forEach((member) => {
         if (+member.id === +$locally.getItem('ID')) isCaptain.value = true;
       });

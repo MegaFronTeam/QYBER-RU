@@ -12,10 +12,12 @@
             <p>
               Все новости турнира, интервью, видео, аналитика и общение – все это в телеграм канале
             </p>
-            <Button severity="secondary">
-              <span> Перейти в Telegram</span>
-              <svg-icon name="telegram.svg" />
-            </Button>
+            <a href="https://t.me/manager_qyber" target="_blank">
+              <Button severity="secondary">
+                <span> Перейти в Telegram</span>
+                <svg-icon name="telegram.svg" />
+              </Button>
+            </a>
           </div>
         </div>
       </div>

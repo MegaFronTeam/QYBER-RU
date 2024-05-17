@@ -189,66 +189,57 @@
         </Menubar>
         <InputSwitch @click="toggleTheme" v-model="checked" />
         <template v-if="isAuthenticated">
-          <NuxtLink to="/my-profile"  >
+          <NuxtLink to="/my-profile">
             <!-- <Button class="header__btn-user d-lg-none" variant="primary">
               <svg-icon name="user.svg" />
             </Button>  -->
-            <Button class="header__btn   d-lg-flex" variant="primary">
+            <Button class="header__btn d-lg-flex" variant="primary">
               <svg-icon name="user.svg" />
-              <span class="p-button-label  d-none d-lg-flex">Кабинет</span>
+              <span class="p-button-label d-none d-lg-flex">Кабинет</span>
             </Button>
-          </NuxtLink> 
+          </NuxtLink>
           <Button class="header__btn d-lg-flex" @click="logout" severity="danger">
-            <svg-icon class="m-0" name="logout.svg" /> 
-            <span class="p-button-label  d-none d-lg-flex">Выйти</span>
+            <svg-icon class="m-0" name="logout.svg" />
+            <span class="p-button-label d-none d-lg-flex">Выйти</span>
           </Button>
-
         </template>
         <template v-else>
-          
-          <NuxtLink to="/login"   >
-            
+          <NuxtLink to="/login">
             <!-- <Button class="header__btn-user d-lg-none" variant="primary">
               <svg-icon name="rocket-lunch.svg" />
             </Button>  -->
-          <Button class="header__btn d-lg-flex" variant="primary">
-            <svg-icon name="rocket-lunch.svg" />
-            <span class="p-button-label  d-none d-lg-flex">Авторизация</span>
-          </Button>
-          
-          
-        </NuxtLink> 
-        
-
+            <Button class="header__btn d-lg-flex" variant="primary">
+              <svg-icon name="rocket-lunch.svg" />
+              <span class="p-button-label d-none d-lg-flex">Авторизация</span>
+            </Button>
+          </NuxtLink>
         </template>
-
       </div>
     </div>
   </header>
 </template>
 
-
-<script setup> 
-import {useRoute} from 'vue-router';
+<script setup>
+import { useRoute } from 'vue-router';
 const $router = useRouter();
 
-const {$locally } = useNuxtApp();
+const { $locally } = useNuxtApp();
 
 const colorMode = useColorMode();
 // console.log($ifAuthenticated);
-const isAuthenticated = ref( $locally.getItem('token') && $locally.getItem('user_email'));
+const isAuthenticated = ref($locally.getItem('token') && $locally.getItem('user_email'));
 
-const  checked =  ref(colorMode.preference === 'dark' ? false : true);
+const checked = ref(colorMode.preference === 'dark' ? false : true);
 
 const toggleTheme = () => {
-  if(colorMode.value === 'dark'){
+  if (colorMode.value === 'dark') {
     colorMode.preference = 'light';
     checked.value = true;
   } else {
     colorMode.preference = 'dark';
     checked.value = false;
   }
-}
+};
 // toggleTheme();
 
 const props = defineProps({
@@ -261,7 +252,7 @@ const { menubarItems } = props;
 menubarItems.push({
   label: 'Авторизация',
   icon: 'rocket-lunch',
-  href: '/contacts',
+  href: '/login',
 });
 const items = ref(menubarItems);
 
@@ -269,5 +260,5 @@ const logout = () => {
   $locally.removeItem('token');
   isAuthenticated.value = false;
   $router.push('/');
-}
+};
 </script>

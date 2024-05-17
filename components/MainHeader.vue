@@ -11,7 +11,7 @@
               программирование
             </p>
             <Button severity="primary" label="Кнопка если нужна" outlined />
-            <NuxtLink class="sMainHeader__link" to="/">
+            <NuxtLink class="sMainHeader__link" to="/about-project">
               <svg-icon name="arrow-down.svg" />
               Подробнее о проекте
             </NuxtLink>
@@ -53,13 +53,13 @@
           <div class="sMainHeader__news">
             <div class="sMainHeader__head">
               <h6>Последние новости</h6>
-              <NuxtLink class="sMainHeader__link ms-auto" to="/">
+              <NuxtLink class="sMainHeader__link ms-auto" to="/news">
                 Все
                 <svg-icon name="chevron-right.svg" />
               </NuxtLink>
             </div>
             <div class="sMainHeader__news-wrap">
-              <NuxtLink to="/" class="sMainHeader__news-item">
+              <NuxtLink to="/news/64" class="sMainHeader__news-item">
                 <div class="sMainHeader__img-wrap">
                   <div class="img-wrap-center">
                     <img src="/img/mainHeader-bg-3.jpg" alt="image" class="object-fit-js" />
@@ -70,7 +70,7 @@
                   <span>17:50, 30 января 2024</span>
                 </div>
               </NuxtLink>
-              <NuxtLink to="/" class="sMainHeader__news-item">
+              <NuxtLink to="/news/66" class="sMainHeader__news-item">
                 <div class="sMainHeader__img-wrap">
                   <div class="img-wrap-center">
                     <img src="/img/mainHeader-bg-4.jpg" alt="image" class="object-fit-js" />
@@ -81,7 +81,7 @@
                   <span>17:50, 30 января 2024</span>
                 </div>
               </NuxtLink>
-              <NuxtLink to="/" class="sMainHeader__news-item">
+              <NuxtLink to="/news/83" class="sMainHeader__news-item">
                 <div class="sMainHeader__img-wrap">
                   <div class="img-wrap-center">
                     <img src="/img/mainHeader-bg-5.jpg" alt="image" class="object-fit-js" />

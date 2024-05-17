@@ -2,11 +2,8 @@
   <div>
     <MainHeader />
     <Welcome />
-    <MainContentBlock
-      :sectionTitle="sectionTitleTournamentsProps"
-      :footerLink="footerLinkTournamentsProps"
-    >
-      Need cards for tournaments
+    <MainContentBlock :sectionTitle="sectionTitleTournamentsProps">
+      В разработке...
     </MainContentBlock>
     <MainContentBlock :sectionTitle="sectionTitleNewsProps" :footerLink="footerLinkNewsProps">
       Need content for 4 last cards
@@ -29,6 +26,6 @@ const sectionTitleNewsProps = {
 };
 const footerLinkNewsProps = {
   text: 'Смотреть все новости',
-  href: '/',
+  href: '/news',
 };
 </script>

@@ -56,11 +56,11 @@
                 <FileUpload
                   mode="basic"
                   name="logo"
-                  id="logo" 
-                  accept="image/*" 
-                  maxFileSize="5000000" 
+                  id="logo"
+                  accept="image/*"
+                  maxFileSize="5000000"
                   url="/api/upload"
-                  @select="customBase64Uploader" 
+                  @select="customBase64Uploader"
                   chooseLabel="Загрузить аватар команды"
                 >
                 </FileUpload>

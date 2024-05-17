@@ -30,8 +30,8 @@
         <div class="sProfileHead__row row">
           <div class="sProfileHead__img-wrap">
             <div class="img-wrap-center">
-              <img alt="avatar" :src="img" v-if="img" />
-              <span v-else class="letter">{{ profileData.user_nicename[0]}}</span>
+              <img v-if="imgRef" :ref="imgRef" :src="imgRef" alt="avatar" />
+              <!-- <span v-else class="letter">{{ profileData.user_nicename[0] }}</span> -->
             </div>
           </div>
           <div class="sProfileHead__content">
@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 const props = defineProps({
   breadcrumbArr: {
     type: Array,
@@ -87,8 +87,8 @@ const home = ref({
   label: 'Главная',
   route: '/',
 });
- 
 
+const imgRef = ref(props.img);
 const items = ref(breadcrumbArr);
 const allMaches = 678;
 const winMaches = 479;
@@ -101,5 +101,11 @@ const progressBarStyle = computed(() => {
     '--winRate': `${winRate}`,
     '--loseRate': `${loseRate}`,
   };
+});
+
+onMounted(() => {
+  // imgRef.value = img;
+  console.log(imgRef.value);
+  // console.log(img);
 });
 </script>
