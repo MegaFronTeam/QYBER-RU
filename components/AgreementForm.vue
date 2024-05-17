@@ -16,5 +16,5 @@
 <script setup lang="ts">
 
 
-const agreement = ref();
+const agreement = ref('');
 </script>

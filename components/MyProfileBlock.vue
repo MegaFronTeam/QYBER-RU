@@ -360,9 +360,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import auth from '~/services/auth';
-import Team from '~/services/team';
+import auth from '@/services/auth';
+import Team from '@/services/team';
+
 const { $locally } = useNuxtApp();
 const props = defineProps({
   profileData: {
@@ -432,7 +432,6 @@ onMounted(() => {
   Team.getMyTeams()
     .then((response) => {
       teamsArr.value = response;
-      console.log(teamsArr.value);
     })
     .catch((error) => {
       console.log(error);

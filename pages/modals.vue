@@ -72,5 +72,5 @@ const statusValue = ref(null);
 const telValue = ref(null);
 const emailValue = ref(null);
 const textAreaValue = ref(null);
-const agreement = ref();
+const agreement = ref('');
 </script>

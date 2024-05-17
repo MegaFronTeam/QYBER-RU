@@ -43,17 +43,21 @@
             <div>
               <FileUpload
                   mode="basic"
-                  name="file"
-                  id="file" 
-                  @select="customBase64Uploader"
+                  name="logo"
+                  id="logo" 
+                  accept="image/*" 
                   maxFileSize="5000000" 
                   url="/api/upload"
+                  @select="customBase64Uploader" 
                   chooseLabel="Загрузить файл"
-                  >
+                >
                 </FileUpload>
-                <!-- accept=""  -->
-              <br>
-              <p class="text-center">Максимальный вес 5 мб. </p>
+
+                <br />
+                <p class="text-center">
+                  Максимальный вес 5 мб. Соотношение сторон 1:1, размер не более 1080х1080 пикс.
+                  JPG, GIF или PNG.
+                </p>
             </div>
           </InputGroup> 
           <Button type="submit" class="btn-lg">Отправить</Button>
@@ -73,9 +77,9 @@ const visibleShow = ref(false);
 const UserVerificationSend = ref( $locally.getItem("UserVerificationSend") ? true : false);
 
 
-const inn = ref();
+const inn = ref('');
 const leagues = ref([]); 
-const file =  ref();
+const file =  ref([]);
 
 const isSend = ref(false);
 
@@ -89,22 +93,21 @@ Team.getLeagues()
   });
 
   const customBase64Uploader = async (event) => {
-  const file = event.files[0];
-  file.value = file;
+  const fileAcred = event.files[0];
+  file.value = fileAcred;
   
   const reader = new FileReader();
-  let blob = await fetch( file.objectURL).then((r) => r.blob()); //blob:url
+  let blob = await fetch( fileAcred.objectURL).then((r) => r.blob()); //blob:url
 
   reader.readAsDataURL(blob);
 
   reader.onloadend = function () {
     const base64data = reader.result;
   }; 
-  console.log(file.value );
 };
 
 
-const selectedCity = ref();
+const selectedCity = ref('');
 const cities = ref([
     { name: 'Учусь и работаю' },
     { name: 'Учусь' },
@@ -123,13 +126,14 @@ const submit = (event) => {
   formData.append('leagues', leagues.value);
   formData.append('file', file.value );
 
+  console.log(formData);
   Auth.setUserVerification(formData)
     .then((response) => {
       if(response.success === true) {
 
         isSend.value = true;
       }
-      // $locally.setItem("UserVerificationSend", true)
+      $locally.setItem("UserVerificationSend", true)
       console.log(response);
     })
     .catch((error) => {

@@ -205,8 +205,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, onMounted } from 'vue';
-import Team from '~/services/team';
+import Team from '@/services/team';
 
 const props = defineProps({
   teamData: {
