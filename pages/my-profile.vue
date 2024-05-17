@@ -3,7 +3,7 @@
     <div class="container head-messages">
       <Acredition v-if="userData.user_verification === false" />
     </div>
-    <ProfileHead :breadcrumbArr="[{ label: 'Личный кабинет' }]" :profileData="userData">
+    <ProfileHead :breadcrumbArr="[{ label: 'Личный кабинет' }]" :img="imgRef" :avatarText="avatarText"  >
       <h1 :class="userData.user_verification == true ? 'verifired' : ''">
         {{ userData.user_nicename }}
       </h1>
@@ -27,33 +27,22 @@
 import { ref, onMounted } from 'vue';
 const { $locally } = useNuxtApp();
 import Auth from '@/services/auth';
+import  {useUserStore} from '@/store/userStore';
 
-const userData = ref({
-  ID: '',
-  user_login: '',
-  user_email: '',
-  user_registered: '',
-  user_nicename: '',
-  display_name: '',
-  user_avatar: '',
-  user_phone: '',
-  user_birthday: '',
-  user_gender: '',
-  user_telegram: '',
-  user_city: '',
-  user_educational_institution: '',
-  user_company: '',
-  user_inn: '',
-  user_verification: '',
-});
+const  userStore = useUserStore();
+console.log(userStore.userData);
+const imgRef = ref(null);
+const avatarText = ref(null);
+const userData = ref({});
 
 const user_registered = ref('');
 
-Object.keys(userData.value).forEach((key) => {
-  if ($locally.getItem(key)) {
-    userData.value[key] = $locally.getItem(key);
-  }
-});
+// Object.keys(userData.value).forEach((key) => {
+//   if ($locally.getItem(key)) {
+//     userData.value[key] = $locally.getItem(key);
+//   }
+// });
+
 if ($locally.getItem('user_registered')) {
   const date = new Date($locally.getItem('user_registered'));
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -61,14 +50,33 @@ if ($locally.getItem('user_registered')) {
 }
 
 onMounted(() => {
+  // if($locally.getItem('user_avatar')) {
+  //   imgRef.value = $locally.getItem('user_avatar');
+  // }  
   Auth.getMyProfileData().then((response) => {
-    console.log(response);
-    Object.keys(userData.value).forEach((key) => {
-      if (!$locally.getItem(key) || $locally.getItem(key) != response[key]) {
-        $locally.setItem(key, response[key]);
-        userData.value[key] = response[key];
-      }
+    // console.log(response); 
+    // if(!$locally.getItem('user_avatar') || $locally.getItem('user_avatar') != response['user_avatar'].url) { 
+    //   $locally.setItem('user_avatar', response['user_avatar'].url);
+    //   imgRef.value = response['user_avatar'].url;
+    // }  
+    Object.keys(response).forEach((key) => {  
+        userData.value[key] = response[key]; 
     });
+
+    // Object.keys(userData.value).forEach((key) => {
+    //   if (!$locally.getItem(key) || $locally.getItem(key) != response[key]) { 
+    //       $locally.setItem(key, response[key]);
+    //       userData.value[key] = response[key]; 
+    //   }
+    // });
+    // if(!$locally.getItem('user_avatar') || $locally.getItem('user_avatar') != response.user_avatar) {
+    //   $locally.setItem('user_avatar', response.user_avatar.url);
+    //   imgRef.value = response.user_avatar.url;
+    // }
+    avatarText.value = response.user_nicename[0];
+    imgRef.value = response['user_avatar'].url;
+    console.log('imgRef', imgRef.value);
+  // } 
     if (!user_registered.value) {
       const date = new Date(response.user_registered);
       const options = { day: 'numeric', month: 'long', year: 'numeric' };

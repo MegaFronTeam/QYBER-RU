@@ -26,7 +26,7 @@
                 </div>
               </div>
             </div>
-            <div class="col">
+            <!-- <div class="col">
               <div class="sAboutBody__img-wrap">
                 <div class="img-wrap-center">
                   <img alt="logo" src="/img/logo-1.svg" />
@@ -46,7 +46,7 @@
                   <img alt="logo" src="/img/logo-4.svg" />
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="sAboutBody__tournaments">

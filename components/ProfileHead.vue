@@ -30,9 +30,11 @@
         <div class="sProfileHead__row row">
           <div class="sProfileHead__img-wrap">
             <div class="img-wrap-center">
-              <img v-if="imgRef" :ref="imgRef" :src="imgRef" alt="avatar" />
-              <!-- <span v-else class="letter">{{ profileData.user_nicename[0] }}</span> -->
-            </div>
+              <NuxtImg v-if="img" :ref="img" :src="img" alt="avatar" />
+              <template v-else>
+              <span  v-if="avatarText" class="letter">{{ avatarText }}</span>
+              </template>
+            </div> 
           </div>
           <div class="sProfileHead__content">
             <slot> </slot>
@@ -76,19 +78,24 @@ const props = defineProps({
     type: Object,
     required: '',
   },
+  avatarText: {
+    type: String,
+    required: '',
+  },
   isOnline: {
     type: String,
     required: '',
   },
 });
-const { breadcrumbArr, img, profileData } = props;
+const { breadcrumbArr, img, profileData, avatarText } = toRefs(props);
 
 const home = ref({
   label: 'Главная',
   route: '/',
 });
 
-const imgRef = ref(props.img);
+// const imgRef = ref(img);
+// const avatarTextRef = ref(avatarText);
 const items = ref(breadcrumbArr);
 const allMaches = 678;
 const winMaches = 479;
@@ -103,9 +110,4 @@ const progressBarStyle = computed(() => {
   };
 });
 
-onMounted(() => {
-  // imgRef.value = img;
-  console.log(imgRef.value);
-  // console.log(img);
-});
 </script>
