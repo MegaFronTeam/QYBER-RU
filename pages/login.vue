@@ -40,8 +40,7 @@
 <script setup>
 // import Auth from '@/services/auth';
 
-import { useUserStore } from '@/store/userStore';
-const router = useRouter();
+import { useUserStore } from '@/store/userStore'; 
 
 definePageMeta({
   layout: 'auth',

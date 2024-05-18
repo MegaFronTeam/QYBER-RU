@@ -10,6 +10,8 @@ export const useUserStore = defineStore('user', () => {
   const email = ref('');
   const userData = ref({}); 
   const user_registered = ref('')
+  const user_avatar = ref('')
+  const user_first_letter = ref('')
 
   const login = async (dataForm) => {
     const response = await axios.post(
@@ -45,14 +47,15 @@ export const useUserStore = defineStore('user', () => {
       const data =  await response.data; 
       userData.value = data; 
 
-      console.log(data);
+      user_avatar.value = data.user_avatar.url;
+      console.log(user_avatar.value);
+      user_first_letter.value = data.user_nicename[0].toUpperCase();
     
       const date = new Date(data.user_registered);
       const options = { day: 'numeric', month: 'long', year: 'numeric' };
       user_registered.value = new Intl.DateTimeFormat('ru-RU', options)
       .format(date)
-      .split(' г.')[0];
-      console.log(user_registered.value);
+      .split(' г.')[0];  
 
 
     } catch (error) {
@@ -68,18 +71,24 @@ export const useUserStore = defineStore('user', () => {
     userData.value = {};
     router.push('/');
   };
-  // watch(() => API_KEY, (state) => {
-  //   localStorage.setItem('API_KEY', state);
-  // });
 
-  // watch(() => email, (state) => {
-  //   localStorage.setItem('email', state);
-  // });
-
-  // watch(() => userData, (state) => {
-  //   localStorage.setItem('userData', JSON.stringify(state));
-  // });
-
+  const singUp = async (dataForm) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/auth/v1/signup`,
+        dataForm,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  };
 
 
   return {
@@ -89,6 +98,10 @@ export const useUserStore = defineStore('user', () => {
     isUserAuth,
     login,
     user_registered,
+    user_first_letter,
+    user_avatar,
     getUserData,
+    logout,
+    singUp
   };
 }, {persist: {storage: persistedState.localStorage,}});

@@ -1,6 +1,6 @@
 <template>
   <sFormPage v-bind="params">
-    <form @submit="submit">
+    <form @submit.prevent="submit.singUp(dataForm)">
       <InputGroup>
         <label for="email">Email</label>
         <InputText
@@ -11,17 +11,6 @@
         />
         <small class="p-error" id="email-help">{{ errorsForm.email }}</small>
       </InputGroup>
-      <!-- <InputGroup>
-        <label for="steamNick">Никнейм в Steam</label>
-        <InputText
-          id="steamNick"
-          v-model="dataForm.steamNick"
-          aria-describedby="steamNick-help"
-          placeholder="Никнейм в Steam"
-        />
-        <small class="p-error" id="steamNick-help">{{ errorsForm.steamNick }}</small>
-      </InputGroup> -->
-
       <InputGroup>
         <label for="password">Пароль</label>
         <Password
@@ -65,14 +54,13 @@ definePageMeta({
   layout: 'auth',
 });
 
-import Auth from '@/services/auth';
-const { $locally } = useNuxtApp();
-const router = useRouter();
+import { useUserStore } from '@/store/userStore'; 
+const submit = useUserStore(); 
 
 const dataForm = ref({
-  email: 'wol12414@gmail.com',
-  password: 'Qwerty1414;',
-  passwordConfirm: 'Qwerty1414;',
+  email: '',
+  password: '',
+  passwordConfirm: '',
   agreement: true,
 });
 const errorsForm = ref({
@@ -88,16 +76,4 @@ const params = {
   btnName: 'Зарегистрироваться',
 };
 
-const submit = (event) => {
-  event.preventDefault();
-  Auth.singUp(dataForm.value.email, dataForm.value.password)
-    .then((response) => {
-      router.push('/login');
-      // console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  // console.log(data());
-};
 </script>

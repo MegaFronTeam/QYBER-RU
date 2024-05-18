@@ -17,64 +17,64 @@ class Auth {
     }
   }
 
-  async login(email, password) {
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/auth/v1/login`,
-        {
-          email,
-          password,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
+  // async login(email, password) {
+  //   try {
+  //     const response = await axios.post(
+  //       `${BASE_URL}/auth/v1/login`,
+  //       {
+  //         email,
+  //         password,
+  //       },
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       },
+  //     );
 
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
-  }
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error(error);
+  //     return Promise.reject(error);
+  //   }
+  // }
 
-  async singUp(email, password) {
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/auth/v1/signup`,
-        {
-          email,
-          password,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
-  }
+  // async singUp(email, password) {
+  //   try {
+  //     const response = await axios.post(
+  //       `${BASE_URL}/auth/v1/signup`,
+  //       {
+  //         email,
+  //         password,
+  //       },
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       },
+  //     );
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error(error);
+  //     return Promise.reject(error);
+  //   }
+  // }
 
-  async getMyProfileData() {
-    const { token, email } = this.localData;
-    console.log(email);
-    try {
-      const response = await axios.get(`${BASE_URL}/profile/v1/my`, {
-        headers: {
-          Authorization: 'Basic ' + btoa(`${email}:${token}`),
-        },
-      });
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
-  }
+  // async getMyProfileData() {
+  //   const { token, email } = this.localData;
+  //   console.log(email);
+  //   try {
+  //     const response = await axios.get(`${BASE_URL}/profile/v1/my`, {
+  //       headers: {
+  //         Authorization: 'Basic ' + btoa(`${email}:${token}`),
+  //       },
+  //     });
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error(error);
+  //     return Promise.reject(error);
+  //   }
+  // }
 
   async updateMyProfileData(data) {
     const { token, email } = this.localData;
