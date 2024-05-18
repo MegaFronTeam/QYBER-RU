@@ -58,6 +58,7 @@ onMounted(async() => {
   imgRef.value = userStore.userData.user_avatar.url;
   avatarText.value = userStore.userData.user_nicename[0];
   userData.value = userStore.userData;
+  user_registered.value = userStore.user_registered;
   
 
   // Auth.getMyProfileData().then((response) => {

@@ -188,46 +188,37 @@
           </template>
         </Menubar>
         <InputSwitch @click="toggleTheme" v-model="checked" />
-        <!-- <template v-if="isAuthenticated"> -->
-          <NuxtLink to="/my-profile">
-            <!-- <Button class="header__btn-user d-lg-none" variant="primary">
-              <svg-icon name="user.svg" />
-            </Button>  -->
+        <template v-if="isUserAuth">
+          <NuxtLink to="/my-profile"> 
             <Button class="header__btn d-lg-flex" variant="primary">
               <svg-icon name="user.svg" />
               <span class="p-button-label d-none d-lg-flex">Кабинет</span>
             </Button>
           </NuxtLink>
-          <Button class="header__btn d-lg-flex" @click="logout" severity="danger">
-            <svg-icon class="m-0" name="logout.svg" />
-            <span class="p-button-label d-none d-lg-flex">Выйти</span>
+          <Button class="header__btn header__btn--logout d-lg-flex" @click="logout" severity="danger">
+            <svg-icon class="m-0" name="logout.svg" /> 
           </Button>
-        <!-- </template>
-        <template v-else> -->
-          <NuxtLink to="/login">
-            <!-- <Button class="header__btn-user d-lg-none" variant="primary">
-              <svg-icon name="rocket-lunch.svg" />
-            </Button>  -->
+        </template>
+        <template v-else>
+          <NuxtLink to="/login"> 
             <Button class="header__btn d-lg-flex" variant="primary">
               <svg-icon name="rocket-lunch.svg" />
               <span class="p-button-label d-none d-lg-flex">Авторизация</span>
             </Button>
           </NuxtLink>
-        <!-- </template> -->
+        </template>
       </div>
     </div>
   </header>
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
-const $router = useRouter();
+import {useUserStore} from '@/store/userStore';
+const {isUserAuth, logout} = useUserStore();
 
-const { $locally } = useNuxtApp();
 
 const colorMode = useColorMode();
 // console.log($ifAuthenticated);
-const isAuthenticated = ref($locally.getItem('token') && $locally.getItem('user_email'));
 
 const checked = ref(colorMode.preference === 'dark' ? false : true);
 
@@ -249,16 +240,10 @@ const props = defineProps({
   },
 });
 const { menubarItems } = props;
-// menubarItems.push({
-//   label: 'Авторизация',
-//   icon: 'rocket-lunch',
-//   href: '/login',
-// });
-const items = ref(menubarItems);
-
-const logout = () => {
-  $locally.removeItem('token');
-  isAuthenticated.value = false;
-  $router.push('/');
-};
+menubarItems.push({
+  label: 'Авторизация',
+  icon: 'rocket-lunch',
+  href: '/login',
+});
+const items = ref(menubarItems); 
 </script>

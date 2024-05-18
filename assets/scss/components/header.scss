@@ -26,10 +26,20 @@
       font-size: rem(16);
     }
     }
-    .icons {
-      @include media-breakpoint-up(lg){
-
+    @include media-breakpoint-up(lg){
+      .icons {
+        
         margin-right: rem(10);
+      }
+      &--logout{
+        height: rem(44);
+        width: rem(44);
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+        .icons{
+          margin: 0;
+        }
       }
     }
   }
