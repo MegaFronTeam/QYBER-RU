@@ -1,4 +1,7 @@
 <template>
+  <div class="container head-messages">
+      <Acredition  />
+    </div>
   <section class="sProfileHead">
     <div class="container">
       <div class="sProfileHead__wrap bg-wrap">

@@ -1,19 +1,19 @@
 <template>
   <div >
     <Message  severity="warn" :closable="false" >
-        <div v-if="UserVerificationSend === true">Заявка на аккредитацию на рассмотрении</div>
+        <div v-if="UserVerificationSend == true">Заявка на аккредитацию на рассмотрении</div>
         <template v-else> 
           <div  style="margin-block: .3rem;">
             Для того чтобы пользоваться сервисом и участвовать в турнирах вам необходимо пройти аккредитацию.
           </div>
           
-          <Button class="ms-auto btn-sm p-button-outlined" outlined="" @click="visibleShow = true; isSend = false" label="Аккредитация" /> 
+          <Button class="ms-auto btn-sm p-button-outlined" outlined="" @click="visibleShow = true; UserVerificationSend = false" label="Аккредитация" /> 
         </template>
       </Message>
 
-      <Dialog v-if="!UserVerificationSend " v-model:visible="visibleShow" modal header="Аккредитация">
+      <Dialog v-if="!UserVerificationSend !== true" v-model:visible="visibleShow" modal header="Аккредитация">
       <div class="form-wrap">
-        <form @submit="submit" v-if="!isSend">
+        <form @submit.prevent="userStore.sendVerification({inn, leagues, file})" v-if="!UserVerificationSend">
           <InputGroup>
             <label for="inn">ИНН компании</label>
             <InputText id="inn" type="text" v-model="inn" placeholder="Введите ИНН компании" />
@@ -43,13 +43,13 @@
             <div>
               <FileUpload
                   mode="basic"
-                  name="logo"
-                  id="logo" 
-                  accept="image/*" 
-                  maxFileSize="5000000" 
+                  name="file"
+                  id="file"
+                  accept="image/*"
+                  maxFileSize="5000000"
                   url="/api/upload"
-                  @select="customBase64Uploader" 
-                  chooseLabel="Загрузить файл"
+                  @select="customBase64Uploader"
+                  chooseLabel="Загрузить аватар команды"
                 >
                 </FileUpload>
 
@@ -68,36 +68,33 @@
 </template>
 
 <script setup> 
-import Auth from '@/services/auth';
-import Team from '@/services/team';
+import { useUserStore } from '@/store/userStore';
+const userStore = useUserStore();
+// import Auth from '@/services/auth';
+// import Team from '@/services/team';
 
-const { $locally } = useNuxtApp();
+// const { $locally } = useNuxtApp();
 
 const visibleShow = ref(false);
-const UserVerificationSend = ref( $locally.getItem("UserVerificationSend") ? true : false);
 
+const UserVerificationSend = ref(false);
 
-const inn = ref('');
-const leagues = ref([]); 
-const file =  ref([]);
+  const inn= ref('');
+  const leagues = ref([]);
+  const file= ref({});
+ 
 
 const isSend = ref(false);
 
 const leaguesOptions = ref([]);
-Team.getLeagues()
-  .then((response) => {
-    leaguesOptions.value = response;
-  })
-  .catch((error) => {
-    console.log(error);
-  });
 
   const customBase64Uploader = async (event) => {
-  const fileAcred = event.files[0];
-  file.value = fileAcred;
-  
+    file.value = event.files[0];
+  // console.log(fileAcred);
+  // file.value = event.files[0];
+
   const reader = new FileReader();
-  let blob = await fetch( fileAcred.objectURL).then((r) => r.blob()); //blob:url
+  let blob = await fetch( file.value.objectURL).then((r) => r.blob()); //blob:url
 
   reader.readAsDataURL(blob);
 
@@ -118,28 +115,13 @@ const cities = ref([
     { name: 'Не хочу указывать'}
 ]);
 
+onMounted(async() => { 
+  leaguesOptions.value = userStore.leaguesOptions;
+  UserVerificationSend.value = userStore.isSendverification;
+  UserVerificationSend.value = userStore.isSendverification;
+});
 
-const submit = (event) => {
-  event.preventDefault(); 
-  const formData = new FormData();
-  formData.append('inn', inn.value); 
-  formData.append('leagues', leagues.value);
-  formData.append('file', file.value );
 
-  console.log(formData);
-  Auth.setUserVerification(formData)
-    .then((response) => {
-      if(response.success === true) {
-
-        isSend.value = true;
-      }
-      $locally.setItem("UserVerificationSend", true)
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
 
 </script>
 

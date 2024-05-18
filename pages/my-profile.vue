@@ -1,12 +1,11 @@
 <template>
   <div>
-    <div class="container head-messages">
-      <Acredition v-if="userData.user_verification === false" />
-    </div>
+    
     <ProfileHead
       :breadcrumbArr="[{ label: 'Личный кабинет' }]"
       :img="imgRef"
       :avatarText="avatarText"
+      :profileData="userData"
     >
       <h1 :class="userData.user_verification == true ? 'verifired' : ''">
         {{ userData.user_nicename }}
