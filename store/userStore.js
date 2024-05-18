@@ -1,19 +1,13 @@
 import axios from 'axios'; 
 import { useRouter } from 'vue-router';
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;  
 
+import { useGlobalStore } from './globalStore';
 
 export const useUserStore = defineStore('user', () => {
-  const isUserAuth = ref(false);
-  const router = useRouter();
-  const API_KEY = ref('');
-  const email = ref('');
-  const userData = ref({}); 
-  const user_registered = ref('')
-  const user_avatar = ref('')
-  const user_first_letter = ref('')
-  const leaguesOptions = ref([])
-  const isSendverification = ref(false)
+  const { isUserAuth, API_KEY, email, userData, user_registered, user_avatar, user_first_letter, leaguesOptions, isSendverification } = useGlobalStore();
+
   
 
   const login = async (dataForm) => {
@@ -38,6 +32,7 @@ export const useUserStore = defineStore('user', () => {
 
   };
 
+  
 
   const getUserData = async () => {
     try {

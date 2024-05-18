@@ -45,25 +45,5 @@ import { useUserStore } from '@/store/userStore';
 definePageMeta({
   layout: 'auth',
 });
-
-const dataForm = ref({
-  // email: 'wol1414@gmail.com',
-  // password: 'Qwerty1414;',
-  email: '',
-  password: '',
-  agreement: true,
-});
-const errorsForm = ref({
-  email: '',
-  password: '',
-  passwordConfirm: '',
-});
-
-const params = {
-  title: 'Авторизация', 
-  bgImage: '/img/reg-bg-2.jpg',
-  btnName: 'Войти',
-};
-
 const submit = useUserStore(); 
 </script>
