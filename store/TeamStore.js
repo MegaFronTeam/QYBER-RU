@@ -20,7 +20,7 @@ export const useTeamStore = defineStore('teamStore', {
       return await axios(`${BASE_URL}${url}`, {
         method: method,
         headers: {
-          Authorization: 'Basic ' + btoa(`${userStore.email}:${userStore.API_KEY}`),
+          Authorization: 'Basic ' + btoa(`${EMAIL}:${API_KEY}`),
         },
       });
     },
