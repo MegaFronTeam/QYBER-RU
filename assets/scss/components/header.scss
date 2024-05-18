@@ -103,13 +103,13 @@
         --gutter-x: 12px;
       }
     }
-    .p-menuitem {
-      &:last-child {
-        @include media-breakpoint-up(lg) {
-          display: none;
-        }
-      }
-    }
+    // .p-menuitem {
+    //   &:last-child {
+    //     @include media-breakpoint-up(lg) {
+    //       display: none;
+    //     }
+    //   }
+    // }
   }
   &__btn-user {
     display: flex;

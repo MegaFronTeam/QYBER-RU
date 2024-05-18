@@ -188,14 +188,14 @@
           </template>
         </Menubar>
         <InputSwitch @click="toggleTheme" v-model="checked" />
-        <template v-if="isUserAuth">
+        <template v-if="userStore.isUserAuth">
           <NuxtLink to="/my-profile"> 
             <Button class="header__btn d-lg-flex" variant="primary">
               <svg-icon name="user.svg" />
               <span class="p-button-label d-none d-lg-flex">Кабинет</span>
             </Button>
           </NuxtLink>
-          <Button class="header__btn header__btn--logout d-lg-flex" @click="logout" severity="danger">
+          <Button class="header__btn header__btn--logout d-lg-flex" @click="userStore.logout()" severity="danger">
             <svg-icon class="m-0" name="logout.svg" /> 
           </Button>
         </template>
@@ -214,7 +214,8 @@
 
 <script setup>
 import {useUserStore} from '@/store/userStore';
-const {isUserAuth, logout} = useUserStore();
+const   userStore = useUserStore();
+
 
 
 const colorMode = useColorMode();
@@ -240,10 +241,10 @@ const props = defineProps({
   },
 });
 const { menubarItems } = props;
-menubarItems.push({
-  label: 'Авторизация',
-  icon: 'rocket-lunch',
-  href: '/login',
-});
+// menubarItems.push({
+//   label: 'Авторизация',
+//   icon: 'rocket-lunch',
+//   href: '/login',
+// });
 const items = ref(menubarItems); 
 </script>

@@ -76,11 +76,11 @@
       justify-content: center;
       background-color: var(--gray-50);
     }
-    &:last-child {
-      @include media-breakpoint-up(lg) {
-        display: none;
-      }
-    }
+    // &:last-child {
+    //   @include media-breakpoint-up(lg) {
+    //     display: none;
+    //   }
+    // }
   }
   &__logo {
     display: block;

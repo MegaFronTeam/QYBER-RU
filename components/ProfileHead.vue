@@ -30,7 +30,7 @@
         <div class="sProfileHead__row row">
           <div class="sProfileHead__img-wrap">
             <div class="img-wrap-center">
-              <NuxtImg v-if="img" :ref="img" :src="img" alt="avatar" />
+              <img v-if="img" :ref="img" :src="img" alt="avatar" />
               <template v-else>
               <span  v-if="avatarText" class="letter">{{ avatarText }}</span>
               </template>

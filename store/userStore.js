@@ -48,14 +48,14 @@ export const useUserStore = defineStore('user', () => {
       userData.value = data; 
 
       user_avatar.value = data.user_avatar.url;
+      console.log(user_avatar.value);
       user_first_letter.value = data.user_nicename[0].toUpperCase();
     
       const date = new Date(data.user_registered);
       const options = { day: 'numeric', month: 'long', year: 'numeric' };
       user_registered.value = new Intl.DateTimeFormat('ru-RU', options)
       .format(date)
-      .split(' г.')[0];
-      console.log(user_registered.value);
+      .split(' г.')[0];  
 
 
     } catch (error) {
@@ -72,6 +72,23 @@ export const useUserStore = defineStore('user', () => {
     router.push('/');
   };
 
+  const singUp = async (dataForm) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/auth/v1/signup`,
+        dataForm,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  };
 
 
   return {
@@ -81,7 +98,10 @@ export const useUserStore = defineStore('user', () => {
     isUserAuth,
     login,
     user_registered,
+    user_first_letter,
+    user_avatar,
     getUserData,
-    logout
+    logout,
+    singUp
   };
 }, {persist: {storage: persistedState.localStorage,}});
