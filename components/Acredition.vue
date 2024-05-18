@@ -11,7 +11,7 @@
         </template>
       </Message>
 
-      <Dialog v-if="!UserVerificationSend !== true" v-model:visible="visibleShow" modal header="Аккредитация">
+      <Dialog v-if="!UserVerificationSend !== true" v-model:visible="visibleShow" modal :header="!UserVerificationSend !== true ? 'Аккредитация' : 'На проверке'">
       <div class="form-wrap">
         <form @submit.prevent="userStore.sendVerification({inn, leagues, file})" v-if="!UserVerificationSend">
           <InputGroup>
@@ -62,6 +62,10 @@
           </InputGroup> 
           <Button type="submit" class="btn-lg">Отправить</Button>
         </form>
+        <div v-else>
+          <p>Мы проверим вашу заявку в ближайшее время</p>
+          <Button @click="visibleShow = false" label="Закрыть" />
+        </div>
       </div>
     </Dialog>
   </div>

@@ -85,6 +85,7 @@
 </template>
 
 <script setup>
+// TODO: переделать на Store
 const visibleShow = ref(false);
 import Team from '@/services/team';
 
