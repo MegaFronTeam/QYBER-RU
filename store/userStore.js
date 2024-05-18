@@ -62,13 +62,6 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
-  const  logout = () => {
-    isUserAuth.value = false;
-    API_KEY.value = '';
-    email.value = '';
-    userData.value = {};
-    router.push('/');
-  };
 
   const singUp = async (dataForm) => {
     try {
