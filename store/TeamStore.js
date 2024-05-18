@@ -1,8 +1,7 @@
 import axios from 'axios';
-import {useUserStore } from '@/store/userStore';
+import { useUserStore } from '@/store/userStore';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-
 
 export const useTeamStore = defineStore('teamStore', {
   state: () => ({
@@ -14,9 +13,9 @@ export const useTeamStore = defineStore('teamStore', {
   actions: {
     async fetcher(method, url) {
       const userStore = useUserStore();
-      const API_KEY =  userStore.API_KEY;
+      const API_KEY = userStore.API_KEY;
       const EMAIL = userStore.email;
-      
+
       return await axios(`${BASE_URL}${url}`, {
         method: method,
         headers: {
@@ -41,9 +40,11 @@ export const useTeamStore = defineStore('teamStore', {
 
         this.teamData = data;
 
-        this.teamData.members.forEach((member) =>
-          +member.id === +'18' ? (this.isCaptain = true) : (this.isCaptain = false),
-        );
+        this.teamData.members.forEach((member) => {
+          if (+member.id === +'18') {
+            this.isCaptain = true;
+          }
+        });
 
         this.loader = false;
       } catch (error) {

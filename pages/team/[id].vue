@@ -52,8 +52,8 @@
       </div>
     </div>
     <div v-else>
-      <TeamBlock v-if="!isCaptain" :teamData="teamsData" />
-      <MyTeamBlock v-if="isCaptain" />
+      <TeamBlock v-if="!teamsStore.isCaptain" :teamData="teamsData" />
+      <MyTeamBlock v-else />
     </div>
   </div>
 </template>
@@ -80,23 +80,24 @@ onMounted(async () => {
   await teamsStore.fetchTeam(id);
 
   console.log(teamsStore.teamData);
+  breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
 });
-onMounted(() => {
-  team
-    .getTeam(id)
-    .then((response) => {
-      if (!response) return;
-      // pending.value = false;
-      teamsData.value = response;
-      breadcrumbArr.value.push({ label: response.post_title });
-      imgRef.value = response.post_thumbnail;
-      // response.members.forEach((member) => {
-      //   if (+member.id === +$locally.getItem('ID')) isCaptain.value = true;
-      // });
-      console.log(response);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+// onMounted(() => {
+//   team
+//     .getTeam(id)
+//     .then((response) => {
+//       if (!response) return;
+//       // pending.value = false;
+//       teamsData.value = response;
+//       breadcrumbArr.value.push({ label: response.post_title });
+//       imgRef.value = response.post_thumbnail;
+//       // response.members.forEach((member) => {
+//       //   if (+member.id === +$locally.getItem('ID')) isCaptain.value = true;
+//       // });
+//       console.log(response);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
 </script>

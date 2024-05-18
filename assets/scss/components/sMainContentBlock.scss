@@ -31,6 +31,24 @@
       margin-bottom: rem(12);
     }
   }
+  &__row {
+    --gutter-y: #{rem(6)};
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    & > * {
+      width: calc(100% / 1 - var(--gutter-x));
+      @include media-breakpoint-up(sm) {
+        width: calc(100% / 2 - var(--gutter-x));
+      }
+      @include media-breakpoint-up(lg) {
+        width: calc(100% / 3 - var(--gutter-x));
+      }
+      @include media-breakpoint-up(xxl) {
+        width: calc(100% / 4 - var(--gutter-x));
+      }
+    }
+  }
   .footer-link {
     border-radius: rem(20);
     border: 1px solid var(--gray-200);

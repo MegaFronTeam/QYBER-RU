@@ -6,7 +6,9 @@
         <p>{{ sectionTitle.text }}</p>
       </div>
       <div class="template">
-        <slot></slot>
+        <div class="sMainContentBlock__row row">
+          <slot></slot>
+        </div>
       </div>
       <div v-if="footerLink" class="footer-link">
         <NuxtLink :to="footerLink.href">
