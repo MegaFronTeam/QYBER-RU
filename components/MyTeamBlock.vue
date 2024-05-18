@@ -13,7 +13,7 @@
       </div>
       <div class="template">
         <TabView v-model:activeIndex="active">
-          <TabPanel v-if="teamData.members.length > 0">
+          <TabPanel v-if="teamStore.teamData.members.length > 0">
             <div class="sMyTeamBlock__head-row">
               <div class="col">
                 <h3>Состав команды</h3>
@@ -22,7 +22,7 @@
                 <Button label="Пригласить в команду" class="ms-auto btn-sm" />
               </div> -->
             </div>
-            <DataTable :value="teamDataRef.members">
+            <DataTable :value="teamStore.teamData.members">
               <Column
                 style="width: 30%"
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
@@ -213,41 +213,34 @@
 
 <script setup>
 import Team from '@/services/team';
+import { useTeamStore } from '~/store/TeamStore';
 
-const props = defineProps({
-  teamData: {
-    type: Object,
-    required: false,
-  },
-  pageID: {
-    type: String,
-    required: false,
-  },
-});
-
-const { teamData, pageID } = props;
-
-const active = ref(0);
-// const addNew = ref([
-//   {
-//     nickname: {
-//       avatar: 'avatar-img-1.jpg',
-//       text: 'Dando',
-//     },
-//     name: 'Константин Завгородний',
+// const props = defineProps({
+//   pageID: {
+//     type: String,
+//     required: false,
 //   },
-// ]);
+// });
 
-const teamDataRef = ref(teamData);
+// const { pageID } = props;
+const active = ref(0);
+const teamStore = useTeamStore();
+const teamMembers = ref(teamStore.teamData.members);
+
+console.log('Members 1', teamMembers.value);
+console.log('Members 2', teamStore.teamData.members);
+
+//  sconst teamDataRef = ref(teamData);
 const deletePlayer = (USER_ID) => {
-  teamDataRef.value.members = teamDataRef.value.members.filter((element) => element.id != USER_ID);
-  Team.deleteTeamMember(pageID, USER_ID)
-    .then((response) => {
-      if (!response) return;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  teamStore.deleteTeamMember(USER_ID);
+  // teamDataRef.value.members = teamDataRef.value.members.filter((element) => element.id != USER_ID);
+  // Team.deleteTeamMember(pageID, USER_ID)
+  //   .then((response) => {
+  //     if (!response) return;
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
 };
 </script>
 

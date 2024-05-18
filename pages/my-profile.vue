@@ -3,7 +3,11 @@
     <div class="container head-messages">
       <Acredition v-if="userData.user_verification === false" />
     </div>
-    <ProfileHead :breadcrumbArr="[{ label: 'Личный кабинет' }]" :img="imgRef" :avatarText="avatarText"  >
+    <ProfileHead
+      :breadcrumbArr="[{ label: 'Личный кабинет' }]"
+      :img="imgRef"
+      :avatarText="avatarText"
+    >
       <h1 :class="userData.user_verification == true ? 'verifired' : ''">
         {{ userData.user_nicename }}
       </h1>
@@ -27,10 +31,10 @@
 import { ref, onMounted } from 'vue';
 const { $locally } = useNuxtApp();
 import Auth from '@/services/auth';
-import  {useUserStore} from '@/store/userStore';
+import { useUserStore } from '@/store/userStore';
 
-const  userStore = useUserStore();
-console.log(userStore.userData);
+const userStore = useUserStore();
+// console.log(userStore.userData);
 const imgRef = ref(null);
 const avatarText = ref(null);
 const userData = ref({});
@@ -52,21 +56,21 @@ if ($locally.getItem('user_registered')) {
 onMounted(() => {
   // if($locally.getItem('user_avatar')) {
   //   imgRef.value = $locally.getItem('user_avatar');
-  // }  
+  // }
   Auth.getMyProfileData().then((response) => {
-    // console.log(response); 
-    // if(!$locally.getItem('user_avatar') || $locally.getItem('user_avatar') != response['user_avatar'].url) { 
+    // console.log(response);
+    // if(!$locally.getItem('user_avatar') || $locally.getItem('user_avatar') != response['user_avatar'].url) {
     //   $locally.setItem('user_avatar', response['user_avatar'].url);
     //   imgRef.value = response['user_avatar'].url;
-    // }  
-    Object.keys(response).forEach((key) => {  
-        userData.value[key] = response[key]; 
+    // }
+    Object.keys(response).forEach((key) => {
+      userData.value[key] = response[key];
     });
 
     // Object.keys(userData.value).forEach((key) => {
-    //   if (!$locally.getItem(key) || $locally.getItem(key) != response[key]) { 
+    //   if (!$locally.getItem(key) || $locally.getItem(key) != response[key]) {
     //       $locally.setItem(key, response[key]);
-    //       userData.value[key] = response[key]; 
+    //       userData.value[key] = response[key];
     //   }
     // });
     // if(!$locally.getItem('user_avatar') || $locally.getItem('user_avatar') != response.user_avatar) {
@@ -76,7 +80,7 @@ onMounted(() => {
     avatarText.value = response.user_nicename[0];
     imgRef.value = response['user_avatar'].url;
     console.log('imgRef', imgRef.value);
-  // } 
+    // }
     if (!user_registered.value) {
       const date = new Date(response.user_registered);
       const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -84,6 +88,8 @@ onMounted(() => {
         .format(date)
         .split(' г.')[0];
     }
+
+    // console.log(userData.value);
   });
 });
 </script>
