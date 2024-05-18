@@ -55,8 +55,8 @@ onMounted(async() => {
   //   imgRef.value = $locally.getItem('user_avatar');
   // }  
   userStore.getUserData();
-  imgRef.value = userStore.userData.user_avatar.url;
-  avatarText.value = userStore.userData.user_nicename[0];
+  imgRef.value = userStore.userData.user_avatar;
+  avatarText.value = userStore.userData.user_first_letter;
   userData.value = userStore.userData;
   user_registered.value = userStore.user_registered;
   
