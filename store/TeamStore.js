@@ -39,6 +39,7 @@ export const useTeamStore = defineStore('teamStore', {
         const data = res.data;
 
         this.teamData = data;
+        console.log(this.teamData);
 
         this.teamData.members.forEach((member) => {
           if (+member.id === +'18') {

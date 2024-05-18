@@ -59,10 +59,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
 import { useTeamStore } from '~/store/TeamStore';
-import team from '~/services/team';
-const { $locally } = useNuxtApp();
 const teamsStore = useTeamStore();
 const { id } = useRoute().params;
 
@@ -78,8 +75,11 @@ const teamsData = ref({});
 // console.log(typeof id);
 onMounted(async () => {
   await teamsStore.fetchTeam(id);
+  imgRef.value = teamsStore.teamData.post_thumbnail;
+// const pending = ref(true);
+  teamsData.value = teamsStore.teamData;
 
-  console.log(teamsStore.teamData);
+  console.log(teamsStore.teamData.value);
   breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
 });
 // onMounted(() => {
