@@ -6,7 +6,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from './globalStore';
 
 export const useUserStore = defineStore('user', () => {
-  const { isUserAuth, API_KEY, email, userData, user_registered, user_avatar, user_first_letter, leaguesOptions, isSendverification } = useGlobalStore();
+  const globalStore = useGlobalStore();
 
   
 
@@ -22,13 +22,13 @@ export const useUserStore = defineStore('user', () => {
     );
 
     const data =  await response.data; 
-    API_KEY.value = data[0];
-    email.value = dataForm.email; 
+    globalStore.API_KEY.value = data[0];
+    globalStore.email.value = dataForm.email; 
     router.push('/my-profile');
 
   
 
-    isUserAuth.value = true;
+    globalStore.isUserAuth.value = true;
 
   };
 
@@ -38,16 +38,16 @@ export const useUserStore = defineStore('user', () => {
     try {
       const response = await axios.get(`${BASE_URL}/profile/v1/my`, {
         headers: {
-          Authorization: 'Basic ' + btoa(`${email.value}:${API_KEY.value}`),
+          Authorization: 'Basic ' + btoa(`${globalStore.email.value}:${globalStore.API_KEY.value}`),
         },
       });
 
       const data =  await response.data; 
-      userData.value = data; 
+      globalStore.userData.value = data; 
 
-      user_avatar.value = data.user_avatar.url;
-      console.log(user_avatar.value);
-      user_first_letter.value = data.user_nicename[0].toUpperCase();
+      globalStore.user_avatar.value = data.user_avatar.url;
+      console.log(globalStore.user_avatar.value);
+      globalStore.user_first_letter.value = data.user_nicename[0].toUpperCase();
     
       const date = new Date(data.user_registered);
       const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -93,18 +93,18 @@ export const useUserStore = defineStore('user', () => {
       try {
     const response = await axios.get(`${BASE_URL}/wp/v2/leagues`, {
       headers: {
-        Authorization: 'Basic ' + btoa(`${email.value}:${API_KEY.value}`),
+        Authorization: 'Basic ' + btoa(`${globalStore.email.value}:${globalStore.API_KEY.value}`),
       },
       });
       const data = await response.data;
-      leaguesOptions.value = data;
+      globalStore.leaguesOptions.value = data;
       // return response.data; 
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
     }
   }
-  if(leaguesOptions.value.length === 0){
+  if(globalStore.leaguesOptions.value.length === 0){
     getLeagues();
   }
 
@@ -112,12 +112,12 @@ export const useUserStore = defineStore('user', () => {
     try {
       const response = await axios.post(`${BASE_URL}/profile/v1/verification`, dataForm, {
         headers: {
-          Authorization: 'Basic ' + btoa(`${email.value}:${API_KEY.value}`),
+          Authorization: 'Basic ' + btoa(`${globalStore.email.value}:${globalStore.API_KEY.value}`),
           'Content-Type': 'multipart/form-data',
         },
       });
       const data = await response.data;
-      isSendverification.value = data.success;
+      globalStore.isSendVerification.value = data.success;
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
@@ -129,19 +129,19 @@ export const useUserStore = defineStore('user', () => {
 
 
   return {
-    API_KEY,
-    email,
-    userData,
+    API_KEY: globalStore.API_KEY,
+    email: globalStore.email,
+    userData: globalStore.userData,
     isUserAuth,
     login,
     user_registered,
-    user_first_letter,
-    user_avatar,
+    user_first_letter: globalStore.user_first_letter,
+    user_avatar: globalStore.user_avatar,
     getUserData,
     logout,
     singUp, 
     getLeagues,
-    leaguesOptions,
+    leaguesOptions: globalStore.leaguesOptions,
     isSendverification,
     sendVerification
     
