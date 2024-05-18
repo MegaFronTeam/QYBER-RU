@@ -5,12 +5,12 @@
         <div class="btn-wrap template-wrap">
           <Button @click="active = 0" :class="active === 0 ? 'active' : ''"> Мой профиль </Button>
           <Button
-            v-if="teamsArr.length > 0"
+            v-if="teamsStore.myTeams.length > 0"
             @click="active = 1"
             :class="active === 1 ? 'active' : ''"
           >
             Мои команды
-            <Badge :value="teamsArr.length"></Badge>
+            <Badge :value="teamsStore.myTeams.length"></Badge>
           </Button>
         </div>
       </div>
@@ -170,7 +170,7 @@
               </div>
             </div>
           </TabPanel>
-          <TabPanel v-if="teamsArr.length > 0">
+          <TabPanel v-if="teamsStore.myTeams.length > 0">
             <div class="sMyProfileBlock__head-row row">
               <div class="col">
                 <h3>Мои команды</h3>
@@ -179,7 +179,7 @@
                 <CreateTeam />
               </div>
             </div>
-            <DataTable :value="teamsArr">
+            <DataTable :value="teamsStore.myTeams">
               <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
                 field="nickname"
@@ -360,8 +360,15 @@
 </template>
 
 <script setup>
+import { useTeamStore } from '~/store/TeamStore';
 import auth from '@/services/auth';
-import Team from '@/services/team';
+
+const teamsStore = useTeamStore();
+onMounted(async () => {
+  await teamsStore.fetchMyTeams();
+
+  console.log(teamsStore.myTeams);
+});
 
 const { $locally } = useNuxtApp();
 const props = defineProps({
@@ -371,7 +378,7 @@ const props = defineProps({
   },
 });
 
-const { profileData } = props;
+const { profileData } = toRefs(props);
 const active = ref(0);
 // const totalRecords = ref(10);
 // const rowsPerPage = ref([5, 10, 50, 100]);
@@ -425,18 +432,6 @@ const submitNewPassword = (event) => {
       console.log(error);
     });
 };
-
-// Team
-const teamsArr = ref([]);
-onMounted(() => {
-  Team.getMyTeams()
-    .then((response) => {
-      teamsArr.value = response;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
 </script>
 
 <style scoped lang="scss">

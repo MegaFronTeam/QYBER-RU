@@ -1,7 +1,6 @@
 <template>
   <NuxtLoadingIndicator />
-  <!-- <NuxtLayout dir="routing/middleware"> -->
-  <NuxtLayout >
+  <NuxtLayout dir="routing/middleware"> 
     <NuxtPage />
   </NuxtLayout>
 </template>

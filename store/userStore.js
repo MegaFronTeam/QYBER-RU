@@ -1,14 +1,14 @@
-import axios from 'axios';
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-const router = useRouter();
-import { useStorage } from '@vueuse/core'
+import axios from 'axios'; 
+import { useRouter } from 'vue-router';
+const BASE_URL = import.meta.env.VITE_BASE_URL;  
 
 
 export const useUserStore = defineStore('user', () => {
+  const isUserAuth = ref(false);
+  const router = useRouter();
   const API_KEY = ref('');
   const email = ref('');
-  const userData = ref({});
-
+  const userData = ref({}); 
 
   const login = async (dataForm) => {
     const response = await axios.post(
@@ -23,8 +23,10 @@ export const useUserStore = defineStore('user', () => {
     console.log(dataForm.email);
     const data =  await response.data; 
     API_KEY.value = data[0];
-    email.value = dataForm.email;
-    // router.push('/my-profile');
+    email.value = dataForm.email; 
+    router.push('/my-profile');
+    isUserAuth.value = true;
+
   };
 
 
@@ -38,7 +40,7 @@ export const useUserStore = defineStore('user', () => {
       });
 
       const data =  await response.data; 
-      userData.value = data;
+      userData.value = data; 
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
@@ -62,7 +64,8 @@ export const useUserStore = defineStore('user', () => {
     API_KEY,
     email,
     userData,
+    isUserAuth,
     login,
     getUserData,
   };
-}, {persist: true});
+}, {persist: {storage: persistedState.localStorage,}});

@@ -249,11 +249,11 @@ const props = defineProps({
   },
 });
 const { menubarItems } = props;
-menubarItems.push({
-  label: 'Авторизация',
-  icon: 'rocket-lunch',
-  href: '/login',
-});
+// menubarItems.push({
+//   label: 'Авторизация',
+//   icon: 'rocket-lunch',
+//   href: '/login',
+// });
 const items = ref(menubarItems);
 
 const logout = () => {

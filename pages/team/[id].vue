@@ -23,10 +23,11 @@
           </span>
         </div>
       </div>
+      <!-- Todo: Need info -->
       <span class="sProfileHead__name mb-12">Самара</span>
       <div class="sProfileHead__time mb-0">ИНН 772331755151</div>
     </ProfileHead>
-    <div v-if="pending" class="container table-skeleton" style="margin-bottom: 0.8rem">
+    <div v-if="teamsStore.loader" class="container table-skeleton" style="margin-bottom: 0.8rem">
       <Skeleton height="3rem" borderRadius="12px" style="margin-bottom: 0.8rem" />
       <div class="d-flex align-items-center" style="margin-bottom: 0.5rem">
         <Skeleton shape="circle" size="3rem" style="margin-right: 0.8rem; flex: 0 0 auto" />
@@ -52,40 +53,46 @@
     </div>
     <div v-else>
       <TeamBlock v-if="!isCaptain" :teamData="teamsData" />
-      <MyTeamBlock v-if="isCaptain" :teamData="teamsData" :pageID="id" />
+      <MyTeamBlock v-if="isCaptain" />
     </div>
   </div>
 </template>
 
 <script setup>
 import { onMounted } from 'vue';
+import { useTeamStore } from '~/store/TeamStore';
 import team from '~/services/team';
 const { $locally } = useNuxtApp();
-
+const teamsStore = useTeamStore();
 const { id } = useRoute().params;
 
 const breadcrumbArr = ref([
   { label: 'Личный кабинет', route: '/' },
   { label: 'Мои команды', route: '/' },
 ]);
-const isCaptain = ref(false);
+// const isCaptain = ref(false);
 const imgRef = ref(null);
-const pending = ref(true);
+// const pending = ref(true);
 const teamsData = ref({});
 
 // console.log(typeof id);
+onMounted(async () => {
+  await teamsStore.fetchTeam(id);
+
+  console.log(teamsStore.teamData);
+});
 onMounted(() => {
   team
     .getTeam(id)
     .then((response) => {
       if (!response) return;
-      pending.value = false;
+      // pending.value = false;
       teamsData.value = response;
       breadcrumbArr.value.push({ label: response.post_title });
       imgRef.value = response.post_thumbnail;
-      response.members.forEach((member) => {
-        if (+member.id === +$locally.getItem('ID')) isCaptain.value = true;
-      });
+      // response.members.forEach((member) => {
+      //   if (+member.id === +$locally.getItem('ID')) isCaptain.value = true;
+      // });
       console.log(response);
     })
     .catch((err) => {

@@ -3,7 +3,11 @@
     <div class="container head-messages">
       <Acredition v-if="userData.user_verification === false" />
     </div>
-    <ProfileHead :breadcrumbArr="[{ label: 'Личный кабинет' }]" :img="imgRef" :avatarText="avatarText"  >
+    <ProfileHead
+      :breadcrumbArr="[{ label: 'Личный кабинет' }]"
+      :img="imgRef"
+      :avatarText="avatarText"
+    >
       <h1 :class="userData.user_verification == true ? 'verifired' : ''">
         {{ userData.user_nicename }}
       </h1>
@@ -25,15 +29,13 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-const { $locally } = useNuxtApp();
-import Auth from '@/services/auth';
-import  {useUserStore} from '@/store/userStore';
+import { useUserStore } from '@/store/userStore';
 
-const  userStore = useUserStore();
-// const imgRef = ref(null);
-// const avatarText = ref(null);
+const userStore = useUserStore();
+// console.log(userStore.userData);
+const imgRef = ref(null);
+const avatarText = ref(null);
 const userData = ref({});
-
 const user_registered = ref('');
 
 // Object.keys(userData.value).forEach((key) => {
@@ -53,7 +55,10 @@ onMounted(async() => {
   //   imgRef.value = $locally.getItem('user_avatar');
   // }  
   userStore.getUserData();
+  imgRef.value = userStore.userData.user_avatar.url;
+  avatarText.value = userStore.userData.user_nicename[0];
   userData.value = userStore.userData;
+  
 
   // Auth.getMyProfileData().then((response) => {
   //   // console.log(response); 
