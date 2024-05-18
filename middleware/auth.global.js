@@ -1,6 +1,6 @@
+// import { useUserStore } from '@/store/userStore';
 
 export default defineNuxtRouteMiddleware(async (to) => { 
-  const { $locally } = useNuxtApp();
   const loginPages = [
     'login',
     'registration',
@@ -25,17 +25,17 @@ export default defineNuxtRouteMiddleware(async (to) => {
     'profile-contacts-error',
   ];
   
-  if (process.client) {
-      const isAuth = $locally.getItem('token');
-      const user_email = $locally.getItem('user_email');
-    if (isAuth && user_email) {
-      if (loginPages.includes(to.name)) { 
-        return navigateTo('/');
-      }
-    } else {
-      if (profilePages.includes(to.name)) {
-        return  navigateTo('/login');
-      }
-    }
-    }
+  // if (process.client) {
+  //     const isAuth = useUserStore.API_KEY !== '';
+  //     const user_email = useUserStore.email ;
+  //   if (isAuth && user_email) {
+  //     if (loginPages.includes(to.name)) { 
+  //       return navigateTo('/');
+  //     }
+  //   } else {
+  //     if (profilePages.includes(to.name)) {
+  //       return  navigateTo('/login');
+  //     }
+  //   }
+  //   }
 });

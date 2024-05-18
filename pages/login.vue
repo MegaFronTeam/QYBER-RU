@@ -1,6 +1,6 @@
 <template>
   <sFormPage v-bind="params">
-    <form @submit="submit">
+    <form @submit.prevent="submit.login(dataForm)">
       <InputGroup>
         <label for="email">Email</label>
         <InputText
@@ -38,17 +38,16 @@
 </template>
 
 <script setup>
-import Auth from '@/services/auth';
-const { $locally } = useNuxtApp();
+// import Auth from '@/services/auth';
+
+import { useUserStore } from '@/store/userStore';
 const router = useRouter();
 
 definePageMeta({
   layout: 'auth',
 });
-import { ref } from 'vue';
+
 const dataForm = ref({
-  // email: '',
-  // password: '',
   email: 'wol1414@gmail.com',
   password: 'Qwerty1414;',
   agreement: true,
@@ -60,24 +59,10 @@ const errorsForm = ref({
 });
 
 const params = {
-  title: 'Авторизация',
-  // text: 'E-nter your credentials to access your account',
+  title: 'Авторизация', 
   bgImage: '/img/reg-bg-2.jpg',
   btnName: 'Войти',
 };
 
-const submit = (event) => {
-  event.preventDefault();
-  Auth.login(dataForm.value.email, dataForm.value.password)
-    .then((response) => {
-      $locally.setItem('token', response[0]);
-      $locally.setItem('user_email', dataForm.value.email);
-      router.push('/my-profile');
-      console.log(dataForm.value.email);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  // console.log(data());
-};
+const submit = useUserStore(); 
 </script>
