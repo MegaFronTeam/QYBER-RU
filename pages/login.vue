@@ -47,8 +47,10 @@ definePageMeta({
 });
 
 const dataForm = ref({
-  email: 'wol1414@gmail.com',
-  password: 'Qwerty1414;',
+  // email: 'wol1414@gmail.com',
+  // password: 'Qwerty1414;',
+  email: '',
+  password: '',
   agreement: true,
 });
 const errorsForm = ref({
