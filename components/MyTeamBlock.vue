@@ -17,10 +17,9 @@
             <div class="sMyTeamBlock__head-row row">
               <div class="col">
                 <h3>Состав команды</h3>
-              </div>
-              <!-- TODO: сделать по примеру создания тимы -->
+              </div> 
               <div class="col-auto">
-                <Button label="Пригласить в команду" class="ms-auto btn-sm" />
+                <InviteMember/>
               </div>
             </div>
             <DataTable :value="teamStore.teamData.members">

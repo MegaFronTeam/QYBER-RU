@@ -67,13 +67,14 @@ const breadcrumbArr = ref([
   { label: 'Личный кабинет', route: '/' },
   { label: 'Мои команды', route: '/' },
 ]);
-// const isCaptain = ref(false);
+
 const imgRef = ref(null);
-// const pending = ref(true);
 const teamsData = ref({});
 
 // console.log(typeof id);
 onMounted(async () => {
+  teamsStore.currentTeamID = id;
+  console.log(teamsStore.currentTeamID);
   await teamsStore.fetchTeam(id);
   imgRef.value = teamsStore.teamData.post_thumbnail;
 // const pending = ref(true);
@@ -82,22 +83,4 @@ onMounted(async () => {
   console.log(teamsStore.teamData.value);
   breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
 });
-// onMounted(() => {
-//   team
-//     .getTeam(id)
-//     .then((response) => {
-//       if (!response) return;
-//       // pending.value = false;
-//       teamsData.value = response;
-//       breadcrumbArr.value.push({ label: response.post_title });
-//       imgRef.value = response.post_thumbnail;
-//       // response.members.forEach((member) => {
-//       //   if (+member.id === +$locally.getItem('ID')) isCaptain.value = true;
-//       // });
-//       console.log(response);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });
 </script>

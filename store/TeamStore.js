@@ -1,6 +1,6 @@
 import axios from 'axios'; 
 import { useGlobalStore } from './globalStore'; 
-
+import { useRoute } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const useTeamStore = defineStore('teamStore', {
@@ -10,13 +10,15 @@ export const useTeamStore = defineStore('teamStore', {
     myTeams: [],
     teamData: [],
     isCreate: false,
+    currentTeamID: '',
     formDataCreateTeam:{
       name: '',
       description: '',
       leagues: '',
       discipline: '',
       logo: null,
-    }
+    },
+    inviteEmail: '',
   }),
   actions: {
     async fetcher(method, url,data = null)  {
@@ -84,6 +86,24 @@ export const useTeamStore = defineStore('teamStore', {
         this.loader = false;
       } catch (error) {
         console.log(error);
+      }
+    },
+    async inviteMember() {
+      try {
+        const response = await this.fetcher('POST', `/teams/v1/team/${this.currentTeamID}/member`, {email: this.inviteEmail});
+        const data = await response.data;
+        console.log(data);
+        if(data){
+          this.isCreate = true;
+          this.inviteEmail = '';
+          this.fetchMyTeams();
+          setTimeout(() => {
+          this.isCreate = false;
+          }, 1500);
+        }
+      } catch (error) {
+        console.error(error);
+        return Promise.reject(error);
       }
     },
     async deleteTeamMember(USER_ID) {

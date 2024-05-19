@@ -1,6 +1,7 @@
 <template>
   <div>
     <Button
+      style="margin-bottom: 1.5rem;"
       class="ms-auto btn-sm"
       severity="primary"
       outlined
