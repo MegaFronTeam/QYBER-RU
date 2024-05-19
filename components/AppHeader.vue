@@ -188,14 +188,14 @@
           </template>
         </Menubar>
         <InputSwitch @click="toggleTheme" v-model="checked" />
-        <template v-if="userStore.isUserAuth">
+        <template v-if="globalStore.isUserAuth">
           <NuxtLink to="/my-profile"> 
             <Button class="header__btn d-lg-flex" variant="primary">
               <svg-icon name="user.svg" />
               <span class="p-button-label d-none d-lg-flex">Кабинет</span>
             </Button>
           </NuxtLink>
-          <Button class="header__btn header__btn--logout d-lg-flex" @click="userStore.logout()" severity="danger">
+          <Button class="header__btn header__btn--logout d-lg-flex" @click="globalStore.logout()" severity="danger">
             <svg-icon class="m-0" name="logout.svg" /> 
           </Button>
         </template>
@@ -213,8 +213,8 @@
 </template>
 
 <script setup>
-import {useUserStore} from '@/store/userStore';
-const   userStore = useUserStore();
+import {useGlobalStore} from '~/store/globalStore';
+const   globalStore = useGlobalStore();
 
 
 

@@ -1,25 +1,24 @@
 import axios from 'axios'; 
 import { useRouter } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;  
-
+import { useGlobalStore } from './globalStore';
 
 export const useUserStore = defineStore('user', () => {
-  const isUserAuth = ref(false);
   const router = useRouter();
-  const API_KEY = ref('');
+  const globalStore = useGlobalStore();
   const email = ref('');
-  const userData = ref({}); 
-  const user_registered = ref('')
-  const user_avatar = ref('')
-  const user_first_letter = ref('')
-  const leaguesOptions = ref([])
-  const isSendverification = ref(false)
-  
+  const dataForm = ref({
+    email: 'wol1414@gmail.com',
+    password: 'Qwerty1414;',
+    // email: '',
+    // password: '',
+    agreement: true,
+  });
 
-  const login = async (dataForm) => {
+  const login = async () => {
     const response = await axios.post(
       `${BASE_URL}/auth/v1/login`,
-      dataForm,
+      dataForm.value,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -27,15 +26,12 @@ export const useUserStore = defineStore('user', () => {
       },
     );
 
-    const data =  await response.data; 
-    API_KEY.value = data[0];
-    email.value = dataForm.email; 
+    const data =  await response.data;
+    console.log(data);
     router.push('/my-profile');
-
-  
-
-    isUserAuth.value = true;
-
+    globalStore.API_KEY = data[0];
+    globalStore.email = dataForm.value.email; 
+    globalStore.isUserAuth = true;
   };
 
 
@@ -43,20 +39,19 @@ export const useUserStore = defineStore('user', () => {
     try {
       const response = await axios.get(`${BASE_URL}/profile/v1/my`, {
         headers: {
-          Authorization: 'Basic ' + btoa(`${email.value}:${API_KEY.value}`),
+          Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
         },
       });
 
       const data =  await response.data; 
-      userData.value = data; 
+      globalStore.userData = data; 
 
-      user_avatar.value = data.user_avatar.url;
-      console.log(user_avatar.value);
-      user_first_letter.value = data.user_nicename[0].toUpperCase();
+      globalStore.user_avatar = data.user_avatar.url;
+      globalStore.user_first_letter = data.user_nicename[0].toUpperCase();
     
       const date = new Date(data.user_registered);
       const options = { day: 'numeric', month: 'long', year: 'numeric' };
-      user_registered.value = new Intl.DateTimeFormat('ru-RU', options)
+      globalStore.user_registered = new Intl.DateTimeFormat('ru-RU', options)
       .format(date)
       .split(' г.')[0];  
 
@@ -67,13 +62,16 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
-  const  logout = () => {
-    isUserAuth.value = false;
-    API_KEY.value = '';
-    email.value = '';
-    userData.value = {};
-    router.push('/');
-  };
+  // if(globalStore.isUserAuth){
+  //   getUserData();
+  // }
+  // const  logout = () => {
+  //   globalStore.isUserAuth.value = false;
+  //   globalStore.API_KEY = '';
+  //   globalStore.email = '';
+  //   globalStore.userData.value = {};
+  //   router.push('/');
+  // };
 
   const singUp = async (dataForm) => {
     try {
@@ -101,35 +99,23 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
-  const getLeagues = async () => {
-      try {
-    const response = await axios.get(`${BASE_URL}/wp/v2/leagues`, {
-      headers: {
-        Authorization: 'Basic ' + btoa(`${email.value}:${API_KEY.value}`),
-      },
-      });
-      const data = await response.data;
-      leaguesOptions.value = data;
-      // return response.data; 
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
-  }
-  if(leaguesOptions.value.length === 0){
-    getLeagues();
-  }
+
+
+
 
   const sendVerification = async(dataForm) => {
     try {
       const response = await axios.post(`${BASE_URL}/profile/v1/verification`, dataForm, {
         headers: {
-          Authorization: 'Basic ' + btoa(`${email.value}:${API_KEY.value}`),
+          Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
           'Content-Type': 'multipart/form-data',
         },
       });
       const data = await response.data;
-      isSendverification.value = data.success;
+      if(data.success === true){
+        // getUserData(); 
+        globalStore.in_verifications = true;
+      }
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
@@ -141,21 +127,11 @@ export const useUserStore = defineStore('user', () => {
 
 
   return {
-    API_KEY,
-    email,
-    userData,
-    isUserAuth,
     login,
-    user_registered,
-    user_first_letter,
-    user_avatar,
+    dataForm,
     getUserData,
-    logout,
-    singUp, 
-    getLeagues,
-    leaguesOptions,
-    isSendverification,
-    sendVerification
-    
+    singUp,
+    sendVerification,
+    email
   };
-}, {persist: {storage: persistedState.localStorage,}});
+});

@@ -1,7 +1,8 @@
-import {useUserStore} from '@/store/userStore';
+import { useGlobalStore } from '@/store/globalStore';
+
 export default defineNuxtRouteMiddleware(async (to) => { 
-  const userState = useUserStore();
-  const isAuth = userState.isUserAuth; 
+  const globalState = useGlobalStore();
+  const isUserAuth = globalState.isUserAuth; 
   // const { $locally } = useNuxtApp();
   const loginPages = [
     'login',
@@ -30,7 +31,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   if (process.client) {
       
       
-    if (isAuth  ) {
+    if (isUserAuth  ) {
       if (loginPages.includes(to.name)) { 
         return navigateTo('/');
       }

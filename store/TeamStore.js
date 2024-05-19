@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useUserStore } from '@/store/userStore';
+import { useGlobalStore } from './globalStore';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -12,9 +13,9 @@ export const useTeamStore = defineStore('teamStore', {
   }),
   actions: {
     async fetcher(method, url) {
-      const userStore = useUserStore();
-      const API_KEY = userStore.API_KEY;
-      const EMAIL = userStore.email;
+      const globalStore = useGlobalStore();
+      const API_KEY = globalStore.API_KEY;
+      const EMAIL = globalStore.email;
 
       return await axios(`${BASE_URL}${url}`, {
         method: method,
@@ -62,4 +63,5 @@ export const useTeamStore = defineStore('teamStore', {
       }
     },
   },
+  persist: {storage: persistedState.localStorage}
 });

@@ -1,22 +1,22 @@
 <template>
   <sFormPage v-bind="params">
-    <form @submit.prevent="submit.login(dataForm)">
+    <form @submit.prevent="userStore.login()">
       <InputGroup>
         <label for="email">Email</label>
         <InputText
           id="email"
-          v-model="dataForm.email"
+          v-model="userStore.dataForm.email"
           aria-describedby="email-help"
           placeholder="Введите Email"
         />
         <small class="p-error" id="password-help">{{ errorsForm.email }}</small>
-      </InputGroup>
+      </InputGroup> 
 
       <InputGroup>
         <label for="password">Пароль</label>
         <Password
           id="password"
-          v-model="dataForm.password"
+          v-model="userStore.dataForm.password"
           aria-describedby="password-help"
           placeholder="Введите пароль"
           :feedback="false"
@@ -46,13 +46,6 @@ definePageMeta({
   layout: 'auth',
 });
 
-const dataForm = ref({
-  // email: 'wol1414@gmail.com',
-  // password: 'Qwerty1414;',
-  email: '',
-  password: '',
-  agreement: true,
-});
 const errorsForm = ref({
   email: '',
   password: '',
@@ -65,5 +58,5 @@ const params = {
   btnName: 'Войти',
 };
 
-const submit = useUserStore(); 
+const userStore = useUserStore(); 
 </script>
