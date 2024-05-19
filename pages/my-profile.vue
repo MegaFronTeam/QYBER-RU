@@ -43,7 +43,7 @@ onMounted(async() => {
   userStore.getUserData();
   imgRef.value = globalStore.user_avatar;
   avatarText.value = globalStore.user_first_letter;
-  user_registered.value = globalStore.user_registered;
+
 });
 </script>
 <style lang="scss">

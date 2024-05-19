@@ -33,7 +33,7 @@ export const useUserStore = defineStore('user', () => {
     globalStore.API_KEY = data[0];
     globalStore.email = dataForm.value.email; 
     globalStore.isUserAuth = true;
-    globalStore.in_verifications = data[1].in_verifications;
+    
   };
 
 
@@ -48,6 +48,7 @@ export const useUserStore = defineStore('user', () => {
       const data =  await response.data; 
       globalStore.userData = data; 
 
+      globalStore.in_verifications = globalStore.userData.in_verifications;
       globalStore.user_avatar = data.user_avatar.url;
       globalStore.user_first_letter = data.user_nicename[0].toUpperCase();
     
