@@ -4,8 +4,8 @@
       <div class="template template--header">
         <div class="btn-wrap template-wrap">
           <Button @click="active = 0" :class="active === 0 ? 'active' : ''"> Мой профиль </Button>
+          <!-- v-if="teamsStore.myTeams.length > 0" -->
           <Button
-            v-if="teamsStore.myTeams.length > 0"
             @click="active = 1"
             :class="active === 1 ? 'active' : ''"
           >

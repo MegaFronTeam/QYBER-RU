@@ -1,80 +1,100 @@
-import { ref, reactive } from 'vue';
-import axios from 'axios';
-// import { useUserStore } from '@/store/userStore';
-import { useGlobalStore } from './globalStore';
+import axios from 'axios'; 
+import { useGlobalStore } from './globalStore'; 
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-export function useTeamStore() {
-  const loader = ref(true);
-  const isCaptain = ref(false);
-  const myTeams = ref([]);
-  const teamData = reactive([]);
+export const useTeamStore = defineStore('teamStore', {
+  state: () => ({
+    loader: true,
+    isCaptain: false,
+    myTeams: [],
+    teamData: [],
+    isCreate: false,
+    formDataCreateTeam:{
+      name: '',
+      description: '',
+      leagues: '',
+      discipline: '',
+      logo: null,
+    }
+  }),
+  actions: {
+    async fetcher(method, url,data = null)  {
+      const globalStore = useGlobalStore();
+      const API_KEY = globalStore.API_KEY;
+      const EMAIL = globalStore.email;
 
-  const fetcher = async (method, url) => {
-    const globalStore = useGlobalStore();
-    const API_KEY = globalStore.API_KEY;
-    const EMAIL = globalStore.email;
-
-    try {
-      const response = await axios(`${BASE_URL}${url}`, {
+      return await axios(`${BASE_URL}${url}`, {
         method: method,
         headers: {
           Authorization: 'Basic ' + btoa(`${EMAIL}:${API_KEY}`),
         },
+        data
       });
+    },
+    async fetchMyTeams() {
+      try {
+        const res = await this.fetcher('GET', '/teams/v1/my');
+        const data = res.data;
 
-      return response.data;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  };
+        this.myTeams = data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async createTeam() {
+      const formData = new FormData();
+      Object.keys(this.formDataCreateTeam).forEach((key) => {
+        formData.append(key, this.formDataCreateTeam[key]);
+      });
+      console.log(formData);
 
-  const fetchMyTeams = async () => {
-    try {
-      const data = await fetcher('GET', '/teams/v1/my');
-      myTeams.value = data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchTeam = async (id) => {
-    try {
-      const data = await fetcher('GET', `/teams/v1/team/${id}`);
-      teamData.members = data.members;
-      console.log(teamData);
-
-      teamData.members.forEach((member) => {
-        if (+member.id === +'18') {
-          isCaptain.value = true;
+      try {
+        const response = await this.fetcher('POST', '/teams/v1/create', formData);
+        const data = await response.data;
+        if(data){
+          this.isCreate = true;
+          Object.keys(this.formDataCreateTeam).forEach((key) => {
+            this.formDataCreateTeam[key] = '';
+          });
+          this.fetchMyTeams();
+          setTimeout(() => {
+          this.isCreate = false;
+          }, 1500);
         }
-      });
+      } catch (error) {
+        console.error(error);
+        return Promise.reject(error);
+      }
+    },
+    async fetchTeam(id) {
+      try {
+        const res = await this.fetcher('GET', `/teams/v1/team/${id}`);
+        const data = res.data;
 
-      loader.value = false;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+        this.teamData = data;
+        console.log(this.teamData);
 
-  const deleteTeamMember = async (USER_ID) => {
-    teamData.members = teamData.members.filter((element) => element.id != USER_ID);
-    try {
-      await fetcher('DELETE', `/teams/v1/team/${teamData.ID}/member/${USER_ID}`);
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  };
+        this.teamData.members.forEach((member) => {
+          if (+member.id === +'18') {
+            this.isCaptain = true;
+          }
+        });
 
-  return {
-    loader,
-    isCaptain,
-    myTeams,
-    teamData,
-    fetchMyTeams,
-    fetchTeam,
-    deleteTeamMember,
-  };
-}
+        this.loader = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteTeamMember(USER_ID) {
+      this.teamData.members = this.teamData.members.filter((element) => element.id != USER_ID);
+      try {
+        await this.fetcher('DELETE', `/teams/v1/team/${this.teamData.ID}/member/${USER_ID}`);
+      } catch (error) {
+        console.error(error);
+        return Promise.reject(error);
+      }
+    },
+  },
+  persist: {storage: persistedState.localStorage}
+});

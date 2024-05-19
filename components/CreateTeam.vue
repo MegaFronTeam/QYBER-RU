@@ -14,13 +14,13 @@
     <Dialog v-model:visible="visibleShow" modal header="Создание команды">
       <div class="form-wrap">
         <transition name="fade">
-          <form @submit="submit" v-if="!isSend">
+          <form @submit.prevent="teamStore.createTeam()" v-if="!teamStore.isCreate">
             <InputGroup>
               <label for="name">Название команды</label>
               <InputText
                 id="name"
                 type="text"
-                v-model="name"
+                v-model="teamStore.formDataCreateTeam.name"
                 placeholder="Введите Название команды"
               />
             </InputGroup>
@@ -28,8 +28,8 @@
             <InputGroup>
               <label for="discipline">Дисциплина</label>
               <Dropdown
-                v-model="discipline"
-                :options="disciplineList"
+                v-model="teamStore.formDataCreateTeam.discipline"
+                :options="globalStore.disciplineList"
                 optionValue="slug"
                 optionLabel="name"
                 placeholder="Выбрать"
@@ -41,10 +41,10 @@
               <label for="leagues">Лига</label>
               <SelectButton
                 id="leagues"
-                v-model="leagues"
+                v-model="teamStore.formDataCreateTeam.leagues"
                 optionValue="slug"
                 optionLabel="name"
-                :options="leaguesOptions"
+                :options="globalStore.leaguesOptions"
                 aria-labelledby="basic"
                 :allowEmpty="false"
               />
@@ -87,37 +87,32 @@
 <script setup>
 // TODO: переделать на Store
 const visibleShow = ref(false);
-import Team from '@/services/team';
+import { useGlobalStore } from '@/store/globalStore';
+import {useTeamStore} from '@/store/TeamStore';
 
-const name = ref();
-const leagues = ref([]);
-const discipline = ref([]);
-const logo = ref();
+const  globalStore = useGlobalStore();
+const  teamStore = useTeamStore();
 
-const isSend = ref(false);
-const disciplineList = ref([]);
+// const name = ref();
+// const leagues = ref([]);
+// const discipline = ref([]);
 
-Team.getDisciplines()
-  .then((response) => {
-    disciplineList.value = response;
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+// const logo = ref();
 
-const leaguesOptions = ref([]);
-Team.getLeagues()
-  .then((response) => {
-    // console.log(response);
-    leaguesOptions.value = response;
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+
+// Team.getDisciplines()
+//   .then((response) => {
+//     disciplineList.value = response;
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+
 
 const customBase64Uploader = async (event) => {
   const file = event.files[0];
-  logo.value = file;
+  teamStore.formDataCreateTeam.logo = file;
 
   const reader = new FileReader();
   let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
@@ -134,27 +129,27 @@ const customBase64Uploader = async (event) => {
 //   console.log(event);
 // };
 
-const submit = (event) => {
-  event.preventDefault();
-  const formData = new FormData();
-  formData.append('name', name.value);
-  formData.append('discipline', discipline.value);
-  formData.append('leagues', leagues.value);
-  formData.append('logo', logo.value);
+// const submit = (event) => {
+  // event.preventDefault();
+  // const formData = new FormData();
+  // formData.append('name', name.value);
+  // formData.append('discipline', discipline.value);
+  // formData.append('leagues', leagues.value);
+  // formData.append('logo', logo.value);
 
-  Team.createTeam(formData)
-    .then((response) => {
-      isSend.value = true;
-      // console.log(response);
-      name.value = '';
-      discipline.value = [];
-      leagues.value = [];
-      logo.value = '';
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+  // Team.createTeam(formData)
+  //   .then((response) => {
+  //     isSend.value = true;
+  //     // console.log(response);
+  //     name.value = '';
+  //     discipline.value = [];
+  //     leagues.value = [];
+  //     logo.value = '';
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+// };
 </script>
 
 <style lang="scss" scoped>

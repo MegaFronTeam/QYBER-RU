@@ -14,6 +14,7 @@ export const useGlobalStore = defineStore('global', () => {
   const leaguesOptions = ref([])
   const isUserAuth = ref(false)
   const in_verifications = ref(false)
+  const disciplineList = ref([]);
 
   const getLeagues = async () => {
     try {
@@ -44,6 +45,19 @@ export const useGlobalStore = defineStore('global', () => {
     router.push('/');
   };
 
+  const getDisciplines = async () => { 
+    const response = await axios.get(`${BASE_URL}/wp/v2/discipline`, {
+      headers: {
+        Authorization: 'Basic ' + btoa(`${email.value}:${API_KEY.value}`),
+      },
+    });
+    const data = response.data; 
+    disciplineList.value = data;
+  }
+
+  if(disciplineList.value.length === 0){
+    getDisciplines();
+  }
   
 
   return {
@@ -56,6 +70,7 @@ export const useGlobalStore = defineStore('global', () => {
     leaguesOptions,
     logout,
     isUserAuth,
-    in_verifications
+    in_verifications,
+    disciplineList
   };
 }, {persist: {storage: persistedState.localStorage}});
