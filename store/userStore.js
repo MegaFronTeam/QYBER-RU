@@ -7,11 +7,12 @@ export const useUserStore = defineStore('user', () => {
   const router = useRouter();
   const globalStore = useGlobalStore();
   const email = ref('');
+
   const dataForm = ref({
-    email: 'wol1414@gmail.com',
-    password: 'Qwerty1414;',
-    // email: '',
-    // password: '',
+    // email: 'wol1414@gmail.com',
+    // password: 'Qwerty1414;',
+    email: '',
+    password: '',
     agreement: true,
   });
 
@@ -32,6 +33,7 @@ export const useUserStore = defineStore('user', () => {
     globalStore.API_KEY = data[0];
     globalStore.email = dataForm.value.email; 
     globalStore.isUserAuth = true;
+    globalStore.in_verifications = data[1].in_verifications;
   };
 
 

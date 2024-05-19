@@ -44,7 +44,6 @@ export const useGlobalStore = defineStore('global', () => {
     router.push('/');
   };
 
-
   
 
   return {

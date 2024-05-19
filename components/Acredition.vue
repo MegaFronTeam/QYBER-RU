@@ -1,7 +1,7 @@
 <template>
-  <div >
+  <div v-if="globalStore.userData.user_verification === false">
     <Message  severity="warn" :closable="false" >
-        <div v-if="globalStore.in_verifications === true">Заявка на аккредитацию на рассмотрении</div>
+        <div v-if="globalStore.in_verifications ">Заявка на аккредитацию на рассмотрении</div>
         <template v-else> 
           <div  style="margin-block: .3rem;">
             Для того чтобы пользоваться сервисом и участвовать в турнирах вам необходимо пройти аккредитацию.
@@ -11,9 +11,9 @@
         </template>
       </Message>
 
-      <Dialog v-if="globalStore.in_verifications === false " v-model:visible="visibleShow" modal :header="globalStore.in_verifications !== true ? 'Аккредитация' : 'На проверке'">
+      <Dialog v-if="!globalStore.in_verifications" v-model:visible="visibleShow" modal :header="globalStore.in_verifications === false ? 'Аккредитация' : 'На проверке'">
       <div class="form-wrap">
-        <form @submit.prevent="userStore.sendVerification({inn, leagues, file, selectedWorkStudy })" v-if="UserVerificationSend === false">
+        <form @submit.prevent="userStore.sendVerification({inn, leagues, file, selectedWorkStudy })" v-if="!globalStore.in_verifications ">
           <InputGroup>
             <label for="inn">ИНН компании</label>
             <InputText id="inn" type="text" v-model="inn" placeholder="Введите ИНН компании" />
