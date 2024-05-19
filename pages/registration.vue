@@ -5,7 +5,7 @@
         <label for="email">Email</label>
         <InputText
           id="email"
-          v-model="dataForm.email"
+          v-model="submit.regData.email"
           aria-describedby="email-help"
           placeholder="Введите Email"
         />
@@ -15,7 +15,7 @@
         <label for="password">Пароль</label>
         <Password
           id="password"
-          v-model="dataForm.password"
+          v-model="submit.regData.password"
           aria-describedby="password-help"
           placeholder="Введите пароль"
           :feedback="false"
@@ -28,7 +28,7 @@
         <label for="password">Повторите пароль</label>
         <Password
           id="passwordConfirm"
-          v-model="dataForm.passwordConfirm"
+          v-model="submit.regData.passwordConfirm"
           aria-describedby="passwordConfirm-help"
           :feedback="false"
           placeholder="Повторите пароль"
@@ -57,12 +57,13 @@ definePageMeta({
 import { useUserStore } from '@/store/userStore'; 
 const submit = useUserStore(); 
 
-const dataForm = ref({
-  email: '',
-  password: '',
-  passwordConfirm: '',
-  agreement: true,
-});
+// const dataForm = ref({
+//   email: '',
+//   password: '',
+//   passwordConfirm: '',
+//   agreement: true,
+// });
+
 const errorsForm = ref({
   email: '',
   // steamNick: '',

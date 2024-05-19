@@ -8,6 +8,8 @@ export const useUserStore = defineStore('user', () => {
   const globalStore = useGlobalStore();
   const email = ref('');
 
+  
+
   const dataForm = ref({
     // email: 'wol1414@gmail.com',
     // password: 'Qwerty1414;',
@@ -15,6 +17,14 @@ export const useUserStore = defineStore('user', () => {
     password: '',
     agreement: true,
   });
+
+  const regData = ref({
+    email: '',
+    password: '',
+    passwordConfirm: '',
+    agreement: true,
+  });
+  
 
   const login = async () => {
     const response = await axios.post(
@@ -29,7 +39,7 @@ export const useUserStore = defineStore('user', () => {
 
     const data =  await response.data;
     console.log(data);
-    router.push('/my-profile');
+    router.back();
     globalStore.API_KEY = data[0];
     globalStore.email = dataForm.value.email; 
     globalStore.isUserAuth = true;
@@ -65,37 +75,28 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
-  // if(globalStore.isUserAuth){
-  //   getUserData();
-  // }
-  // const  logout = () => {
-  //   globalStore.isUserAuth.value = false;
-  //   globalStore.API_KEY = '';
-  //   globalStore.email = '';
-  //   globalStore.userData.value = {};
-  //   router.push('/');
-  // };
-
-  const singUp = async (dataForm) => {
+  const singUp = async () => {
     try {
       const formData = new FormData();
-      Object.keys(dataForm).forEach((key) => {
-        formData.append(key, dataForm[key]);
+      Object.keys(regData.value).forEach((key) => {
+        formData.append(key, regData.value[key]);
       });
-      // formData.append('name', name.value);
-      // formData.append('discipline', discipline.value);
-      // formData.append('leagues', leagues.value);
-      // formData.append('logo', logo.value);
+
       const response = await axios.post(
         `${BASE_URL}/auth/v1/signup`,
         formData,
         {
           headers: {
-            'Content-Type': 'application/json',
+            Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
+            'Content-Type': 'multipart/form-data',
           },
         },
       );
-      return response.data;
+      const data = await response.data;
+      console.log(data);
+      if(data.status === true){
+        router.push('/login');
+      }
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
@@ -135,6 +136,7 @@ export const useUserStore = defineStore('user', () => {
     getUserData,
     singUp,
     sendVerification,
+    regData,
     email
   };
 });
