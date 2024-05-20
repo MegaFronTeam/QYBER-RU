@@ -41,10 +41,10 @@
            <!-- TODO: add formatted date -->
           <!-- <strong>{{formattedDate || ' '}}</strong> -->
         </div>
-        <NuxtLink to="/login"   v-if="!globalStore.isUserAuth"  >
+        <NuxtLink to="/login"   v-if="!globalStore.isUserAuth  "  >
           <Button label="Регистрация" class="w-full" />
         </NuxtLink>
-        <Button  v-else @click="" label="Регистрация Модалка" class="w-full" />
+        <Button  v-else @click="tournamentStore.showRegModal = true; tournamentStore.currentID = id " label="Регистрация " class="w-full" /> 
     </template>
     </template>
   </Card>
@@ -52,6 +52,8 @@
 
 <script setup>
 import {useGlobalStore} from '~/store/globalStore';
+import {useTournamentStore} from '@/store/TournamentStore';
+const  tournamentStore = useTournamentStore();
 const   globalStore = useGlobalStore();
 const props = defineProps({
   newsData: {
@@ -66,6 +68,7 @@ const props = defineProps({
 });
 const { newsData } = props;
 
+const id = ref(newsData.id);
 const  prize_fund = ref(newsData.prize_fund);
 const teamCount = ref(newsData.teamCount);
 // let img = 'https://primefaces.org/cdn/primevue/images/usercard.png';

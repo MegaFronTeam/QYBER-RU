@@ -22,7 +22,7 @@
             <NuxtImg src="/img/mainHeader-bg-2.jpg" class="picture-bg" alt="bg" />
             <div class="sMainHeader__head">
               <h6>Ближайший турнир</h6>
-              <NuxtLink class="sMainHeader__link ms-auto" to="/">
+              <NuxtLink class="sMainHeader__link ms-auto" to="#t">
                 Все
                 <svg-icon name="chevron-right.svg" />
               </NuxtLink>
@@ -59,6 +59,7 @@
               </NuxtLink>
             </div>
             <div class="sMainHeader__news-wrap">
+              <!-- TODO: вывести новости -->
               <NuxtLink to="/news/64" class="sMainHeader__news-item">
                 <div class="sMainHeader__img-wrap">
                   <div class="img-wrap-center">
@@ -100,4 +101,6 @@
   </section>
 </template>
 
-<script setup></script>
+<script setup>
+
+</script>

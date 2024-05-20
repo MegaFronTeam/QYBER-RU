@@ -7,6 +7,9 @@ export const useTournamentStore = defineStore('tournament', () => {
   const globalStore = useGlobalStore();
   const tournamentsList = ref([]);
   const getLast = ref(tournamentsList.value.slice(0, 7));
+  const showRegModal = ref(false);
+  const currentID = ref('');
+  const hideForm = ref(true);
   
 
   const getAll = async () => {
@@ -23,25 +26,47 @@ export const useTournamentStore = defineStore('tournament', () => {
           maximumFractionDigits: 2,
         }).format(+item.prize_fund).replace(/\.00$/, '');
         item.teamCount = item.comand_list.length> 0 ? item.comand_list.length : 0;
-        console.log(item);
-        // item.teamCount = item.comand_list.length> 0 ? item.comand_list.length : 0;
+        console.log(item); 
         item.date = new Date(item.date).toLocaleDateString();
-
-        // item.formattedDate = new Date(item.date).toLocaleDateString('ru-RU', {
-        //   day: 'numeric',
-        //   month: 'long',
-        //   year: 'numeric',
-        // });
+  
       });
       
       getLast.value = tournamentsList.value.slice(0, 7);
-      console.log(getLast.value);
+    }
+    catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  
+  }
+  // if( tournamentsList.value.length === 0){ 
+  //   getAll();
+  // }
+
+  const  regToTournament = async (TEAM_ID,  TOURNAMENT_ID ) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/teams/v1/team/${TEAM_ID}/tournament_registration/${TOURNAMENT_ID}`, {
+        headers: {
+          Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`)
+        },
+      });
+      const data = await response.data;
+      if(data.status === true){
+        hideForm.value = true;
+        console.log('success');
+      }
+      setTimeout(() => {
+        hideForm.value = false;
+        
+      }, 1500);
+      console.log(data);
     }
     catch (error) {
       console.error(error);
       return Promise.reject(error);
     }
   }
+
 
   // if( tournamentsList.value.length === 0){
   //   console.log('get all tournaments');
@@ -51,7 +76,11 @@ export const useTournamentStore = defineStore('tournament', () => {
   return{
     getLast,
     tournamentsList,
-    getAll
+    getAll,
+    regToTournament,
+    showRegModal,
+    currentID,
+    hideForm
   }
 });
 

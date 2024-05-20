@@ -8,7 +8,10 @@
 <script setup>
 import {useTournamentStore} from '@/store/TournamentStore';
 const tournamentStore = useTournamentStore();
-tournamentStore.getAll();
+ 
+onMounted(async () => {
+   tournamentStore.getAll();
+});
 definePageMeta({
   colorMode: 'light',
 });

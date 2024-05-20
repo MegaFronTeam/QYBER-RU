@@ -2,12 +2,12 @@
   <div>
     <MainHeader />
     <Welcome />
-    <MainContentBlock :sectionTitle="sectionTitleTournamentsProps">
+    <MainContentBlock id="tournaments" :sectionTitle="sectionTitleTournamentsProps">
       
       <TournamentCard
         v-for="item of tournamentStore.getLast"
         :newsData="{
-          id: item.ID,
+          id: item.id,
           title: item.title.rendered,
           date: item.post_date,
           excerpt: item.post_excerpt,
@@ -43,6 +43,7 @@
 <script setup>
 import {useTournamentStore} from '@/store/TournamentStore';
 const tournamentStore = useTournamentStore();
+
 
 const { data } = await useFetch(`https://qyber.ru/wordpress/wp-json/wp/v2/posts/1`);
 const sectionTitleTournamentsProps = {

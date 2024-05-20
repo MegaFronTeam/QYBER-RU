@@ -6,6 +6,7 @@
     </main>
     <Subscribe />
     <AppFooter :menubarItems="menubar" />
+    <regTournament/>
   </div>
 </template>
 
