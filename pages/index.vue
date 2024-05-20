@@ -45,7 +45,7 @@ import {useTournamentStore} from '@/store/TournamentStore';
 const tournamentStore = useTournamentStore();
 
 
-const { data } = await useFetch(`https://qyber.ru/wordpress/wp-json/wp/v2/posts/1`);
+const { data } = await useFetch(`https://api.qyber.ru/wp-json/wp/v2/posts/1`);
 const sectionTitleTournamentsProps = {
   title: 'Ближайшие турниры',
   text: 'Ты лидер команды? Подай заявку на участие в ближайшем турнире!',

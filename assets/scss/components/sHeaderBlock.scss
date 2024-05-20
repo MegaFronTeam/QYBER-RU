@@ -156,4 +156,99 @@
       }
     }
   }
+  &--detailed {
+    margin-bottom: rem(6);
+    @include media-breakpoint-up(lg) {
+      margin-bottom: rem(12);
+    }
+    h1 {
+      margin-bottom: rem(18);
+      @include media-breakpoint-up(lg) {
+        margin-bottom: rem(24);
+      }
+    }
+    .data-start {
+      margin-bottom: rem(12);
+      span {
+      font-size: rem(14);
+      opacity: .64;
+      color: #FFF;
+    }
+    } 
+
+    .header-item {
+      margin-bottom: rem(18);
+      @include media-breakpoint-up(lg) {
+        margin-bottom: rem(24);
+      }
+    }
+    .steps-wrap {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: rem(12);
+      @include media-breakpoint-up(lg) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .step {
+      font-weight: 600;
+      border-bottom: rem(3) solid #FFF;
+      padding-bottom: rem(12);
+      @include media-breakpoint-up(lg) {
+        padding-bottom: rem(18);
+      }
+      &_active {
+        border-color: var(--accent-primary-main);
+      }
+      p {
+        color: #FFF;
+        &:first-child {
+          margin-bottom: rem(6);
+        }
+      }
+      span {
+        font-size: rem(14);
+        opacity: .64;
+        color: #FFF;
+      }
+
+    }
+    .timer {
+      display: flex;
+      gap: rem(12);
+      justify-content: center;
+    }
+    .timer__item {
+      display: flex;
+      flex-direction: column;
+      p {
+        font-size: rem(14);
+        opacity: .64;
+        color: #FFF;
+        font-weight: 600;
+      }
+      span {
+        font-weight: 700;
+        font-size: rem(24);
+        color: #FFF;
+        position: relative;
+        padding: rem(12);
+        margin-bottom: rem(6);
+        line-height: 133%;
+        &::after {
+          content: '';
+          position: absolute;
+          width: rem(57);
+          height: rem(57);
+          top: 0;
+          left: 0;
+          border-radius: rem(10);
+          background: black;
+          backdrop-filter: blur(12px);
+          z-index: -1;
+          opacity: .5;
+        }
+      }
+    }
+  }
 }
