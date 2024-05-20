@@ -16,6 +16,14 @@ export const useGlobalStore = defineStore('global', () => {
   const isUserAuth = ref(false)
   const in_verifications = ref(false)
   const disciplineList = ref([]);
+  
+  const contacts = ref({
+  youtube: 'https://www.youtube.com/@RUqyber', 
+  vk: 'https://www.twitch.tv/ruqyber',
+  discord: 'https://discord.gg/ruqyber',
+  telegram: 'https://t.me/RUqyber',  
+});
+  const telegramPath = ref(contacts.value.telegram.split("https://")[0])
 
   const getLeagues = async () => {
     try {
@@ -74,6 +82,8 @@ export const useGlobalStore = defineStore('global', () => {
     logout,
     isUserAuth,
     in_verifications,
-    disciplineList
+    disciplineList,
+    telegramPath,
+    contacts
   };
 }, {persist: {storage: persistedState.localStorage}});

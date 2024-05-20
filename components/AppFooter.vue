@@ -33,10 +33,12 @@
         </div>
         <Menubar :model="items" breakpoint="992px">
           <template #item="{ item, props }">
-            <Button v-if="item.label == 'Авторизация'" variant="primary">
-              <svg-icon name="rocket-lunch.svg" />
-              <span class="p-button-label">Авторизация</span>
-            </Button>
+            <NuxtLink v-if="item.label == 'Авторизация'" to="/login">
+              <Button  variant="primary">
+                <svg-icon name="rocket-lunch.svg" />
+                <span class="p-button-label">Авторизация</span>
+              </Button>
+            </NuxtLink>
             <NuxtLink v-else v-slot="{ href, navigate }" :to="item.href" custom>
               <a
                 :href="href"
@@ -230,13 +232,13 @@
                     <div class="h6">info@qyber.ru</div>
                   </div>
                 </a>
-                <a href="https://t.me/manager_qyber" target="_blank" class="footer__contact">
+                <a :href="globalStore.contacts.telegram" target="_blank" class="footer__contact">
                   <div class="footer__contact-icon">
                     <svg-icon name="telegram.svg" />
                   </div>
                   <div>
                     <span>Связаться</span>
-                    <div class="h6">t.me/manager_qyber</div>
+                    <div class="h6">t.me/RUqyber</div>
                   </div>
                 </a>
               </div>
@@ -261,13 +263,13 @@
             <div class="col">
               <a
                 class="footer__info-link"
-                href="https://qyber.ru/wordpress/terms-of-use/"
+                href="https://api.qyber.ru/wp-content/uploads/2024/05/terms-of-use.pdf"
                 target="_blank"
                 >Пользовательское соглашение</a
               >
               <a
                 class="footer__info-link"
-                href="https://qyber.ru/wordpress/cookie-policy/"
+                href="https://api.qyber.ru/wp-content/uploads/2024/05/cookie-policy.pdf"
                 target="_blank"
                 >Политика использования файлов cookie</a
               >
@@ -312,12 +314,16 @@
 </template>
 
 <script setup>
+import { useGlobalStore } from '@/store/globalStore';
+const globalStore = useGlobalStore();
+
 const props = defineProps({
   menubarItems: {
     type: Array,
     required: true,
   },
 });
+
 const { menubarItems } = props;
 const items = ref(menubarItems);
 const year = new Date().getFullYear();

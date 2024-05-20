@@ -8,45 +8,55 @@
             <div class="col">
               <div class="sAboutBody__img-wrap">
                 <div class="img-wrap-center">
-                  <img alt="logo" src="/img/logo-1.svg" />
+                  <img alt="logo" loading="lazy" src="/img/logo-1.svg" />
                 </div>
               </div>
             </div>
             <div class="col">
               <div class="sAboutBody__img-wrap">
                 <div class="img-wrap-center">
-                  <img alt="logo" src="/img/logo-3.png" />
+                  <img alt="logo" loading="lazy" src="/img/logo-3.png" />
                 </div>
               </div>
             </div>
             <div class="col">
               <div class="sAboutBody__img-wrap">
                 <div class="img-wrap-center">
-                  <img alt="logo" src="/img/logo-4.svg" />
-                </div>
-              </div>
-            </div>
-            <!-- <div class="col">
-              <div class="sAboutBody__img-wrap">
-                <div class="img-wrap-center">
-                  <img alt="logo" src="/img/logo-1.svg" />
+                  <img alt="logo" loading="lazy" src="/img/logo-4.svg" />
                 </div>
               </div>
             </div>
             <div class="col">
               <div class="sAboutBody__img-wrap">
                 <div class="img-wrap-center">
-                  <img alt="logo" src="/img/logo-3.png" />
+                  <img alt="logo" loading="lazy" src="/img/logo-5.png" />
                 </div>
               </div>
             </div>
             <div class="col">
               <div class="sAboutBody__img-wrap">
                 <div class="img-wrap-center">
-                  <img alt="logo" src="/img/logo-4.svg" />
+                  <img alt="logo" loading="lazy" src="/img/logo-6.png" />
                 </div>
               </div>
-            </div> -->
+            </div>
+            <!-- <d> -->
+            
+            <div class="col">
+              <div class="sAboutBody__img-wrap">
+                <div class="img-wrap-center">
+                  <img alt="logo" loading="lazy" src="/img/logo-8.png" />
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="sAboutBody__img-wrap">
+                <div class="img-wrap-center">
+                  <img alt="logo" loading="lazy" src="/img/logo-9.png" />
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
         <div class="sAboutBody__tournaments">

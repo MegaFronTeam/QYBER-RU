@@ -8,7 +8,7 @@
 		/>
 		<label for="agreement">
 			Даю согласие на обработку и хранение моих персональных данных в соответствии с
-			<a href="#">условиями политики конфиденциальности</a>
+			<a href="https://api.qyber.ru/wp-content/uploads/2024/05/privacy-policy.pdf" target="_blank">условиями политики конфиденциальности</a>
 		</label>
 	</div>
 </template>

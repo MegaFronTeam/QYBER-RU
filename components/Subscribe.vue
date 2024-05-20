@@ -12,7 +12,7 @@
             <p>
               Все новости турнира, интервью, видео, аналитика и общение – все это в телеграм канале
             </p>
-            <a href="https://t.me/manager_qyber" target="_blank">
+            <a :href="globalStore.contacts.telegram" target="_blank">
               <Button severity="secondary">
                 <span> Перейти в Telegram</span>
                 <svg-icon name="telegram.svg" />
@@ -24,3 +24,8 @@
     </div>
   </section>
 </template>
+
+<script setup>
+  import { useGlobalStore } from '@/store/globalStore';
+  const globalStore = useGlobalStore();
+</script>
