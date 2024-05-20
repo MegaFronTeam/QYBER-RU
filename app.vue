@@ -6,11 +6,14 @@
 </template>
 
 <script setup>
-
+import {useTournamentStore} from '@/store/TournamentStore';
+const tournamentStore = useTournamentStore();
+tournamentStore.getAll();
 definePageMeta({
   colorMode: 'light',
 });
 </script>
+
 
 <style>
 @import './assets/scss/normalize.scss';

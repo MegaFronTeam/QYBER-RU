@@ -3,7 +3,26 @@
     <MainHeader />
     <Welcome />
     <MainContentBlock :sectionTitle="sectionTitleTournamentsProps">
-      В разработке...
+      
+      <TournamentCard
+        v-for="item of tournamentStore.getLast"
+        :newsData="{
+          id: item.ID,
+          title: item.title.rendered,
+          date: item.post_date,
+          excerpt: item.post_excerpt,
+          thumbnail: item.post_thumbnail,
+          teamCount: item.teamCount,
+          // TODO: add max_team_count
+          maxTeamCount: item.max_team_count,
+          dateStart: item.date,
+          prize_fund: item.prize_fundRub,
+          // TODO: add formatted date
+          formattedDate: item.formattedDate
+
+        }"
+        :key="item.id"
+      />
     </MainContentBlock>
     <MainContentBlock :sectionTitle="sectionTitleNewsProps" :footerLink="footerLinkNewsProps">
       <NewsCard
@@ -22,6 +41,9 @@
 </template>
 
 <script setup>
+import {useTournamentStore} from '@/store/TournamentStore';
+const tournamentStore = useTournamentStore();
+
 const { data } = await useFetch(`https://qyber.ru/wordpress/wp-json/wp/v2/posts/1`);
 const sectionTitleTournamentsProps = {
   title: 'Ближайшие турниры',

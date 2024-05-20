@@ -317,14 +317,14 @@
 }
 
 .p-button.p-button-info, .p-button-group.p-button-info > .p-button, .p-splitbutton.p-button-info > .p-button {
-    color: $infoButtonTextColor;
-    background: $infoButtonBg;
-    border: $infoButtonBorder;
+    color: #fff;
+    background: var(--bg-secondary, #6180FF);
+    border: 1px solid var(--bg-secondary, #6180FF);
 
     &:not(:disabled):hover {
-        background: $infoButtonHoverBg;
-        color: $infoButtonTextHoverColor;
-        border-color: $infoButtonHoverBorderColor;
+        background: var(--bg-secondary-hover, #5776F5);
+        color: #fff;
+        border-color: var(--bg-secondary-hover, #5776F5);
     }
 
     &:not(:disabled):focus {
@@ -332,26 +332,26 @@
     }
 
     &:not(:disabled):active {
-        background: $infoButtonActiveBg;
-        color: $infoButtonTextActiveColor;
-        border-color: $infoButtonActiveBorderColor;
+        background: var(--bg-secondary-active, #4362E1);
+        color:#fff;
+        border-color: var(--bg-secondary-active, #4362E1);
     }
 
     &.p-button-outlined {
         background-color: transparent;
-        color: $infoButtonBg;
-        border: $outlinedButtonBorder;
+        color: var(--bg-secondary, #6180FF);
+        border: 1px solid var(--bg-secondary, #6180FF);
 
         &:not(:disabled):hover {
-            background: rgba($infoButtonBg, $textButtonHoverBgOpacity);
-            color: $infoButtonBg;
-            border: $outlinedButtonBorder;
+            // background: rgba($infoButtonBg, $textButtonHoverBgOpacity);
+            // color:#fff;
+            //  border-color: var(--bg-secondary-active, #4362E1);
         }
 
         &:not(:disabled):active {
-            background: rgba($infoButtonBg, $textButtonActiveBgOpacity);
-            color: $infoButtonBg;
-            border: $outlinedButtonBorder;
+            // background: rgba($infoButtonBg, $textButtonActiveBgOpacity);
+            // color:#fff;
+            //  border-color: var(--bg-secondary-active, #4362E1);
         }
     }
 

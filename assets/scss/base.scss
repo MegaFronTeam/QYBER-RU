@@ -845,3 +845,16 @@ p {
 
 .full-hidden {
 }
+
+.me-auto{
+  margin-inline-end: auto;
+}
+.head-messages {
+  .p-message .p-message-text {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}

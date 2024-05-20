@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="globalStore.userData.user_nicename">
     
     <ProfileHead
       :breadcrumbArr="[{ label: 'Личный кабинет' }]"
@@ -47,13 +47,5 @@ onMounted(async() => {
 });
 </script>
 <style lang="scss">
-.head-messages {
-  .p-message-warn .p-message-text {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-grow: 1;
-    flex-wrap: wrap;
-  }
-}
+
 </style>

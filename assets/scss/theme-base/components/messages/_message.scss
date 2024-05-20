@@ -75,13 +75,13 @@
     }
 
     &.p-message-info {
-        background: $infoMessageBg;
-        border: $infoMessageBorder;
-        border-width: $messageBorderWidth;
-        color: $infoMessageTextColor;
+        background: var(--bg-info-subdued, rgba(97, 128, 255, 0.12));
+        border: 1px solid var(--bg-info-subdued, rgba(97, 128, 255, 0.12));
+        border-width: 0;
+        // color: $infoMessageTextColor;
 
         .p-message-icon {
-            color: $infoMessageIconColor;
+            color: var(--bg-secondary, #6180FF);
         }
 
         .p-message-close {

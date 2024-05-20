@@ -104,6 +104,21 @@ export const useUserStore = defineStore('user', () => {
   };
 
 
+  const showInvite = async() => {
+    try {
+      const response = await axios.get(`${BASE_URL}/profile/v1/invite`, {
+        headers: {
+          Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`)
+        },
+      });
+      const data = await response.data;
+      console.log(data);
+    }
+    catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  }
 
 
 
@@ -128,6 +143,39 @@ export const useUserStore = defineStore('user', () => {
 
 
 
+  const acceptInvite = async(dataForm) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/profile/v1/invite`, dataForm, {
+        headers: {
+          Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`)
+        },
+      });
+      const data = await response.data;
+      console.log(data);
+    }
+    catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  }
+
+  const declineInvite = async(dataForm) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/profile/v1/decline`, dataForm, {
+        headers: {
+          Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`)
+        },
+      });
+      const data = await response.data;
+      console.log(data);
+    }
+    catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  }
+
+
 
 
   return {
@@ -139,4 +187,5 @@ export const useUserStore = defineStore('user', () => {
     regData,
     email
   };
+
 });

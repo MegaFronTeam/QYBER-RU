@@ -18,6 +18,7 @@ export const useTeamStore = defineStore('teamStore', {
       discipline: '',
       logo: null,
     },
+    disabledBtn: true,
     inviteEmail: '',
   }),
   actions: {
@@ -115,6 +116,16 @@ export const useTeamStore = defineStore('teamStore', {
         return Promise.reject(error);
       }
     },
+  },
+  watch: {
+    inviteEmail() {
+      if (this.inviteEmail.length > 0) {
+        this.disabledBtn = false;
+      } else {
+        this.disabledBtn = true;
+      }
+    },
+    
   },
   persist: {storage: persistedState.localStorage}
 });
