@@ -25,8 +25,8 @@ export const useTeamStore = defineStore('teamStore', {
     async fetcher(method, url,data = null)  {
       const globalStore = useGlobalStore();
       const API_KEY = globalStore.API_KEY;
-      const EMAIL = globalStore.email;
-
+      const EMAIL = globalStore.email; 
+      if (!API_KEY || !EMAIL) return ;
       return await axios(`${BASE_URL}${url}`, {
         method: method,
         headers: {

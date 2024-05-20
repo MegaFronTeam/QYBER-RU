@@ -1,6 +1,6 @@
 <template>
   <div class="container head-messages">
-      <ShowInvite />
+      <!-- <ShowInvite /> -->
       <Acredition  />
     </div>
   <section class="sProfileHead">

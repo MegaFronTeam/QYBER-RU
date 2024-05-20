@@ -28,7 +28,7 @@
 import { ref } from 'vue';
 
 const { id } = useRoute().params;
-const { data } = await useFetch(`https://qyber.ru/wordpress/wp-json/wp/v2/posts/${id}`);
+const { data } = await useFetch(`https://api.qyber.ru/wp-json/wp/v2/posts/${id}`);
 
 // console.log(data.value);
 

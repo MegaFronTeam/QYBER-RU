@@ -1,22 +1,21 @@
 <template>
   <NuxtLoadingIndicator />
-  <NuxtLayout dir="routing/middleware"> 
+  <NuxtLayout dir="routing/middleware">
     <NuxtPage />
   </NuxtLayout>
 </template>
 
 <script setup>
-import {useTournamentStore} from '@/store/TournamentStore';
+import { useTournamentStore } from '@/store/TournamentStore';
 const tournamentStore = useTournamentStore();
- 
+
 onMounted(async () => {
-   tournamentStore.getAll();
+  tournamentStore.getAll();
 });
 definePageMeta({
   colorMode: 'light',
 });
 </script>
-
 
 <style>
 @import './assets/scss/normalize.scss';

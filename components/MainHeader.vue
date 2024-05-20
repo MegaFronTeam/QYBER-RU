@@ -32,7 +32,6 @@
             <h5 class="sMainHeader__tournament-title">
               <!-- <svg-icon name="dota.svg" /> -->
               QYBER Атланты Лето 2024
-
             </h5>
             <div class="sMainHeader__tournament-row row">
               <Badge severity="secondary" class="p-badge-outline" value="8 команд" />
@@ -46,11 +45,18 @@
               </h5>
             </div>
             <div class="sMainHeader__tournament-bottom-row row">
-           
-              <NuxtLink to="/login"   v-if="!globalStore.isUserAuth  "  >
+              <NuxtLink to="/login" v-if="!globalStore.isUserAuth">
                 <Button label="Регистрация" class="w-full" />
               </NuxtLink>
-              <Button  v-else @click="tournamentStore.showRegModal = true; tournamentStore.currentID =  '836'" label="Регистрация " class="w-full" /> 
+              <Button
+                v-else
+                @click="
+                  tournamentStore.showRegModal = true;
+                  tournamentStore.currentID = '836';
+                "
+                label="Регистрация "
+                class="w-full"
+              />
               <div class="sMainHeader__timer">
                 <!-- <span>До начала:</span> -->
 
@@ -67,38 +73,19 @@
                 <svg-icon name="chevron-right.svg" />
               </NuxtLink>
             </div>
-            <div class="sMainHeader__news-wrap">
-              <!-- TODO: вывести новости -->
-              <NuxtLink to="/news/64" class="sMainHeader__news-item">
+            <div v-if="pending === false" class="sMainHeader__news-wrap">
+              <NuxtLink
+                v-for="item of data.slice(0, 3)"
+                :to="`/news/${item.id}`"
+                class="sMainHeader__news-item"
+              >
                 <div class="sMainHeader__img-wrap">
                   <div class="img-wrap-center">
-                    <img src="/img/mainHeader-bg-3.jpg" alt="image" class="object-fit-js" />
+                    <img :src="item.post_thumbnail" alt="image" class="object-fit-js" />
                   </div>
                 </div>
                 <div>
-                  <p>Начало турнира Кибер Атланты Осень 2024 по Dota 2</p>
-                  <span>17:50, 30 января 2024</span>
-                </div>
-              </NuxtLink>
-              <NuxtLink to="/news/66" class="sMainHeader__news-item">
-                <div class="sMainHeader__img-wrap">
-                  <div class="img-wrap-center">
-                    <img src="/img/mainHeader-bg-4.jpg" alt="image" class="object-fit-js" />
-                  </div>
-                </div>
-                <div>
-                  <p>Результаты турниры Кибер Таланты Лето 2023 по CS2</p>
-                  <span>17:50, 30 января 2024</span>
-                </div>
-              </NuxtLink>
-              <NuxtLink to="/news/83" class="sMainHeader__news-item">
-                <div class="sMainHeader__img-wrap">
-                  <div class="img-wrap-center">
-                    <img src="/img/mainHeader-bg-5.jpg" alt="image" class="object-fit-js" />
-                  </div>
-                </div>
-                <div>
-                  <p>Новая дисциплина киберспортивных игр на QYBER</p>
+                  <p>{{ item.title.rendered }}</p>
                   <span>17:50, 30 января 2024</span>
                 </div>
               </NuxtLink>
@@ -110,12 +97,15 @@
   </section>
 </template>
 
-<script setup> 
-import {useTournamentStore} from '@/store/TournamentStore';
-const  tournamentStore = useTournamentStore(); 
-import { useTeamStore } from '@/store/TeamStore'; 
+<script setup>
+import { useTournamentStore } from '@/store/TournamentStore';
+const tournamentStore = useTournamentStore();
+import { useTeamStore } from '@/store/TeamStore';
 const teamsStore = useTeamStore();
 
 import { useGlobalStore } from '~/store/globalStore';
 const globalStore = useGlobalStore();
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+const { data, pending } = await useLazyFetch(`${BASE_URL}/wp/v2/posts`);
 </script>

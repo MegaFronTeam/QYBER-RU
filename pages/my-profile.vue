@@ -1,6 +1,5 @@
 <template>
   <div v-if="globalStore.userData.user_nicename">
-    
     <ProfileHead
       :breadcrumbArr="[{ label: 'Личный кабинет' }]"
       :img="imgRef"
@@ -37,15 +36,11 @@ const globalStore = useGlobalStore();
 const imgRef = ref(null);
 const avatarText = ref(null);
 const user_registered = ref('');
- 
 
-onMounted(async() => { 
-  userStore.getUserData();
+onMounted(async () => {
+  await userStore.getUserData();
   imgRef.value = globalStore.user_avatar;
   avatarText.value = globalStore.user_first_letter;
-
 });
 </script>
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

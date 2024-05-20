@@ -42,7 +42,8 @@
 </template>
 
 <script setup>
-const { data, pending } = await useLazyFetch('https://qyber.ru/wordpress/wp-json/wp/v2/posts');
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+const { data, pending } = await useLazyFetch(`${BASE_URL}/wp/v2/posts`);
 
 const totalRecords = ref(10);
 const rowsPerPage = ref([5, 10, 50, 100]);

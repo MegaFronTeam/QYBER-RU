@@ -19,42 +19,53 @@
       <template v-else>
         <div class="row">
           <div class="col-6">
-            <div class="card-panel-inner">Призовой фонд
-              
-            <strong>{{prize_fund }}</strong></div>
+            <div class="card-panel-inner">
+              Призовой фонд
+
+              <strong>{{ prize_fund }}</strong>
+            </div>
           </div>
           <div class="col-6">
-            <div class="card-panel-inner"> Команды
+            <div class="card-panel-inner">
+              Команды
 
-              <strong>{{teamCount}}/{{maxTeamCount || 5}}</strong>
+              <strong>{{ teamCount }}/{{ maxTeamCount || 5 }}</strong>
             </div>
           </div>
         </div>
-        <div  v-html="newsData.excerpt"></div>
+        <div v-html="newsData.excerpt"></div>
       </template>
     </template>
     <template #footer>
       <Skeleton v-if="skeleton === true" height="44px" width="100%"></Skeleton>
-      <template v-else >
+      <template v-else>
         <div class="data-start">
           <span>До начала:</span>
-           <!-- TODO: add formatted date -->
-          <!-- <strong>{{formattedDate || ' '}}</strong> -->
+          <!-- TODO: add formatted date -->
+          <!-- <strong>{{ formattedDate || ' ' }}</strong> -->
         </div>
-        <NuxtLink to="/login"   v-if="!globalStore.isUserAuth  "  >
+        <NuxtLink to="/login" v-if="!globalStore.isUserAuth">
           <Button label="Регистрация" class="w-full" />
         </NuxtLink>
-        <Button  v-else @click="tournamentStore.showRegModal = true; tournamentStore.currentID = id " label="Регистрация " class="w-full" /> 
-    </template>
+        <Button
+          v-else
+          @click="
+            tournamentStore.showRegModal = true;
+            tournamentStore.currentID = id;
+          "
+          label="Регистрация "
+          class="w-full"
+        />
+      </template>
     </template>
   </Card>
 </template>
 
 <script setup>
-import {useGlobalStore} from '~/store/globalStore';
-import {useTournamentStore} from '@/store/TournamentStore';
-const  tournamentStore = useTournamentStore();
-const   globalStore = useGlobalStore();
+import { useGlobalStore } from '~/store/globalStore';
+import { useTournamentStore } from '@/store/TournamentStore';
+const tournamentStore = useTournamentStore();
+const globalStore = useGlobalStore();
 const props = defineProps({
   newsData: {
     type: Object,
@@ -69,7 +80,7 @@ const props = defineProps({
 const { newsData } = props;
 
 const id = ref(newsData.id);
-const  prize_fund = ref(newsData.prize_fund);
+const prize_fund = ref(newsData.prize_fund);
 const teamCount = ref(newsData.teamCount);
 // let img = 'https://primefaces.org/cdn/primevue/images/usercard.png';
 // if (newsData.thumbnail) {
@@ -87,37 +98,37 @@ const formattedDate = date
 </script>
 
 <style>
-  .sNewsCard{
-    text-align: center;
-    .col-6{
-      width: 50%;
-      /* width: ; */
-    }
-  } 
-  .card-panel-inner{
-    border-radius: var(--S, 10px);
-background: var(--bg-colorPrimary, #FFF);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 4rem;
-    font-size: 12px;
-    color: var(--text-colorTertiary, #9E9FA3);
-    strong{
-      color: var(--text-colorPrimary, #292D36);
-      margin-top: .2rem;
-      font-size: 1rem;
-    }
+.sNewsCard {
+  text-align: center;
+  .col-6 {
+    width: 50%;
+    /* width: ; */
   }
-  .data-start{
-    span{
-      font-size: 14px;
-      margin-bottom: 3px;
-    }
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-bottom: 12px;
+}
+.card-panel-inner {
+  border-radius: var(--S, 10px);
+  background: var(--bg-colorPrimary, #fff);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  font-size: 12px;
+  color: var(--text-colorTertiary, #9e9fa3);
+  strong {
+    color: var(--text-colorPrimary, #292d36);
+    margin-top: 0.2rem;
+    font-size: 1rem;
   }
+}
+.data-start {
+  span {
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
 </style>
