@@ -9,7 +9,7 @@
       <div class="sHeaderBlock__text" v-html="subtitle"></div>
       <div class="sHeaderBlock__author">
         <div class="sHeaderBlock__author-img">
-          <NuxtImg
+          <img
             v-if="data.author_post.avatar"
             :src="data.author_post.avatar.url"
             :alt="data.author_post.avatar.alt"

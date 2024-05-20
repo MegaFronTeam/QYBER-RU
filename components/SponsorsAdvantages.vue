@@ -6,7 +6,7 @@
         <div class="sSponsorsAdvantages__card">
           <div class="sSponsorsAdvantages__img-wrap">
             <div class="img-wrap-center">
-              <NuxtImg
+              <img
                 src="/img/sSponsorsAdvantages-img-1.jpg"
                 class="object-fit-js"
                 alt="sSponsorsAdvantages"
@@ -37,7 +37,7 @@
         <div class="sSponsorsAdvantages__card">
           <div class="sSponsorsAdvantages__img-wrap">
             <div class="img-wrap-center">
-              <NuxtImg
+              <img
                 src="/img/sSponsorsAdvantages-img-1.jpg"
                 class="object-fit-js"
                 alt="sSponsorsAdvantages"
@@ -68,7 +68,7 @@
         <div class="sSponsorsAdvantages__card">
           <div class="sSponsorsAdvantages__img-wrap">
             <div class="img-wrap-center">
-              <NuxtImg
+              <img
                 src="/img/sSponsorsAdvantages-img-1.jpg"
                 class="object-fit-js"
                 alt="sSponsorsAdvantages"

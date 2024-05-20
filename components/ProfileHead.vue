@@ -30,7 +30,7 @@
             </svg>
           </template>
         </Breadcrumb>
-        <NuxtImg src="/img/profile-bg-1.jpg" class="picture-bg" />
+        <img src="/img/profile-bg-1.jpg" class="picture-bg" />
         <div class="sProfileHead__row row">
           <div class="sProfileHead__img-wrap">
             <div class="img-wrap-center">
@@ -43,7 +43,8 @@
           <div class="sProfileHead__content">
             <slot> </slot>
           </div>
-          <div class="sProfileHead__games-played">
+          <!-- TODO: need info -->
+          <div class="sProfileHead__games-played  " v-if="info">
             <div class="sProfileHead__games-title">Сыграно {{ allMaches }} матчей</div>
             <div class="sProfileHead__games-info">
               <div class="sProfileHead__games-text">

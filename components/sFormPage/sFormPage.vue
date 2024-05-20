@@ -186,7 +186,7 @@
       <div class="sFormPage__footer">{{ copyRight }}</div>
     </div>
     <div class="sFormPage__aside">
-      <NuxtImg :src="bgImage" alt="" loading="lazy" /> 
+      <img :src="bgImage" alt="" loading="lazy" /> 
     </div>
   </div>
 </template>

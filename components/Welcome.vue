@@ -4,7 +4,7 @@
       <div class="sWelcome__wrap">
         <div class="sWelcome__img-wrap">
           <div class="img-wrap-center">
-            <NuxtImg src="/img/sContent-img-1.jpg" class="object-fit-js" alt="Img" />
+            <img src="/img/sContent-img-1.jpg" class="object-fit-js" alt="Img" />
           </div>
         </div>
         <div>

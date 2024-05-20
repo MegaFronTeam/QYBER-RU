@@ -203,7 +203,7 @@
                 </template>
                 <template #body="slotProps">
                   <div class="table-wrap">
-                    <NuxtImg
+                    <img
                       v-if="slotProps.data.thumbnail_url"
                       :src="`${slotProps.data.thumbnail_url}`"
                       alt="Avatar"

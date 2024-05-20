@@ -12,7 +12,9 @@
       <span class="sProfileHead__name">{{ globalStore.userData.display_name }}</span>
       <div class="sProfileHead__status online">Онлайн</div>
       <div class="sProfileHead__time">На сайте с {{ user_registered }}</div>
-      <div class="row">
+
+        <!-- TODO: need info -->
+      <div class="row" v-if="lig">
         <div class="col-auto">
           <Badge severity="secondary" value="Кибер Таланты" class="p-badge-outline" />
         </div>

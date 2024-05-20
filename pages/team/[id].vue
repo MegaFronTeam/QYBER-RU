@@ -24,8 +24,8 @@
         </div>
       </div>
       <!-- Todo: Need info -->
-      <span class="sProfileHead__name mb-12">Самара</span>
-      <div class="sProfileHead__time mb-0">ИНН 772331755151</div>
+      <!-- <span class="sProfileHead__name mb-12">Самара</span>
+      <div class="sProfileHead__time mb-0">ИНН 772331755151</div> -->
     </ProfileHead>
     <div v-if="teamsStore.loader" class="container table-skeleton" style="margin-bottom: 0.8rem">
       <Skeleton height="3rem" borderRadius="12px" style="margin-bottom: 0.8rem" />

@@ -2,7 +2,7 @@
   <section class="sHeaderBlock">
     <div class="container">
       <div class="sHeaderBlock__wrap bg-wrap">
-        <NuxtImg v-if="bg" :src="`${bg}`" alt="bg" class="picture-bg" />
+        <img v-if="bg" :src="`${bg}`" alt="bg" class="picture-bg" />
         <Breadcrumb :home="home" :model="items">
           <template #item="{ item, props }">
             <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>

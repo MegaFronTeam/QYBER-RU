@@ -4,7 +4,7 @@
       <div class="sMainHeader__row row">
         <div class="col">
           <div class="sMainHeader__wrap bg-wrap">
-            <NuxtImg src="/img/mainHeader-bg-1.jpg" class="picture-bg" alt="Bg" />
+            <img src="/img/mainHeader-bg-1.jpg" class="picture-bg" alt="Bg" />
             <h1>Корпоративный и студенческий турнир <span>по киберспорту</span></h1>
             <p>
               Киберспортивные турниры в дисциплинах Counter Strike 2, Dota 2 и Спортивное
@@ -20,7 +20,7 @@
         </div>
         <div class="sMainHeader__col col">
           <div class="sMainHeader__tournament bg-wrap">
-            <NuxtImg src="/img/mainHeader-bg-2.jpg" class="picture-bg" alt="bg" />
+            <img src="/img/mainHeader-bg-2.jpg" class="picture-bg" alt="bg" />
             <div class="sMainHeader__head">
               <h6>Ближайший турнир</h6>
               <!-- TODO:  сделать страницу со всеми турнирами -->

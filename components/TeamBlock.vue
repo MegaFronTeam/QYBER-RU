@@ -39,7 +39,7 @@
                 </template>
                 <template #body="slotProps">
                   <div class="table-wrap">
-                    <NuxtImg
+                    <img
                       v-if="slotProps.data.avatar"
                       :src="`/img/${slotProps.data.avatar}`"
                       alt="Avatar"
@@ -132,7 +132,7 @@
                 </template>
                 <template #body="slotProps">
                   <div class="table-wrap">
-                    <NuxtImg :src="`/img/${slotProps.data.nickname.avatar}`" alt="Avatar" />
+                    <img :src="`/img/${slotProps.data.nickname.avatar}`" alt="Avatar" />
                     <span>{{ slotProps.data.nickname.text }}</span>
                   </div>
                 </template>

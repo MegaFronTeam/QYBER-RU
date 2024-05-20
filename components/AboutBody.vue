@@ -53,8 +53,8 @@
           <div class="row">
             <div class="col">
               <div class="sAboutBody__tournaments-item bg-wrap">
-                <NuxtImg src="/img/sAboutBody-bg-1.jpg" class="picture-bg" alt="bg" />
-                <NuxtImg src="/img/atlants.svg" class="sAboutBody__logo" alt="logo" />
+                <img src="/img/sAboutBody-bg-1.jpg" class="picture-bg" alt="bg" />
+                <img src="/img/atlants.svg" class="sAboutBody__logo" alt="logo" />
                 <h2 class="h1">Кибер Атланты</h2>
                 <p>
                   Вы готовы испытать свои навыки, погрузиться в мир виртуального соперничества и
@@ -69,8 +69,8 @@
             </div>
             <div class="col">
               <div class="sAboutBody__tournaments-item bg-wrap">
-                <NuxtImg src="/img/sAboutBody-bg-2.jpg" class="picture-bg" alt="bg" />
-                <NuxtImg src="/img/talents.svg" class="sAboutBody__logo" alt="logo" />
+                <img src="/img/sAboutBody-bg-2.jpg" class="picture-bg" alt="bg" />
+                <img src="/img/talents.svg" class="sAboutBody__logo" alt="logo" />
                 <h2 class="h1">Кибер Таланты</h2>
                 <p>
                   Турнир Qyber.ru - это уникальное соревнование, объединяющее игроков различных

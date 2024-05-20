@@ -9,7 +9,7 @@
         :style="`--stickyTop: ${stickyTop}`"
         class="banner bg-wrap sticky-element"
       >
-        <NuxtImg class="picture-bg" src="img/banner-bg-1.jpg" alt="bg" />
+        <img class="picture-bg" src="/img/banner-bg-1.jpg" alt="bg" />
         <div class="h5">Подпишитесь на актуальные новости в нашем Telelgram-канале</div>
         <p>Узнавайте о новостях одним из первых</p>
         <a href="https://t.me/manager_qyber" style="margin-top: auto" target="_blank">

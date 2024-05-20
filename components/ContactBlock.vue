@@ -7,7 +7,7 @@
             <div class="sContactBlock__profile">
               <div class="sContactBlock__img-wrap">
                 <div class="img-wrap-center">
-                  <NuxtImg src="img/avatar-img-3.jpg" class="object-fit-js" alt="avatar" />
+                  <img src="/img/avatar-img-3.jpg" class="object-fit-js" alt="avatar" />
                 </div>
               </div>
               <div class="sContactBlock__profile-info">

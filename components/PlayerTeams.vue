@@ -27,7 +27,7 @@
             </template>
             <template #body="slotProps">
               <div class="table-wrap">
-                <NuxtImg :src="`/img/${slotProps.data.team.avatar}`" alt="Avatar" />
+                <img :src="`/img/${slotProps.data.team.avatar}`" alt="Avatar" />
                 <span>{{ slotProps.data.team.text }}</span>
               </div>
             </template>
