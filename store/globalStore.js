@@ -1,6 +1,7 @@
 import axios from 'axios'; 
 import { useRouter } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+import { useTeamStore } from './TeamStore';
 
 export const useGlobalStore = defineStore('global', () => {
   const router = useRouter();
@@ -41,6 +42,8 @@ export const useGlobalStore = defineStore('global', () => {
     email.value = '';
     userData.value = {};
     isUserAuth.value = false;
+    useTeamStore.myTeams = [];
+    useTeamStore.teamData = [];
     
     router.push('/');
   };
@@ -55,7 +58,7 @@ export const useGlobalStore = defineStore('global', () => {
     disciplineList.value = data;
   }
 
-  if(disciplineList.value.length === 0){
+  if(isUserAuth.value && disciplineList.value.length === 0){
     getDisciplines();
   }
   

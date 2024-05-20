@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header" v-if="globalStore">
     <div class="container">
       <div class="header__row">
         <NuxtLink to="/" class="header__logo">
@@ -188,7 +188,7 @@
           </template>
         </Menubar>
         <InputSwitch @click="toggleTheme" v-model="checked" />
-        <template v-if="globalStore.isUserAuth">
+        <template v-if="isUserAuth">
           <NuxtLink to="/my-profile"> 
             <Button class="header__btn d-lg-flex" variant="primary">
               <svg-icon name="user.svg" />
@@ -215,6 +215,7 @@
 <script setup>
 import {useGlobalStore} from '~/store/globalStore';
 const   globalStore = useGlobalStore();
+const { isUserAuth } = storeToRefs(globalStore);
 
 
 

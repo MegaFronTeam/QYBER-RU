@@ -3,6 +3,7 @@ import { useGlobalStore } from '@/store/globalStore';
 export default defineNuxtRouteMiddleware(async (to) => { 
   const globalState = useGlobalStore();
   const isUserAuth = globalState.isUserAuth; 
+  // const  isUserAuth  = storeToRefs(globalState.isUserAuth);
   // const { $locally } = useNuxtApp();
   const loginPages = [
     'login',
