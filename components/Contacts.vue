@@ -20,6 +20,11 @@
         <svg-icon name="telegram" />
       </a>
     </li>
+    <li v-if="linkArr.discord">
+      <a href="http://discord.gg/qyber" class="contacts__link" target="_blank">
+        <svg-icon name="discord" />
+      </a>
+    </li>
   </ul>
 </template>
 
@@ -32,6 +37,7 @@ const props = defineProps({
       twitch: false,
       vk: false,
       telegram: false,
+      discord: false,
     },
   },
 });
