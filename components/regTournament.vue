@@ -31,7 +31,6 @@
                   <div>
                   </div>
                  <!-- TODO: убрать если  уже зарегистрирован ловить со стора -->
-                 {{ slotProps.data.ID }}
                       <Button 
                       @click=" tournamentStore.regToTournament(slotProps.data.ID, tournamentStore.currentID);"
                       style="width: 100px;"

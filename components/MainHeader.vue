@@ -10,7 +10,8 @@
               Киберспортивные турниры в дисциплинах Counter Strike 2, Dota 2 и Спортивное
               программирование
             </p>
-            <Button severity="primary" label="Кнопка если нужна" outlined />
+            <!-- TODO: узнать что здесь выводить сейчас  Т к турнир сразу на несколько игр- у нас это не предусмотрено -->
+            <!-- <Button severity="primary" label="Кнопка если нужна" outlined /> -->
             <NuxtLink class="sMainHeader__link" to="/about-project">
               <svg-icon name="arrow-down.svg" />
               Подробнее о проекте
@@ -22,14 +23,16 @@
             <NuxtImg src="/img/mainHeader-bg-2.jpg" class="picture-bg" alt="bg" />
             <div class="sMainHeader__head">
               <h6>Ближайший турнир</h6>
-              <NuxtLink class="sMainHeader__link ms-auto" to="#t">
+              <!-- TODO:  сделать страницу со всеми турнирами -->
+              <NuxtLink class="sMainHeader__link ms-auto" to="#tournaments">
                 Все
                 <svg-icon name="chevron-right.svg" />
               </NuxtLink>
             </div>
             <h5 class="sMainHeader__tournament-title">
-              <svg-icon name="dota.svg" />
-              Кибер Атланты Осень 2024
+              <!-- <svg-icon name="dota.svg" /> -->
+              QYBER Атланты Лето 2024
+
             </h5>
             <div class="sMainHeader__tournament-row row">
               <Badge severity="secondary" class="p-badge-outline" value="8 команд" />
@@ -39,14 +42,20 @@
               <span>Призовой фонд</span>
               <h5>
                 <svg-icon name="bank.svg" />
-                250 000 ₽
+                200 000 ₽
               </h5>
             </div>
             <div class="sMainHeader__tournament-bottom-row row">
-              <Button label="Регистрация" />
+           
+              <NuxtLink to="/login"   v-if="!globalStore.isUserAuth  "  >
+                <Button label="Регистрация" class="w-full" />
+              </NuxtLink>
+              <Button  v-else @click="tournamentStore.showRegModal = true; tournamentStore.currentID =  '836'" label="Регистрация " class="w-full" /> 
               <div class="sMainHeader__timer">
-                <span>До начала:</span>
-                1 д 15 ч 49 м
+                <!-- <span>До начала:</span> -->
+
+                <!-- TODO: сделать таймер- для каждой карточки свой -->
+                <!-- 1 д 15 ч 49 м -->
               </div>
             </div>
           </div>
@@ -101,6 +110,12 @@
   </section>
 </template>
 
-<script setup>
+<script setup> 
+import {useTournamentStore} from '@/store/TournamentStore';
+const  tournamentStore = useTournamentStore(); 
+import { useTeamStore } from '@/store/TeamStore'; 
+const teamsStore = useTeamStore();
 
+import { useGlobalStore } from '~/store/globalStore';
+const globalStore = useGlobalStore();
 </script>

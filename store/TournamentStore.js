@@ -9,7 +9,7 @@ export const useTournamentStore = defineStore('tournament', () => {
   const getLast = ref(tournamentsList.value.slice(0, 7));
   const showRegModal = ref(false);
   const currentID = ref('');
-  const hideForm = ref(true);
+  const hideForm = ref(false);
   
 
   const getAll = async () => {
