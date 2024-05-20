@@ -245,9 +245,10 @@
               <Contacts
                 :linkArr="{
                   youtube: true,
-                  twitch: true,
+                  twitch: false,
                   vk: true,
                   telegram: true,
+                  discord: true,
                 }"
               />
             </div>
