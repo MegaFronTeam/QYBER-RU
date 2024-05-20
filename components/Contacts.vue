@@ -1,7 +1,7 @@
 <template>
   <ul class="contacts">
     <li v-if="linkArr.youtube">
-      <a href="https://youtube.com/" class="contacts__link" target="_blank">
+      <a href="https://www.youtube.com/@RUqyber" class="contacts__link" target="_blank">
         <svg-icon name="youtube" />
       </a>
     </li>
@@ -11,12 +11,12 @@
       </a>
     </li>
     <li v-if="linkArr.vk">
-      <a href="https://vk.com/" class="contacts__link" target="_blank">
+      <a href="https://vk.com/ruqyber" class="contacts__link" target="_blank">
         <svg-icon name="vk.svg" />
       </a>
     </li>
     <li v-if="linkArr.telegram">
-      <a href="https://t.me/manager_qyber" class="contacts__link" target="_blank">
+      <a href="https://t.me/RUqyber" class="contacts__link" target="_blank">
         <svg-icon name="telegram" />
       </a>
     </li>
