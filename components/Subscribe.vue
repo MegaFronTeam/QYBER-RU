@@ -12,7 +12,7 @@
             <p>
               Все новости турнира, интервью, видео, аналитика и общение – все это в телеграм канале
             </p>
-            <a href="https://t.me/RUqyber" target="_blank">
+            <a href="https://t.me/manager_qyber" target="_blank">
               <Button severity="secondary">
                 <span> Перейти в Telegram</span>
                 <svg-icon name="telegram.svg" />
