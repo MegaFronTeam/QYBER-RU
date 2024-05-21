@@ -31,10 +31,11 @@
           </template>
         </Breadcrumb>
         <img src="/img/profile-bg-1.jpg" class="picture-bg" />
-        <div class="sProfileHead__row row">
+        <div class="sProfileHead__row row"> 
           <div class="sProfileHead__img-wrap">
             <div class="img-wrap-center">
-              <img v-if="img" :ref="img" :src="img" alt="avatar" />
+
+                <img v-if="typeof img === 'string'" :src="img" alt="avatar" />
               <template v-else>
               <span  v-if="avatarText" class="letter">{{ avatarText }}</span>
               </template>
@@ -69,7 +70,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
 const props = defineProps({
   breadcrumbArr: {
     type: Array,
@@ -92,7 +92,9 @@ const props = defineProps({
     required: '',
   },
 });
-const { breadcrumbArr, img, profileData, avatarText } = toRefs(props);
+const { breadcrumbArr, img, avatarText, profileData } = toRefs(props);
+
+console.log(props.img);
 
 const home = ref({
   label: 'Главная',

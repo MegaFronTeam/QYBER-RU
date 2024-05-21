@@ -52,6 +52,7 @@ export const useGlobalStore = defineStore('global', () => {
     isUserAuth.value = false;
     useTeamStore.myTeams = [];
     useTeamStore.teamData = [];
+    user_avatar.value = ''
     
     router.push('/');
   };

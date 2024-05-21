@@ -10,6 +10,18 @@
           <Button class="ms-auto btn-sm p-button-outlined" outlined="" @click="visibleShow = true; globalStore.in_verifications = false" label="Аккредитация" /> 
         </template>
       </Message>
+      <template>
+        <div class="columns">
+          Левая
+          <Component v-if="ifDesktop"/>
+          Правая
+        </div>
+      </template>
+        <Component v-if="!ifDesktop"/>
+        <div class="columns"></div>
+      <template>
+        
+      </template>
 
       <Dialog v-if="!globalStore.in_verifications" v-model:visible="visibleShow" modal :header="!globalStore.in_verifications ? 'Аккредитация' : 'На проверке'">
       <div class="form-wrap">

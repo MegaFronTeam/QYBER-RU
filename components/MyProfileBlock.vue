@@ -170,7 +170,7 @@
               </div>
             </div>
           </TabPanel>
-          <TabPanel v-if="teamsStore.myTeams.length > 0">
+          <TabPanel >
             <div class="sMyProfileBlock__head-row row">
               <div class="col">
                 <h3>Мои команды</h3>
@@ -179,7 +179,7 @@
                 <CreateTeam />
               </div>
             </div>
-            <DataTable :value="teamsStore.myTeams">
+            <DataTable v-if="teamsStore.myTeams.length > 0" :value="teamsStore.myTeams">
               <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
                 field="nickname"
@@ -264,7 +264,7 @@
                 <template #body="slotProps">
                   <Badge
                     :severity="
-                      slotProps.data.leagues.name === 'QYBER Таланты' ? 'secondary' : 'danger'
+                      slotProps.data.leagues.name == 'QYBER Атланты' ? 'secondary' : 'danger'
                     "
                     class="p-badge-outline"
                     :value="slotProps.data.leagues.name"
@@ -365,27 +365,12 @@ import auth from '@/services/auth';
 
 import { useGlobalStore } from '@/store/globalStore';
 const {userData} = useGlobalStore();
-const {API_KEY} = useGlobalStore();
 
 const teamsStore = useTeamStore();
 await teamsStore.fetchMyTeams();
-onMounted(async () => {
 
-  console.log(teamsStore.myTeams);
-});
-
-const { $locally } = useNuxtApp();
-// const props = defineProps({
-//   profileData: {
-//     type: Object,
-//     required: false,
-//   },
-// });
-
-// const { profileData } = toRefs(props);
 const active = ref(0);
-// const totalRecords = ref(10);
-// const rowsPerPage = ref([5, 10, 50, 100]);
+
 const genders = ref([
   { name: 'Мужской', code: 'Male' },
   { name: 'Женский', code: 'Female' },
