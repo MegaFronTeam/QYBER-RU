@@ -4,13 +4,10 @@
       <div class="template template--header">
         <div class="btn-wrap template-wrap">
           <Button @click="active = 0" :class="active === 0 ? 'active' : ''"> Мой профиль </Button>
-          <!-- v-if="teamsStore.myTeams.length > 0" -->
-          <Button
-            @click="active = 1"
-            :class="active === 1 ? 'active' : ''"
-          >
+          <!-- v-if="teamsStore.myTeamsCount > 0" -->
+          <Button @click="active = 1" :class="active === 1 ? 'active' : ''">
             Мои команды
-            <Badge :value="teamsStore.myTeams.length"></Badge>
+            <Badge :value="teamsStore.myTeamsCount"></Badge>
           </Button>
         </div>
       </div>
@@ -170,7 +167,7 @@
               </div>
             </div>
           </TabPanel>
-          <TabPanel >
+          <TabPanel>
             <div class="sMyProfileBlock__head-row row">
               <div class="col">
                 <h3>Мои команды</h3>
@@ -179,7 +176,8 @@
                 <CreateTeam />
               </div>
             </div>
-            <DataTable v-if="teamsStore.myTeams.length > 0" :value="teamsStore.myTeams">
+            {{ teamsStore.myTeams }}
+            <DataTable v-if="teamsStore.myTeamsCount.value > 0" :value="teamsStore.myTeams">
               <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
                 field="nickname"
@@ -360,61 +358,63 @@
 </template>
 
 <script setup>
-import { useTeamStore } from '~/store/TeamStore';
-import auth from '@/services/auth';
+  import { useTeamStore } from '@/store/TeamStore';
+  import auth from '@/services/auth';
 
-import { useGlobalStore } from '@/store/globalStore';
-const {userData} = useGlobalStore();
+  import { useGlobalStore } from '@/store/globalStore';
+  const { userData } = useGlobalStore();
 
-const teamsStore = useTeamStore();
-await teamsStore.fetchMyTeams();
+  const teamsStore = useTeamStore();
 
-const active = ref(0);
+  teamsStore.fetchMyTeams();
+  onMounted(() => {
+    // fetchMyTeams();
+  });
 
-const genders = ref([
-  { name: 'Мужской', code: 'Male' },
-  { name: 'Женский', code: 'Female' },
-]);
+  const active = ref(0);
 
-const submitProfileData = (event) => {
-  event.preventDefault();
+  const genders = ref([
+    { name: 'Мужской', code: 'Male' },
+    { name: 'Женский', code: 'Female' },
+  ]);
 
-  auth
-    .updateMyProfileData(userData)
-    .catch((error) => {
+  const submitProfileData = (event) => {
+    event.preventDefault();
+
+    auth.updateMyProfileData(userData).catch((error) => {
       console.log(error);
     });
-};
+  };
 
-// Pass
-const currentPassword = ref(null);
-const newPassword = ref(null);
-const confrimNewPassword = ref(null);
+  // Pass
+  const currentPassword = ref(null);
+  const newPassword = ref(null);
+  const confrimNewPassword = ref(null);
 
-const submitNewPassword = (event) => {
-  event.preventDefault();
+  const submitNewPassword = (event) => {
+    event.preventDefault();
 
-  auth
-    .updatePassword({
-      current_password: currentPassword.value,
-      new_password: newPassword.value,
-      repeat_password: confrimNewPassword.value,
-    })
-    .then((response) => {
-      // console.log(response);
-      API_KEY = response[0];
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+    auth
+      .updatePassword({
+        current_password: currentPassword.value,
+        new_password: newPassword.value,
+        repeat_password: confrimNewPassword.value,
+      })
+      .then((response) => {
+        // console.log(response);
+        API_KEY = response[0];
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 </script>
 
 <style scoped lang="scss">
-.sMyProfileBlock {
-  padding-bottom: 6px;
-  @media screen and (min-width: 992px) {
-    padding-bottom: 12px;
+  .sMyProfileBlock {
+    padding-bottom: 6px;
+    @media screen and (min-width: 992px) {
+      padding-bottom: 12px;
+    }
   }
-}
 </style>
