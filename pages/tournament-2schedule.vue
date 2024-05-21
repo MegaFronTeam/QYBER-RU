@@ -44,7 +44,7 @@
       </div>
 
     </HeaderBlock>
-    <TournamentRules />
+    <TournamentSchedule />
     <MainContentBlock id="tournamentsOther" :sectionTitle="sectionTitleTournamentsProps" :footerLink="footerLinkTournamentsProps">
 
       <TournamentCard
@@ -76,7 +76,6 @@ import {useTournamentStore} from '@/store/TournamentStore';
 import {useGlobalStore} from '~/store/globalStore';
 const tournamentStore = useTournamentStore();
 const   globalStore = useGlobalStore();
-
 
 const breadcrumb = ref([
   { label: 'Турниры', route: '/' },

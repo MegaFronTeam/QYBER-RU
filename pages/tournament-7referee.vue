@@ -44,7 +44,7 @@
       </div>
 
     </HeaderBlock>
-    <TournamentRules />
+    <TournamentReferee />
     <MainContentBlock id="tournamentsOther" :sectionTitle="sectionTitleTournamentsProps" :footerLink="footerLinkTournamentsProps">
 
       <TournamentCard
