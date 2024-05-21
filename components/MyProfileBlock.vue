@@ -107,7 +107,7 @@
                       <InputText
                         type="text"
                         v-model="userData.user_company"
-                        placeholder="Введите rомпанию"
+                        placeholder="Введите компанию"
                         disabled
                       />
                     </InputGroup>
