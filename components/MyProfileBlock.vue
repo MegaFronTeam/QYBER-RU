@@ -91,16 +91,15 @@
                         placeholder="Введите город"
                       />
                     </InputGroup>
-                    <InputGroup>
+                    <!-- <InputGroup>
                       <label>Учебное заведение</label>
                       <InputText
                         type="text"
                         v-model="userData.user_educational_institution.post_title"
-                        :title="userData.user_educational_institution.post_title"
                         placeholder="Введите учебное заведение"
                         disabled
                       />
-                    </InputGroup>
+                    </InputGroup> -->
                     <InputGroup>
                       <label>Компания</label>
                       <InputText

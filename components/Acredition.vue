@@ -111,6 +111,7 @@
   const inn = ref('');
   const leagues = ref([]);
   const file = ref({});
+  const selectedWorkStudy = ref(null);
 
   const customBase64Uploader = async (event) => {
     file.value = event.files[0];

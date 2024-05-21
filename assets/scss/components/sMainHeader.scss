@@ -32,7 +32,7 @@
     border-radius: rem(20);
     padding: rem(23);
     height: 100%;
-    aspect-ratio: 696/ 750;
+    // aspect-ratio: 696/ 750;
     @include media-breakpoint-up(lg) {
       padding: rem(47);
       min-height: rem(692);
