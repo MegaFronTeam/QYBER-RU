@@ -101,6 +101,24 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
+  const updateMyProfileData = async () => {
+    try {
+      const response = await axios.post(`${BASE_URL}/profile/v1/update`, globalStore.userData, {
+        headers: {
+          Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
+        },
+      });
+      const data = await response.data;
+      console.log(data);
+      if (data === true) {
+        await getUserData();
+      }
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  };
+
   const showInvite = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/profile/v1/invite`, {
@@ -173,5 +191,6 @@ export const useUserStore = defineStore('user', () => {
     sendVerification,
     regData,
     email,
+    updateMyProfileData,
   };
 });

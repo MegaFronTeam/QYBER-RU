@@ -19,7 +19,7 @@
               <div class="col">
                 <div class="sMyProfileBlock__head">Персональная информация</div>
                 <div class="form-wrap">
-                  <form @submit="submitProfileData">
+                  <form @submit.prevent="userStore.updateMyProfileData">
                     <InputGroup>
                       <label for="name">Никнейм</label>
                       <InputText
@@ -362,9 +362,13 @@
   import auth from '@/services/auth';
 
   import { useGlobalStore } from '@/store/globalStore';
-  const { userData } = useGlobalStore();
+  const globalStore = useGlobalStore();
+  const { userData } = storeToRefs(globalStore);
 
   const teamsStore = useTeamStore();
+
+  import { useUserStore } from '@/store/userStore';
+  const userStore = useUserStore();
 
   teamsStore.fetchMyTeams();
   onMounted(() => {
@@ -378,13 +382,13 @@
     { name: 'Женский', code: 'Female' },
   ]);
 
-  const submitProfileData = (event) => {
-    event.preventDefault();
+  // const submitProfileData = (event) => {
+  //   event.preventDefault();
 
-    auth.updateMyProfileData(userData).catch((error) => {
-      console.log(error);
-    });
-  };
+  //   auth.updateMyProfileData(userData).catch((error) => {
+  //     console.log(error);
+  //   });
+  // };
 
   // Pass
   const currentPassword = ref(null);

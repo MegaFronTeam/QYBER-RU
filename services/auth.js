@@ -76,21 +76,21 @@ class Auth {
   //   }
   // }
 
-  async updateMyProfileData(data) {
-    const { token, email } = this.localData;
-    console.log(data);
-    try {
-      const response = await axios.post(`${BASE_URL}/profile/v1/update`, data, {
-        headers: {
-          Authorization: 'Basic ' + btoa(`${email}:${token}`),
-        },
-      });
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
-  }
+  // async updateMyProfileData(data) {
+  //   const { token, email } = this.localData;
+  //   console.log(data);
+  //   try {
+  //     const response = await axios.post(`${BASE_URL}/profile/v1/update`, data, {
+  //       headers: {
+  //         Authorization: 'Basic ' + btoa(`${email}:${token}`),
+  //       },
+  //     });
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error(error);
+  //     return Promise.reject(error);
+  //   }
+  // }
 
   async updatePassword(data) {
     const { token, email } = this.localData;

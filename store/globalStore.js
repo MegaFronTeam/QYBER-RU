@@ -21,7 +21,7 @@ export const useGlobalStore = defineStore(
 
     const contacts = ref({
       youtube: 'https://www.youtube.com/@RUqyber',
-      vk: 'https://www.twitch.tv/ruqyber',
+      vk: 'https://vk.com/ruqyber',
       discord: 'https://discord.gg/ruqyber',
       telegram: 'https://t.me/RUqyber',
     });
