@@ -1,5 +1,5 @@
 <template>
-  <div v-if="globalStore.userData.user_verification === false">
+  <div v-if="!globalStore.userData.user_verification">
     <Message  severity="warn" :closable="false" >
         <div v-if="globalStore.in_verifications ">Заявка на аккредитацию на рассмотрении</div>
         <template v-else> 
@@ -11,7 +11,7 @@
         </template>
       </Message>
 
-      <Dialog v-if="!globalStore.in_verifications" v-model:visible="visibleShow" modal :header="globalStore.in_verifications === false ? 'Аккредитация' : 'На проверке'">
+      <Dialog v-if="!globalStore.in_verifications" v-model:visible="visibleShow" modal :header="!globalStore.in_verifications ? 'Аккредитация' : 'На проверке'">
       <div class="form-wrap">
         <form @submit.prevent="userStore.sendVerification({inn, leagues, file, selectedWorkStudy })" v-if="!globalStore.in_verifications ">
           <InputGroup>

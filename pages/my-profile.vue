@@ -42,7 +42,7 @@ const user_registered = ref('');
 
 onMounted(async () => {
   await userStore.getUserData();
-  imgRef.value = globalStore.user_avatar;
+  imgRef.value = globalStore.user_avatar || {value: ''};
   avatarText.value = globalStore.user_first_letter;
 });
 </script>
