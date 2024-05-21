@@ -17,6 +17,7 @@ export const useTeamStore = defineStore('teamStore', {
       leagues: '',
       discipline: '',
       logo: null,
+      count_members: 1,
     },
     disabledBtn: true,
     inviteEmail: '',
@@ -40,6 +41,7 @@ export const useTeamStore = defineStore('teamStore', {
         const res = await this.fetcher('GET', '/teams/v1/my');
         const data = res.data;
 
+  
         this.myTeams = data;
       } catch (err) {
         console.log(err);
@@ -57,10 +59,11 @@ export const useTeamStore = defineStore('teamStore', {
         const data = await response.data;
         if(data){
           this.isCreate = true;
+          this.myTeams.push(this.formDataCreateTeam)
           Object.keys(this.formDataCreateTeam).forEach((key) => {
             this.formDataCreateTeam[key] = '';
           });
-          this.fetchMyTeams();
+          console.log(data);
           setTimeout(() => {
           this.isCreate = false;
           }, 1500);
@@ -97,7 +100,7 @@ export const useTeamStore = defineStore('teamStore', {
         if(data){
           this.isCreate = true;
           this.inviteEmail = '';
-          this.fetchMyTeams();
+          this.fetchTeam(currentTeamID);
           setTimeout(() => {
           this.isCreate = false;
           }, 1500);

@@ -66,9 +66,9 @@ export const useGlobalStore = defineStore('global', () => {
     disciplineList.value = data;
   }
 
-  if(isUserAuth.value && disciplineList.value.length === 0){
-    getDisciplines();
-  }
+  // if(isUserAuth.value){
+  //   getDisciplines();
+  // }
   
 
   return {
@@ -84,6 +84,7 @@ export const useGlobalStore = defineStore('global', () => {
     in_verifications,
     disciplineList,
     telegramPath,
+    getDisciplines,
     contacts
   };
 }, {persist: {storage: persistedState.localStorage}});

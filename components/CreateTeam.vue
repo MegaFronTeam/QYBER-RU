@@ -94,6 +94,8 @@ import {useTeamStore} from '@/store/TeamStore';
 const  globalStore = useGlobalStore();
 const  teamStore = useTeamStore();
 
+globalStore.getDisciplines();
+
 // const name = ref();
 // const leagues = ref([]);
 // const discipline = ref([]);

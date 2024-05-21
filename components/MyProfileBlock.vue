@@ -28,7 +28,7 @@
                       <InputText
                         id="name"
                         type="text"
-                        v-model="profileData.user_nicename"
+                        v-model="userData.user_nicename"
                         placeholder="Введите никнейм"
                       />
                     </InputGroup>
@@ -37,7 +37,7 @@
                       <InputText
                         id="email"
                         type="email"
-                        v-model="profileData.user_email"
+                        v-model="userData.user_email"
                         placeholder="Введите почту"
                       />
                     </InputGroup>
@@ -46,7 +46,7 @@
                       <InputText
                         id="text"
                         type="text"
-                        v-model="profileData.display_name"
+                        v-model="userData.display_name"
                         placeholder="Введите имя и фамилию"
                       />
                     </InputGroup>
@@ -55,7 +55,7 @@
                       <InputMask
                         id="tel"
                         type="tel"
-                        v-model="profileData.user_phone"
+                        v-model="userData.user_phone"
                         placeholder="Введите телефон"
                         mask="+7 (999) 999-99-99"
                       />
@@ -63,7 +63,7 @@
                     <InputGroup>
                       <label>Дата рождения</label>
                       <Calendar
-                        v-model="profileData.user_birthday"
+                        v-model="userData.user_birthday"
                         dateFormat="dd.mm.yy"
                         placeholder="__.__.____"
                       />
@@ -71,17 +71,17 @@
                     <InputGroup>
                       <label>Пол</label>
                       <Dropdown
-                        v-model="profileData.user_gender"
+                        v-model="userData.user_gender"
                         :options="genders"
                         optionLabel="name"
-                        :placeholder="profileData.user_gender"
+                        :placeholder="userData.user_gender"
                       />
                     </InputGroup>
                     <InputGroup>
                       <label>Telegram</label>
                       <InputText
                         type="text"
-                        v-model="profileData.user_telegram"
+                        v-model="userData.user_telegram"
                         placeholder="Введите свой Telegram"
                       />
                     </InputGroup>
@@ -89,7 +89,7 @@
                       <label>Город</label>
                       <InputText
                         type="text"
-                        v-model="profileData.user_city"
+                        v-model="userData.user_city"
                         placeholder="Введите город"
                       />
                     </InputGroup>
@@ -97,7 +97,7 @@
                       <label>Учебное заведение</label>
                       <InputText
                         type="text"
-                        v-model="profileData.user_educational_institution"
+                        v-model="userData.user_educational_institution"
                         placeholder="Введите учебное заведение"
                         disabled
                       />
@@ -106,7 +106,7 @@
                       <label>Компания</label>
                       <InputText
                         type="text"
-                        v-model="profileData.user_company"
+                        v-model="userData.user_company"
                         placeholder="Введите rомпанию"
                         disabled
                       />
@@ -115,7 +115,7 @@
                       <label>ИНН компании</label>
                       <InputText
                         type="text"
-                        v-model="profileData.user_inn"
+                        v-model="userData.user_inn"
                         placeholder="Введите ИНН компании"
                         disabled
                       />
@@ -264,7 +264,7 @@
                 <template #body="slotProps">
                   <Badge
                     :severity="
-                      slotProps.data.leagues.name === 'Кибер таланты' ? 'secondary' : 'danger'
+                      slotProps.data.leagues.name === 'QYBER Таланты' ? 'secondary' : 'danger'
                     "
                     class="p-badge-outline"
                     :value="slotProps.data.leagues.name"
@@ -320,11 +320,11 @@
                 <template #body="slotProps">
                   <div class="d-flex align-items-center">
                     <span class="small-text" style="margin-right: 1rem">{{
-                      slotProps.data.post_author === profileData.ID ? 'Капитан' : 'Игрок'
+                      slotProps.data.post_author === userData.ID ? 'Капитан' : 'Игрок'
                     }}</span>
                     <NuxtLink :to="`team/${slotProps.data.ID}`" class="ms-auto">
                       <Button
-                        v-if="slotProps.data.post_author === profileData.ID"
+                        v-if="slotProps.data.post_author === userData.ID"
                         label="Управлять"
                         class="btn-sm"
                       />
@@ -363,22 +363,25 @@
 import { useTeamStore } from '~/store/TeamStore';
 import auth from '@/services/auth';
 
+import { useGlobalStore } from '@/store/globalStore';
+const {userData} = useGlobalStore();
+
 const teamsStore = useTeamStore();
+await teamsStore.fetchMyTeams();
 onMounted(async () => {
-  await teamsStore.fetchMyTeams();
 
   console.log(teamsStore.myTeams);
 });
 
 const { $locally } = useNuxtApp();
-const props = defineProps({
-  profileData: {
-    type: Object,
-    required: false,
-  },
-});
+// const props = defineProps({
+//   profileData: {
+//     type: Object,
+//     required: false,
+//   },
+// });
 
-const { profileData } = toRefs(props);
+// const { profileData } = toRefs(props);
 const active = ref(0);
 // const totalRecords = ref(10);
 // const rowsPerPage = ref([5, 10, 50, 100]);

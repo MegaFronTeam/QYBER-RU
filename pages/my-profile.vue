@@ -23,16 +23,17 @@
         </div>
       </div>
     </ProfileHead>
-    <MyProfileBlock :profileData="globalStore.userData" />
+    <MyProfileBlock  />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useUserStore } from '@/store/userStore';
-import { useGlobalStore } from '@/store/globalStore';
 
 const userStore = useUserStore();
+
+import { useGlobalStore } from '@/store/globalStore';
 const globalStore = useGlobalStore();
 // console.log(userStore.userData);
 const imgRef = ref(null);
