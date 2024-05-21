@@ -58,8 +58,7 @@
   </div>
 </template>
 
-<script setup>
-шьзщк
+<script setup> 
 import { useTeamStore } from '~/store/TeamStore';
 const teamsStore = useTeamStore();
 const { id } = useRoute().params;
