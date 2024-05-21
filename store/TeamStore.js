@@ -58,12 +58,13 @@ export const useTeamStore = defineStore('teamStore', {
         const response = await this.fetcher('POST', '/teams/v1/create', formData);
         const data = await response.data;
         if(data){
+          console.log(data);
           this.isCreate = true;
-          this.myTeams.push(this.formDataCreateTeam)
+          this.myTeams.push(data);
+          console.log(this.myTeams);
           Object.keys(this.formDataCreateTeam).forEach((key) => {
             this.formDataCreateTeam[key] = '';
           });
-          console.log(data);
           setTimeout(() => {
           this.isCreate = false;
           }, 1500);
@@ -129,6 +130,5 @@ export const useTeamStore = defineStore('teamStore', {
       }
     },
     
-  },
-  persist: {storage: persistedState.localStorage}
+  }
 });

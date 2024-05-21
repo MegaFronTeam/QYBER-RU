@@ -24,8 +24,8 @@
         </div>
       </div>
       <!-- Todo: Need info -->
-      <!-- <span class="sProfileHead__name mb-12">Самара</span>
-      <div class="sProfileHead__time mb-0">ИНН 772331755151</div> -->
+      <span class="sProfileHead__name mb-12">{{globalStore.userData.user_city}}</span>
+      <div class="sProfileHead__time mb-0">ИНН {{globalStore.userData.user_inn}}</div>
     </ProfileHead>
     <div v-if="teamsStore.loader" class="container table-skeleton" style="margin-bottom: 0.8rem">
       <Skeleton height="3rem" borderRadius="12px" style="margin-bottom: 0.8rem" />
@@ -59,9 +59,13 @@
 </template>
 
 <script setup>
+шьзщк
 import { useTeamStore } from '~/store/TeamStore';
 const teamsStore = useTeamStore();
 const { id } = useRoute().params;
+
+import { useGlobalStore } from '@/store/globalStore';
+const globalStore = useGlobalStore();
 
 const breadcrumbArr = ref([
   { label: 'Личный кабинет', route: '/' },

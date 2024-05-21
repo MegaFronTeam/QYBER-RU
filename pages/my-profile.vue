@@ -13,11 +13,12 @@
       <div class="sProfileHead__status online">Онлайн</div>
       <div class="sProfileHead__time">На сайте с {{ user_registered }}</div>
 
-        <!-- TODO: need info -->
-      <div class="row" v-if="lig">
-        <div class="col-auto">
+
+      <div class="row" v-if="globalStore.userData.leagues">
+
+        <div class="col-auto" v-if="globalStore.userData.leagues.slug ==='!atlants'">
           <Badge severity="secondary" value="Кибер Таланты" class="p-badge-outline" />
-        </div>
+        </div v-else>
         <div class="col-auto">
           <Badge severity="danger" value="Кибер Атланты" class="p-badge-outline" />
         </div>
@@ -25,7 +26,9 @@
     </ProfileHead>
     <MyProfileBlock  />
   </div>
+
 </template>
+
 
 <script setup>
 import { ref, onMounted } from 'vue';

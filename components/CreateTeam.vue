@@ -125,7 +125,7 @@ const customBase64Uploader = async (event) => {
   reader.onloadend = function () {
     const base64data = reader.result;
   };
-  console.log(logo.value);
+  // console.log(logo.value);
 };
 
 // const onUpload = (event) => {
