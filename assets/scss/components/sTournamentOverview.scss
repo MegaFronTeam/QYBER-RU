@@ -350,6 +350,9 @@
     .active-btn {
       width: 100%;
       min-height: rem(68);
+      &.danger {
+        background: rgb(236, 97, 76, .12);
+      }
     }
     .wrap-body__item {
       margin-bottom: rem(24);
@@ -367,10 +370,14 @@
       .btn-trash {
         background: none;
         border: none;
-        padding: rem(5);
+        padding: 0 rem(5);
         svg {
           font-size: rem(20);
         }
+      }
+      &__title {
+        display: flex;
+        align-items: center;
       }
 
       &__card {
@@ -417,6 +424,7 @@
         display: flex;
         flex-direction: column;
         gap: rem(6);
+        font-size: rem(14);
         @include media-breakpoint-up(lg) {
           flex-direction: row;
           gap: rem(24);
