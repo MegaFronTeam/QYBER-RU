@@ -27,6 +27,7 @@
                         type="text"
                         v-model="userData.user_nicename"
                         placeholder="Введите никнейм"
+                        disabled
                       />
                     </InputGroup>
                     <InputGroup>
@@ -94,7 +95,8 @@
                       <label>Учебное заведение</label>
                       <InputText
                         type="text"
-                        v-model="userData.user_educational_institution"
+                        v-model="userData.user_educational_institution.post_title"
+                        :title="userData.user_educational_institution.post_title"
                         placeholder="Введите учебное заведение"
                         disabled
                       />
@@ -124,12 +126,12 @@
               <div class="col">
                 <div class="sMyProfileBlock__head">Сменить пароль</div>
                 <div class="form-wrap">
-                  <form @submit="submitNewPassword">
+                  <form @submit.prevent="userStore.updatePassword">
                     <InputGroup>
                       <label for="password">Текущий пароль</label>
                       <Password
                         id="password"
-                        v-model="currentPassword"
+                        v-model="passwordData.current_password"
                         aria-describedby="password-help"
                         placeholder="Введите текущий пароль"
                         :feedback="false"
@@ -141,7 +143,7 @@
                       <label for="password">Новый пароль</label>
                       <Password
                         id="password"
-                        v-model="newPassword"
+                        v-model="passwordData.new_password"
                         aria-describedby="password-help"
                         placeholder="Введите новый пароль"
                         :feedback="false"
@@ -153,7 +155,7 @@
                       <label for="password">Повторите пароль</label>
                       <Password
                         id="password"
-                        v-model="confrimNewPassword"
+                        v-model="passwordData.repeat_password"
                         aria-describedby="password-help"
                         placeholder="Повторите новый пароль"
                         :feedback="false"
@@ -176,7 +178,6 @@
                 <CreateTeam />
               </div>
             </div>
-            {{ teamsStore.myTeams }}
             <DataTable v-if="teamsStore.myTeams.length > 0" :value="teamsStore.myTeams">
               <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
@@ -370,10 +371,9 @@
   import { useUserStore } from '@/store/userStore';
   const userStore = useUserStore();
 
+  const { passwordData } = storeToRefs(userStore);
+
   teamsStore.fetchMyTeams();
-  onMounted(() => {
-    // fetchMyTeams();
-  });
 
   const active = ref(0);
 
@@ -381,37 +381,6 @@
     { name: 'Мужской', code: 'Male' },
     { name: 'Женский', code: 'Female' },
   ]);
-
-  // const submitProfileData = (event) => {
-  //   event.preventDefault();
-
-  //   auth.updateMyProfileData(userData).catch((error) => {
-  //     console.log(error);
-  //   });
-  // };
-
-  // Pass
-  const currentPassword = ref(null);
-  const newPassword = ref(null);
-  const confrimNewPassword = ref(null);
-
-  const submitNewPassword = (event) => {
-    event.preventDefault();
-
-    auth
-      .updatePassword({
-        current_password: currentPassword.value,
-        new_password: newPassword.value,
-        repeat_password: confrimNewPassword.value,
-      })
-      .then((response) => {
-        // console.log(response);
-        API_KEY = response[0];
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 </script>
 
 <style scoped lang="scss">

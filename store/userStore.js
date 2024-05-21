@@ -8,6 +8,12 @@ export const useUserStore = defineStore('user', () => {
   const globalStore = useGlobalStore();
   const email = ref('');
 
+  const passwordData = ref({
+    current_password: '',
+    new_password: '',
+    repeat_password: '',
+  });
+
   const dataForm = ref({
     // email: 'wol1414@gmail.com',
     // password: 'Qwerty1414;',
@@ -118,6 +124,25 @@ export const useUserStore = defineStore('user', () => {
       return Promise.reject(error);
     }
   };
+  const updatePassword = async () => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/profile/v1/update-password`,
+        passwordData.value,
+        {
+          headers: {
+            Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
+          },
+        },
+      );
+      const data = await response.data;
+      console.log(data);
+      // return response.data;
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  };
 
   const showInvite = async () => {
     try {
@@ -191,6 +216,8 @@ export const useUserStore = defineStore('user', () => {
     sendVerification,
     regData,
     email,
+    passwordData,
     updateMyProfileData,
+    updatePassword,
   };
 });

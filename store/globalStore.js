@@ -25,6 +25,7 @@ export const useGlobalStore = defineStore(
       discord: 'https://discord.gg/ruqyber',
       telegram: 'https://t.me/RUqyber',
     });
+
     const telegramPath = ref(contacts.value.telegram.split('https://')[0]);
 
     const getLeagues = async () => {
