@@ -71,7 +71,7 @@
                   <div class="game__list">
                     <div class="" >Сыграно 678 матчей</div>
                     <div class="success" >Победы 479 (72%)</div>
-                    <div class="secondary" >Победы 479 (72%)</div>
+                    <div class="secondary" >Ничья 0</div>
                     <div class="danger" >Поражения 112 (28%)</div>
                   </div>
                   <Button class="btn-trash"><svg-icon name="trash.svg" /></Button>
@@ -86,7 +86,7 @@
                   <div class="game__list">
                     <div class="" >Сыграно 678 матчей</div>
                     <div class="success" >Победы 479 (72%)</div>
-                    <div class="secondary" >Победы 479 (72%)</div>
+                    <div class="secondary" >Ничья 0</div>
                     <div class="danger" >Поражения 112 (28%)</div>
                   </div>
                   <Button class="btn-trash"><svg-icon name="trash.svg" /></Button>
@@ -106,7 +106,7 @@
                   <div class="game__list">
                     <div class="" >Сыграно 678 матчей</div>
                     <div class="success" >Победы 479 (72%)</div>
-                    <div class="secondary" >Победы 479 (72%)</div>
+                    <div class="secondary" >Ничья 0</div>
                     <div class="danger" >Поражения 112 (28%)</div>
                   </div>
                   <Button class="btn-trash"><svg-icon name="trash.svg" /></Button>
@@ -127,7 +127,7 @@
                   <div class="game__list">
                     <div class="" >Сыграно 678 матчей</div>
                     <div class="success" >Победы 479 (72%)</div>
-                    <div class="secondary" >Победы 479 (72%)</div>
+                    <div class="secondary" >Ничья 0</div>
                     <div class="danger" >Поражения 112 (28%)</div>
                   </div>
                   <Button class="btn-trash"><svg-icon name="trash.svg" /></Button>
@@ -148,7 +148,7 @@
                   <div class="game__list">
                     <div class="" >Сыграно 678 матчей</div>
                     <div class="success" >Победы 479 (72%)</div>
-                    <div class="secondary" >Победы 479 (72%)</div>
+                    <div class="secondary" >Ничья 0</div>
                     <div class="danger" >Поражения 112 (28%)</div>
                   </div>
                   <Button class="btn-trash"><svg-icon name="trash.svg" /></Button>

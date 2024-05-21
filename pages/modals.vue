@@ -3,6 +3,7 @@
     <div class="template">
       <Button label="Оставить заявку" @click="visibleShow = true" />
       <Button label="Спасибо за обращение" @click="visible = true" />
+      <Button label="Выбрать команду" @click="visibleTeam = true" />
     </div>
   </div>
   <Dialog v-model:visible="visibleShow" modal header="Оставить заявку">
@@ -58,6 +59,124 @@
     <p>Мы свяжемся с Вами в ближайшее время</p>
     <Button class="btn-lg" @click="visible = false">Закрыть</Button>
   </Dialog>
+  <Dialog v-model:visible="visibleTeam" modal header="Выбрать команду" class="p-dialog-big">
+    <div class="inner-wrapper">
+      <div class="game-item__card">
+        <div class="">
+          <div class="table-wrap game-item__title">
+            <NuxtImg :src="`/img/team-img-2.svg`" alt="Avatar" class="team-img" />
+            <span>Team Rogue </span> <span class="p-badge"> 3 453 </span>
+          </div>
+          <div class="table-wrap">
+            <div class="game-item__list">
+              <div class="" >678 матчей</div>
+              <div class="success" >479 (72%)</div>
+              <div class="secondary" >0</div>
+              <div class="danger" >112 (28%)</div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-wrapper">
+          <Button class="btn-sm">Выбрать</Button>
+        </div>
+      </div>
+      <div class="game-item__card">
+        <div class="">
+          <div class="table-wrap game-item__title">
+            <NuxtImg :src="`/img/team-img-1.png`" alt="Avatar" class="team-img" />
+            <span>Team Rogue </span> <span class="p-badge"> 3 453 </span>
+          </div>
+          <div class="table-wrap">
+            <div class="game-item__list">
+              <div class="" >678 матчей</div>
+              <div class="success" >479 (72%)</div>
+              <div class="secondary" >0</div>
+              <div class="danger" >112 (28%)</div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-wrapper">
+          <Button class="btn-sm">Выбрать</Button>
+        </div>
+      </div>
+      <div class="game-item__card">
+        <div class="">
+          <div class="table-wrap game-item__title">
+            <NuxtImg :src="`/img/team-img-1.png`" alt="Avatar" class="team-img" />
+            <span>Team Rogue </span> <span class="p-badge"> 3 453 </span>
+          </div>
+          <div class="table-wrap">
+            <div class="game-item__list">
+              <div class="" >678 матчей</div>
+              <div class="success" >479 (72%)</div>
+              <div class="secondary" >0</div>
+              <div class="danger" >112 (28%)</div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-wrapper">
+          <Button class="btn-sm">Выбрать</Button>
+        </div>
+      </div>
+      <div class="game-item__card">
+        <div class="">
+          <div class="table-wrap game-item__title">
+            <NuxtImg :src="`/img/team-img-1.png`" alt="Avatar" class="team-img" />
+            <span>Team Rogue </span> <span class="p-badge"> 3 453 </span>
+          </div>
+          <div class="table-wrap">
+            <div class="game-item__list">
+              <div class="" >678 матчей</div>
+              <div class="success" >479 (72%)</div>
+              <div class="secondary" >0</div>
+              <div class="danger" >112 (28%)</div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-wrapper">
+          <Button class="btn-sm">Выбрать</Button>
+        </div>
+      </div>
+      <div class="game-item__card">
+        <div class="">
+          <div class="table-wrap game-item__title">
+            <NuxtImg :src="`/img/team-img-1.png`" alt="Avatar" class="team-img" />
+            <span>Team Rogue </span> <span class="p-badge"> 3 453 </span>
+          </div>
+          <div class="table-wrap">
+            <div class="game-item__list">
+              <div class="" >678 матчей</div>
+              <div class="success" >479 (72%)</div>
+              <div class="secondary" >0</div>
+              <div class="danger" >112 (28%)</div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-wrapper">
+          <Button class="btn-sm">Выбрать</Button>
+        </div>
+      </div>
+      <div class="game-item__card">
+        <div class="">
+          <div class="table-wrap game-item__title">
+            <NuxtImg :src="`/img/team-img-1.png`" alt="Avatar" class="team-img" />
+            <span>Team Rogue </span> <span class="p-badge"> 3 453 </span>
+          </div>
+          <div class="table-wrap">
+            <div class="game-item__list">
+              <div class="" >678 матчей</div>
+              <div class="success" >479 (72%)</div>
+              <div class="secondary" >0</div>
+              <div class="danger" >112 (28%)</div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-wrapper">
+          <Button class="btn-sm">Выбрать</Button>
+        </div>
+      </div>
+    </div>
+  </Dialog>
 </template>
 
 <script setup>
@@ -65,6 +184,7 @@ import { ref } from 'vue';
 
 const visibleShow = ref(false);
 const visible = ref(false);
+const visibleTeam = ref(false);
 
 const textValue = ref(null);
 const orgValue = ref(null);
