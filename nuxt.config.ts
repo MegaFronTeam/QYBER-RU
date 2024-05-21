@@ -9,12 +9,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vueuse/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
-    "nuxt-auth-utils"
   ],
   // mode: universal,
   ssr: true,
-  app: {
-    layoutTransition: { name: 'layout', mode: 'out-in' },
-    pageTransition: { name: 'page', mode: 'out-in' }
-  }
 });

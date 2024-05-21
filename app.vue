@@ -1,6 +1,6 @@
 <template>
   <NuxtLoadingIndicator />
-  <NuxtLayout dir="routing/middleware">
+  <NuxtLayout dir="routing/middleware" v-if="!lazyShow || globalStore.API_KEY">
     <NuxtPage />
   </NuxtLayout>
 </template>
@@ -8,9 +8,13 @@
 <script setup>
   import { useTournamentStore } from '@/store/TournamentStore';
   const tournamentStore = useTournamentStore();
+  const lazyShow = ref(true);
 
-  // import { useGlobalStore } from '@/store/globalStore';
-  // const globalStore = useGlobalStore();
+  setTimeout(() => {
+    lazyShow.value = false;
+  }, 100);
+  import { useGlobalStore } from '@/store/globalStore';
+  const globalStore = useGlobalStore();
 
   onMounted(async () => {
     tournamentStore.getAll();
