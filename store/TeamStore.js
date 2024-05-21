@@ -1,5 +1,5 @@
-import axios from 'axios'; 
-import { useGlobalStore } from './globalStore'; 
+import axios from 'axios';
+import { useGlobalStore } from './globalStore';
 import { useRoute } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -11,7 +11,7 @@ export const useTeamStore = defineStore('teamStore', {
     teamData: [],
     isCreate: false,
     currentTeamID: '',
-    formDataCreateTeam:{
+    formDataCreateTeam: {
       name: '',
       description: '',
       leagues: '',
@@ -23,17 +23,17 @@ export const useTeamStore = defineStore('teamStore', {
     inviteEmail: '',
   }),
   actions: {
-    async fetcher(method, url,data = null)  {
+    async fetcher(method, url, data = null) {
       const globalStore = useGlobalStore();
       const API_KEY = globalStore.API_KEY;
-      const EMAIL = globalStore.email; 
-      if (!API_KEY || !EMAIL) return ;
+      const EMAIL = globalStore.email;
+      if (!API_KEY || !EMAIL) return;
       return await axios(`${BASE_URL}${url}`, {
         method: method,
         headers: {
           Authorization: 'Basic ' + btoa(`${EMAIL}:${API_KEY}`),
         },
-        data
+        data,
       });
     },
     async fetchMyTeams() {
@@ -41,7 +41,6 @@ export const useTeamStore = defineStore('teamStore', {
         const res = await this.fetcher('GET', '/teams/v1/my');
         const data = res.data;
 
-  
         this.myTeams = data;
       } catch (err) {
         console.log(err);
@@ -57,7 +56,7 @@ export const useTeamStore = defineStore('teamStore', {
       try {
         const response = await this.fetcher('POST', '/teams/v1/create', formData);
         const data = await response.data;
-        if(data){
+        if (data) {
           console.log(data);
           this.isCreate = true;
           this.myTeams.push(data);
@@ -66,7 +65,7 @@ export const useTeamStore = defineStore('teamStore', {
             this.formDataCreateTeam[key] = '';
           });
           setTimeout(() => {
-          this.isCreate = false;
+            this.isCreate = false;
           }, 1500);
         }
       } catch (error) {
@@ -76,6 +75,7 @@ export const useTeamStore = defineStore('teamStore', {
     },
     async fetchTeam(id) {
       try {
+        const globalStore = useGlobalStore();
         const res = await this.fetcher('GET', `/teams/v1/team/${id}`);
         const data = res.data;
 
@@ -83,7 +83,7 @@ export const useTeamStore = defineStore('teamStore', {
         console.log(this.teamData);
 
         this.teamData.members.forEach((member) => {
-          if (+member.id === +'18') {
+          if (member.id === globalStore.userData.ID) {
             this.isCaptain = true;
           }
         });
@@ -95,15 +95,17 @@ export const useTeamStore = defineStore('teamStore', {
     },
     async inviteMember() {
       try {
-        const response = await this.fetcher('POST', `/teams/v1/team/${this.currentTeamID}/member`, {email: this.inviteEmail});
+        const response = await this.fetcher('POST', `/teams/v1/team/${this.currentTeamID}/member`, {
+          email: this.inviteEmail,
+        });
         const data = await response.data;
         console.log(data);
-        if(data){
+        if (data) {
           this.isCreate = true;
           this.inviteEmail = '';
           this.fetchTeam(currentTeamID);
           setTimeout(() => {
-          this.isCreate = false;
+            this.isCreate = false;
           }, 1500);
         }
       } catch (error) {
@@ -129,6 +131,5 @@ export const useTeamStore = defineStore('teamStore', {
         this.disabledBtn = true;
       }
     },
-    
-  }
+  },
 });

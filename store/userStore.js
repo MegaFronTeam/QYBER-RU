@@ -34,6 +34,13 @@ export const useUserStore = defineStore('user', () => {
     if (data.status === false) {
       console.log(data.errors[0]);
     } else {
+      // await setUserSession(event, {
+      //   user: {
+      //     // ... user data
+      //   },
+      //   loggedInAt: new Date(),
+      //   // Any extra fields
+      // });
       globalStore.API_KEY = data[0];
       globalStore.email = dataForm.value.email;
       globalStore.isUserAuth = true;
@@ -54,12 +61,9 @@ export const useUserStore = defineStore('user', () => {
       globalStore.userData = data;
 
       globalStore.in_verifications = globalStore.userData.in_verifications;
-      if(data.user_avatar) { 
+      if (data.user_avatar) {
         globalStore.user_avatar = data.user_avatar.url;
-      }
-      else[
-        globalStore.user_avatar = ''
-      ]
+      } else [(globalStore.user_avatar = '')];
       globalStore.user_first_letter = data.user_nicename[0].toUpperCase();
 
       const date = new Date(data.user_registered);

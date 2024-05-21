@@ -7,7 +7,7 @@
           <!-- v-if="teamsStore.myTeamsCount > 0" -->
           <Button @click="active = 1" :class="active === 1 ? 'active' : ''">
             Мои команды
-            <Badge :value="teamsStore.myTeamsCount"></Badge>
+            <Badge :value="teamsStore.myTeams.length"></Badge>
           </Button>
         </div>
       </div>
@@ -177,7 +177,7 @@
               </div>
             </div>
             {{ teamsStore.myTeams }}
-            <DataTable v-if="teamsStore.myTeamsCount.value > 0" :value="teamsStore.myTeams">
+            <DataTable v-if="teamsStore.myTeams.length > 0" :value="teamsStore.myTeams">
               <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
                 field="nickname"

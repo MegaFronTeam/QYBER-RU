@@ -1,7 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['nuxt-primevue', '@nuxt/image', '@nuxtjs/svg-sprite','@nuxtjs/color-mode','@pinia/nuxt', '@vueuse/nuxt','@pinia-plugin-persistedstate/nuxt'],
+  modules: [
+    'nuxt-primevue',
+    '@nuxt/image',
+    '@nuxtjs/svg-sprite',
+    '@nuxtjs/color-mode',
+    '@pinia/nuxt',
+    '@vueuse/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
+    "nuxt-auth-utils"
+  ],
   // mode: universal,
   ssr: true,
   app: {
@@ -9,4 +18,3 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page', mode: 'out-in' }
   }
 });
-
