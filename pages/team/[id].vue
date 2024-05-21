@@ -24,8 +24,8 @@
         </div>
       </div>
       <!-- Todo: Need info -->
-      <span class="sProfileHead__name mb-12">{{globalStore.userData.user_city}}</span>
-      <div class="sProfileHead__time mb-0">ИНН {{globalStore.userData.user_inn}}</div>
+      <span class="sProfileHead__name mb-12"  v-if="globalStore.userData.user_city">{{globalStore.userData.user_city}}</span>
+      <div class="sProfileHead__time mb-0" v-if="globalStore.userData.user_inn">ИНН {{globalStore.userData.user_inn}}</div>
     </ProfileHead>
     <div v-if="teamsStore.loader" class="container table-skeleton" style="margin-bottom: 0.8rem">
       <Skeleton height="3rem" borderRadius="12px" style="margin-bottom: 0.8rem" />
@@ -54,7 +54,8 @@
     <div v-else>
       <TeamBlock v-if="!teamsStore.isCaptain" :teamData="teamsData" />
       <MyTeamBlock v-else />
-    </div>
+      </div>
+
   </div>
 </template>
 
@@ -68,6 +69,7 @@ const globalStore = useGlobalStore();
 
 const breadcrumbArr = ref([
   { label: 'Личный кабинет', route: '/' },
+
   { label: 'Мои команды', route: '/' },
 ]);
 
