@@ -76,6 +76,7 @@ import { useUserStore } from '@/store/userStore';
 import { useGlobalStore } from '@/store/globalStore';
 const userStore = useUserStore();
 const globalStore = useGlobalStore();
+
 // import Auth from '@/services/auth';
 // import Team from '@/services/team';
 

@@ -365,6 +365,7 @@ import auth from '@/services/auth';
 
 import { useGlobalStore } from '@/store/globalStore';
 const {userData} = useGlobalStore();
+const {API_KEY} = useGlobalStore();
 
 const teamsStore = useTeamStore();
 await teamsStore.fetchMyTeams();
@@ -394,20 +395,7 @@ const submitProfileData = (event) => {
   event.preventDefault();
 
   auth
-    .updateMyProfileData(profileData)
-    .then((response) => {
-      // console.log(response);
-      if (response) {
-        Object.keys(profileData).forEach((key) => {
-          if (key == 'user_gender') {
-            // console.log(profileData[key]);
-            $locally.setItem(key, profileData[key].name);
-          } else {
-            $locally.setItem(key, profileData[key]);
-          }
-        });
-      }
-    })
+    .updateMyProfileData(userData)
     .catch((error) => {
       console.log(error);
     });
@@ -429,7 +417,7 @@ const submitNewPassword = (event) => {
     })
     .then((response) => {
       // console.log(response);
-      $locally.setItem('token', response[0]);
+      API_KEY = response[0];
     })
     .catch((error) => {
       console.log(error);
