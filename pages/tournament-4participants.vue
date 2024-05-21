@@ -77,7 +77,11 @@ import {useGlobalStore} from '~/store/globalStore';
 const tournamentStore = useTournamentStore();
 const   globalStore = useGlobalStore();
 
-const breadcrumb = ref([{ label: 'Турниры' }, {label: 'Кибер Атланты Осень 2022'}]);
+
+const breadcrumb = ref([
+  { label: 'Турниры', route: '/' },
+  { label: 'Кибер Атланты Осень 2022', route: '/'}
+]);
 
 const sectionTitleTournamentsProps = {
   title: 'Другие турниры',
