@@ -460,6 +460,97 @@
       padding: 0;
     }
   }
+
+  &--grid {
+    .tournament-table {
+      .row {
+        --gutter-x: #{rem(20)};
+      }
+      
+      padding: rem(24);
+      background: var(--grayscale-4);
+      overflow: auto;
+      &__item:not(:last-child) {
+        margin-bottom: rem(48);
+      }
+      &__item-title {
+        font-weight: 600;
+        font-size: rem(14);
+        margin-bottom: rem(18);
+      }
+      &__title-row {
+        margin-bottom: rem(18);
+      }
+      &__title-col {
+        background: var(--grayscale-11);
+        padding: rem(4) 0;
+        p {
+          width: rem(250);
+          text-align: center;
+          font-size: rem(12);
+          font-weight: 600;
+        }
+      }
+      &__col {
+        justify-content: space-around;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        flex-direction: column;
+        height: 100%;
+        &:last-child .tournament-table__group {
+          &::after, &::before {
+            content: none;
+          }
+        }
+      }
+      &__group {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+        flex-grow: 1;
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          bottom: auto;
+          -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+          height: 50%;
+          right: rem(-8);
+          width: rem(4);
+          border: rem(2) solid var(--grayscale-black);
+          border-left: none;
+          z-index: 2;
+        }
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          bottom: auto;
+          -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+          width: rem(4);
+          height: rem(2);
+          right: rem(-12);
+          background-color: var(--grayscale-black);
+        }
+      }
+    }
+    .template {
+      border: none;
+      padding: 0;
+    }
+  }
 }
 
 .game-item {

@@ -80,7 +80,7 @@ const   globalStore = useGlobalStore();
 
 const breadcrumb = ref([
   { label: 'Турниры', route: '/' },
-  { label: 'Кибер Атланты Осень 2022', route: '/'}
+  { label: 'Кибер Атланты Осень 2022'}
 ]);
 
 const sectionTitleTournamentsProps = {

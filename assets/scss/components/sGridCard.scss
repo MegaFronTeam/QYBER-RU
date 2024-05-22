@@ -1,0 +1,88 @@
+.sGridCardItem {
+  // display: flex;
+  // align-items: center;
+  width: max-content;
+  margin-bottom: rem(15);
+  margin-top: rem(15);
+  display: grid;
+  grid-template-columns: rem(32) 1fr;
+
+  &__order {
+    font-size: rem(10);
+    border-right: none;
+    border: rem(1) solid var(--grayscale-11);
+    border-radius: rem(6) 0 0 rem(6);
+    border-right: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .teams-group {
+    display: flex;
+    flex-direction: column;
+    gap: rem(2);
+    border-radius: 0 rem(6) rem(6) 0;
+    overflow: hidden;
+  }
+
+  &--winner {
+    display: flex;
+    align-items: center;
+    border-radius: rem(6);
+    overflow: hidden;
+  }
+  .p-button {
+    padding: rem(6);
+    border-radius: 0;
+    justify-content: center;
+  }
+}
+
+.sGridCard {
+  font-weight: 600;
+  font-size: rem(12);
+  &__team {
+    display: flex;
+    align-items: center;
+    height: rem(36);
+    gap: rem(2);
+  }
+  &.team-success .sGridCard__score {
+    background: var(--system-success-main);
+    color: var(--grayscale-white);
+  }
+  &.team-winner .sGridCard__score {
+    background: var(--accent-primary-main);
+  }
+  &__wrap {
+    display: flex;
+    align-items: center;
+    gap: rem(8);
+    background: var(--grayscale-11);
+    padding: rem(4);
+    width: rem(180);
+  }
+  .img {
+    width: rem(28);
+    border-radius: rem(6);
+  }
+
+  &__score {
+    width: rem(36);
+    height: 100%;
+    text-align: center;
+    background: var(--grayscale-20);
+    padding: rem(10) 0;
+  }
+  &__price {
+    font-weight: 600;
+    font-size: rem(12);
+    padding: rem(4);
+    background: var(--grayscale-11);
+  }
+
+  
+  @include media-breakpoint-up(lg) {}
+}
