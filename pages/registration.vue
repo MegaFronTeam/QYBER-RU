@@ -8,7 +8,7 @@
           v-model="dataForm.email"
           aria-describedby="email-help"
           placeholder="Введите Email"
-          :invalid="errors.email.length > 0"
+          :invalid="errors.email !== ''"
         />
       </InputGroup>
       <InputGroup>
@@ -20,7 +20,7 @@
           placeholder="Введите пароль"
           :feedback="false"
           toggleMask
-          :invalid="errors.password.length > 0"
+          :invalid="errors.password !== ''"
         />
       </InputGroup>
 
@@ -32,7 +32,7 @@
           aria-describedby="passwordConfirm-help"
           :feedback="false"
           placeholder="Повторите пароль"
-          :invalid="errors.passwordConfirm.length > 0"
+          :invalid="errors.passwordConfirm !== ''"
           toggleMask
         />
       </InputGroup>

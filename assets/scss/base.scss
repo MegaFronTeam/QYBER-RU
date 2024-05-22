@@ -869,3 +869,7 @@ body {
 .p-button:disabled {
   opacity: 0.6;
 }
+
+.p-checkbox.p-invalid > .p-checkbox-box {
+  border-color: var(--red-300);
+}

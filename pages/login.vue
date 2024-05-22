@@ -1,6 +1,6 @@
 <template>
   <sFormPage v-bind="params">
-    <form @submit.prevent="loginStore.submit">
+    <form @submit.prevent="loginStore.submitLogin">
       <InputGroup>
         <label for="email">Email</label>
         <InputText
@@ -8,7 +8,7 @@
           v-model="dataForm.email"
           aria-describedby="email-help"
           placeholder="Введите Email"
-          :invalid="errors.email.length > 0"
+          :invalid="errors.email !== ''"
         />
         <!-- <small class="p-error" id="password-help">{{ errorsForm.email }}</small> -->
       </InputGroup>
@@ -22,7 +22,7 @@
           placeholder="Введите пароль"
           :feedback="false"
           toggleMask
-          :invalid="errors.password.length > 0"
+          :invalid="errors.password !== ''"
         />
         <!-- <small class="p-error" id="password-help">{{ errorsForm.password }}</small> -->
       </InputGroup>

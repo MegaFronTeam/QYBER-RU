@@ -5,7 +5,7 @@
       inputId="agreement"
       value="agreement"
       required
-      :invalid="agreement.length === 0"
+      :invalid="agreement === false"
       binary
     />
     <label for="agreement">
