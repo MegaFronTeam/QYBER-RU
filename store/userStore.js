@@ -31,33 +31,6 @@ export const useUserStore = defineStore('user', () => {
     agreement: true,
   });
 
-  const login = async () => {
-    // if (!validateLogin.disabledForm) return;
-    const response = await axios.post(`${BASE_URL}/auth/v1/login`, dataForm.value, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const data = await response.data;
-    if (data.status === false) {
-      console.log(data.errors[0]);
-    } else {
-      // await setUserSession(event, {
-      //   user: {
-      //     // ... user data
-      //   },
-      //   loggedInAt: new Date(),
-      //   // Any extra fields
-      // });
-      globalStore.API_KEY = data[0];
-      globalStore.email = dataForm.value.email;
-      globalStore.isUserAuth = true;
-      router.back();
-    }
-    console.log(data);
-  };
-
   const getUserData = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/profile/v1/my`, {

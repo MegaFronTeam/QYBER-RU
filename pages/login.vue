@@ -8,8 +8,8 @@
           v-model="dataForm.email"
           aria-describedby="email-help"
           placeholder="Введите Email"
+          :invalid="errors.email.length > 0"
         />
-        <!-- :invalid="errors.email.length > 0" -->
         <!-- <small class="p-error" id="password-help">{{ errorsForm.email }}</small> -->
       </InputGroup>
 
@@ -22,8 +22,8 @@
           placeholder="Введите пароль"
           :feedback="false"
           toggleMask
+          :invalid="errors.password.length > 0"
         />
-        <!-- :invalid="errors.password.length > 0" -->
         <!-- <small class="p-error" id="password-help">{{ errorsForm.password }}</small> -->
       </InputGroup>
 
@@ -32,6 +32,7 @@
 
       <small class="p-error mb-2 d-block" v-if="errors.password" v-html="errors.password"> </small>
       <small class="p-error mb-2 d-block" v-if="errors.form" v-html="errors.form"></small>
+      <small class="p-error mb-2 d-block" v-if="serverErrors" v-html="serverErrors"></small>
 
       <div class="mb-4 mt-4">
         <Button
@@ -55,7 +56,7 @@
 
   import { useLoginStore } from '@/store/loginStore';
   const loginStore = useLoginStore();
-  const { disabledForm, errors, dataForm } = storeToRefs(loginStore);
+  const { disabledForm, errors, dataForm, serverErrors } = storeToRefs(loginStore);
 
   // loginStore.validate();
 

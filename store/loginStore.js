@@ -3,11 +3,13 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from './globalStore';
+import { getEmailErrorsList, getPasswordErrorsList } from '../utils/errorMessages';
 
 export const useLoginStore = defineStore('login', () => {
   const router = useRouter();
   const disabledForm = ref(true);
   const globalStore = useGlobalStore();
+  const serverErrors = ref('');
 
   const dataForm = ref({
     email: '',
@@ -30,6 +32,7 @@ export const useLoginStore = defineStore('login', () => {
     const data = await response.data;
     if (data.status === false) {
       console.log(data.errors[0]);
+      serverErrors.value = data.errors.join(' <br>');
     } else {
       globalStore.API_KEY = data[0];
       globalStore.email = dataForm.value.email;
@@ -39,29 +42,8 @@ export const useLoginStore = defineStore('login', () => {
     console.log(data);
   };
 
-  const getEmailErrorsList = (element) => {
-    return [
-      !element ? 'Заполни поле email ' : '',
-      !element.match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      ) || element.length < 5
-        ? 'Некорректный element'
-        : '',
-    ];
-  };
-
-  const getPasswordErrorsList = (password) => {
-    return [
-      !password ? 'Заполни поле пароль' : '',
-      password.length < 6 ? 'Пароль должен быть не менее 6 символов' : '',
-      !password.match(/[0-9]/) ? 'Пароль должен содержать цифры' : '',
-      !password.match(/[A-Z]/) ? 'Пароль должен содержать заглавные буквы' : '',
-      !password.match(/[a-z]/) ? 'Пароль должен содержать строчные буквы' : '',
-      !password.match(/[!@#$%^&*]/) ? 'Пароль должен содержать спецсимволы' : '',
-    ];
-  };
-
   const validate = () => {
+    serverErrors.value = '';
     const emailErrorsList = getEmailErrorsList(dataForm.value.email);
     const passwordErrorsList = getPasswordErrorsList(dataForm.value.password);
 
@@ -82,5 +64,6 @@ export const useLoginStore = defineStore('login', () => {
     login,
     dataForm,
     errors,
+    serverErrors,
   };
 });
