@@ -74,12 +74,12 @@ export const useSingUpStore = defineStore('login', () => {
     console.log(Object.values(errors.value), userStore.agreement.length);
     console.log(
       Object.values(errors.value).some((error) => error.length > 0),
-      userStore.agreement.length < 1,
+      userStore.agreement === false,
     );
 
     disabledForm.value =
       Object.values(errors.value).some((error) => error.length > 0) ||
-      userStore.agreement.length === 0;
+      userStore.agreement === false;
   };
 
   // Массив

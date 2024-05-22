@@ -1,6 +1,13 @@
 <template>
   <div class="checkbox">
-    <Checkbox v-model="agreement" inputId="agreement" value="agreement" required />
+    <Checkbox
+      v-model="agreement"
+      inputId="agreement"
+      value="agreement"
+      required
+      :invalid="agreement.length === 0"
+      binary
+    />
     <label for="agreement">
       Даю согласие на обработку и хранение моих персональных данных в соответствии с
       <a href="https://api.qyber.ru/wp-content/uploads/2024/05/privacy-policy.pdf" target="_blank"

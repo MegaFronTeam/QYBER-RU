@@ -8,7 +8,7 @@ export const useUserStore = defineStore('user', () => {
   const globalStore = useGlobalStore();
 
   const email = ref('');
-  const agreement = ref(['agreement']);
+  const agreement = ref(true);
 
   const passwordData = ref({
     current_password: '',
