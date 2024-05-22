@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vueuse/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
+    '@vee-validate/nuxt',
   ],
   // mode: universal,
   ssr: true,

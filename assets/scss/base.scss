@@ -846,7 +846,7 @@ p {
 .full-hidden {
 }
 
-.me-auto{
+.me-auto {
   margin-inline-end: auto;
 }
 .head-messages {
@@ -859,10 +859,13 @@ p {
   }
 }
 
-.text-right{
+.text-right {
   text-align: right;
 }
 
-body{
+body {
   scroll-behavior: smooth;
+}
+.p-button:disabled {
+  opacity: 0.6;
 }

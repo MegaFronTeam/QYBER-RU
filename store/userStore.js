@@ -6,7 +6,9 @@ import { useGlobalStore } from './globalStore';
 export const useUserStore = defineStore('user', () => {
   const router = useRouter();
   const globalStore = useGlobalStore();
+
   const email = ref('');
+  const agreement = ref(['agreement']);
 
   const passwordData = ref({
     current_password: '',
@@ -30,6 +32,7 @@ export const useUserStore = defineStore('user', () => {
   });
 
   const login = async () => {
+    // if (!validateLogin.disabledForm) return;
     const response = await axios.post(`${BASE_URL}/auth/v1/login`, dataForm.value, {
       headers: {
         'Content-Type': 'application/json',
@@ -219,5 +222,6 @@ export const useUserStore = defineStore('user', () => {
     passwordData,
     updateMyProfileData,
     updatePassword,
+    agreement,
   };
 });
