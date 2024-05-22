@@ -185,7 +185,6 @@ export const useUserStore = defineStore('user', () => {
   };
 
   return {
-    login,
     dataForm,
     getUserData,
     singUp,

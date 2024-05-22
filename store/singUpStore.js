@@ -22,7 +22,7 @@ export const useLoginStore = defineStore('login', () => {
   });
 
   const login = async () => {
-    if (disabledForm.value) return;
+    if (!disabledForm.value) return;
     const response = await axios.post(`${BASE_URL}/auth/v1/login`, dataForm.value, {
       headers: {
         'Content-Type': 'application/json',
