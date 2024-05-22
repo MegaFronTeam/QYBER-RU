@@ -1,45 +1,60 @@
 <template>
   <sFormPage v-bind="params">
-    <form @submit.prevent="submit.singUp(dataForm)">
+    <form @submit.prevent="singUpStore.submit">
       <InputGroup>
         <label for="email">Email</label>
         <InputText
           id="email"
-          v-model="submit.regData.email"
+          v-model="dataForm.email"
           aria-describedby="email-help"
           placeholder="Введите Email"
+          :invalid="errors.email.length > 0"
         />
-        <small class="p-error" id="email-help">{{ errorsForm.email }}</small>
       </InputGroup>
       <InputGroup>
         <label for="password">Пароль</label>
         <Password
           id="password"
-          v-model="submit.regData.password"
+          v-model="dataForm.password"
           aria-describedby="password-help"
           placeholder="Введите пароль"
           :feedback="false"
           toggleMask
+          :invalid="errors.password.length > 0"
         />
-        <small class="p-error" id="password-help">{{ errorsForm.password }}</small>
       </InputGroup>
 
       <InputGroup>
         <label for="password">Повторите пароль</label>
         <Password
           id="passwordConfirm"
-          v-model="submit.regData.passwordConfirm"
+          v-model="dataForm.passwordConfirm"
           aria-describedby="passwordConfirm-help"
           :feedback="false"
           placeholder="Повторите пароль"
+          :invalid="errors.passwordConfirm.length > 0"
           toggleMask
         />
-        <small class="p-error" id="passwordConfirm-help">{{ errorsForm.passwordConfirm }}</small>
       </InputGroup>
+
+      <small class="p-error mb-2 d-block" v-if="errors.email" v-html="errors.email"> </small>
+      <small class="p-error mb-2 d-block" v-if="errors.password" v-html="errors.password"> </small>
+      <small
+        class="p-error mb-2 d-block"
+        v-if="errors.passwordConfirm"
+        v-html="errors.passwordConfirm"
+      ></small>
+      <small class="p-error mb-2 d-block" v-if="errors.form" v-html="errors.form"></small>
+      <small class="p-error mb-2 d-block" v-if="serverErrors" v-html="serverErrors"></small>
 
       <AgreementForm :agreement="agreement" />
       <div class="mb-4 mt-4">
-        <Button type="submit" :label="params.btnName" class="w-100 btn-lg" />
+        <Button
+          type="submit"
+          :label="params.btnName"
+          class="w-100 btn-lg"
+          :disabled="disabledForm === true ? 'disabled' : false"
+        />
       </div>
       <div class="mb-3 text-center" style="font-size: 14px">
         Уже есть аккаунт?
@@ -50,31 +65,22 @@
 </template>
 
 <script setup>
-definePageMeta({
-  layout: 'auth',
-});
+  definePageMeta({
+    layout: 'auth',
+  });
 
-import { useUserStore } from '@/store/userStore'; 
-const submit = useUserStore(); 
+  import { useSingUpStore } from '@/store/singUpStore';
+  const singUpStore = useSingUpStore();
+  const { disabledForm, errors, dataForm, serverErrors } = storeToRefs(singUpStore);
 
-// const dataForm = ref({
-//   email: '',
-//   password: '',
-//   passwordConfirm: '',
-//   agreement: true,
-// });
+  if (dataForm.email !== '' && dataForm.password !== '') {
+    singUpStore.validate();
+  }
 
-const errorsForm = ref({
-  email: '',
-  // steamNick: '',
-  password: '',
-  passwordConfirm: '',
-});
-const params = {
-  title: 'Регистрация',
-  // text: 'Enter your credentials to access your account',
-  bgImage: '/img/reg-bg-1.jpg',
-  btnName: 'Зарегистрироваться',
-};
-
+  const params = {
+    title: 'Регистрация',
+    // text: 'Enter your credentials to access your account',
+    bgImage: '/img/reg-bg-1.jpg',
+    btnName: 'Зарегистрироваться',
+  };
 </script>

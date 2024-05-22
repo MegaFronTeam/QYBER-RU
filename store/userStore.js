@@ -24,12 +24,12 @@ export const useUserStore = defineStore('user', () => {
     agreement: true,
   });
 
-  const regData = ref({
-    email: '',
-    password: '',
-    passwordConfirm: '',
-    agreement: true,
-  });
+  // const regData = ref({
+  //   email: '',
+  //   password: '',
+  //   passwordConfirm: '',
+  //   agreement: true,
+  // });
 
   const getUserData = async () => {
     try {
@@ -59,29 +59,29 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
-  const singUp = async () => {
-    try {
-      const formData = new FormData();
-      Object.keys(regData.value).forEach((key) => {
-        formData.append(key, regData.value[key]);
-      });
+  // const singUp = async () => {
+  //   try {
+  //     const formData = new FormData();
+  //     Object.keys(regData.value).forEach((key) => {
+  //       formData.append(key, regData.value[key]);
+  //     });
 
-      const response = await axios.post(`${BASE_URL}/auth/v1/signup`, formData, {
-        headers: {
-          Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      const data = await response.data;
-      console.log(data);
-      if (data.status === true) {
-        router.push('/login');
-      }
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
-  };
+  //     const response = await axios.post(`${BASE_URL}/auth/v1/signup`, formData, {
+  //       headers: {
+  //         Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     });
+  //     const data = await response.data;
+  //     console.log(data);
+  //     if (data.status === true) {
+  //       router.push('/login');
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     return Promise.reject(error);
+  //   }
+  // };
 
   const updateMyProfileData = async () => {
     try {
@@ -187,9 +187,8 @@ export const useUserStore = defineStore('user', () => {
   return {
     dataForm,
     getUserData,
-    singUp,
     sendVerification,
-    regData,
+    // regData,
     email,
     passwordData,
     updateMyProfileData,

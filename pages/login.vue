@@ -1,6 +1,6 @@
 <template>
   <sFormPage v-bind="params">
-    <form @submit.prevent="loginStore.login">
+    <form @submit.prevent="loginStore.submit">
       <InputGroup>
         <label for="email">Email</label>
         <InputText
@@ -29,7 +29,6 @@
 
       <!-- <AgreementForm :agreement="agreement" /> -->
       <small class="p-error mb-2 d-block" v-if="errors.email" v-html="errors.email"> </small>
-
       <small class="p-error mb-2 d-block" v-if="errors.password" v-html="errors.password"> </small>
       <small class="p-error mb-2 d-block" v-if="errors.form" v-html="errors.form"></small>
       <small class="p-error mb-2 d-block" v-if="serverErrors" v-html="serverErrors"></small>
@@ -58,6 +57,9 @@
   const loginStore = useLoginStore();
   const { disabledForm, errors, dataForm, serverErrors } = storeToRefs(loginStore);
 
+  if (dataForm.email !== '' && dataForm.password !== '') {
+    loginStore.validate();
+  }
   // loginStore.validate();
 
   definePageMeta({

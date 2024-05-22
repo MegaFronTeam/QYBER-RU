@@ -21,7 +21,7 @@ export const useLoginStore = defineStore('login', () => {
     password: '',
   });
 
-  const login = async () => {
+  const submit = async () => {
     if (disabledForm.value) return;
     const response = await axios.post(`${BASE_URL}/auth/v1/login`, dataForm.value, {
       headers: {
@@ -55,13 +55,12 @@ export const useLoginStore = defineStore('login', () => {
     disabledForm.value = Object.values(errors.value).some((error) => error.length > 0);
   };
 
-  watch(() => dataForm.value.email, validate);
-  watch(() => dataForm.value.password, validate);
+  watch(dataForm.value, validate);
 
   return {
     disabledForm,
-    // validate,
-    login,
+    validate,
+    submit,
     dataForm,
     errors,
     serverErrors,

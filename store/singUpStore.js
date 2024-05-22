@@ -3,43 +3,58 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from './globalStore';
+import { useUserStore } from './userStore';
 import { getEmailErrorsList, getPasswordErrorsList } from '../utils/errorMessages';
 
-export const useLoginStore = defineStore('login', () => {
+export const useSingUpStore = defineStore('login', () => {
   const router = useRouter();
   const disabledForm = ref(true);
+  const userStore = useUserStore();
   const globalStore = useGlobalStore();
   const serverErrors = ref('');
 
   const dataForm = ref({
-    email: '',
-    password: '',
+    email: 'wol1414@gmail.com',
+    password: 'Qwerty1414;#',
+    passwordConfirm: 'Qwerty1414;#',
+
+    // email: '',
+    // password: '',
+    // passwordConfirm: '',
   });
 
   const errors = ref({
     email: '',
     password: '',
+    passwordConfirm: '',
+    // agreement: '',
   });
 
-  const login = async () => {
-    if (!disabledForm.value) return;
-    const response = await axios.post(`${BASE_URL}/auth/v1/login`, dataForm.value, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  const submit = async () => {
+    // if (!disabledForm.value) return;
+    try {
+      const formData = new FormData();
+      Object.keys(dataForm.value).forEach((key) => {
+        formData.append(key, dataForm.value[key]);
+      });
 
-    const data = await response.data;
-    if (data.status === false) {
-      console.log(data.errors[0]);
-      serverErrors.value = data.errors.join(' <br>');
-    } else {
-      globalStore.API_KEY = data[0];
-      globalStore.email = dataForm.value.email;
-      globalStore.isUserAuth = true;
-      router.back();
+      const response = await axios.post(`${BASE_URL}/auth/v1/signup`, formData, {
+        headers: {
+          Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      const data = await response.data;
+      console.log(data);
+      if (data.status === true) {
+        router.push('/login');
+      } else {
+        serverErrors.value = Object.values(data.errors).join(' <br>');
+      }
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
     }
-    console.log(data);
   };
 
   const validate = () => {
@@ -50,20 +65,34 @@ export const useLoginStore = defineStore('login', () => {
     errors.value.email = emailErrorsList.filter((error) => error !== '').join(' <br>');
     errors.value.password = passwordErrorsList.filter((error) => error !== '').join(' <br>');
 
+    errors.value.passwordConfirm =
+      dataForm.value.password.trim() === dataForm.value.passwordConfirm.trim()
+        ? ''
+        : 'Пароли не совпадают';
+
     // disabledForm.value = errors.value.email !== '' || errors.value.password !== '';
-    console.log(Object.values(errors.value));
-    disabledForm.value = Object.values(errors.value).some((error) => error.length > 0);
+    console.log(Object.values(errors.value), userStore.agreement.length);
+    console.log(
+      Object.values(errors.value).some((error) => error.length > 0),
+      userStore.agreement.length < 1,
+    );
+
+    disabledForm.value =
+      Object.values(errors.value).some((error) => error.length > 0) ||
+      userStore.agreement.length === 0;
   };
 
-  watch(() => dataForm.value.email, validate);
-  watch(() => dataForm.value.password, validate);
+  // Массив
+  watch(dataForm.value, validate);
+  // Один элемент
+  watch(() => userStore.agreement, validate);
 
   return {
     disabledForm,
-    // validate,
-    login,
+    validate,
     dataForm,
     errors,
     serverErrors,
+    submit,
   };
 });
