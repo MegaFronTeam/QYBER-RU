@@ -1,14 +1,13 @@
 <template>
   <sFormPage v-bind="params">
-    <form @submit.prevent="loginStore.submitLogin">
+    <form @submit.prevent="authStore.submitLogin">
       <InputGroup>
         <label for="email">Email</label>
         <InputText
           id="email"
-          v-model="dataForm.email"
+          v-model="dataFormLogin.email"
           aria-describedby="email-help"
           placeholder="Введите Email"
-          :invalid="errors.email !== ''"
         />
         <!-- <small class="p-error" id="password-help">{{ errorsForm.email }}</small> -->
       </InputGroup>
@@ -17,28 +16,33 @@
         <label for="password">Пароль</label>
         <Password
           id="password"
-          v-model="dataForm.password"
+          v-model="dataFormLogin.password"
           aria-describedby="password-help"
           placeholder="Введите пароль"
           :feedback="false"
           toggleMask
-          :invalid="errors.password !== ''"
         />
         <!-- <small class="p-error" id="password-help">{{ errorsForm.password }}</small> -->
       </InputGroup>
 
       <!-- <AgreementForm :agreement="agreement" /> -->
-      <small class="p-error mb-2 d-block" v-if="errors.email" v-html="errors.email"> </small>
-      <small class="p-error mb-2 d-block" v-if="errors.password" v-html="errors.password"> </small>
-      <small class="p-error mb-2 d-block" v-if="errors.form" v-html="errors.form"></small>
-      <small class="p-error mb-2 d-block" v-if="serverErrors" v-html="serverErrors"></small>
+      <small class="p-error mb-2 d-block" v-if="errorsLogin.email" v-html="errorsLogin.email">
+      </small>
+      <small class="p-error mb-2 d-block" v-if="errorsLogin.password" v-html="errorsLogin.password">
+      </small>
+      <small class="p-error mb-2 d-block" v-if="errorsLogin.form" v-html="errorsLogin.form"></small>
+      <small
+        class="p-error mb-2 d-block"
+        v-if="serverErrorsLogin"
+        v-html="serverErrorsLogin"
+      ></small>
 
       <div class="mb-4 mt-4">
         <Button
           type="submit"
           :label="params.btnName"
           class="w-100 btn-lg"
-          :disabled="disabledForm === true ? 'disabled' : false"
+          :disabled="disabledFormLogin === true ? 'disabled' : false"
         />
       </div>
 
@@ -53,13 +57,16 @@
 <script setup>
   // import Auth from '@/services/auth';
 
-  import { useLoginStore } from '@/store/loginStore';
-  const loginStore = useLoginStore();
-  const { disabledForm, errors, dataForm, serverErrors } = storeToRefs(loginStore);
+  import { useAuthStore } from '@/store/authStore';
+  const authStore = useAuthStore();
+  const { disabledFormLogin, errorsLogin, dataFormLogin, serverErrorsLogin } =
+    storeToRefs(authStore);
 
-  if (dataForm.email !== '' && dataForm.password !== '') {
-    loginStore.validate();
-  }
+  // const dataForm = ref({
+  //   email: '',
+  //   password: '',
+  // });
+
   // loginStore.validate();
 
   definePageMeta({
