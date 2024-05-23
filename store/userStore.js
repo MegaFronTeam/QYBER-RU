@@ -24,12 +24,16 @@ export const useUserStore = defineStore('user', () => {
     agreement: true,
   });
 
-  // const regData = ref({
-  //   email: '',
-  //   password: '',
-  //   passwordConfirm: '',
-  //   agreement: true,
-  // });
+  const user_genderArr = ref([
+    {
+      value: 'f',
+      label: ':Женский',
+    },
+    {
+      value: 'm',
+      label: 'Мужской',
+    },
+  ]);
 
   const getUserData = async () => {
     try {
@@ -40,6 +44,14 @@ export const useUserStore = defineStore('user', () => {
       });
 
       const data = await response.data;
+
+      data.user_registered = data.user_registered.split(' ')[0].split('-').reverse().join('.');
+      // data.user_registered = new Date(data.user_registered);
+      // const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      // globalStore.user_registered = new Intl.DateTimeFormat('ru-RU', options)
+      //   .format(data.user_registered)
+      //   .split(' г.')[0];
+
       globalStore.userData = data;
       // globalStore.userData.user_gender =
       //   globalStore.userData.user_gender == 'm' ? 'Мужской' : 'Женский';
@@ -48,41 +60,11 @@ export const useUserStore = defineStore('user', () => {
         globalStore.user_avatar = data.user_avatar.url;
       } else [(globalStore.user_avatar = '')];
       globalStore.user_first_letter = data.user_nicename[0].toUpperCase();
-
-      const date = new Date(data.user_registered);
-      const options = { day: 'numeric', month: 'long', year: 'numeric' };
-      globalStore.user_registered = new Intl.DateTimeFormat('ru-RU', options)
-        .format(date)
-        .split(' г.')[0];
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
     }
   };
-
-  // const singUp = async () => {
-  //   try {
-  //     const formData = new FormData();
-  //     Object.keys(regData.value).forEach((key) => {
-  //       formData.append(key, regData.value[key]);
-  //     });
-
-  //     const response = await axios.post(`${BASE_URL}/auth/v1/signup`, formData, {
-  //       headers: {
-  //         Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     });
-  //     const data = await response.data;
-  //     console.log(data);
-  //     if (data.status === true) {
-  //       router.push('/auth/login');
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     return Promise.reject(error);
-  //   }
-  // };
 
   const updateMyProfileData = async () => {
     try {
@@ -195,5 +177,6 @@ export const useUserStore = defineStore('user', () => {
     updateMyProfileData,
     updatePassword,
     agreement,
+    user_genderArr,
   };
 });

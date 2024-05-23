@@ -11,7 +11,7 @@
       </h1>
       <span class="sProfileHead__name">{{ globalStore.userData.display_name }}</span>
       <div class="sProfileHead__status online">Онлайн</div>
-      <div class="sProfileHead__time">На сайте с {{ user_registered }}</div>
+      <div class="sProfileHead__time">На сайте с {{ globalStore.userData.user_registered }}</div>
 
       <div class="row" v-if="globalStore.userData.leagues">
         <div class="col-auto" v-if="globalStore.userData.leagues.slug === 'talants'">

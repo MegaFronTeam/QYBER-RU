@@ -18,7 +18,10 @@ export const useGlobalStore = defineStore(
     const isUserAuth = ref(false);
     const in_verifications = ref(false);
     const disciplineList = ref([]);
-
+    const user_genderArr = ref([
+      { name: 'Мужской', code: 'm' },
+      { name: 'Женский', code: 'f' },
+    ]);
     // const contacts = ref({
     //   youtube: 'https://www.youtube.com/@RUqyber',
     //   vk: 'https://vk.com/ruqyber',
@@ -105,6 +108,7 @@ export const useGlobalStore = defineStore(
       getDisciplines,
       contacts,
       getContacts,
+      user_genderArr,
     };
   },
   { persist: { storage: persistedState.localStorage } },
