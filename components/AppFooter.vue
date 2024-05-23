@@ -33,7 +33,7 @@
         </div>
         <Menubar :model="items" breakpoint="992px">
           <template #item="{ item, props }">
-            <NuxtLink v-if="item.label == 'Авторизация'" to="/login">
+            <NuxtLink v-if="item.label == 'Авторизация'" to="/auth/login">
               <Button variant="primary">
                 <svg-icon name="rocket-lunch.svg" />
                 <span class="p-button-label">Авторизация</span>
@@ -323,6 +323,9 @@
 </template>
 
 <script setup>
+  // import { defineProps, ref } from 'vue';
+  // import Contacts from '@/components/Contacts.vue';
+
   import { useGlobalStore } from '@/store/globalStore';
   const globalStore = useGlobalStore();
 

@@ -17,9 +17,9 @@
             <div class="sMyTeamBlock__head-row row">
               <div class="col">
                 <h3>Состав команды</h3>
-              </div> 
+              </div>
               <div class="col-auto">
-                <InviteMember/>
+                <InviteMember />
               </div>
             </div>
             <DataTable :value="teamStore.teamData.members">
@@ -212,43 +212,43 @@
 </template>
 
 <script setup>
-import Team from '@/services/team';
-import { useTeamStore } from '~/store/TeamStore';
+  import InviteMember from '@/components/cabinet/InviteMember.vue';
+  import { useTeamStore } from '~/store/TeamStore';
 
-// const props = defineProps({
-//   pageID: {
-//     type: String,
-//     required: false,
-//   },
-// });
+  // const props = defineProps({
+  //   pageID: {
+  //     type: String,
+  //     required: false,
+  //   },
+  // });
 
-// const { pageID } = props;
-const active = ref(0);
-const teamStore = useTeamStore();
-const teamMembers = ref(teamStore.teamData.members);
+  // const { pageID } = props;
+  const active = ref(0);
+  const teamStore = useTeamStore();
+  const teamMembers = ref(teamStore.teamData.members);
 
-console.log('Members 1', teamMembers.value);
-console.log('Members 2', teamStore.teamData.members);
+  // console.log('Members 1', teamMembers.value);
+  // console.log('Members 2', teamStore.teamData.members);
 
-//  sconst teamDataRef = ref(teamData);
-const deletePlayer = (USER_ID) => {
-  teamStore.deleteTeamMember(USER_ID);
-  // teamDataRef.value.members = teamDataRef.value.members.filter((element) => element.id != USER_ID);
-  // Team.deleteTeamMember(pageID, USER_ID)
-  //   .then((response) => {
-  //     if (!response) return;
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
-};
+  //  sconst teamDataRef = ref(teamData);
+  const deletePlayer = (USER_ID) => {
+    teamStore.deleteTeamMember(USER_ID);
+    // teamDataRef.value.members = teamDataRef.value.members.filter((element) => element.id != USER_ID);
+    // Team.deleteTeamMember(pageID, USER_ID)
+    //   .then((response) => {
+    //     if (!response) return;
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+  };
 </script>
 
 <style scoped lang="scss">
-.sMyTeamBlock {
-  padding-bottom: 6px;
-  @media screen and (min-width: 992px) {
-    padding-bottom: 12px;
+  .sMyTeamBlock {
+    padding-bottom: 6px;
+    @media screen and (min-width: 992px) {
+      padding-bottom: 12px;
+    }
   }
-}
 </style>

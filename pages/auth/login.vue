@@ -48,7 +48,7 @@
 
       <div class="mb-3 text-center" style="font-size: 14px">
         Еще нет аккаунта?
-        <NuxtLink to="/registration" class="text-primary">Регистрация</NuxtLink>
+        <NuxtLink to="/auth/registration" class="text-primary">Регистрация</NuxtLink>
       </div>
     </form>
   </sFormPage>
