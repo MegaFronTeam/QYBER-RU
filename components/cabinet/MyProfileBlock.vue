@@ -358,6 +358,7 @@
 </template>
 
 <script setup>
+  import CreateTeam from '@/components/cabinet/CreateTeam.vue';
   import { useTeamStore } from '@/store/TeamStore';
   import auth from '@/services/auth';
 

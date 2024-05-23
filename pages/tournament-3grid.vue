@@ -1,28 +1,30 @@
 <template>
   <div>
     <HeaderBlock
-    title="Кибер Атланты Осень 2022"
-    :breadcrumbArr="breadcrumb"
-    bg="/img/headerBlock-bg-7.jpg"
-    class="sHeaderBlock sHeaderBlock--detailed"
+      title="Кибер Атланты Осень 2022"
+      :breadcrumbArr="breadcrumb"
+      bg="/img/headerBlock-bg-7.jpg"
+      class="sHeaderBlock sHeaderBlock--detailed"
     >
-
       <div class="header-item">
         <div class="data-start"><span>До начала турнира:</span></div>
         <div class="timer">
           <div class="timer__item">
-            <span>00</span><p>Дней</p>
+            <span>00</span>
+            <p>Дней</p>
           </div>
           <div class="timer__item">
-            <span>00</span><p>Часов</p>
+            <span>00</span>
+            <p>Часов</p>
           </div>
           <div class="timer__item">
-            <span>00</span><p>Минут</p>
+            <span>00</span>
+            <p>Минут</p>
           </div>
         </div>
       </div>
       <div class="header-item">
-        <NuxtLink to="/login"   v-if="!globalStore.isUserAuth  "  >
+        <NuxtLink to="/auth/login" v-if="!globalStore.isUserAuth">
           <Button label="Регистрация на турнир" class="w-full" />
         </NuxtLink>
       </div>
@@ -42,7 +44,6 @@
           </div>
         </div>
       </div>
-
     </HeaderBlock>
     <TournamentGrid />
     <!-- <h1>This is {{ $route.name }}</h1> -->
@@ -50,16 +51,10 @@
 </template>
 
 <script setup>
-import {useTournamentStore} from '@/store/TournamentStore';
-import {useGlobalStore} from '~/store/globalStore';
-const tournamentStore = useTournamentStore();
-const   globalStore = useGlobalStore();
+  import { useTournamentStore } from '@/store/TournamentStore';
+  import { useGlobalStore } from '~/store/globalStore';
+  const tournamentStore = useTournamentStore();
+  const globalStore = useGlobalStore();
 
-
-const breadcrumb = ref([
-  { label: 'Турниры', route: '/' },
-  { label: 'Кибер Атланты Осень 2022'}
-]);
-
-
+  const breadcrumb = ref([{ label: 'Турниры', route: '/' }, { label: 'Кибер Атланты Осень 2022' }]);
 </script>

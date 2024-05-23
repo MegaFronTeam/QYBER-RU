@@ -69,7 +69,7 @@
       </div>
       <div class="mb-3 text-center" style="font-size: 14px">
         Уже есть аккаунт?
-        <NuxtLink to="/login" class="text-primary">Войти</NuxtLink>
+        <NuxtLink to="/auth/login" class="text-primary">Войти</NuxtLink>
       </div>
     </form>
   </sFormPage>

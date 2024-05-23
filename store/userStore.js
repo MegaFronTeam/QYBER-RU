@@ -76,7 +76,7 @@ export const useUserStore = defineStore('user', () => {
   //     const data = await response.data;
   //     console.log(data);
   //     if (data.status === true) {
-  //       router.push('/login');
+  //       router.push('/auth/login');
   //     }
   //   } catch (error) {
   //     console.error(error);

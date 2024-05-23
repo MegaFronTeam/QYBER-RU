@@ -1,8 +1,8 @@
 <template>
   <div class="container head-messages">
-      <!-- <ShowInvite /> -->
-      <Acredition  />
-    </div>
+    <!-- <ShowInvite /> -->
+    <Acredition />
+  </div>
   <section class="sProfileHead">
     <div class="container">
       <div class="sProfileHead__wrap bg-wrap">
@@ -31,21 +31,20 @@
           </template>
         </Breadcrumb>
         <img src="/img/profile-bg-1.jpg" class="picture-bg" />
-        <div class="sProfileHead__row row"> 
+        <div class="sProfileHead__row row">
           <div class="sProfileHead__img-wrap">
             <div class="img-wrap-center">
-
-                <img v-if="typeof img === 'string'" :src="img" alt="avatar" />
+              <img v-if="typeof img === 'string'" :src="img" alt="avatar" />
               <template v-else>
-              <span  v-if="avatarText" class="letter">{{ avatarText }}</span>
+                <span v-if="avatarText" class="letter">{{ avatarText }}</span>
               </template>
-            </div> 
+            </div>
           </div>
           <div class="sProfileHead__content">
             <slot> </slot>
           </div>
           <!-- TODO: need info -->
-          <div class="sProfileHead__games-played  " v-if="info">
+          <div class="sProfileHead__games-played" v-if="info">
             <div class="sProfileHead__games-title">Сыграно {{ allMaches }} матчей</div>
             <div class="sProfileHead__games-info">
               <div class="sProfileHead__games-text">
@@ -70,51 +69,52 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  breadcrumbArr: {
-    type: Array,
-    required: true,
-  },
-  img: {
-    type: String,
-    required: false,
-  },
-  profileData: {
-    type: Object,
-    required: '',
-  },
-  avatarText: {
-    type: String,
-    required: '',
-  },
-  isOnline: {
-    type: String,
-    required: '',
-  },
-});
-const { breadcrumbArr, img, avatarText, profileData } = toRefs(props);
+  import ShowInvite from '@/components/cabinet/ShowInvite.vue';
+  import Acredition from '@/components/cabinet/Acredition.vue';
+  const props = defineProps({
+    breadcrumbArr: {
+      type: Array,
+      required: true,
+    },
+    img: {
+      type: String,
+      required: false,
+    },
+    profileData: {
+      type: Object,
+      required: '',
+    },
+    avatarText: {
+      type: String,
+      required: '',
+    },
+    isOnline: {
+      type: String,
+      required: '',
+    },
+  });
+  const { breadcrumbArr, img, avatarText, profileData } = toRefs(props);
 
-console.log(props.img);
+  console.log(props.img);
 
-const home = ref({
-  label: 'Главная',
-  route: '/',
-});
+  const home = ref({
+    label: 'Главная',
+    route: '/',
+  });
 
-// const imgRef = ref(img);
-// const avatarTextRef = ref(avatarText);
-const items = ref(breadcrumbArr);
-const allMaches = 678;
-const winMaches = 479;
-const looseMaches = 112;
-const drawMaches = 87;
-const progressBarStyle = computed(() => {
-  const winRate = (winMaches / allMaches) * 100;
-  const loseRate = (looseMaches / allMaches) * 100;
-  return {
-    '--winRate': `${winRate}`,
-    '--loseRate': `${loseRate}`,
-  };
-});
-
+  // const imgRef = ref(img);
+  // const avatarTextRef = ref(avatarText);
+  const items = ref(breadcrumbArr);
+  const allMaches = 678;
+  const winMaches = 479;
+  const looseMaches = 112;
+  const drawMaches = 87;
+  const progressBarStyle = computed(() => {
+    const winRate = (winMaches / allMaches) * 100;
+    const loseRate = (looseMaches / allMaches) * 100;
+    return {
+      '--winRate': `${winRate}`,
+      '--loseRate': `${loseRate}`,
+    };
+  });
 </script>

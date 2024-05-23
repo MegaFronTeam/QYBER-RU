@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="header-item">
-        <NuxtLink to="/login" v-if="!globalStore.isUserAuth">
+        <NuxtLink to="/auth/login" v-if="!globalStore.isUserAuth">
           <Button label="Регистрация на турнир" class="w-full" />
         </NuxtLink>
       </div>

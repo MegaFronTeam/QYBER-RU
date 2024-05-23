@@ -189,18 +189,22 @@
         </Menubar>
         <InputSwitch @click="toggleTheme" v-model="checked" />
         <template v-if="isUserAuth">
-          <NuxtLink to="/my-profile"> 
+          <NuxtLink to="/cabinet/my-profile">
             <Button class="header__btn d-lg-flex" variant="primary">
               <svg-icon name="user.svg" />
               <span class="p-button-label d-none d-lg-flex">Кабинет</span>
             </Button>
           </NuxtLink>
-          <Button class="header__btn header__btn--logout d-lg-flex" @click="globalStore.logout()" severity="danger">
-            <svg-icon class="m-0" name="logout.svg" /> 
+          <Button
+            class="header__btn header__btn--logout d-lg-flex"
+            @click="globalStore.logout()"
+            severity="danger"
+          >
+            <svg-icon class="m-0" name="logout.svg" />
           </Button>
         </template>
         <template v-else>
-          <NuxtLink to="/login"> 
+          <NuxtLink to="/auth/login">
             <Button class="header__btn d-lg-flex" variant="primary">
               <svg-icon name="rocket-lunch.svg" />
               <span class="p-button-label d-none d-lg-flex">Авторизация</span>
@@ -213,39 +217,37 @@
 </template>
 
 <script setup>
-import {useGlobalStore} from '~/store/globalStore';
-const   globalStore = useGlobalStore();
-const { isUserAuth } = storeToRefs(globalStore);
+  import { useGlobalStore } from '~/store/globalStore';
+  const globalStore = useGlobalStore();
+  const { isUserAuth } = storeToRefs(globalStore);
 
+  const colorMode = useColorMode();
+  // console.log($ifAuthenticated);
 
+  const checked = ref(colorMode.preference === 'dark' ? false : true);
 
-const colorMode = useColorMode();
-// console.log($ifAuthenticated);
+  const toggleTheme = () => {
+    if (colorMode.value === 'dark') {
+      colorMode.preference = 'light';
+      checked.value = true;
+    } else {
+      colorMode.preference = 'dark';
+      checked.value = false;
+    }
+  };
+  // toggleTheme();
 
-const checked = ref(colorMode.preference === 'dark' ? false : true);
-
-const toggleTheme = () => {
-  if (colorMode.value === 'dark') {
-    colorMode.preference = 'light';
-    checked.value = true;
-  } else {
-    colorMode.preference = 'dark';
-    checked.value = false;
-  }
-};
-// toggleTheme();
-
-const props = defineProps({
-  menubarItems: {
-    type: Array,
-    required: true,
-  },
-});
-const { menubarItems } = props;
-// menubarItems.push({
-//   label: 'Авторизация',
-//   icon: 'rocket-lunch',
-//   href: '/login',
-// });
-const items = ref(menubarItems); 
+  const props = defineProps({
+    menubarItems: {
+      type: Array,
+      required: true,
+    },
+  });
+  const { menubarItems } = props;
+  // menubarItems.push({
+  //   label: 'Авторизация',
+  //   icon: 'rocket-lunch',
+  //   href: '/auth/login',
+  // });
+  const items = ref(menubarItems);
 </script>

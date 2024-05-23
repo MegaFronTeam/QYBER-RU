@@ -28,6 +28,9 @@
 
 <script setup>
   import { ref, onMounted } from 'vue';
+  import ProfileHead from '@/components/cabinet/ProfileHead.vue';
+  import MyProfileBlock from '@/components/cabinet/MyProfileBlock.vue';
+
   import { useUserStore } from '@/store/userStore';
 
   const userStore = useUserStore();

@@ -42,7 +42,7 @@ export const useAuthStore = defineStore('auth', () => {
       globalStore.isUserAuth = true;
       router.back();
     }
-    console.log(data);
+    // console.log(data);
   };
 
   const validateLogin = () => {
@@ -54,7 +54,7 @@ export const useAuthStore = defineStore('auth', () => {
     errorsLogin.value.password = passwordErrorsList.filter((error) => error !== '').join(' <br>');
 
     // disabledForm.value = errors.value.email !== '' || errors.value.password !== '';
-    console.log(Object.values(errorsLogin.value));
+    // console.log(Object.values(errorsLogin.value));
     disabledFormLogin.value = Object.values(errorsLogin.value).every((error) => error.length > 0);
   };
 
@@ -95,7 +95,7 @@ export const useAuthStore = defineStore('auth', () => {
       const data = await response.data;
       console.log(data);
       if (data.status === true) {
-        router.push('/login');
+        router.push('/auth/login');
       } else {
         serverErrorsSingUp.value = Object.values(data.errors).join(' <br>');
       }

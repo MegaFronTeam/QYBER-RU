@@ -45,7 +45,7 @@
               </h5>
             </div>
             <div class="sMainHeader__tournament-bottom-row row">
-              <NuxtLink to="/login" v-if="!globalStore.isUserAuth">
+              <NuxtLink to="/auth/login" v-if="!globalStore.isUserAuth">
                 <Button label="Регистрация" class="w-full" />
               </NuxtLink>
               <Button
@@ -98,14 +98,14 @@
 </template>
 
 <script setup>
-import { useTournamentStore } from '@/store/TournamentStore';
-const tournamentStore = useTournamentStore();
-import { useTeamStore } from '@/store/TeamStore';
-const teamsStore = useTeamStore();
+  import { useTournamentStore } from '@/store/TournamentStore';
+  const tournamentStore = useTournamentStore();
+  import { useTeamStore } from '@/store/TeamStore';
+  const teamsStore = useTeamStore();
 
-import { useGlobalStore } from '~/store/globalStore';
-const globalStore = useGlobalStore();
+  import { useGlobalStore } from '~/store/globalStore';
+  const globalStore = useGlobalStore();
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-const { data, pending } = await useLazyFetch(`${BASE_URL}/wp/v2/posts`);
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const { data, pending } = await useLazyFetch(`${BASE_URL}/wp/v2/posts`);
 </script>
