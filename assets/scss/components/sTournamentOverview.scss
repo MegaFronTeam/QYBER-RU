@@ -462,11 +462,14 @@
   }
 
   &--grid {
+    margin-bottom: rem(6);
+    @include media-breakpoint-up(lg) {
+      margin-bottom: rem(12);
+    }
     .tournament-table {
       .row {
         --gutter-x: #{rem(20)};
       }
-      
       padding: rem(24);
       background: var(--grayscale-4);
       overflow: auto;
@@ -498,7 +501,6 @@
         display: flex;
         -webkit-box-orient: vertical;
         flex-direction: column;
-        height: 100%;
         &:last-child .tournament-table__group {
           &::after, &::before {
             content: none;
@@ -544,11 +546,37 @@
           right: rem(-12);
           background-color: var(--grayscale-black);
         }
+        &--single {
+          &::before {
+            border-bottom: none;
+            transform: translateY(0);
+            height: 38%;
+          }
+          &::after {
+            top: 89%;
+          }
+        }
+        &--small {
+          &::before {
+            content: none;
+          }
+          &::after {
+            width: rem(12);
+            right: calc(-1 * var(--gutter-x));
+          }
+
+        }
       }
     }
     .template {
       border: none;
       padding: 0;
+    }
+    .row-low {
+      margin-top: rem(60);
+      .col-auto:first-child {
+        transform: translateY(rem(-36));
+      }
     }
   }
 }
@@ -572,7 +600,7 @@
     padding: rem(12) rem(18);
     border-radius: rem(12);
     margin-bottom: rem(12);
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -582,7 +610,7 @@
       max-width: rem(101);
     }
     .btn-wrapper {
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(md) {
         padding: rem(18) 0 rem(18) rem(18);
         border-left: 1px solid var(--gray-100);
         height: 100%;
@@ -612,10 +640,85 @@
     gap: rem(6);
     font-size: rem(14);
     margin-bottom: rem(12);
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       flex-direction: row;
       gap: rem(24);
     }
+  }
+  &__card--center {
+    padding: 0;
+    padding-bottom: rem(20);
+    border-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    @include media-breakpoint-down(md) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .game-item__list {
+      align-items: center;
+      @include media-breakpoint-up(md) {
+        margin-bottom: 0;
+      }
+    }
+    .game-item__title {
+      justify-content: center;
+    }
+  }
+}
+
+.p-dialog {
+  .form-wrap {
+    margin-bottom: rem(24);
+  }
+  .teams-check {
+    border-radius: rem(12);
+    overflow: hidden;
+    width: max-content;
+    margin: rem(24) auto;
+  }
+
+  .team {
+    background: var(--grayscale-4);
+    padding: rem(12) rem(24);
+    font-weight: 600;
+    font-size: rem(14);
+  }
+  .team--success {
+    background: var(--system-success-main);
+    color: var(--grayscale-white);
+  }
+
+  .p-tabview-nav {
+    justify-content: center;
+    .p-tabview-title {
+      color: $textSecondaryColor;
+    }
+    .p-highlight span {
+      color: var(--text-color);
+    }
+  }
+
+  .btn-flex {
+    gap: rem(12);
+    flex-direction: column;
+    @include media-breakpoint-up(sm) {
+      flex-direction: row;
+    }
+  }
+
+  .p-button-contrast {
+    background: var(--grayscale-4);
+    border: var(--grayscale-4);
+  }
+
+  .date-flex {
+    gap: rem(6);
+  }
+  #calendar-timeonly {
+    max-width: rem(120);
   }
 }
 

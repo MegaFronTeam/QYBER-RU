@@ -4,6 +4,8 @@
       <Button label="Оставить заявку" @click="visibleShow = true" />
       <Button label="Спасибо за обращение" @click="visible = true" />
       <Button label="Выбрать команду" @click="visibleTeam = true" />
+      <Button label="Игра 6" @click="visibleGame = true" />
+      <Button label="Подтвердите действие(дисквалификация)" @click="visibleDisqualification = true" />
     </div>
   </div>
   <Dialog v-model:visible="visibleShow" modal header="Оставить заявку">
@@ -177,6 +179,92 @@
       </div>
     </div>
   </Dialog>
+  <Dialog v-model:visible="visibleDisqualification" modal header="Подтвердите действие">
+    <p>Вы уверены, что хотите дисквалифицировать команду?</p>
+    <div class="d-flex btn-flex">
+      <Button class="btn-lg" @click="visibleDisqualification = false">Подтвердить</Button>
+      <Button class="btn-lg" severity='contrast' @click="visibleDisqualification = false">Отмена</Button>
+    </div>
+  </Dialog>
+  <Dialog v-model:visible="visibleGame" modal header="Игра 6">
+    <TabView>
+      <TabPanel header="Настройки">
+        <div class="form-wrap">
+          <InputGroup>
+            <label for="name">Формат</label>
+            <Dropdown v-model="selectedFormat" :options="formats" optionLabel="name" placeholder="5x5" class="w-full md:w-14rem" />
+          </InputGroup>
+          <InputGroup>
+            <label for="calendar">Начало игры (мск)</label>
+            <div class="d-flex date-flex">
+              <Calendar
+                id="calendar"
+                v-model="date"
+                showIcon
+                iconDisplay="input"
+                dateFormat="dd.mm.yy"
+                placeholder="__.__.____"
+              />
+              <Calendar id="calendar-timeonly"
+              v-model="time"
+              timeOnly
+              placeholder="00:00"/>
+            </div>
+          </InputGroup>
+          <InputGroup>
+            <label for="discord">Сервер Discord</label>
+            <InputText id="discord" type="text" v-model="emailValue" placeholder="Ссылка с https://" />
+          </InputGroup>
+          <InputGroup>
+            <label for="IP">Сервер</label>
+            <InputText id="IP" type="text" v-model="emailValue" placeholder="IP адрес" />
+          </InputGroup>
+        </div>
+
+        <Button class="btn-lg">Сохранить</Button>
+      </TabPanel>
+      <TabPanel header="Результаты">
+        <div class="game-item__card game-item__card--center">
+          <div class="">
+            <div class="table-wrap game-item__title">
+              <NuxtImg :src="`/img/team-img-2.svg`" alt="Avatar" class="team-img" />
+              <span>Команда 1 </span> <span class="p-badge"> 3 453 </span>
+            </div>
+            <div class="table-wrap">
+              <div class="game-item__list">
+                <div class="secondary" >Дисквалифицировать</div>
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <Button class="btn-sm">counter</Button>
+          </div>
+        </div>
+        <div class="game-item__card game-item__card--center">
+          <div class="">
+            <div class="table-wrap game-item__title">
+              <NuxtImg :src="`/img/team-img-2.svg`" alt="Avatar" class="team-img" />
+              <span>Команда 1 </span> <span class="p-badge"> 3 453 </span>
+            </div>
+            <div class="table-wrap">
+              <div class="game-item__list">
+                <div class="secondary" >Дисквалифицировать</div>
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <Button class="btn-sm">counter</Button>
+          </div>
+        </div>
+        <h5 class="text-center" >Проверка победителя</h5>
+        <div class="teams-check d-flex">
+          <div class="team team--success">Команда 1</div>
+          <div class="team">Команда 2</div>
+        </div>
+        <Button class="btn-lg">Завершить матч</Button>
+      </TabPanel>
+    </TabView>
+  </Dialog>
 </template>
 
 <script setup>
@@ -185,6 +273,8 @@ import { ref } from 'vue';
 const visibleShow = ref(false);
 const visible = ref(false);
 const visibleTeam = ref(false);
+const visibleGame = ref(false);
+const visibleDisqualification = ref(false);
 
 const textValue = ref(null);
 const orgValue = ref(null);
@@ -193,4 +283,12 @@ const telValue = ref(null);
 const emailValue = ref(null);
 const textAreaValue = ref(null);
 const agreement = ref('');
+const selectedFormat = ref();
+const formats = ref([
+    { name: '5x5'},
+    { name: '5x5' },
+    { name: '5x5' },
+    { name: '5x5' },
+    { name: '5x5' }
+]);
 </script>
