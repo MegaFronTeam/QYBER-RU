@@ -76,6 +76,7 @@
 </template>
 
 <script setup>
+  import AgreementForm from '@/components/share/AgreementForm.vue';
   definePageMeta({
     layout: 'auth',
   });
