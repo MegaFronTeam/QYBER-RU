@@ -86,21 +86,6 @@
 
   const { disabledFormSingUp, errorsSingUp, dataFormSingUp, serverErrorsSingUp } =
     storeToRefs(authStore);
-
-  onMounted(() => {
-    if (
-      dataFormSingUp.email !== '' &&
-      dataFormSingUp.password !== '' &&
-      dataFormSingUp.passwordConfirm !== ''
-    ) {
-      authStore.disabledFormSingUp = false;
-    }
-  });
-  // dataFormSingUp.value = {
-  //   email: '',
-  //   password: '',
-  // };
-
   const params = {
     title: 'Регистрация',
     // text: 'Enter your credentials to access your account',
