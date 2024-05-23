@@ -691,6 +691,11 @@
     margin: rem(24) auto;
   }
 
+  h5 {
+    text-align: center;
+    margin-top: rem(24);
+  }
+
   .team {
     background: var(--grayscale-4);
     padding: rem(12) rem(24);
@@ -704,12 +709,16 @@
 
   .p-tabview-nav {
     justify-content: center;
+    margin-bottom: rem(24);
     .p-tabview-title {
       color: $textSecondaryColor;
     }
     .p-highlight span {
       color: var(--text-color);
     }
+  }
+  .p-tabview-panels {
+    padding: 0;
   }
 
   .btn-flex {
@@ -737,6 +746,42 @@
   }
   #calendar-timeonly {
     max-width: rem(120);
+  }
+  .input-icon-wrap {
+    display: flex;
+    .p-inputgroup-addon {
+      background: transparent;
+      border-radius: rem(10) 0 0 rem(10);
+      border: 1px solid var(--gray-200);
+      border-right: none;
+      padding-right: 0;
+      min-width: rem(30);
+    }
+    .p-inputtext {
+      border-left: none;
+      border-radius: 0 rem(10) rem(10) 0;
+      &:focus {
+        border-left: none;
+      }
+    }
+  }
+  .p-inputwrapper {
+    display: flex;
+    gap: rem(12);
+    .p-button {
+      background: var(--grayscale-4);
+      border: var(--grayscale-4);
+      width: rem(44);
+      height: rem(44);
+      padding: rem(14);
+      color: var(--text-colorSecondary, #6D7076);
+    }
+  }
+  .p-inputnumber-input {
+    max-width: rem(72);
+    border-radius: rem(10);
+    text-align: center;
+    border: $divider;
   }
 }
 
