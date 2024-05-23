@@ -4,6 +4,7 @@
       <Button label="Оставить заявку" @click="visibleShow = true" />
       <Button label="Спасибо за обращение" @click="visible = true" />
       <Button label="Выбрать команду" @click="visibleTeam = true" />
+      <Button label="Подтвердите действие(дисквалификация)" @click="visibleDisqualification = true" />
     </div>
   </div>
   <Dialog v-model:visible="visibleShow" modal header="Оставить заявку">
@@ -177,6 +178,14 @@
       </div>
     </div>
   </Dialog>
+  <Dialog v-model:visible="visibleDisqualification" modal header="Подтвердите действие">
+    <p>Вы уверены, что хотите дисквалифицировать команду?</p>
+    <div class="d-flex btn-flex">
+      <Button class="btn-lg" @click="visibleDisqualification = false">Подтвердить</Button>
+      <Button class="btn-lg" severity='contrast' @click="visibleDisqualification = false">Отмена</Button>
+    </div>
+
+  </Dialog>
 </template>
 
 <script setup>
@@ -185,6 +194,7 @@ import { ref } from 'vue';
 const visibleShow = ref(false);
 const visible = ref(false);
 const visibleTeam = ref(false);
+const visibleDisqualification = ref(false);
 
 const textValue = ref(null);
 const orgValue = ref(null);
