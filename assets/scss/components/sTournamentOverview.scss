@@ -673,6 +673,17 @@
   .form-wrap {
     margin-bottom: rem(24);
   }
+  .switch-wrap {
+    align-items: center;
+    justify-content: center;
+    gap: rem(12);
+    margin-bottom: rem(24);
+    font-size: rem(14);
+    font-weight: 600;
+  }
+  .p-inputswitch:not(.p-highlight) .p-inputswitch-slider {
+    background-color: var(--system-neutral-main);
+  }
   .teams-check {
     border-radius: rem(12);
     overflow: hidden;
@@ -716,6 +727,13 @@
 
   .date-flex {
     gap: rem(6);
+    .icon-wrap {
+      position: absolute;
+      top: 50%;
+      right: rem(12);
+      transform: translateY(-50%);
+      cursor:pointer;
+    }
   }
   #calendar-timeonly {
     max-width: rem(120);
