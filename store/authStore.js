@@ -130,19 +130,18 @@ export const useAuthStore = defineStore('auth', () => {
       userStore.agreement === false;
   };
 
+  // if (dataFormSingUp.email !== '' && dataFormSingUp.password !== '') {
+  //   disabledFormSingUp.value = false;
+  // }
+
+  // if (dataFormLogin.email !== '' && dataFormLogin.password !== '') {
+  //   disabledFormLogin.value = false;
+  // }
   // Массив
   watch(dataFormSingUp.value, validateSingUp);
   // Один элемент
   watch(() => userStore.agreement, validateSingUp);
   // /SingUp Store
-
-  // if (dataFormSingUp.email !== '' && dataFormSingUp.password !== '') {
-  //   validateSingUp();
-  // }
-
-  // if (dataFormLogin.email !== '' && dataFormLogin.password !== '') {
-  //   validateLogin();
-  // }
 
   watch(dataFormLogin.value, validateLogin);
 

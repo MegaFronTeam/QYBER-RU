@@ -62,6 +62,11 @@
   const { disabledFormLogin, errorsLogin, dataFormLogin, serverErrorsLogin } =
     storeToRefs(authStore);
 
+  onMounted(() => {
+    if (dataFormLogin.email !== '' && dataFormLogin.password !== '') {
+      authStore.disabledFormSingUp = false;
+    }
+  });
   // const dataForm = ref({
   //   email: '',
   //   password: '',
