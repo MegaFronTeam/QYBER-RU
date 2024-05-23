@@ -5,7 +5,7 @@
   margin-bottom: rem(15);
   margin-top: rem(15);
   display: grid;
-  grid-template-columns: rem(32) 1fr;
+  grid-template-columns: rem(32) rem(218);
 
   &__order {
     font-size: rem(10);
@@ -28,8 +28,7 @@
   }
 
   &--winner {
-    display: flex;
-    align-items: center;
+    grid-template-columns: 250px;
     border-radius: rem(6);
     overflow: hidden;
   }
@@ -62,7 +61,7 @@
     gap: rem(8);
     background: var(--grayscale-11);
     padding: rem(4);
-    width: rem(180);
+    width: 100%;
   }
   .img {
     width: rem(28);
@@ -75,6 +74,7 @@
     text-align: center;
     background: var(--grayscale-20);
     padding: rem(10) 0;
+    flex-shrink: 0;
   }
   &__price {
     font-weight: 600;

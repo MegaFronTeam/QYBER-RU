@@ -41,7 +41,7 @@
             <div class="tournament-table__item">
               <div class="tournament-table__item-title">Победители</div>
               <div class="tournament-table__winner-row row">
-                <div class="col">
+                <div class="col-auto">
                   <div class="sGridCardItem sGridCardItem--winner">
                     <div class="teams-group">
                       <div class="sGridCard sGridCard__team team-winner">
@@ -55,7 +55,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col">
+                <div class="col-auto">
                   <div class="sGridCardItem sGridCardItem--winner">
                     <div class="teams-group">
                       <div class="sGridCard sGridCard__team">
@@ -69,7 +69,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col">
+                <div class="col-auto">
                   <div class="sGridCardItem sGridCardItem--winner">
                     <div class="teams-group">
                       <div class="sGridCard sGridCard__team">
@@ -162,7 +162,7 @@
                   </div>
                 </div>
                 <div class="tournament-table__col col-auto">
-                  <div class="tournament-table__group">
+                  <div class="tournament-table__group tournament-table__group--small">
                     <TournamentGridCard />
                   </div>
                 </div>
@@ -216,18 +216,18 @@
                   <p>Раунд 6 (LAN)</p>
                 </div>
               </div>
-              <div class="tournament-table__row row">
+              <div class="tournament-table__row row row-low">
                 <div class="tournament-table__col col-auto">
-                  <div class="tournament-table__group">
+                  <div class="tournament-table__group tournament-table__group--single">
                     <TournamentGridCard />
                   </div>
-                  <div class="tournament-table__group">
+                  <div class="tournament-table__group tournament-table__group--single">
                     <TournamentGridCard />
                   </div>
-                  <div class="tournament-table__group">
+                  <div class="tournament-table__group tournament-table__group--single">
                     <TournamentGridCard />
                   </div>
-                  <div class="tournament-table__group">
+                  <div class="tournament-table__group tournament-table__group--single">
                     <TournamentGridCard />
                   </div>
                 </div>
@@ -242,21 +242,21 @@
                   </div>
                 </div>
                 <div class="tournament-table__col col-auto">
-                  <div class="tournament-table__group">
+                  <div class="tournament-table__group tournament-table__group--small">
                     <TournamentGridCard />
+                  </div>
+                  <div class="tournament-table__group tournament-table__group--small">
                     <TournamentGridCard />
                   </div>
                 </div>
                 <div class="tournament-table__col col-auto">
                   <div class="tournament-table__group">
                     <TournamentGridCard />
-                  </div>
-                  <div class="tournament-table__group">
                     <TournamentGridCard />
                   </div>
                 </div>
                 <div class="tournament-table__col col-auto">
-                  <div class="tournament-table__group">
+                  <div class="tournament-table__group tournament-table__group--small">
                     <TournamentGridCard />
                   </div>
                 </div>

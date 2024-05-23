@@ -462,11 +462,14 @@
   }
 
   &--grid {
+    margin-bottom: rem(6);
+    @include media-breakpoint-up(lg) {
+      margin-bottom: rem(12);
+    }
     .tournament-table {
       .row {
         --gutter-x: #{rem(20)};
       }
-      
       padding: rem(24);
       background: var(--grayscale-4);
       overflow: auto;
@@ -498,7 +501,6 @@
         display: flex;
         -webkit-box-orient: vertical;
         flex-direction: column;
-        height: 100%;
         &:last-child .tournament-table__group {
           &::after, &::before {
             content: none;
@@ -544,11 +546,37 @@
           right: rem(-12);
           background-color: var(--grayscale-black);
         }
+        &--single {
+          &::before {
+            border-bottom: none;
+            transform: translateY(0);
+            height: 38%;
+          }
+          &::after {
+            top: 89%;
+          }
+        }
+        &--small {
+          &::before {
+            content: none;
+          }
+          &::after {
+            width: rem(12);
+            right: calc(-1 * var(--gutter-x));
+          }
+
+        }
       }
     }
     .template {
       border: none;
       padding: 0;
+    }
+    .row-low {
+      margin-top: rem(60);
+      .col-auto:first-child {
+        transform: translateY(rem(-36));
+      }
     }
   }
 }
