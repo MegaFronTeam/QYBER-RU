@@ -1,14 +1,14 @@
 <template>
   <ul class="contacts">
-    <li v-for="(value, name) in globalStore.contacts" :key="name">
-      <a :href="value" class="contacts__link" target="_blank">
-        <svg-icon :name="name +'.svg'" />
+    <li v-for="item in globalStore.contacts.socials" :key="item.social.label">
+      <a :href="item.link" class="contacts__link" target="_blank">
+        <svg-icon :name="item.social.value + '.svg'" />
       </a>
     </li>
   </ul>
 </template>
- 
+
 <script setup>
-import { useGlobalStore } from '@/store/globalStore';
-const globalStore = useGlobalStore();
+  import { useGlobalStore } from '@/store/globalStore';
+  const globalStore = useGlobalStore();
 </script>

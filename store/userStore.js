@@ -41,7 +41,8 @@ export const useUserStore = defineStore('user', () => {
 
       const data = await response.data;
       globalStore.userData = data;
-
+      globalStore.userData.user_gender =
+        globalStore.userData.user_gender == 'm' ? 'Мужской' : 'Женский';
       globalStore.in_verifications = globalStore.userData.in_verifications;
       if (data.user_avatar) {
         globalStore.user_avatar = data.user_avatar.url;

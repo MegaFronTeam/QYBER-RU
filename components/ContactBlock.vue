@@ -24,17 +24,19 @@
                 <span>Электронная почта</span>
                 <a
                   class="h4"
-                  href="mailto:qyber.info@mail.ru"
+                  :href="'mailto:' + globalStore.contacts.email"
                   target="_blank"
                   rel="noopener noreferrer"
-                  >qyber.info@mail.ru</a
+                  >{{ globalStore.contacts.email }}</a
                 >
               </div>
               <div class="sContactBlock__profile-info">
-                <Button class="sContactBlock__btn btn-lg p-button-gray">
-                  <svg-icon name="telegram.svg" />
-                  Написать в Telegram
-                </Button>
+                <a :href="globalStore.contacts.socials[0].link" target="_blank">
+                  <Button class="sContactBlock__btn btn-lg p-button-gray">
+                    <svg-icon name="telegram.svg" />
+                    Написать в Telegram
+                  </Button>
+                </a>
               </div>
             </div>
           </div>
@@ -77,11 +79,7 @@
                   />
                 </InputGroup>
                 <div class="checkbox">
-                  <Checkbox
-                    v-model="agreement"
-                    inputId="agreement"
-                    value="Onion"
-                  /> 
+                  <Checkbox v-model="agreement" inputId="agreement" value="Onion" />
                   <label for="agreement">
                     Даю согласие на обработку и хранение моих персональных данных в соответствии с
                     <a href="#">условиями политики конфиденциальности</a>
@@ -98,11 +96,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+  import { ref } from 'vue';
+  import { useGlobalStore } from '@/store/globalStore';
+  const globalStore = useGlobalStore();
 
-const textValue = ref(null);
-const telValue = ref(null);
-const emailValue = ref(null);
-const textAreaValue = ref(null);
-const agreement = ref(true);
+  const textValue = ref(null);
+  const telValue = ref(null);
+  const emailValue = ref(null);
+  const textAreaValue = ref(null);
+  const agreement = ref(true);
 </script>

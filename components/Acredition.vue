@@ -32,8 +32,8 @@
           v-if="!globalStore.in_verifications"
         >
           <InputGroup>
-            <label for="inn">ИНН компании</label>
-            <InputText id="inn" type="text" v-model="inn" placeholder="Введите ИНН компании" />
+            <label for="inn">ИНН компании/учебного заведения</label>
+            <InputText id="inn" type="text" v-model="inn" placeholder="Введите ИНН " />
           </InputGroup>
 
           <InputGroup>
@@ -71,15 +71,16 @@
                 maxFileSize="5000000"
                 url="/api/upload"
                 @select="customBase64Uploader"
-                chooseLabel="Загрузить аватар команды"
+                chooseLabel="Загрузить документ"
               >
               </FileUpload>
 
               <br />
-              <p class="text-center">
-                Максимальный вес 5 мб. Соотношение сторон 1:1, размер не более 1080х1080 пикс. JPG,
-                GIF или PNG.
-              </p>
+              <p class="text-center">Максимальный вес 5 мб.</p>
+              <small
+                >Для учащихся необходимо прикрепить справку с места учёбы, либо студенческий билет.
+                Для работающих игроков необходимо прикрепить справку с места работы</small
+              >
             </div>
           </InputGroup>
           <Button type="submit" class="btn-lg">Отправить</Button>

@@ -34,7 +34,7 @@
         <Menubar :model="items" breakpoint="992px">
           <template #item="{ item, props }">
             <NuxtLink v-if="item.label == 'Авторизация'" to="/login">
-              <Button  variant="primary">
+              <Button variant="primary">
                 <svg-icon name="rocket-lunch.svg" />
                 <span class="p-button-label">Авторизация</span>
               </Button>
@@ -223,22 +223,31 @@
             </div>
             <div class="col">
               <div class="footer__contacts">
-                <a href="mailto:info@qyber.ru" target="_blank" class="footer__contact">
+                <a
+                  :href="'mailto:' + globalStore.contacts.email"
+                  target="_blank"
+                  class="footer__contact"
+                >
                   <div class="footer__contact-icon">
                     <svg-icon name="mail.svg" />
                   </div>
                   <div>
                     <span>Связаться</span>
-                    <div class="h6">info@qyber.ru</div>
+                    <div class="h6">{{ globalStore.contacts.email }}</div>
                   </div>
                 </a>
-                <a :href="globalStore.contacts.telegram" target="_blank" class="footer__contact">
+
+                <a
+                  :href="globalStore.contacts.socials[0].link"
+                  target="_blank"
+                  class="footer__contact"
+                >
                   <div class="footer__contact-icon">
                     <svg-icon name="telegram.svg" />
                   </div>
                   <div>
                     <span>Связаться</span>
-                    <div class="h6">t.me/RUqyber</div>
+                    <div class="h6">{{ globalStore.telegramPath }}</div>
                   </div>
                 </a>
               </div>
@@ -314,17 +323,17 @@
 </template>
 
 <script setup>
-import { useGlobalStore } from '@/store/globalStore';
-const globalStore = useGlobalStore();
+  import { useGlobalStore } from '@/store/globalStore';
+  const globalStore = useGlobalStore();
 
-const props = defineProps({
-  menubarItems: {
-    type: Array,
-    required: true,
-  },
-});
+  const props = defineProps({
+    menubarItems: {
+      type: Array,
+      required: true,
+    },
+  });
 
-const { menubarItems } = props;
-const items = ref(menubarItems);
-const year = new Date().getFullYear();
+  const { menubarItems } = props;
+  const items = ref(menubarItems);
+  const year = new Date().getFullYear();
 </script>

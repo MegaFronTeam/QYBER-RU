@@ -13,40 +13,36 @@
       <div class="sProfileHead__status online">Онлайн</div>
       <div class="sProfileHead__time">На сайте с {{ user_registered }}</div>
 
-
       <div class="row" v-if="globalStore.userData.leagues">
-
-        <div class="col-auto" v-if="globalStore.userData.leagues.slug ==='!atlants'">
+        <div class="col-auto" v-if="globalStore.userData.leagues.slug === 'talants'">
           <Badge severity="secondary" value="Кибер Таланты" class="p-badge-outline" />
-        </div v-else>
-        <div class="col-auto">
+        </div>
+        <div v-else class="col-auto">
           <Badge severity="danger" value="Кибер Атланты" class="p-badge-outline" />
         </div>
       </div>
     </ProfileHead>
-    <MyProfileBlock  />
+    <MyProfileBlock />
   </div>
-
 </template>
 
-
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useUserStore } from '@/store/userStore';
+  import { ref, onMounted } from 'vue';
+  import { useUserStore } from '@/store/userStore';
 
-const userStore = useUserStore();
+  const userStore = useUserStore();
 
-import { useGlobalStore } from '@/store/globalStore';
-const globalStore = useGlobalStore();
-// console.log(userStore.userData);
-const imgRef = ref(null);
-const avatarText = ref(null);
-const user_registered = ref('');
+  import { useGlobalStore } from '@/store/globalStore';
+  const globalStore = useGlobalStore();
+  // console.log(userStore.userData);
+  const imgRef = ref(null);
+  const avatarText = ref(null);
+  const user_registered = ref('');
 
-onMounted(async () => {
-  await userStore.getUserData();
-  imgRef.value = globalStore.user_avatar || {value: ''};
-  avatarText.value = globalStore.user_first_letter;
-});
+  onMounted(async () => {
+    await userStore.getUserData();
+    imgRef.value = globalStore.user_avatar || { value: '' };
+    avatarText.value = globalStore.user_first_letter;
+  });
 </script>
 <style lang="scss"></style>

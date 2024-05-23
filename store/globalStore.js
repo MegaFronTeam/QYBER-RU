@@ -19,14 +19,29 @@ export const useGlobalStore = defineStore(
     const in_verifications = ref(false);
     const disciplineList = ref([]);
 
-    const contacts = ref({
-      youtube: 'https://www.youtube.com/@RUqyber',
-      vk: 'https://vk.com/ruqyber',
-      discord: 'https://discord.gg/ruqyber',
-      telegram: 'https://t.me/RUqyber',
-    });
+    // const contacts = ref({
+    //   youtube: 'https://www.youtube.com/@RUqyber',
+    //   vk: 'https://vk.com/ruqyber',
+    //   discord: 'https://discord.gg/ruqyber',
+    //   telegram: 'https://t.me/RUqyber',
+    // });
 
-    const telegramPath = ref(contacts.value.telegram.split('https://')[0]);
+    const contacts = ref({});
+    const telegramPath = ref('');
+
+    const getContacts = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/menu/v1/settings`);
+        const data = await response.data;
+        contacts.value = data.contacts;
+        telegramPath.value = data.contacts.socials[0].link.split('//')[1];
+        console.log('contact', contacts.value);
+      } catch (error) {
+        console.error(error);
+        return Promise.reject(error);
+      }
+    };
+    getContacts();
 
     const getLeagues = async () => {
       try {
@@ -89,6 +104,7 @@ export const useGlobalStore = defineStore(
       telegramPath,
       getDisciplines,
       contacts,
+      getContacts,
     };
   },
   { persist: { storage: persistedState.localStorage } },

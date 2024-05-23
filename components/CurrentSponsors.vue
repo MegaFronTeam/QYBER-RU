@@ -83,3 +83,10 @@
     </div>
   </section>
 </template>
+
+<script setup>
+  import { useSponsorsStore } from '@/store/sponsorsStore';
+  const sponsorsStore = useSponsorsStore();
+  const { sponsors } = sponsorsStore;
+  sponsorsStore.getSponsors();
+</script>
