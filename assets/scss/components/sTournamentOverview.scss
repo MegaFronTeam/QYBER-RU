@@ -579,6 +579,34 @@
       }
     }
   }
+  &--match {
+    .header-row {
+      .col:last-child {
+        .sPersonCard {
+          @include media-breakpoint-up(md) {
+            flex-direction: row-reverse;
+          }
+        }
+      }
+    }
+    .stream-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-colorSecondary, #F5F5F6);
+      min-height: rem(212);
+      max-width: 100%;
+      margin-bottom: rem(6);
+      aspect-ratio: 390/218;
+      @include media-breakpoint-up(lg) {
+        aspect-ratio: auto;
+        min-height: rem(600);
+      }
+      p {
+        font-size: rem(14);
+      }
+    }
+  }
 }
 
 .game-item {
@@ -791,4 +819,24 @@
   // .p-dialog-content {
   //   overflow: auto;
   // }
+}
+
+.sMatchHeader {
+  display: flex;
+  gap: rem(12);
+  justify-content: center;
+  .img-wrap {
+    // background: white;
+    border-radius: rem(20);
+    overflow: hidden;
+  }
+  .img {
+    width: rem(96);
+    @include media-breakpoint-up(lg) {
+      width: rem(240);
+    }
+  }
+  .p-badge-gray {
+    margin: auto;
+  }
 }
