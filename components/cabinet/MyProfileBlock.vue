@@ -15,7 +15,7 @@
         <TabView v-model:activeIndex="active">
           <TabPanel>
             <h3>Мой профиль</h3>
-            <UserData />
+            <CabinetUserData />
           </TabPanel>
           <TabPanel>
             <div class="sMyProfileBlock__head-row row">
@@ -23,10 +23,10 @@
                 <h3>Мои команды</h3>
               </div>
               <div class="col-auto">
-                <CreateTeam />
+                <CabinetUserCreateTeam />
               </div>
             </div>
-            <UserTeamsData />
+            <CabinetUserTeamsData />
           </TabPanel>
         </TabView>
       </div>
@@ -53,12 +53,11 @@
 </template>
 
 <script setup>
-  import CreateTeam from '@/components/cabinet/CreateTeam.vue';
+  // import CreateTeam from '@/components/cabinet/CreateTeam.vue';
   import { useTeamStore } from '@/store/TeamStore';
 
   import { useGlobalStore } from '@/store/globalStore';
-  import UserData from './UserData.vue';
-  import UserTeamsData from './UserTeamsData.vue';
+  // import UserTeamsData from './UserTeamsData.vue';
   const globalStore = useGlobalStore();
   const { userData } = storeToRefs(globalStore);
 

@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from './globalStore';
 import { useUserStore } from './userStore';
-import { getEmailErrorsList, getPasswordErrorsList } from '../utils/errorMessages';
+import { getEmailErrorsList, getPasswordErrorsList } from '~/utils/errorMessages';
 
 export const useAuthStore = defineStore('auth', () => {
   const router = useRouter();

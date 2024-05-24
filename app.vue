@@ -3,6 +3,7 @@
   <NuxtLayout dir="routing/middleware" v-if="!lazyShow || globalStore.API_KEY">
     <NuxtPage />
   </NuxtLayout>
+  <Toast />
 </template>
 
 <script setup>
@@ -44,5 +45,13 @@
   .layout-leave-to {
     opacity: 0;
     filter: blur(1rem);
+  }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.1s;
+  }
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
   }
 </style>

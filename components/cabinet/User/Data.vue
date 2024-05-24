@@ -89,6 +89,9 @@
               optionLabel="title.rendered"
               placeholder="Выберите регион"
               class="w-full"
+              filter
+              filterPlaceholder="Поиск"
+              emptyFilterMessage="Нет данных"
             />
           </InputGroup>
 
@@ -96,7 +99,7 @@
             <label>Город</label>
             <InputText type="text" v-model="userData.user_city" placeholder="Введите город" />
           </InputGroup>
-          <InputGroup v-if="userData.user_educational_institution.id || globalStore.isTalants">
+          <InputGroup v-if="userData.user_educational_institution || globalStore.isTalants">
             <label>Учебное заведение</label>
             <Dropdown
               v-model="userData.user_educational_institution"
@@ -105,7 +108,11 @@
               optionLabel="title.rendered"
               placeholder="Выберите учебное заведение"
               class="w-full"
+              filter
+              filterPlaceholder="Поиск"
+              emptyFilterMessage="Нет данных"
             />
+            <!-- :virtualScrollerOptions="{ showLoader: true, autoSize: true }" -->
           </InputGroup>
 
           <InputGroup v-if="userData.user_company || globalStore.isAtlants">
@@ -134,14 +141,13 @@
     </div>
     <div class="col">
       <div class="sMyProfileBlock__head">Сменить пароль</div>
-      <UserDataPasswordUpdate />
+      <CabinetUserDataPasswordUpdate />
     </div>
   </div>
 </template>
 
 <script setup>
   import { useGlobalStore } from '@/store/globalStore';
-  import UserDataPasswordUpdate from './UserDataPasswordUpdate.vue';
   const globalStore = useGlobalStore();
 
   const { userData } = storeToRefs(globalStore);

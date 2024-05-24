@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userData.user_nickname">
+  <div>
     <ProfileHead
       :breadcrumbArr="[{ label: 'Личный кабинет' }]"
       :img="imgRef"

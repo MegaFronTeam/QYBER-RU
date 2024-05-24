@@ -1,7 +1,7 @@
 <template>
   <div class="container head-messages">
     <!-- <ShowInvite /> -->
-    <Acredition />
+    <CabinetAcredition />
   </div>
   <section class="sProfileHead">
     <div class="container">
@@ -70,7 +70,6 @@
 
 <script setup>
   import ShowInvite from '@/components/cabinet/ShowInvite.vue';
-  import Acredition from '@/components/cabinet/Acredition.vue';
   const props = defineProps({
     breadcrumbArr: {
       type: Array,
@@ -93,9 +92,7 @@
       required: '',
     },
   });
-  const { breadcrumbArr, img, avatarText, profileData } = toRefs(props);
-
-  console.log(props.img);
+  const { breadcrumbArr, img, avatarText } = toRefs(props);
 
   const home = ref({
     label: 'Главная',

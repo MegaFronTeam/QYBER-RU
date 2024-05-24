@@ -2,9 +2,21 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from './globalStore';
+import { useAccreditationStore } from './accreditationStore';
 
 export const useUserStore = defineStore('user', () => {
+  const accreditationStore = useAccreditationStore();
   const router = useRouter();
+
+  const showToast = (severity, summary, detail) => {
+    toast.add({
+      severity,
+      summary,
+      detail,
+      life: 10000,
+    });
+  };
+
   const globalStore = useGlobalStore();
 
   const email = ref('');
@@ -38,8 +50,6 @@ export const useUserStore = defineStore('user', () => {
       });
 
       const data = await response.data;
-
-      console.log(data.leagues);
       if (data.leagues === false) {
         globalStore.isAtlants = false;
         globalStore.isTalants = false;
@@ -70,6 +80,7 @@ export const useUserStore = defineStore('user', () => {
       const data = await response.data;
       console.log(data);
       if (data === true) {
+        showToast('success', 'Данные успешно изменены');
         await getUserData();
       }
     } catch (error) {
@@ -93,15 +104,31 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
-  const sendVerification = async (dataForm) => {
+  // const dataVerification = ref({
+  //   inn: '',
+  //   leagues: [],
+  //   file: '',
+  //   selectedWorkStudy: '',
+  //   file: {},
+  //   user_educational_institution: '',
+  //   user_company: '',
+  // });
+  const sendVerification = async () => {
+    console.log(accreditationStore.data);
+
+    const formData = new FormData();
+    Object.keys(accreditationStore.data).forEach((key) => {
+      formData.append(key, accreditationStore.data[key]);
+    });
     try {
-      const response = await axios.post(`${BASE_URL}/profile/v1/verification`, dataForm, {
+      const response = await axios.post(`${BASE_URL}/profile/v1/verification`, formData, {
         headers: {
           Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
           'Content-Type': 'multipart/form-data',
         },
       });
-      const data = await response.data;
+      const data = await response;
+      console.log(data);
       if (data.success === true) {
         // getUserData();
         globalStore.in_verifications = true;
@@ -148,15 +175,6 @@ export const useUserStore = defineStore('user', () => {
 
   const toast = useToast();
 
-  const showToast = (severity, summary, detail) => {
-    toast.add({
-      severity,
-      summary,
-      detail,
-      life: 10000,
-    });
-  };
-
   const passwordData = ref({
     current_password: '',
     new_password: '',
@@ -197,33 +215,6 @@ export const useUserStore = defineStore('user', () => {
       return Promise.reject(error);
     }
   };
-
-  // const errorsPassword = ref({
-  //   current_password: '',
-  //   new_password: '',
-  //   repeat_password: '',
-  // });
-
-  // const validatePassword = () => {
-  //   serverErrorsPassword.value = '';
-  //   const passwordErrorsList = getPasswordErrorsList(dataFormSingUp.value.password);
-
-  //   errorsPassword.value.current_password = passwordErrorsList
-  //     .filter((error) => error !== '')
-  //     .join(' <br>');
-
-  //   errorsPassword.value.new_password = passwordErrorsList
-  //     .filter((error) => error !== '')
-  //     .join(' <br>');
-
-  //   errorsPassword.value.repeat_password =
-  //     passwordData.value.new_password.trim() === passwordData.value.repeat_password.trim()
-  //       ? ''
-  //       : 'Пароли не совпадают';
-  //   disabledUpdatePassword.value = Object.values(errorsPassword.value).some((error) => error);
-  // };
-
-  // /Update password
 
   return {
     dataForm,

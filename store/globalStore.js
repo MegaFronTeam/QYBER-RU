@@ -37,7 +37,7 @@ export const useGlobalStore = defineStore(
         const data = await response.data;
         contacts.value = data.contacts;
         telegramPath.value = data.contacts.socials[0].link.split('//')[1];
-        console.log('contact', contacts.value);
+        // console.log('contact', contacts.value);
       } catch (error) {
         console.error(error);
         return Promise.reject(error);
@@ -104,15 +104,24 @@ export const useGlobalStore = defineStore(
 
     const getEducationalInstitutions = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/wp/v2/educations?per_page=100`);
+        const response = await axios.get(`${BASE_URL}/wp/v2/educations?per_page=100&page=1`);
         const data = await response.data;
-        educational_institutions.value = data;
+        educational_institutions.value.push(...data);
+
+        const pages = response.headers['x-wp-totalpages'];
+        for (let i = 2; i <= pages; i++) {
+          const response = await axios.get(`${BASE_URL}/wp/v2/educations?per_page=100&page=${i}`);
+          const data = await response.data;
+          educational_institutions.value.push(...data);
+        }
       } catch (error) {
         console.error(error);
         return Promise.reject(error);
       }
     };
-    getEducationalInstitutions();
+    if (educational_institutions.value.length === 0) {
+      getEducationalInstitutions();
+    }
 
     gerRegions();
     return {

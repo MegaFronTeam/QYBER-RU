@@ -27,100 +27,115 @@
       :header="!globalStore.in_verifications ? 'Аккредитация' : 'На проверке'"
     >
       <div class="form-wrap">
-        <form
-          @submit.prevent="userStore.sendVerification({ inn, leagues, file, selectedWorkStudy })"
-          v-if="!globalStore.in_verifications"
-        >
-          <InputGroup>
-            <label for="inn">ИНН компании/учебного заведения</label>
-            <InputText id="inn" type="text" v-model="inn" placeholder="Введите ИНН " />
-          </InputGroup>
+        <transition name="fade">
+          <form @submit.prevent="userStore.sendVerification" v-if="!globalStore.in_verifications">
+            <InputGroup>
+              <label for="inn">ИНН компании/учебного заведения</label>
+              <InputText id="inn" type="text" v-model="data.inn" placeholder="Введите ИНН " />
+            </InputGroup>
 
-          <InputGroup>
-            <label for="name">Вы работаете или учитесь</label>
-            <Dropdown
-              v-model="selectedWorkStudy"
-              :options="cities"
-              optionLabel="name"
-              placeholder="Выбрать"
-              class="w-full"
-            />
-          </InputGroup>
+            <InputGroup>
+              <label for="name">Вы работаете или учитесь</label>
+              <Dropdown
+                v-model="data.selectedWorkStudy"
+                :options="typeUSer"
+                optionLabel="name"
+                placeholder="Выбрать"
+                optionValue="value"
+                class="w-full"
+              />
+            </InputGroup>
 
-          <InputGroup class="select-team">
-            <label for="leagues">Лига</label>
-            <SelectButton
-              id="leagues"
-              v-model="leagues"
-              optionValue="slug"
-              optionLabel="name"
-              :options="globalStore.leaguesOptions"
-              aria-labelledby="basic"
-              :allowEmpty="false"
-            />
-          </InputGroup>
+            <InputGroup class="select-team">
+              <label for="leagues">Лига</label>
+              <SelectButton
+                id="leagues"
+                v-model="data.leagues"
+                optionValue="slug"
+                optionLabel="name"
+                :options="globalStore.leaguesOptions"
+                :allowEmpty="false"
+                multiple
+                aria-labelledby="multiple"
+                disabled
+              />
+            </InputGroup>
 
-          <InputGroup>
-            <label for="textarea">Загрузите документ</label>
-            <div>
-              <FileUpload
-                mode="basic"
-                name="file"
-                id="file"
-                accept="image/*"
-                maxFileSize="5000000"
-                url="/api/upload"
-                @select="customBase64Uploader"
-                chooseLabel="Загрузить документ"
+            <transition name="fade">
+              <InputGroup
+                v-if="data.selectedWorkStudy === 'study' || data.selectedWorkStudy === 'work_study'"
               >
-              </FileUpload>
+                <label>Учебное заведение</label>
+                <Dropdown
+                  v-model="data.user_educational_institution"
+                  :options="globalStore.educational_institutions"
+                  optionValue="id"
+                  optionLabel="title.rendered"
+                  placeholder="Выберите учебное заведение"
+                  class="w-full"
+                  filter
+                />
+              </InputGroup>
+            </transition>
 
-              <br />
-              <p class="text-center">Максимальный вес 5 мб.</p>
-              <small
-                >Для учащихся необходимо прикрепить справку с места учёбы, либо студенческий билет.
-                Для работающих игроков необходимо прикрепить справку с места работы</small
-              >
-            </div>
-          </InputGroup>
-          <Button type="submit" class="btn-lg">Отправить</Button>
-        </form>
-        <div v-else>
-          <p>Мы проверим вашу заявку в ближайшее время</p>
-          <Button @click="visibleShow = false" label="Закрыть" />
-        </div>
+            <InputGroup>
+              <label for="textarea">Загрузите документ</label>
+              <div>
+                <FileUpload
+                  mode="basic"
+                  name="file"
+                  id="file"
+                  accept="image/*"
+                  maxFileSize="5000000"
+                  url="/api/upload"
+                  @select="customBase64Uploader"
+                  chooseLabel="Загрузить документ"
+                >
+                </FileUpload>
+
+                <br />
+                <p class="text-center">Максимальный вес 5 мб.</p>
+                <small
+                  >Для учащихся необходимо прикрепить справку с места учёбы, либо студенческий
+                  билет. Для работающих игроков необходимо прикрепить справку с места работы</small
+                >
+              </div>
+            </InputGroup>
+            <Button type="submit" class="btn-lg">Отправить</Button>
+          </form>
+          <div v-else>
+            <p>Мы проверим вашу заявку в ближайшее время</p>
+            <Button @click="visibleShow = false" label="Закрыть" />
+          </div>
+        </transition>
       </div>
     </Dialog>
   </div>
 </template>
 
 <script setup>
+  // import { User } from '@/services/user';
   import { useUserStore } from '@/store/userStore';
   import { useGlobalStore } from '@/store/globalStore';
+  import { useAccreditationStore } from '@/store/accreditationStore';
+
   const userStore = useUserStore();
   const globalStore = useGlobalStore();
+  const accreditation = useAccreditationStore();
 
-  // import Auth from '@/services/auth';
-  // import Team from '@/services/team';
-
-  // const { $locally } = useNuxtApp();
+  const { userData } = useGlobalStore();
+  const { data, typeUSer } = storeToRefs(accreditation);
 
   const visibleShow = ref(false);
 
-  const UserVerificationSend = ref(false);
-
-  const inn = ref('');
-  const leagues = ref([]);
-  const file = ref({});
-  const selectedWorkStudy = ref(null);
-
   const customBase64Uploader = async (event) => {
-    file.value = event.files[0];
-    // console.log(fileAcred);
+    const filepage = event.files[0];
+    data.file = filepage;
+    console.log(data.file, filepage);
     // file.value = event.files[0];
 
     const reader = new FileReader();
-    let blob = await fetch(file.value.objectURL).then((r) => r.blob()); //blob:url
+    let blob = await fetch(filepage.objectURL).then((r) => r.blob()); //blob:url
 
     reader.readAsDataURL(blob);
 
@@ -128,12 +143,6 @@
       const base64data = reader.result;
     };
   };
-
-  const cities = ref([
-    { name: 'Учусь', value: 'study' },
-    { name: 'Работаю', value: 'work' },
-    { name: 'Учусь и работаю ', value: 'work_study' },
-  ]);
 </script>
 
 <style lang="scss" scoped>

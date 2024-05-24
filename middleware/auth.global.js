@@ -8,10 +8,10 @@ export default defineNuxtRouteMiddleware(async (to) => {
   if (process.client) {
     if (isUserAuth) {
       if (to.name.includes('auth')) {
-        console.log(11);
         return navigateTo('/');
       }
     } else {
+      console.log(2);
       if (to.name.includes('cabinet')) {
         return navigateTo('/auth/login');
       }
