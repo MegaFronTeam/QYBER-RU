@@ -1,8 +1,4 @@
 .sTournamentOverview {
-  // padding-bottom: rem(6);
-  // @include media-breakpoint-up(lg) {
-  //   padding-bottom: rem(12);
-  // }
   &__head {
     background-color: var(--gray-50);
     border-radius: rem(20);
@@ -15,7 +11,6 @@
     @include media-breakpoint-up(lg) {
       padding: rem(12);
       gap: rem(12);
-      // grid-template-columns: repeat(5, 1fr);
       grid-template-columns: repeat( auto-fit, minmax(150px, 1fr) );
       margin-bottom: rem(12);
     }
@@ -61,7 +56,6 @@
     padding: rem(12) rem(18);
     @include media-breakpoint-up(lg) {
       padding: rem(22) rem(18);
-      // margin-bottom: rem(48);
     }
     svg {
       flex-shrink: 0;
@@ -95,8 +89,6 @@
     margin: auto;
     width: min-content;
     display: flex;
-    .link-wrap {
-    }
     a {
       padding: rem(20) rem(18);
       display: inline-block;
@@ -193,9 +185,6 @@
     .sTournamentOverview__title-item {
       margin-bottom: 0;
     }
-    .wrap-body {
-      // border: none;
-    }
     h4 {
       margin-bottom: rem(24);
     }
@@ -260,6 +249,7 @@
       padding: 0;
     }
   }
+
   &--participants {
     td:last-child {
       text-align: right;
@@ -275,7 +265,6 @@
     .p-datatable:after {
       content: none;
     }
-
     .title-wrap {
       display: grid;
       grid-template-columns: 1fr;
@@ -326,6 +315,7 @@
         }
       }
     }
+
     .table--schedule {
       tr td:nth-child(2) div {
         justify-content: flex-end;
@@ -462,6 +452,11 @@
   }
 
   &--grid {
+    .wrap-body {
+      @include media-breakpoint-down(lg) {
+        padding: rem(24) 0;
+      }
+    }
     margin-bottom: rem(6);
     @include media-breakpoint-up(lg) {
       margin-bottom: rem(12);
@@ -564,7 +559,6 @@
             width: rem(12);
             right: calc(-1 * var(--gutter-x));
           }
-
         }
       }
     }
@@ -579,6 +573,7 @@
       }
     }
   }
+
   &--match {
     @include media-breakpoint-down(lg) {
       .table-title {
@@ -614,7 +609,6 @@
           padding: rem(12) rem(6);
         }
       }
-
     }
     .header-row {
       @include media-breakpoint-down(lg) {
@@ -877,16 +871,12 @@
     text-align: center;
     border-color: var(--gray-100);
     background: transparent;
-    color: var(--gray-400);
+    color: var(--gray-500);
   }
 }
 
 .p-dialog-big {
   max-width: rem(730);
-    max-height: rem(837);
-  // .p-dialog-content {
-  //   overflow: auto;
-  // }
 }
 
 .sMatchHeader {
