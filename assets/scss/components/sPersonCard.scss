@@ -3,9 +3,13 @@
   align-items: center;
   gap: rem(12);
   margin-bottom: rem(6);
-    @include media-breakpoint-up(lg) {
-      margin-bottom: rem(12);
+  @include media-breakpoint-up(lg) {
+    margin-bottom: rem(12);
+    color: var(--primary-color-text);
+    .h6 {
+      color: var(--primary-color-text);
     }
+  }
   img {
     border-radius: 50%;
     width: rem(36);

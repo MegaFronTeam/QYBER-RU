@@ -10,9 +10,15 @@
         <template v-if="isMobile">
           <MatchHeader />
         </template>
+        <div class="d-lg-none table-title">Список игроков</div>
         <div class="header-row row">
           <div class="col">
-            <PersonCard v-for="index in 6" :key="index" />
+            <div class="team-inner">
+              <div class="team-inner__name d-lg-none">Team Rogue</div>
+              <div class="team-inner__wrap">
+                <PersonCard v-for="index in 6" :key="index" />
+              </div>
+            </div>
           </div>
           <div class="col-auto">
             <template v-if="!isMobile">
@@ -20,7 +26,12 @@
             </template>
           </div>
           <div class="col">
-            <PersonCard v-for="index in 6" :key="index" />
+            <div class="team-inner">
+              <div class="team-inner__name d-lg-none">INTZ Genesis</div>
+              <div class="team-inner__wrap">
+              <PersonCard v-for="index in 6" :key="index" />
+            </div>
+            </div>
           </div>
         </div>
       </div>
@@ -51,7 +62,7 @@
     }
   ]);
 
-  const breakpoint = 1000
+  const breakpoint = 991
   const isMobile = ref(window.innerWidth <= breakpoint)
   const updateIsMobile = () => {
     isMobile.value = window.innerWidth <= breakpoint
