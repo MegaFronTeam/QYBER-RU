@@ -1,0 +1,25 @@
+.sPersonCard {
+  display: flex;
+  align-items: center;
+  gap: rem(12);
+  margin-bottom: rem(6);
+  @include media-breakpoint-up(lg) {
+    margin-bottom: rem(12);
+    color: var(--primary-color-text);
+    .h6 {
+      color: var(--primary-color-text);
+    }
+  }
+  img {
+    border-radius: 50%;
+    width: rem(36);
+    @include media-breakpoint-up(lg) {
+      width: rem(60);
+    }
+  }
+
+  &__status {
+    font-size: rem(12);
+    text-align: start;
+  }
+}

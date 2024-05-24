@@ -10,7 +10,7 @@
   &__order {
     font-size: rem(10);
     border-right: none;
-    border: rem(1) solid var(--grayscale-11);
+    border: rem(1) solid var(--gray-200);
     border-radius: rem(6) 0 0 rem(6);
     border-right: none;
     display: flex;
@@ -50,16 +50,17 @@
   }
   &.team-success .sGridCard__score {
     background: var(--system-success-main);
-    color: var(--grayscale-white);
+    color: var(--primary-color-text);
   }
   &.team-winner .sGridCard__score {
-    background: var(--accent-primary-main);
+    background: var(--primary-300);
+    color: var(--text-color);
   }
   &__wrap {
     display: flex;
     align-items: center;
     gap: rem(8);
-    background: var(--grayscale-11);
+    background: var(--gray-200);
     padding: rem(4);
     width: 100%;
   }
@@ -72,7 +73,7 @@
     width: rem(36);
     height: 100%;
     text-align: center;
-    background: var(--grayscale-20);
+    background: var(--gray-300);
     padding: rem(10) 0;
     flex-shrink: 0;
   }
@@ -80,9 +81,7 @@
     font-weight: 600;
     font-size: rem(12);
     padding: rem(4);
-    background: var(--grayscale-11);
+    background: var(--gray-200);
   }
-
-  
   @include media-breakpoint-up(lg) {}
 }
