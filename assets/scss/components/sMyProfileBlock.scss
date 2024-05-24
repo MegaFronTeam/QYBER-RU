@@ -8,6 +8,9 @@
       --gutter-x: #{rem(20)};
       --gutter-y: 0;
       flex-direction: row;
+      & > .col {
+        max-width: 50%;
+      }
     }
   }
   &__head {
@@ -52,6 +55,9 @@
           width: auto;
           margin-right: rem(20);
           min-width: rem(160);
+        }
+        .p-inputwrapper {
+          max-width: calc(100% - #{rem(180)});
         }
       }
     }

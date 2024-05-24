@@ -9,7 +9,7 @@
             <InputText
               id="name"
               type="text"
-              v-model="userData.user_nicename"
+              v-model="userData.user_nickname"
               placeholder="Введите никнейм"
             />
           </InputGroup>
@@ -78,107 +78,77 @@
               placeholder="Введите свой Telegram"
             />
           </InputGroup>
+
+          <InputGroup>
+            <label>Регион</label>
+
+            <Dropdown
+              v-model="userData.user_region"
+              :options="regions"
+              optionValue="id"
+              optionLabel="title.rendered"
+              placeholder="Выберите регион"
+              class="w-full"
+            />
+          </InputGroup>
+
           <InputGroup>
             <label>Город</label>
             <InputText type="text" v-model="userData.user_city" placeholder="Введите город" />
           </InputGroup>
-          <InputGroup>
+          <InputGroup v-if="userData.user_educational_institution.id || globalStore.isTalants">
             <label>Учебное заведение</label>
-            <InputText
-              type="text"
-              v-model="userData.user_educational_institution.post_title"
-              placeholder="Введите учебное заведение"
-              disabled
-            />
-          </InputGroup>
-          <InputGroup v-if="userData.user_company">
-            <label>Компания</label>
-            <InputText
-              type="text"
-              v-model="userData.user_company"
-              placeholder="Введите компанию"
-              disabled
+            <Dropdown
+              v-model="userData.user_educational_institution"
+              :options="educational_institutions"
+              optionValue="id"
+              optionLabel="title.rendered"
+              placeholder="Выберите учебное заведение"
+              class="w-full"
             />
           </InputGroup>
 
-          <InputGroup v-if="userData.user_educational_institution">
+          <InputGroup v-if="userData.user_company || globalStore.isAtlants">
             <label>Компания</label>
-            <InputText
-              type="text"
-              v-model="userData.user_company"
-              placeholder="Введите компанию"
-              disabled
-            />
+            <InputText type="text" v-model="userData.user_company" placeholder="Введите компанию" />
+          </InputGroup>
+
+          <InputGroup v-if="user_verification || in_verifications">
+            <label>ИНН </label>
+            <InputText type="text" v-model="userData.user_inn" placeholder="Введите ИНН " />
           </InputGroup>
 
           <InputGroup>
-            <label>ИНН компании</label>
-            <InputText
-              type="text"
-              v-model="userData.user_inn"
-              placeholder="Введите ИНН компании"
-              disabled
-            />
+            <label>VK ID</label>
+            <InputText type="text" v-model="userData.user_vk_id" placeholder="Введите VK ID" />
           </InputGroup>
+
+          <InputGroup>
+            <label>ГТО</label>
+            <InputText type="text" v-model="userData.user_gto" placeholder="Введите ГТО" />
+          </InputGroup>
+
           <Button label="Сохранить изменения" type="submit" />
         </form>
       </div>
     </div>
     <div class="col">
       <div class="sMyProfileBlock__head">Сменить пароль</div>
-      <div class="form-wrap">
-        <form @submit.prevent="userStore.updatePassword">
-          <InputGroup>
-            <label for="password">Текущий пароль</label>
-            <Password
-              id="password"
-              v-model="passwordData.current_password"
-              aria-describedby="password-help"
-              placeholder="Введите текущий пароль"
-              :feedback="false"
-              toggleMask
-              required
-            />
-          </InputGroup>
-          <InputGroup>
-            <label for="password">Новый пароль</label>
-            <Password
-              id="password"
-              v-model="passwordData.new_password"
-              aria-describedby="password-help"
-              placeholder="Введите новый пароль"
-              :feedback="false"
-              toggleMask
-              required
-            />
-          </InputGroup>
-          <InputGroup>
-            <label for="password">Повторите пароль</label>
-            <Password
-              id="password"
-              v-model="passwordData.repeat_password"
-              aria-describedby="password-help"
-              placeholder="Повторите новый пароль"
-              :feedback="false"
-              toggleMask
-              required
-            />
-          </InputGroup>
-          <Button type="submit" label="Сохранить изменения" />
-        </form>
-      </div>
+      <UserDataPasswordUpdate />
     </div>
   </div>
 </template>
 
 <script setup>
   import { useGlobalStore } from '@/store/globalStore';
-  import UserData from './UserData.vue';
+  import UserDataPasswordUpdate from './UserDataPasswordUpdate.vue';
   const globalStore = useGlobalStore();
+
   const { userData } = storeToRefs(globalStore);
+  const { regions, educational_institutions } = storeToRefs(globalStore);
+
   const { user_genderArr } = storeToRefs(globalStore);
+
   import { useUserStore } from '@/store/userStore';
   const userStore = useUserStore();
-
-  const { passwordData } = storeToRefs(userStore);
 </script>

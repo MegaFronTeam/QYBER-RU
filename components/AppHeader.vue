@@ -189,7 +189,7 @@
         </Menubar>
         <InputSwitch @click="toggleTheme" v-model="checked" />
         <template v-if="isUserAuth">
-          <NuxtLink to="/cabinet/my-profile">
+          <NuxtLink to="/cabinet">
             <Button class="header__btn d-lg-flex" variant="primary">
               <svg-icon name="user.svg" />
               <span class="p-button-label d-none d-lg-flex">Кабинет</span>

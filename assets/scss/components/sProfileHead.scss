@@ -54,7 +54,7 @@
     @include ratio(1, 1);
     width: 100%;
     max-width: rem(72);
-    background-color: var(--system-neutral-main);
+    background-color: #f1f1f1;
     border-radius: rem(12);
     overflow: hidden;
     @include media-breakpoint-up(lg) {

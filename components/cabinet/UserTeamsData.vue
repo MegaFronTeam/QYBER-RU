@@ -156,14 +156,12 @@
 
 <script setup>
   import CreateTeam from '@/components/cabinet/CreateTeam.vue';
-  import { useTeamStore } from '@/store/TeamStore';
 
   import { useGlobalStore } from '@/store/globalStore';
-  import UserData from './UserData.vue';
-  import UserTeamsData from './UserTeamsData.vue';
   const globalStore = useGlobalStore();
   const { userData } = storeToRefs(globalStore);
 
+  import { useTeamStore } from '@/store/TeamStore';
   const teamsStore = useTeamStore();
 
   import { useUserStore } from '@/store/userStore';

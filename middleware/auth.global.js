@@ -7,11 +7,12 @@ export default defineNuxtRouteMiddleware(async (to) => {
   // const { $locally } = useNuxtApp();
   if (process.client) {
     if (isUserAuth) {
-      if (to.name.includes('auth/')) {
+      if (to.name.includes('auth')) {
+        console.log(11);
         return navigateTo('/');
       }
     } else {
-      if (to.name.includes('cabinet/')) {
+      if (to.name.includes('cabinet')) {
         return navigateTo('/auth/login');
       }
     }

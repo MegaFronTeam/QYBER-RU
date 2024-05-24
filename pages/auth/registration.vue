@@ -58,7 +58,7 @@
         v-html="serverErrorsSingUp"
       ></small>
 
-      <AgreementForm :agreement="agreement" />
+      <AgreementForm />
       <div class="mb-4 mt-4">
         <Button
           type="submit"
