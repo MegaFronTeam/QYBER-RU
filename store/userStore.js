@@ -7,6 +7,7 @@ import { useAccreditationStore } from './accreditationStore';
 export const useUserStore = defineStore('user', () => {
   const accreditationStore = useAccreditationStore();
   const router = useRouter();
+  const educational_institutions = ref([]);
 
   const showToast = (severity, summary, detail) => {
     toast.add({
@@ -64,6 +65,8 @@ export const useUserStore = defineStore('user', () => {
         globalStore.user_avatar = data.user_avatar.url;
       } else [(globalStore.user_avatar = '')];
       globalStore.user_first_letter = data.user_nickname[0].toUpperCase();
+
+      // getEducationalInstitutions();
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
@@ -216,6 +219,36 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
+  const getEducationalInstitutions = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/wp/v2/educations?per_page=100&page=1`);
+      const data = await response.data.reduce((acc, item) => {
+        acc.push({ id: item.id, title: item.title });
+        return acc;
+      }, []);
+
+      educational_institutions.value.push(...data);
+
+      // const pages = response.headers['x-wp-totalpages'];
+      // for (let i = 2; i <= pages; i++) {
+      //   const response = await axios.get(`${BASE_URL}/wp/v2/educations?per_page=100&page=${i}`);
+      //   const data = await response.data;
+      //   educational_institutions.value.push(...data);
+      // }
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  };
+
+  if (
+    educational_institutions.value.length === 0 &&
+    globalStore.userData.user_verification &&
+    globalStore.userData.some((el) => el === 'atlants') === false
+  ) {
+    getEducationalInstitutions();
+  }
+
   return {
     dataForm,
     getUserData,
@@ -228,5 +261,7 @@ export const useUserStore = defineStore('user', () => {
     agreement,
     user_genderArr,
     disabledUpdatePassword,
+    educational_institutions,
+    getEducationalInstitutions,
   };
 });

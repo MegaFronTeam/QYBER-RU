@@ -2,8 +2,8 @@
   <NuxtLoadingIndicator />
   <NuxtLayout dir="routing/middleware" v-if="!lazyShow || globalStore.API_KEY">
     <NuxtPage />
+    <Toast />
   </NuxtLayout>
-  <Toast />
 </template>
 
 <script setup>
@@ -11,9 +11,12 @@
   const tournamentStore = useTournamentStore();
   const lazyShow = ref(true);
 
+  import { useToast } from 'primevue/usetoast';
+
   setTimeout(() => {
     lazyShow.value = false;
   }, 100);
+
   import { useGlobalStore } from '@/store/globalStore';
   const globalStore = useGlobalStore();
 

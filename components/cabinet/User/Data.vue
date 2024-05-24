@@ -150,8 +150,8 @@
   import { useGlobalStore } from '@/store/globalStore';
   const globalStore = useGlobalStore();
 
-  const { userData } = storeToRefs(globalStore);
-  const { regions, educational_institutions } = storeToRefs(globalStore);
+  const { userData, educational_institutions } = storeToRefs(globalStore);
+  const { regions } = storeToRefs(globalStore);
 
   const { user_genderArr } = storeToRefs(globalStore);
 

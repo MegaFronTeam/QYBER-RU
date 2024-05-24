@@ -140,7 +140,7 @@
           <span class="small-text" style="margin-right: 1rem">{{
             slotProps.data.post_author === userData.ID ? 'Капитан' : 'Игрок'
           }}</span>
-          <NuxtLink :to="`team/${slotProps.data.ID}`" class="ms-auto">
+          <NuxtLink :to="`cabinet/team/${slotProps.data.ID}`" class="ms-auto">
             <Button
               v-if="slotProps.data.post_author === userData.ID"
               label="Управлять"

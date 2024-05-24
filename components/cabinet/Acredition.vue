@@ -68,7 +68,7 @@
                 <label>Учебное заведение</label>
                 <Dropdown
                   v-model="data.user_educational_institution"
-                  :options="globalStore.educational_institutions"
+                  :options="userStore.educational_institutions"
                   optionValue="id"
                   optionLabel="title.rendered"
                   placeholder="Выберите учебное заведение"
@@ -143,6 +143,10 @@
       const base64data = reader.result;
     };
   };
+
+  onMounted(() => {
+    if (userStore.educational_institutions.length === 0) userStore.getEducationalInstitutions();
+  });
 </script>
 
 <style lang="scss" scoped>

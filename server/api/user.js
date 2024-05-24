@@ -7,7 +7,6 @@ const accreditation = useAccreditationStore();
 
 export default class User {
   static async sendAccreditation() {
-    console.log(accreditation.data);
     try {
       const response = await axios.post(`${BASE_URL}/profile/v1/verification`, accreditation.data, {
         headers: {
