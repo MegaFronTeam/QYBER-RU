@@ -83,9 +83,9 @@
 
   import { useAuthStore } from '@/store/authStore';
   const authStore = useAuthStore();
+
   const { disabledFormSingUp, errorsSingUp, dataFormSingUp, serverErrorsSingUp } =
     storeToRefs(authStore);
-
   const params = {
     title: 'Регистрация',
     // text: 'Enter your credentials to access your account',

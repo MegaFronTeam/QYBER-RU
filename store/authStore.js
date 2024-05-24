@@ -54,21 +54,20 @@ export const useAuthStore = defineStore('auth', () => {
     errorsLogin.value.password = passwordErrorsList.filter((error) => error !== '').join(' <br>');
 
     // disabledForm.value = errors.value.email !== '' || errors.value.password !== '';
-    // console.log(Object.values(errorsLogin.value));
-    disabledFormLogin.value = Object.values(errorsLogin.value).every((error) => error.length > 0);
+    disabledFormLogin.value = Object.values(errorsLogin.value).some((error) => error);
   };
 
   //SingUp Store
   const disabledFormSingUp = ref(true);
   const serverErrorsSingUp = ref('');
   const dataFormSingUp = ref({
-    email: 'wol1414@gmail.com',
-    password: 'Qwerty1414;#',
-    passwordConfirm: 'Qwerty1414;#',
+    // email: 'wol1414@gmail.com',
+    // password: 'Qwerty1414;#',
+    // passwordConfirm: 'Qwerty1414;#',
 
-    // email: '',
-    // password: '',
-    // passwordConfirm: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
   });
 
   const errorsSingUp = ref({
@@ -119,15 +118,14 @@ export const useAuthStore = defineStore('auth', () => {
         : 'Пароли не совпадают';
 
     // disabledFormSingUp.value = errorsSingUp.value.email !== '' || errorsSingUp.value.password !== '';
-    console.log(Object.values(errorsSingUp.value), userStore.agreement.length);
-    console.log(
-      Object.values(errorsSingUp.value).every((error) => error.length > 0),
-      userStore.agreement === false,
-    );
+    // console.log(Object.values(errorsSingUp.value), userStore.agreement);
+    // console.log(
+    //   Object.values(errorsSingUp.value).every((error) => error.length > 0),
+    //   userStore.agreement,
+    // );
 
     disabledFormSingUp.value =
-      Object.values(errorsSingUp.value).every((error) => error.length > 0) ||
-      userStore.agreement === false;
+      Object.values(errorsSingUp.value).some((error) => error) || userStore.agreement === false;
   };
 
   // Массив
@@ -135,14 +133,6 @@ export const useAuthStore = defineStore('auth', () => {
   // Один элемент
   watch(() => userStore.agreement, validateSingUp);
   // /SingUp Store
-
-  // if (dataFormSingUp.email !== '' && dataFormSingUp.password !== '') {
-  //   validateSingUp();
-  // }
-
-  // if (dataFormLogin.email !== '' && dataFormLogin.password !== '') {
-  //   validateLogin();
-  // }
 
   watch(dataFormLogin.value, validateLogin);
 
