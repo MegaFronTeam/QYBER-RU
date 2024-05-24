@@ -10,12 +10,6 @@ export const useUserStore = defineStore('user', () => {
   const email = ref('');
   const agreement = ref(true);
 
-  const passwordData = ref({
-    current_password: '',
-    new_password: '',
-    repeat_password: '',
-  });
-
   const dataForm = ref({
     // email: 'wol1414@gmail.com',
     // password: 'Qwerty1414;',
@@ -24,12 +18,16 @@ export const useUserStore = defineStore('user', () => {
     agreement: true,
   });
 
-  // const regData = ref({
-  //   email: '',
-  //   password: '',
-  //   passwordConfirm: '',
-  //   agreement: true,
-  // });
+  const user_genderArr = ref([
+    {
+      value: 'f',
+      label: ':Женский',
+    },
+    {
+      value: 'm',
+      label: 'Мужской',
+    },
+  ]);
 
   const getUserData = async () => {
     try {
@@ -40,49 +38,27 @@ export const useUserStore = defineStore('user', () => {
       });
 
       const data = await response.data;
+
+      console.log(data.leagues);
+      if (data.leagues === false) {
+        globalStore.isAtlants = false;
+        globalStore.isTalants = false;
+      } else {
+        globalStore.isAtlants = data.leagues.some((elem) => elem.slug === 'atlants');
+        globalStore.isTalants = data.leagues.some((elem) => elem.slug === 'talants');
+      }
+      data.user_registered = data.user_registered.split(' ')[0].split('-').reverse().join('.');
       globalStore.userData = data;
-      // globalStore.userData.user_gender =
-      //   globalStore.userData.user_gender == 'm' ? 'Мужской' : 'Женский';
       globalStore.in_verifications = globalStore.userData.in_verifications;
       if (data.user_avatar) {
         globalStore.user_avatar = data.user_avatar.url;
       } else [(globalStore.user_avatar = '')];
-      globalStore.user_first_letter = data.user_nicename[0].toUpperCase();
-
-      const date = new Date(data.user_registered);
-      const options = { day: 'numeric', month: 'long', year: 'numeric' };
-      globalStore.user_registered = new Intl.DateTimeFormat('ru-RU', options)
-        .format(date)
-        .split(' г.')[0];
+      globalStore.user_first_letter = data.user_nickname[0].toUpperCase();
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
     }
   };
-
-  // const singUp = async () => {
-  //   try {
-  //     const formData = new FormData();
-  //     Object.keys(regData.value).forEach((key) => {
-  //       formData.append(key, regData.value[key]);
-  //     });
-
-  //     const response = await axios.post(`${BASE_URL}/auth/v1/signup`, formData, {
-  //       headers: {
-  //         Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     });
-  //     const data = await response.data;
-  //     console.log(data);
-  //     if (data.status === true) {
-  //       router.push('/auth/login');
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     return Promise.reject(error);
-  //   }
-  // };
 
   const updateMyProfileData = async () => {
     try {
@@ -96,25 +72,6 @@ export const useUserStore = defineStore('user', () => {
       if (data === true) {
         await getUserData();
       }
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
-  };
-  const updatePassword = async () => {
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/profile/v1/update-password`,
-        passwordData.value,
-        {
-          headers: {
-            Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
-          },
-        },
-      );
-      const data = await response.data;
-      console.log(data);
-      // return response.data;
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
@@ -185,6 +142,89 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
+  // Update password
+  const disabledUpdatePassword = ref(false);
+  const serverErrorsPassword = ref('');
+
+  const toast = useToast();
+
+  const showToast = (severity, summary, detail) => {
+    toast.add({
+      severity,
+      summary,
+      detail,
+      life: 10000,
+    });
+  };
+
+  const passwordData = ref({
+    current_password: '',
+    new_password: '',
+    repeat_password: '',
+  });
+  const updatePassword = async () => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/profile/v1/update-password`,
+        passwordData.value,
+        {
+          headers: {
+            Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
+          },
+        },
+      );
+      const data = await response.data;
+
+      console.log(data);
+      if (data.status === true) {
+        showToast('success', 'Пароль успешно изменен');
+        passwordData.value = {
+          current_password: '',
+          new_password: '',
+          repeat_password: '',
+        };
+      }
+      // return response.data;
+    } catch (error) {
+      console.error(error);
+      if (error.response.data.errors) {
+        Object.values(error.response.data.errors).forEach((error) => {
+          showToast('error', 'Ошибка', error);
+        });
+      }
+      if (error.response.data.message) showToast('Ошибка', error.response.data.message);
+
+      return Promise.reject(error);
+    }
+  };
+
+  // const errorsPassword = ref({
+  //   current_password: '',
+  //   new_password: '',
+  //   repeat_password: '',
+  // });
+
+  // const validatePassword = () => {
+  //   serverErrorsPassword.value = '';
+  //   const passwordErrorsList = getPasswordErrorsList(dataFormSingUp.value.password);
+
+  //   errorsPassword.value.current_password = passwordErrorsList
+  //     .filter((error) => error !== '')
+  //     .join(' <br>');
+
+  //   errorsPassword.value.new_password = passwordErrorsList
+  //     .filter((error) => error !== '')
+  //     .join(' <br>');
+
+  //   errorsPassword.value.repeat_password =
+  //     passwordData.value.new_password.trim() === passwordData.value.repeat_password.trim()
+  //       ? ''
+  //       : 'Пароли не совпадают';
+  //   disabledUpdatePassword.value = Object.values(errorsPassword.value).some((error) => error);
+  // };
+
+  // /Update password
+
   return {
     dataForm,
     getUserData,
@@ -195,5 +235,7 @@ export const useUserStore = defineStore('user', () => {
     updateMyProfileData,
     updatePassword,
     agreement,
+    user_genderArr,
+    disabledUpdatePassword,
   };
 });

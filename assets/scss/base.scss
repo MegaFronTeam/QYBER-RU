@@ -873,3 +873,19 @@ body {
 .p-checkbox.p-invalid > .p-checkbox-box {
   border-color: var(--red-300);
 }
+
+.form-wrap .p-dropdown {
+  .p-inputtext {
+    padding-right: rem(30);
+  }
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon.p-icon {
+  width: 0.8em;
+  height: 0.8em;
+}
+
+.p-toast .p-toast-message .p-toast-message-content {
+  padding: 0.5rem;
+  font-size: 0.8rem;
+}

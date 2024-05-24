@@ -15,158 +15,7 @@
         <TabView v-model:activeIndex="active">
           <TabPanel>
             <h3>Мой профиль</h3>
-            <div class="sMyProfileBlock__row row">
-              <div class="col">
-                <div class="sMyProfileBlock__head">Персональная информация</div>
-                <div class="form-wrap">
-                  <form @submit.prevent="userStore.updateMyProfileData">
-                    <InputGroup>
-                      <label for="name">Никнейм</label>
-                      <InputText
-                        id="name"
-                        type="text"
-                        v-model="userData.user_nicename"
-                        placeholder="Введите никнейм"
-                        disabled
-                      />
-                    </InputGroup>
-                    <InputGroup>
-                      <label for="name">Email</label>
-                      <InputText
-                        id="email"
-                        type="email"
-                        v-model="userData.user_email"
-                        placeholder="Введите почту"
-                      />
-                    </InputGroup>
-                    <InputGroup>
-                      <label for="name">Имя и Фамилия</label>
-                      <InputText
-                        id="text"
-                        type="text"
-                        v-model="userData.display_name"
-                        placeholder="Введите имя и фамилию"
-                      />
-                    </InputGroup>
-                    <InputGroup>
-                      <label for="name">Телефон</label>
-                      <InputMask
-                        id="tel"
-                        type="tel"
-                        v-model="userData.user_phone"
-                        placeholder="Введите телефон"
-                        mask="+7 (999) 999-99-99"
-                      />
-                    </InputGroup>
-                    <InputGroup>
-                      <label>Дата рождения</label>
-                      <Calendar
-                        v-model="userData.user_birthday"
-                        dateFormat="dd.mm.yy"
-                        placeholder="__.__.____"
-                      />
-                    </InputGroup>
-                    <InputGroup>
-                      <label>Пол</label>
-                      <Dropdown
-                        v-model="userData.user_gender"
-                        :options="genders"
-                        optionLabel="name"
-                        :placeholder="userData.user_gender"
-                      />
-                    </InputGroup>
-                    <InputGroup>
-                      <label>Telegram</label>
-                      <InputText
-                        type="text"
-                        v-model="userData.user_telegram"
-                        placeholder="Введите свой Telegram"
-                      />
-                    </InputGroup>
-                    <InputGroup>
-                      <label>Город</label>
-                      <InputText
-                        type="text"
-                        v-model="userData.user_city"
-                        placeholder="Введите город"
-                      />
-                    </InputGroup>
-                    <!-- <InputGroup>
-                      <label>Учебное заведение</label>
-                      <InputText
-                        type="text"
-                        v-model="userData.user_educational_institution.post_title"
-                        placeholder="Введите учебное заведение"
-                        disabled
-                      />
-                    </InputGroup> -->
-                    <InputGroup>
-                      <label>Компания</label>
-                      <InputText
-                        type="text"
-                        v-model="userData.user_company"
-                        placeholder="Введите компанию"
-                        disabled
-                      />
-                    </InputGroup>
-                    <InputGroup>
-                      <label>ИНН компании</label>
-                      <InputText
-                        type="text"
-                        v-model="userData.user_inn"
-                        placeholder="Введите ИНН компании"
-                        disabled
-                      />
-                    </InputGroup>
-                    <Button label="Сохранить изменения" type="submit" />
-                  </form>
-                </div>
-              </div>
-              <div class="col">
-                <div class="sMyProfileBlock__head">Сменить пароль</div>
-                <div class="form-wrap">
-                  <form @submit.prevent="userStore.updatePassword">
-                    <InputGroup>
-                      <label for="password">Текущий пароль</label>
-                      <Password
-                        id="password"
-                        v-model="passwordData.current_password"
-                        aria-describedby="password-help"
-                        placeholder="Введите текущий пароль"
-                        :feedback="false"
-                        toggleMask
-                        required
-                      />
-                    </InputGroup>
-                    <InputGroup>
-                      <label for="password">Новый пароль</label>
-                      <Password
-                        id="password"
-                        v-model="passwordData.new_password"
-                        aria-describedby="password-help"
-                        placeholder="Введите новый пароль"
-                        :feedback="false"
-                        toggleMask
-                        required
-                      />
-                    </InputGroup>
-                    <InputGroup>
-                      <label for="password">Повторите пароль</label>
-                      <Password
-                        id="password"
-                        v-model="passwordData.repeat_password"
-                        aria-describedby="password-help"
-                        placeholder="Повторите новый пароль"
-                        :feedback="false"
-                        toggleMask
-                        required
-                      />
-                    </InputGroup>
-                    <Button type="submit" label="Сохранить изменения" />
-                  </form>
-                </div>
-              </div>
-            </div>
+            <UserData />
           </TabPanel>
           <TabPanel>
             <div class="sMyProfileBlock__head-row row">
@@ -177,161 +26,7 @@
                 <CreateTeam />
               </div>
             </div>
-            <DataTable v-if="teamsStore.myTeams.length > 0" :value="teamsStore.myTeams">
-              <Column
-                :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
-                field="nickname"
-                header="Название"
-                sortable
-              >
-                <template #sorticon="slotProps">
-                  <svg
-                    :class="slotProps.sortOrder == 1 ? `sorted` : ``"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.20493 4.5H8.79494C8.89382 4.50041 8.99036 4.53014 9.07236 4.58542C9.15435 4.6407 9.21811 4.71906 9.25557 4.81057C9.29303 4.90209 9.30252 5.00266 9.28282 5.09957C9.26313 5.19647 9.21515 5.28536 9.14494 5.355L6.35494 8.145C6.30845 8.19186 6.25315 8.22906 6.19222 8.25445C6.13129 8.27983 6.06594 8.2929 5.99994 8.2929C5.93393 8.2929 5.86858 8.27983 5.80765 8.25445C5.74672 8.22906 5.69142 8.19186 5.64494 8.145L2.85494 5.355C2.78472 5.28536 2.73674 5.19647 2.71705 5.09957C2.69735 5.00266 2.70684 4.90209 2.7443 4.81057C2.78176 4.71906 2.84552 4.6407 2.92751 4.58542C3.00951 4.53014 3.10605 4.50041 3.20493 4.5Z"
-                      fill="#9E9FA3"
-                    />
-                  </svg>
-                </template>
-                <template #body="slotProps">
-                  <div class="table-wrap">
-                    <img
-                      v-if="slotProps.data.thumbnail_url"
-                      :src="`${slotProps.data.thumbnail_url}`"
-                      alt="Avatar"
-                    />
-                    <span>{{ slotProps.data.post_title }}</span>
-                  </div>
-                </template>
-              </Column>
-              <Column
-                :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
-                field="game"
-                header="Дисциплина"
-                sortable
-              >
-                <template #sorticon="slotProps">
-                  <svg
-                    :class="slotProps.sortOrder == 1 ? `sorted` : ``"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.20493 4.5H8.79494C8.89382 4.50041 8.99036 4.53014 9.07236 4.58542C9.15435 4.6407 9.21811 4.71906 9.25557 4.81057C9.29303 4.90209 9.30252 5.00266 9.28282 5.09957C9.26313 5.19647 9.21515 5.28536 9.14494 5.355L6.35494 8.145C6.30845 8.19186 6.25315 8.22906 6.19222 8.25445C6.13129 8.27983 6.06594 8.2929 5.99994 8.2929C5.93393 8.2929 5.86858 8.27983 5.80765 8.25445C5.74672 8.22906 5.69142 8.19186 5.64494 8.145L2.85494 5.355C2.78472 5.28536 2.73674 5.19647 2.71705 5.09957C2.69735 5.00266 2.70684 4.90209 2.7443 4.81057C2.78176 4.71906 2.84552 4.6407 2.92751 4.58542C3.00951 4.53014 3.10605 4.50041 3.20493 4.5Z"
-                      fill="#9E9FA3"
-                    />
-                  </svg>
-                </template>
-                <template #body="slotProps">
-                  <span class="p-badge p-badge-gray">
-                    <!-- <svg-icon :name="slotProps.data.game.icon" /> -->
-                    {{ slotProps.data.discipline.name }}
-                  </span>
-                </template>
-              </Column>
-              <Column
-                :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
-                field="league"
-                header="Лига"
-                sortable
-              >
-                <template #sorticon="slotProps">
-                  <svg
-                    :class="slotProps.sortOrder == 1 ? `sorted` : ``"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.20493 4.5H8.79494C8.89382 4.50041 8.99036 4.53014 9.07236 4.58542C9.15435 4.6407 9.21811 4.71906 9.25557 4.81057C9.29303 4.90209 9.30252 5.00266 9.28282 5.09957C9.26313 5.19647 9.21515 5.28536 9.14494 5.355L6.35494 8.145C6.30845 8.19186 6.25315 8.22906 6.19222 8.25445C6.13129 8.27983 6.06594 8.2929 5.99994 8.2929C5.93393 8.2929 5.86858 8.27983 5.80765 8.25445C5.74672 8.22906 5.69142 8.19186 5.64494 8.145L2.85494 5.355C2.78472 5.28536 2.73674 5.19647 2.71705 5.09957C2.69735 5.00266 2.70684 4.90209 2.7443 4.81057C2.78176 4.71906 2.84552 4.6407 2.92751 4.58542C3.00951 4.53014 3.10605 4.50041 3.20493 4.5Z"
-                      fill="#9E9FA3"
-                    />
-                  </svg>
-                </template>
-                <template #body="slotProps">
-                  <Badge
-                    :severity="
-                      slotProps.data.leagues.name == 'QYBER Атланты' ? 'secondary' : 'danger'
-                    "
-                    class="p-badge-outline"
-                    :value="slotProps.data.leagues.name"
-                  />
-                </template>
-              </Column>
-              <Column
-                :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
-                field="playersCount"
-                header="Количество игроков"
-                sortable
-              >
-                <template #sorticon="slotProps">
-                  <svg
-                    :class="slotProps.sortOrder == 1 ? `sorted` : ``"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.20493 4.5H8.79494C8.89382 4.50041 8.99036 4.53014 9.07236 4.58542C9.15435 4.6407 9.21811 4.71906 9.25557 4.81057C9.29303 4.90209 9.30252 5.00266 9.28282 5.09957C9.26313 5.19647 9.21515 5.28536 9.14494 5.355L6.35494 8.145C6.30845 8.19186 6.25315 8.22906 6.19222 8.25445C6.13129 8.27983 6.06594 8.2929 5.99994 8.2929C5.93393 8.2929 5.86858 8.27983 5.80765 8.25445C5.74672 8.22906 5.69142 8.19186 5.64494 8.145L2.85494 5.355C2.78472 5.28536 2.73674 5.19647 2.71705 5.09957C2.69735 5.00266 2.70684 4.90209 2.7443 4.81057C2.78176 4.71906 2.84552 4.6407 2.92751 4.58542C3.00951 4.53014 3.10605 4.50041 3.20493 4.5Z"
-                      fill="#9E9FA3"
-                    />
-                  </svg>
-                </template>
-                <template #body="slotProps">
-                  <span class="small-text">{{ slotProps.data.count_members }}</span>
-                </template>
-              </Column>
-              <Column
-                :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
-                field="role"
-                header="Роль"
-                sortable
-              >
-                <template #sorticon="slotProps">
-                  <svg
-                    :class="slotProps.sortOrder == 1 ? `sorted` : ``"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.20493 4.5H8.79494C8.89382 4.50041 8.99036 4.53014 9.07236 4.58542C9.15435 4.6407 9.21811 4.71906 9.25557 4.81057C9.29303 4.90209 9.30252 5.00266 9.28282 5.09957C9.26313 5.19647 9.21515 5.28536 9.14494 5.355L6.35494 8.145C6.30845 8.19186 6.25315 8.22906 6.19222 8.25445C6.13129 8.27983 6.06594 8.2929 5.99994 8.2929C5.93393 8.2929 5.86858 8.27983 5.80765 8.25445C5.74672 8.22906 5.69142 8.19186 5.64494 8.145L2.85494 5.355C2.78472 5.28536 2.73674 5.19647 2.71705 5.09957C2.69735 5.00266 2.70684 4.90209 2.7443 4.81057C2.78176 4.71906 2.84552 4.6407 2.92751 4.58542C3.00951 4.53014 3.10605 4.50041 3.20493 4.5Z"
-                      fill="#9E9FA3"
-                    />
-                  </svg>
-                </template>
-                <template #body="slotProps">
-                  <div class="d-flex align-items-center">
-                    <span class="small-text" style="margin-right: 1rem">{{
-                      slotProps.data.post_author === userData.ID ? 'Капитан' : 'Игрок'
-                    }}</span>
-                    <NuxtLink :to="`team/${slotProps.data.ID}`" class="ms-auto">
-                      <Button
-                        v-if="slotProps.data.post_author === userData.ID"
-                        label="Управлять"
-                        class="btn-sm"
-                      />
-                      <Button v-else severity="gray" label="Перейти" class="btn-sm" />
-                    </NuxtLink>
-                  </div>
-                </template>
-              </Column>
-            </DataTable>
+            <UserTeamsData />
           </TabPanel>
         </TabView>
       </div>
@@ -360,9 +55,10 @@
 <script setup>
   import CreateTeam from '@/components/cabinet/CreateTeam.vue';
   import { useTeamStore } from '@/store/TeamStore';
-  import auth from '@/services/auth';
 
   import { useGlobalStore } from '@/store/globalStore';
+  import UserData from './UserData.vue';
+  import UserTeamsData from './UserTeamsData.vue';
   const globalStore = useGlobalStore();
   const { userData } = storeToRefs(globalStore);
 
@@ -371,16 +67,9 @@
   import { useUserStore } from '@/store/userStore';
   const userStore = useUserStore();
 
-  const { passwordData } = storeToRefs(userStore);
-
   teamsStore.fetchMyTeams();
 
   const active = ref(0);
-
-  const genders = ref([
-    { name: 'Мужской', code: 'Male' },
-    { name: 'Женский', code: 'Female' },
-  ]);
 </script>
 
 <style scoped lang="scss">

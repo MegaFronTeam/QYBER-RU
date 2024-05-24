@@ -78,13 +78,7 @@
                     autoResize
                   />
                 </InputGroup>
-                <div class="checkbox">
-                  <Checkbox v-model="agreement" inputId="agreement" value="Onion" />
-                  <label for="agreement">
-                    Даю согласие на обработку и хранение моих персональных данных в соответствии с
-                    <a href="#">условиями политики конфиденциальности</a>
-                  </label>
-                </div>
+                <AgreementForm />
                 <Button type="submit" class="btn-lg">Отправить</Button>
               </form>
             </div>
@@ -96,7 +90,8 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import AgreementForm from '@/components/share/AgreementForm.vue';
+
   import { useGlobalStore } from '@/store/globalStore';
   const globalStore = useGlobalStore();
 
@@ -104,5 +99,4 @@
   const telValue = ref(null);
   const emailValue = ref(null);
   const textAreaValue = ref(null);
-  const agreement = ref(true);
 </script>

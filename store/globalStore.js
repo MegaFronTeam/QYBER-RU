@@ -18,13 +18,15 @@ export const useGlobalStore = defineStore(
     const isUserAuth = ref(false);
     const in_verifications = ref(false);
     const disciplineList = ref([]);
+    const user_genderArr = ref([
+      { name: 'Мужской', code: 'm' },
+      { name: 'Женский', code: 'f' },
+    ]);
+    const isAtlants = ref(false);
+    const isTalants = ref(false);
 
-    // const contacts = ref({
-    //   youtube: 'https://www.youtube.com/@RUqyber',
-    //   vk: 'https://vk.com/ruqyber',
-    //   discord: 'https://discord.gg/ruqyber',
-    //   telegram: 'https://t.me/RUqyber',
-    // });
+    const regions = ref([]);
+    const educational_institutions = ref([]);
 
     const contacts = ref({});
     const telegramPath = ref('');
@@ -85,10 +87,34 @@ export const useGlobalStore = defineStore(
       disciplineList.value = data;
     };
 
-    // if(isUserAuth.value){
-    //   getDisciplines();
-    // }
+    const gerRegions = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/wp/v2/subjects?per_page=100`);
+        const data = await response.data;
+        // data.map((element) => {
+        //   element.ID = +element.ID;
+        //   element.post_title = element.title;
+        // });
+        regions.value = data;
+      } catch (error) {
+        console.error(error);
+        return Promise.reject(error);
+      }
+    };
 
+    const getEducationalInstitutions = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/wp/v2/educations?per_page=100`);
+        const data = await response.data;
+        educational_institutions.value = data;
+      } catch (error) {
+        console.error(error);
+        return Promise.reject(error);
+      }
+    };
+    getEducationalInstitutions();
+
+    gerRegions();
     return {
       API_KEY,
       email,
@@ -105,6 +131,11 @@ export const useGlobalStore = defineStore(
       getDisciplines,
       contacts,
       getContacts,
+      user_genderArr,
+      regions,
+      educational_institutions,
+      isAtlants,
+      isTalants,
     };
   },
   { persist: { storage: persistedState.localStorage } },

@@ -12,12 +12,12 @@
             <p>
               Все новости турнира, интервью, видео, аналитика и общение – все это в телеграм канале
             </p>
-            <!-- <a :href="globalStore.contacts.telegram" target="_blank">
+            <a :href="globalStore.contacts.socials[0].link" target="_blank">
               <Button severity="secondary">
                 <span> Перейти в Telegram</span>
                 <svg-icon name="telegram.svg" />
               </Button>
-            </a> -->
+            </a>
           </div>
         </div>
       </div>
