@@ -192,13 +192,13 @@
     }
     .step {
       font-weight: 600;
-      border-bottom: rem(3) solid #FFF;
+      border-bottom: rem(3) solid var(--primary-color-text);
       padding-bottom: rem(12);
       @include media-breakpoint-up(lg) {
         padding-bottom: rem(18);
       }
       &_active {
-        border-color: var(--accent-primary-main);
+        border-color: var(--primary-300);
       }
       p {
         color: #FFF;
@@ -209,7 +209,7 @@
       span {
         font-size: rem(14);
         opacity: .64;
-        color: #FFF;
+        color: var(--primary-color-text);
       }
 
     }
@@ -224,13 +224,13 @@
       p {
         font-size: rem(14);
         opacity: .64;
-        color: #FFF;
+        color: var(--primary-color-text);
         font-weight: 600;
       }
       span {
         font-weight: 700;
         font-size: rem(24);
-        color: #FFF;
+        color: var(--primary-color-text);
         position: relative;
         padding: rem(12);
         margin-bottom: rem(6);
@@ -243,7 +243,7 @@
           top: 0;
           left: 0;
           border-radius: rem(10);
-          background: black;
+          background: var(--transparent-black-main);
           backdrop-filter: blur(12px);
           z-index: -1;
           opacity: .5;
@@ -256,7 +256,6 @@
       @include media-breakpoint-up(lg) {
         opacity: 0;
       }
-
     }
   }
 }
