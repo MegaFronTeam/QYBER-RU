@@ -2,7 +2,6 @@
   <div>
     <HeaderBlock
       title="Кибер Атланты Осень 2022"
-      :breadcrumbArr="breadcrumb"
       bg="/img/headerBlock-bg-7.jpg"
       class="sHeaderBlock sHeaderBlock--detailed"
     >
@@ -75,19 +74,23 @@
 </template>
 
 <script setup>
-  import { useTournamentStore } from '@/store/TournamentStore';
-  import { useGlobalStore } from '~/store/globalStore';
-  const tournamentStore = useTournamentStore();
-  const globalStore = useGlobalStore();
+import { useTournamentStore } from '@/store/TournamentStore';
+import { useGlobalStore } from '~/store/globalStore';
+const tournamentStore = useTournamentStore();
+const globalStore = useGlobalStore();
 
-  const breadcrumb = ref([{ label: 'Турниры', route: '/' }, { label: 'Кибер Атланты Осень 2022' }]);
+definePageMeta({
+  breadcrumbName: 'Турниры',
+});
 
-  const sectionTitleTournamentsProps = {
-    title: 'Другие турниры',
-    text: '',
-  };
-  const footerLinkTournamentsProps = {
-    text: 'Смотреть все турниры',
-    href: '/tournaments',
-  };
+// const breadcrumb = ref([{ label: 'Турниры', route: '/' }, { label: 'Кибер Атланты Осень 2022' }]);
+
+const sectionTitleTournamentsProps = {
+  title: 'Другие турниры',
+  text: '',
+};
+const footerLinkTournamentsProps = {
+  text: 'Смотреть все турниры',
+  href: '/tournaments',
+};
 </script>

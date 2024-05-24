@@ -5,8 +5,8 @@
       :breadcrumbArr="[{ label: 'Новости' }]"
       bg="/img/headerBlock-bg-1.jpg"
     >
-    <!-- TODO: добавить каттегории -->
-      <ul class="sHeaderBlock__filter"v-if="cat">
+      <!-- TODO: добавить каттегории -->
+      <ul class="sHeaderBlock__filter" v-if="cat">
         <li>
           <Button class="active">Все лиги</Button>
         </li>
@@ -37,4 +37,8 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+  breadcrumbName: 'Новости',
+});
+</script>

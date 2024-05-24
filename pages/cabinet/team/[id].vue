@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProfileHead :img="imgRef" :breadcrumbArr="breadcrumbArr">
+    <ProfileHead :img="imgRef">
       <h1 class="mb-12">{{ teamsData.post_title }}</h1>
       <div v-if="teamsData.leagues && teamsData.discipline" class="row mb-12">
         <div v-if="teamsData.leagues" class="col-auto">
@@ -63,35 +63,39 @@
 </template>
 
 <script setup>
-  import ProfileHead from '@/components/cabinet/ProfileHead.vue';
-  import TeamBlock from '@/components/cabinet/TeamBlock.vue';
-  import MyTeamBlock from '@/components/cabinet/MyTeamBlock.vue';
-  import { useTeamStore } from '@/store/TeamStore';
-  const teamsStore = useTeamStore();
-  const { id } = useRoute().params;
+import ProfileHead from '@/components/cabinet/ProfileHead.vue';
+import TeamBlock from '@/components/cabinet/TeamBlock.vue';
+import MyTeamBlock from '@/components/cabinet/MyTeamBlock.vue';
+import { useTeamStore } from '@/store/TeamStore';
+const teamsStore = useTeamStore();
+const { id } = useRoute().params;
 
-  import { useGlobalStore } from '@/store/globalStore';
-  const globalStore = useGlobalStore();
+import { useGlobalStore } from '@/store/globalStore';
+const globalStore = useGlobalStore();
 
-  const breadcrumbArr = ref([
-    { label: 'Личный кабинет', route: '/' },
+definePageMeta({
+  breadcrumbName: 'Команда',
+});
 
-    { label: 'Мои команды', route: '/' },
-  ]);
+// const breadcrumbArr = ref([
+//   { label: 'Личный кабинет', route: '/' },
 
-  const imgRef = ref(null);
-  const teamsData = ref({});
+//   { label: 'Мои команды', route: '/' },
+// ]);
 
-  // console.log(typeof id);
-  onMounted(async () => {
-    teamsStore.currentTeamID = id;
-    console.log(teamsStore.currentTeamID);
-    await teamsStore.fetchTeam(id);
-    imgRef.value = teamsStore.teamData.post_thumbnail;
-    // const pending = ref(true);
-    teamsData.value = teamsStore.teamData;
+const imgRef = ref(null);
+const teamsData = ref({});
 
-    console.log(teamsStore.teamData.value);
-    breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
-  });
+// console.log(typeof id);
+onMounted(async () => {
+  teamsStore.currentTeamID = id;
+  console.log(teamsStore.currentTeamID);
+  await teamsStore.fetchTeam(id);
+  imgRef.value = teamsStore.teamData.post_thumbnail;
+  // const pending = ref(true);
+  teamsData.value = teamsStore.teamData;
+
+  console.log(teamsStore.teamData.value);
+  // breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
+});
 </script>
