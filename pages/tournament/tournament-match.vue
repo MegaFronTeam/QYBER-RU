@@ -3,37 +3,40 @@
     <HeaderBlock
       title="Кибер Атланты Осень 2022"
       :breadcrumbArr="breadcrumb"
-      bg="/img/headerBlock-bg-7.jpg"
-      class="sHeaderBlock sHeaderBlock--detailed"
+      bg="/img/headerBlock-bg-8.jpg"
+      class="sHeaderBlock sHeaderBlock--detailed sHeaderBlock--match"
     >
       <div class="header-item sTournamentOverview--match">
         <template v-if="isMobile">
           <MatchHeader />
         </template>
-        <div class="d-lg-none table-title">Список игроков</div>
-        <div class="header-row row">
-          <div class="col">
-            <div class="team-inner">
-              <div class="team-inner__name d-lg-none">Team Rogue</div>
-              <div class="team-inner__wrap">
+          <div class="d-lg-none table-title" @click="toggle">Список игроков <svg-icon v-if="isOpen" name="arrow-up-sm" /><svg-icon v-if="!isOpen" name="arrow-down-sm" />
+          </div>
+        <Transition name="accordion">
+          <div class="header-row row" v-show="isOpen" >
+            <div class="col">
+              <div class="team-inner">
+                <div class="team-inner__name d-lg-none">Team Rogue</div>
+                <div class="team-inner__wrap">
+                  <PersonCard v-for="index in 6" :key="index" />
+                </div>
+              </div>
+            </div>
+            <div class="col-auto">
+              <template v-if="!isMobile">
+                <MatchHeader />
+              </template>
+            </div>
+            <div class="col">
+              <div class="team-inner">
+                <div class="team-inner__name d-lg-none">INTZ Genesis</div>
+                <div class="team-inner__wrap">
                 <PersonCard v-for="index in 6" :key="index" />
+              </div>
               </div>
             </div>
           </div>
-          <div class="col-auto">
-            <template v-if="!isMobile">
-              <MatchHeader />
-            </template>
-          </div>
-          <div class="col">
-            <div class="team-inner">
-              <div class="team-inner__name d-lg-none">INTZ Genesis</div>
-              <div class="team-inner__wrap">
-              <PersonCard v-for="index in 6" :key="index" />
-            </div>
-            </div>
-          </div>
-        </div>
+        </Transition>
       </div>
       <div class="header-item">
         <NuxtLink to="/auth/login" v-if="!globalStore.isUserAuth">
@@ -51,6 +54,11 @@
   import { useGlobalStore } from '~/store/globalStore';
   const tournamentStore = useTournamentStore();
   const globalStore = useGlobalStore();
+
+  const isOpen = ref(true);
+  const toggle = () => {
+    isOpen.value = !isOpen.value
+  }
 
   const breadcrumb = ref([
     {
@@ -77,4 +85,5 @@
     updateIsMobile()
     window.removeEventListener('resize', updateIsMobile)
   })
+
 </script>

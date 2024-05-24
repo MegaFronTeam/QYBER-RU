@@ -251,4 +251,12 @@
       }
     }
   }
+  &--match {
+    .picture-bg {
+      @include media-breakpoint-up(lg) {
+        opacity: 0;
+      }
+
+    }
+  }
 }

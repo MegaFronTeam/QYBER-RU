@@ -584,13 +584,15 @@
       .table-title {
         padding: rem(12) rem(20);
         background: var(--primary-300);
-        border-radius: rem(20) rem(20) 0 0;
+        border-radius: rem(10) rem(10) 0 0;
         text-align: start;
         font-weight: 600;
         font-size: rem(14);
         margin-left: rem(-6);
         margin-right: rem(-6);
         line-height: 143%;
+        display: flex;
+        justify-content: space-between;
       }
       .col:first-child .team-inner {
         margin-top: rem(6);
@@ -622,13 +624,16 @@
         border-radius: 0 0 rem(20) rem(20);
       }
       @include media-breakpoint-up(lg) {
-      --gutter-x: #{rem(30)};
-      align-items: center;
+        --gutter-x: #{rem(30)};
+        align-items: center;
       }
       .col:last-child {
         .sPersonCard {
           @include media-breakpoint-up(lg) {
             flex-direction: row-reverse;
+            &__status {
+              text-align: end;
+            }
           }
         }
       }
