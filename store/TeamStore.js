@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useGlobalStore } from './globalStore';
 import { useRoute } from 'vue-router';
+import { useBreadcrumbsStore } from './BreadcrumbStore';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const useTeamStore = defineStore('teamStore', {
@@ -76,13 +77,14 @@ export const useTeamStore = defineStore('teamStore', {
     },
     async fetchTeam(id) {
       try {
+        const breadcrumbsStore = useBreadcrumbsStore();
         const globalStore = useGlobalStore();
         const res = await this.fetcher('GET', `/teams/v1/team/${id}`);
         const data = res.data;
 
         this.teamData = data;
         console.log(this.teamData);
-
+        breadcrumbsStore.setNameFromIds(data.post_title);
         this.teamData.members.forEach((member) => {
           if (member.id === globalStore.userData.ID) {
             this.isCaptain = true;

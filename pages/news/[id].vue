@@ -27,6 +27,9 @@
 <script setup>
 import axios from 'axios';
 import { useRoute } from 'vue-router';
+import { useBreadcrumbsStore } from '@/store/BreadcrumbStore';
+
+const breadcrumbsStore = useBreadcrumbsStore();
 
 const { id } = useRoute().params;
 const { data } = await axios.get(`https://api.qyber.ru/wp-json/wp/v2/posts/${id}`);
@@ -35,9 +38,9 @@ const { data } = await axios.get(`https://api.qyber.ru/wp-json/wp/v2/posts/${id}
 // console.log(data);
 // const title = ref('');
 // title.value = data.title.rendered;
-definePageMeta({
-  breadcrumbName: 'Статья',
-});
+// definePageMeta({
+//   breadcrumbName: 'Статья',
+// });
 
 const subtitle = data.excerpt.rendered;
 // console.log(subtitle.split('<'));
@@ -51,4 +54,8 @@ const formattedDate = date
   .slice(0, -3);
 const formattedTime = date.getHours() + ':' + date.getMinutes();
 // console.log(router);
+
+onMounted(() => {
+  breadcrumbsStore.setNameFromIds(data.title.rendered);
+});
 </script>

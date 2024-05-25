@@ -4,8 +4,16 @@ import { useRouter } from 'vue-router';
 export const useBreadcrumbsStore = defineStore('breadcrumbs', {
   state: () => ({
     items: [],
+    lastBreadcrumb: {
+      label: '',
+    },
   }),
   actions: {
+    setNameFromIds(label) {
+      // console.log(label);
+      this.lastBreadcrumb.label = label;
+      return label;
+    },
     createBreadcrumb() {
       const router = useRouter();
       this.items = [];
@@ -20,12 +28,17 @@ export const useBreadcrumbsStore = defineStore('breadcrumbs', {
       currPagePathArr.forEach((route, index) => {
         customPath += route;
         const result = routes.find((item) => item.path === customPath);
-
+        // console.log(result);
         if (result) {
           if (currPagePathArr.length === index + 1) {
-            this.items.push({
-              label: result.meta.breadcrumbName,
-            });
+            if (currPagePathArr.includes('/:id()')) {
+              console.log(this.lastBreadcrumb.label);
+              this.items.push(this.lastBreadcrumb);
+            } else {
+              this.items.push({
+                label: result.meta.breadcrumbName,
+              });
+            }
           } else {
             this.items.push({
               label: result.meta.breadcrumbName,

@@ -71,11 +71,14 @@ const teamsStore = useTeamStore();
 const { id } = useRoute().params;
 
 import { useGlobalStore } from '@/store/globalStore';
+// import { useBreadcrumbsStore } from '@/store/BreadcrumbStore';
+
+// const breadcrumbsStore = useBreadcrumbsStore();
 const globalStore = useGlobalStore();
 
-definePageMeta({
-  breadcrumbName: 'Команда',
-});
+// definePageMeta({
+//   breadcrumbName: 'Команда',
+// });
 
 // const breadcrumbArr = ref([
 //   { label: 'Личный кабинет', route: '/' },
@@ -95,7 +98,10 @@ onMounted(async () => {
   // const pending = ref(true);
   teamsData.value = teamsStore.teamData;
 
-  console.log(teamsStore.teamData.value);
-  // breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
+  console.log(teamsStore.teamData.post_title);
+  breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
 });
+// onMounted(() => {
+//   breadcrumbsStore.setNameFromIds(teamsStore.teamData.post_title);
+// });
 </script>
