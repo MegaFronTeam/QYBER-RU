@@ -1,9 +1,9 @@
 <template>
   <div v-if="userData.user_nicename">
-    <ProfileHead
+    <CabinetProfileHead
       :breadcrumbArr="[{ label: 'Личный кабинет' }]"
-      :img="imgRef"
-      :avatarText="avatarText"
+      :img="userData.user_avatar.sizes.medium"
+      :avatarText="user_first_letter"
       :profileData="userData"
     >
       <h1 :class="userData.user_verification == true ? 'verifired' : ''">
@@ -35,15 +35,12 @@
           />
         </div>
       </div>
-    </ProfileHead>
-    <MyProfileBlock />
+    </CabinetProfileHead>
+    <CabinetMyProfileBlock />
   </div>
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue';
-  import ProfileHead from '@/components/cabinet/ProfileHead.vue';
-  import MyProfileBlock from '@/components/cabinet/MyProfileBlock.vue';
   import { useGlobalStore } from '@/store/globalStore';
   import { useUserStore } from '@/store/userStore';
 
@@ -51,20 +48,11 @@
 
   const globalStore = useGlobalStore();
 
-  const { userData } = storeToRefs(globalStore);
+  const { userData, user_first_letter } = storeToRefs(globalStore);
   definePageMeta({
     breadcrumbName: 'Личный кабинет',
   });
 
-  // console.log(userStore.userData);
-  const imgRef = ref(null);
-  const avatarText = ref(null);
-  const user_registered = ref('');
-
-  onMounted(async () => {
-    await userStore.getUserData();
-    imgRef.value = globalStore.user_avatar || { value: '' };
-    avatarText.value = globalStore.user_first_letter;
-  });
+  await userStore.getUserData();
 </script>
 <style lang="scss"></style>

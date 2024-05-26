@@ -36,7 +36,7 @@ export const useGlobalStore = defineStore(
         const data = await response.data;
         contacts.value = data.contacts;
         telegramPath.value = data.contacts.socials[0].link.split('//')[1];
-        // console.log('contact', contacts.value);
+        console.log('contact', contacts.value);
       } catch (error) {
         console.error(error);
         return Promise.reject(error);
@@ -86,7 +86,7 @@ export const useGlobalStore = defineStore(
       disciplineList.value = data;
     };
 
-    const gerRegions = async () => {
+    const getRegions = async () => {
       try {
         const response = await axios.get(`${BASE_URL}/wp/v2/subjects?per_page=100`);
         const data = await response.data;
@@ -122,7 +122,7 @@ export const useGlobalStore = defineStore(
     //   getEducationalInstitutions();
     // }
 
-    gerRegions();
+    getRegions();
     return {
       API_KEY,
       email,
@@ -141,9 +141,6 @@ export const useGlobalStore = defineStore(
       getContacts,
       user_genderArr,
       regions,
-      // educational_institutions,
-      isAtlants,
-      isTalants,
     };
   },
   { persist: { storage: persistedState.localStorage } },
