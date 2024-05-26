@@ -3,7 +3,7 @@
     <MainHeader />
     <Welcome />
     <MainContentBlock id="tournaments" :sectionTitle="sectionTitleTournamentsProps">
-      <TournamentCard
+      <TournamentsCard
         v-for="item of tournamentStore.getLast"
         :newsData="{
           id: item.id,
@@ -39,25 +39,25 @@
 </template>
 
 <script setup>
-import { useTournamentStore } from '@/store/TournamentStore';
-const tournamentStore = useTournamentStore();
+  import { useTournamentStore } from '@/store/TournamentStore';
+  const tournamentStore = useTournamentStore();
 
-const { data } = await useFetch(`https://api.qyber.ru/wp-json/wp/v2/posts`);
+  const { data } = await useFetch(`https://api.qyber.ru/wp-json/wp/v2/posts`);
 
-const sectionTitleTournamentsProps = {
-  title: 'Ближайшие турниры',
-  text: 'Ты лидер команды? Подай заявку на участие в ближайшем турнире!',
-};
-const footerLinkTournamentsProps = {
-  text: 'Смотреть все турниры',
-  href: '/',
-};
-const sectionTitleNewsProps = {
-  title: 'Последние новости',
-  text: 'Актуальные новости киберспортивных турниров от QYBER.RU',
-};
-const footerLinkNewsProps = {
-  text: 'Смотреть все новости',
-  href: '/news',
-};
+  const sectionTitleTournamentsProps = {
+    title: 'Ближайшие турниры',
+    text: 'Ты лидер команды? Подай заявку на участие в ближайшем турнире!',
+  };
+  const footerLinkTournamentsProps = {
+    text: 'Смотреть все турниры',
+    href: '/',
+  };
+  const sectionTitleNewsProps = {
+    title: 'Последние новости',
+    text: 'Актуальные новости киберспортивных турниров от QYBER.RU',
+  };
+  const footerLinkNewsProps = {
+    text: 'Смотреть все новости',
+    href: '/news',
+  };
 </script>

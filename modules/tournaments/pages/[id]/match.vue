@@ -10,10 +10,14 @@
         <template v-if="isMobile">
           <MatchHeader />
         </template>
-          <div class="d-lg-none table-title" @click="toggle">Список игроков <svg-icon v-if="isOpen" name="arrow-up-sm" /><svg-icon v-if="!isOpen" name="arrow-down-sm" />
-          </div>
+        <div class="d-lg-none table-title" @click="toggle">
+          Список игроков <svg-icon v-if="isOpen" name="arrow-up-sm" /><svg-icon
+            v-if="!isOpen"
+            name="arrow-down-sm"
+          />
+        </div>
         <Transition name="accordion">
-          <div class="header-row row" v-show="isOpen" >
+          <div class="header-row row" v-show="isOpen">
             <div class="col">
               <div class="team-inner">
                 <div class="team-inner__name d-lg-none">Team Rogue</div>
@@ -31,8 +35,8 @@
               <div class="team-inner">
                 <div class="team-inner__name d-lg-none">INTZ Genesis</div>
                 <div class="team-inner__wrap">
-                <PersonCard v-for="index in 6" :key="index" />
-              </div>
+                  <PersonCard v-for="index in 6" :key="index" />
+                </div>
               </div>
             </div>
           </div>
@@ -44,7 +48,7 @@
         </NuxtLink>
       </div>
     </HeaderBlock>
-    <TournamentMatch />
+    <TournamentsMatch />
     <!-- <h1>This is {{ $route.name }}</h1> -->
   </div>
 </template>
@@ -57,33 +61,36 @@
 
   const isOpen = ref(true);
   const toggle = () => {
-    isOpen.value = !isOpen.value
-  }
+    isOpen.value = !isOpen.value;
+  };
 
   const breadcrumb = ref([
     {
-      label: 'Турниры', route: '/'
-    }, {
-      label: 'Кибер Атланты Осень 2022', route: '/'
-    }, {
-      label: 'Кибер Атланты Осень 2022 - Игра №4'
-    }
+      label: 'Турниры',
+      route: '/',
+    },
+    {
+      label: 'Кибер Атланты Осень 2022',
+      route: '/',
+    },
+    {
+      label: 'Кибер Атланты Осень 2022 - Игра №4',
+    },
   ]);
 
-  const breakpoint = 991
-  const isMobile = ref(window.innerWidth <= breakpoint)
+  const breakpoint = 991;
+  const isMobile = ref(window.innerWidth <= breakpoint);
   const updateIsMobile = () => {
-    isMobile.value = window.innerWidth <= breakpoint
-  }
+    isMobile.value = window.innerWidth <= breakpoint;
+  };
 
-  updateIsMobile()
+  updateIsMobile();
   onMounted(() => {
-    updateIsMobile()
-    window.addEventListener('resize', updateIsMobile)
-  })
+    updateIsMobile();
+    window.addEventListener('resize', updateIsMobile);
+  });
   onUnmounted(() => {
-    updateIsMobile()
-    window.removeEventListener('resize', updateIsMobile)
-  })
-
+    updateIsMobile();
+    window.removeEventListener('resize', updateIsMobile);
+  });
 </script>

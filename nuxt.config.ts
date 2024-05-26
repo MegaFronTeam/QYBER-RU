@@ -10,7 +10,9 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
     '@vee-validate/nuxt',
+    '@/modules/tournaments',
   ],
+
   // mode: universal,
   ssr: true,
 });

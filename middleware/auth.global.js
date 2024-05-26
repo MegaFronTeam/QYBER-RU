@@ -7,6 +7,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   // const { $locally } = useNuxtApp();
   if (process.client) {
     if (isUserAuth) {
+      console.log(1);
       if (to.name.includes('auth')) {
         return navigateTo('/');
       }

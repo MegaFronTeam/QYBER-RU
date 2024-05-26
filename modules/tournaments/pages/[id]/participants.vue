@@ -2,6 +2,7 @@
   <div>
     <HeaderBlock
       title="Кибер Атланты Осень 2022"
+      :breadcrumbArr="breadcrumb"
       bg="/img/headerBlock-bg-7.jpg"
       class="sHeaderBlock sHeaderBlock--detailed"
     >
@@ -44,13 +45,13 @@
         </div>
       </div>
     </HeaderBlock>
-    <TournamentOverview />
+    <TournamentsParticipants />
     <MainContentBlock
       id="tournamentsOther"
       :sectionTitle="sectionTitleTournamentsProps"
       :footerLink="footerLinkTournamentsProps"
     >
-      <TournamentCard
+      <TournamentsCard
         v-for="item of tournamentStore.getLast"
         :newsData="{
           id: item.id,
@@ -74,23 +75,19 @@
 </template>
 
 <script setup>
-import { useTournamentStore } from '@/store/TournamentStore';
-import { useGlobalStore } from '~/store/globalStore';
-const tournamentStore = useTournamentStore();
-const globalStore = useGlobalStore();
+  import { useTournamentStore } from '@/store/TournamentStore';
+  import { useGlobalStore } from '~/store/globalStore';
+  const tournamentStore = useTournamentStore();
+  const globalStore = useGlobalStore();
 
-definePageMeta({
-  breadcrumbName: 'Турниры',
-});
+  const breadcrumb = ref([{ label: 'Турниры', route: '/' }, { label: 'Кибер Атланты Осень 2022' }]);
 
-// const breadcrumb = ref([{ label: 'Турниры', route: '/' }, { label: 'Кибер Атланты Осень 2022' }]);
-
-const sectionTitleTournamentsProps = {
-  title: 'Другие турниры',
-  text: '',
-};
-const footerLinkTournamentsProps = {
-  text: 'Смотреть все турниры',
-  href: '/tournaments',
-};
+  const sectionTitleTournamentsProps = {
+    title: 'Другие турниры',
+    text: '',
+  };
+  const footerLinkTournamentsProps = {
+    text: 'Смотреть все турниры',
+    href: '/tournaments',
+  };
 </script>

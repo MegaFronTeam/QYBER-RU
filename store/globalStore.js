@@ -36,7 +36,7 @@ export const useGlobalStore = defineStore(
         const data = await response.data;
         contacts.value = data.contacts;
         telegramPath.value = data.contacts.socials[0].link.split('//')[1];
-        console.log('contact', contacts.value);
+        // console.log('contact', contacts.value);
       } catch (error) {
         console.error(error);
         return Promise.reject(error);

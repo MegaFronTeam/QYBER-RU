@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { useRouter } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from './globalStore';
 

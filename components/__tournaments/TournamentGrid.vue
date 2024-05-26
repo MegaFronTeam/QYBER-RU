@@ -107,47 +107,44 @@
               <div class="tournament-table__row row">
                 <div class="tournament-table__col col-auto">
                   <div class="tournament-table__group">
-                    <TournamentGridCard />
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
+                    <TournamentsGridCard />
                   </div>
                   <div class="tournament-table__group">
-                    <TournamentGridCard />
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
+                    <TournamentsGridCard />
                   </div>
                   <div class="tournament-table__group">
-                    <TournamentGridCard />
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
+                    <TournamentsGridCard />
                   </div>
                   <div class="tournament-table__group">
-                    <TournamentGridCard />
-                    <TournamentGridCard />
-                  </div>
-                </div>
-                <div class="tournament-table__col col-auto">
-                  <div class="tournament-table__group">
-                    <TournamentGridCard />
-                    <TournamentGridCard />
-                  </div>
-                  <div class="tournament-table__group">
-                    <TournamentGridCard />
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
+                    <TournamentsGridCard />
                   </div>
                 </div>
                 <div class="tournament-table__col col-auto">
                   <div class="tournament-table__group">
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
+                    <TournamentsGridCard />
+                  </div>
+                  <div class="tournament-table__group">
+                    <TournamentsGridCard />
+                    <TournamentsGridCard />
+                  </div>
+                </div>
+                <div class="tournament-table__col col-auto">
+                  <div class="tournament-table__group">
+                    <TournamentsGridCard />
                     <div class="sGridCardItem">
-                      <div class="sGridCardItem__order">24
-                            <svg-icon name="settings.svg" /></div>
+                      <div class="sGridCardItem__order">24 <svg-icon name="settings.svg" /></div>
                       <div class="teams-group">
                         <div class="sGridCard sGridCard__team">
                           <div class="sGridCard__wrap">
                             <NuxtImg :src="`/img/teamGrid-1.png`" alt="Avatar" class="img" />
                             <span>Команда 1</span>
                           </div>
-                          <div class="sGridCard__score">
-                            0
-                          </div>
+                          <div class="sGridCard__score">0</div>
                         </div>
                         <div class="sGridCard sGridCard__team">
                           <div class="sGridCard__wrap">
@@ -163,13 +160,14 @@
                 </div>
                 <div class="tournament-table__col col-auto">
                   <div class="tournament-table__group tournament-table__group--small">
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
                   </div>
                 </div>
                 <div class="tournament-table__col col-auto">
                   <div class="tournament-table__group">
                     <div class="sGridCardItem">
-                      <div class="sGridCardItem__order">39
+                      <div class="sGridCardItem__order">
+                        39
                         <svg-icon name="settings.svg" />
                       </div>
                       <div class="teams-group">
@@ -219,64 +217,64 @@
               <div class="tournament-table__row row row-low">
                 <div class="tournament-table__col col-auto">
                   <div class="tournament-table__group tournament-table__group--single">
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
                   </div>
                   <div class="tournament-table__group tournament-table__group--single">
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
                   </div>
                   <div class="tournament-table__group tournament-table__group--single">
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
                   </div>
                   <div class="tournament-table__group tournament-table__group--single">
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
                   </div>
                 </div>
                 <div class="tournament-table__col col-auto">
                   <div class="tournament-table__group">
-                    <TournamentGridCard />
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
+                    <TournamentsGridCard />
                   </div>
                   <div class="tournament-table__group">
-                    <TournamentGridCard />
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
+                    <TournamentsGridCard />
                   </div>
                 </div>
                 <div class="tournament-table__col col-auto">
                   <div class="tournament-table__group tournament-table__group--small">
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
                   </div>
                   <div class="tournament-table__group tournament-table__group--small">
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
                   </div>
                 </div>
                 <div class="tournament-table__col col-auto">
                   <div class="tournament-table__group">
-                    <TournamentGridCard />
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
+                    <TournamentsGridCard />
                   </div>
                 </div>
                 <div class="tournament-table__col col-auto">
                   <div class="tournament-table__group tournament-table__group--small">
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
                   </div>
                 </div>
                 <div class="tournament-table__col col-auto">
                   <div class="tournament-table__group">
-                    <TournamentGridCard />
+                    <TournamentsGridCard />
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="wrap-footer  d-lg-none">
+        <div class="wrap-footer d-lg-none">
           <div class="template template--footer">
             <Paginator
               :rows="rowsPerPage[0]"
               :totalRecords="totalRecords"
               :rowsPerPageOptions="rowsPerPage"
               :pageLinkSize="4"
-              >
+            >
               <template #start="slotProps">
                 Показано от {{ slotProps.state.page * slotProps.state.rows + 1 }} до
                 {{
@@ -333,5 +331,4 @@
 
   const totalRecords = ref(10);
   const rowsPerPage = ref([5, 10, 50, 100]);
-
 </script>

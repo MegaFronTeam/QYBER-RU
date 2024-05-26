@@ -45,13 +45,13 @@
         </div>
       </div>
     </HeaderBlock>
-    <TournamentRules />
+    <TournamentsRules />
     <MainContentBlock
       id="tournamentsOther"
       :sectionTitle="sectionTitleTournamentsProps"
       :footerLink="footerLinkTournamentsProps"
     >
-      <TournamentCard
+      <TournamentsCard
         v-for="item of tournamentStore.getLast"
         :newsData="{
           id: item.id,
