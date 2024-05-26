@@ -22,28 +22,25 @@ export const useContactStore = defineStore('contact', () => {
     email: '',
     phone: '',
     name: '',
-    text: '',
+    message: '',
   });
 
   const submit = async () => {
     console.log(dataForm.value);
     try {
-      const response = await axios.post(`${BASE_URL}/profile/v1/my`, dataForm, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await axios.post(`${BASE_URL}/feedback/v1/contacts`, dataForm);
       console.log(data);
-      const data = await response.data;
+      const data = await response;
 
-      if (data.status === true) {
-        showToast('success', 'Пароль успешно изменен');
-        passwordData.value = {
-          current_password: '',
-          new_password: '',
-          repeat_password: '',
-        };
-      }
+      console.log(data);
+      // if (data.status === true) {
+      //   showToast('success', 'Заявка отправлена', 'Мы свяжемся с вами в ближайшее время');
+      //   passwordData.value = {
+      //     current_password: '',
+      //     new_password: '',
+      //     repeat_password: '',
+      //   };
+      // }
     } catch (error) {
       console.error(error);
       if (error.response.data.errors) {

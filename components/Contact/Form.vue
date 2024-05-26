@@ -30,7 +30,7 @@
         <label for="textarea">Ваше сообщение</label>
         <Textarea
           id="textarea"
-          v-model="dataForm.text"
+          v-model="dataForm.message"
           placeholder="Введите ваше сообщение"
           autoResize
         />
