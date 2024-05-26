@@ -2,7 +2,6 @@
   <div>
     <HeaderBlock
       :title="data.title.rendered"
-      :breadcrumbArr="breadcrumb"
       :bg="data.post_thumbnail"
       class="sHeaderBlock--content"
     >
@@ -24,28 +23,39 @@
   </div>
 </template>
 
+<!-- TODO: move to store -->
 <script setup>
-  import { ref } from 'vue';
+import axios from 'axios';
+import { useRoute } from 'vue-router';
+import { useBreadcrumbsStore } from '@/store/BreadcrumbStore';
 
-  const { id } = useRoute().params;
-  const { data } = await useFetch(`https://api.qyber.ru/wp-json/wp/v2/posts/${id}`);
+const breadcrumbsStore = useBreadcrumbsStore();
 
-  // console.log(data.value);
+const { id } = useRoute().params;
+const { data } = await axios.get(`https://api.qyber.ru/wp-json/wp/v2/posts/${id}`);
+// const router = useRoute();
 
-  const subtitle = data._rawValue.excerpt.rendered;
-  // console.log(subtitle.split('<'));
-  const date = new Date(data._rawValue.date);
-  const formattedDate = date
-    .toLocaleDateString('ru-RU', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    })
-    .slice(0, -3);
-  const formattedTime = date.getHours() + ':' + date.getMinutes();
+// console.log(data);
+// const title = ref('');
+// title.value = data.title.rendered;
+// definePageMeta({
+//   breadcrumbName: 'Статья',
+// });
 
-  const breadcrumb = ref([
-    { label: 'Новости', route: '/news' },
-    { label: data._rawValue.title.rendered },
-  ]);
+const subtitle = data.excerpt.rendered;
+// console.log(subtitle.split('<'));
+const date = new Date(data.date);
+const formattedDate = date
+  .toLocaleDateString('ru-RU', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  })
+  .slice(0, -3);
+const formattedTime = date.getHours() + ':' + date.getMinutes();
+// console.log(router);
+
+onMounted(() => {
+  breadcrumbsStore.setNameFromIds(data.title.rendered);
+});
 </script>

@@ -1,10 +1,9 @@
 <template>
-  <div> 
+  <div>
     <HeaderBlock
-    title="Добро пожаловать на захватывающий киберспортивный турнир высокого уровня QYBER.RU"
-    :breadcrumbArr="breadcrumb"
-    bg="/img/headerBlock-bg-5.jpg"
-    class="sHeaderBlock sHeaderBlock--max-height"
+      title="Добро пожаловать на захватывающий киберспортивный турнир высокого уровня QYBER.RU"
+      bg="/img/headerBlock-bg-5.jpg"
+      class="sHeaderBlock sHeaderBlock--max-height"
     >
     </HeaderBlock>
     <AboutHead />
@@ -13,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
-const breadcrumb = ref([{ label: 'О проекте' }]);
+definePageMeta({
+  breadcrumbName: 'О проекте',
+});
 </script>

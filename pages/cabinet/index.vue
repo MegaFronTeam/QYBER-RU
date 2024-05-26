@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div v-if="globalStore.userData.user_nicename">
     <ProfileHead
       :breadcrumbArr="[{ label: 'Личный кабинет' }]"
       :img="imgRef"
       :avatarText="avatarText"
-      :profileData="userData"
+      :profileData="globalStore.userData"
     >
-      <h1 :class="userData.user_verification == true ? 'verifired' : ''">
-        {{ userData.user_nickname }}
+      <h1 :class="globalStore.userData.user_verification == true ? 'verifired' : ''">
+        {{ globalStore.userData.user_nicename }}
       </h1>
       <span class="sProfileHead__name">{{ userData.display_name }}</span>
       <div class="sProfileHead__status online">Онлайн</div>
@@ -44,14 +44,17 @@
   import { ref, onMounted } from 'vue';
   import ProfileHead from '@/components/cabinet/ProfileHead.vue';
   import MyProfileBlock from '@/components/cabinet/MyProfileBlock.vue';
-
+  import { useGlobalStore } from '@/store/globalStore';
   import { useUserStore } from '@/store/userStore';
+
+  definePageMeta({
+    breadcrumbName: 'Личный кабинет',
+  });
 
   const userStore = useUserStore();
 
   import { useGlobalStore } from '@/store/globalStore';
   const globalStore = useGlobalStore();
-  const { userData } = storeToRefs(globalStore);
   // console.log(userStore.userData);
   const imgRef = ref(null);
   const avatarText = ref(null);

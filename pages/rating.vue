@@ -1,10 +1,6 @@
 <template>
   <div>
-    <HeaderBlock
-      title="Рейтинги"
-      :breadcrumbArr="[{ label: 'Рейтинги' }]"
-      :bg="`/img/headerBlock-bg-1.jpg`"
-    >
+    <HeaderBlock title="Рейтинги" :bg="`/img/headerBlock-bg-1.jpg`">
       <ul class="sHeaderBlock__filter">
         <li>
           <Button class="active">Все лиги</Button>
@@ -36,3 +32,9 @@
     <RatingBlock />
   </div>
 </template>
+
+<script setup>
+definePageMeta({
+  breadcrumbName: 'Рейтинги',
+});
+</script>

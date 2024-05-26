@@ -8,7 +8,9 @@
 
 <script setup>
   import { useTournamentStore } from '@/store/TournamentStore';
+  // import { useBreadcrumbsStore } from '@/store/BreadcrumbStore';
   const tournamentStore = useTournamentStore();
+  // const breadcrumbsStore = useBreadcrumbsStore();
   const lazyShow = ref(true);
 
   import { useToast } from 'primevue/usetoast';
@@ -22,6 +24,7 @@
 
   onMounted(async () => {
     tournamentStore.getAll();
+    // breadcrumbsStore.createBreadcrumb();
   });
   definePageMeta({
     colorMode: 'light',

@@ -76,18 +76,32 @@
   import { useGlobalStore } from '@/store/globalStore';
   const globalStore = useGlobalStore();
 
-  const breadcrumbArr = ref([
-    { label: 'Личный кабинет', route: '/' },
+  // definePageMeta({
+  //   breadcrumbName: 'Команда',
+  // });
 
-    { label: 'Мои команды', route: '/' },
-  ]);
+  // const breadcrumbArr = ref([
+  //   { label: 'Личный кабинет', route: '/' },
 
-  await teamsStore.fetchTeam(id);
+  //   { label: 'Мои команды', route: '/' },
+  // ]);
+
+  const imgRef = ref(null);
+  const teamsData = ref({});
+
+  // console.log(typeof id);
   onMounted(async () => {
     teamsStore.currentTeamID = id;
-    tournamentStore.getMyTournaments(id);
+    console.log(teamsStore.currentTeamID);
+    await teamsStore.fetchTeam(id);
+    imgRef.value = teamsStore.teamData.post_thumbnail;
+    // const pending = ref(true);
+    teamsData.value = teamsStore.teamData;
 
-    console.log(teamData);
-    breadcrumbArr.value.push({ label: teamData.post_title });
+    console.log(teamsStore.teamData.post_title);
+    breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
   });
+  // onMounted(() => {
+  //   breadcrumbsStore.setNameFromIds(teamsStore.teamData.post_title);
+  // });
 </script>
