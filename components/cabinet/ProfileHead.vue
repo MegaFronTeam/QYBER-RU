@@ -48,10 +48,6 @@
 <script setup>
   import ShowInvite from '@/components/cabinet/ShowInvite.vue';
   const props = defineProps({
-    breadcrumbArr: {
-      type: Array,
-      required: true,
-    },
     img: {
       type: String,
       required: false,
@@ -69,7 +65,7 @@
       required: '',
     },
   });
-  const { breadcrumbArr, img, avatarText } = toRefs(props);
+  const { img, avatarText } = toRefs(props);
 
   const home = ref({
     label: 'Главная',
@@ -78,7 +74,6 @@
 
   // const imgRef = ref(img);
   // const avatarTextRef = ref(avatarText);
-  const items = ref(breadcrumbArr);
   const allMaches = 678;
   const winMaches = 479;
   const looseMaches = 112;

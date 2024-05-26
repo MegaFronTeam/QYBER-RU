@@ -1,7 +1,6 @@
 <template>
   <div>
-
-    <ProfileHead :breadcrumbArr="[{ label: 'Игроки', route: '/' }, { label: 'Рейтинги' }]">
+    <ProfileHead>
       <h1 class="verifired">mihailivanov</h1>
       <span class="sProfileHead__name">Михаил Иванов</span>
       <div class="sProfileHead__status online">Онлайн</div>
@@ -19,7 +18,4 @@
   </div>
 </template>
 
-<script setup>
-
-</script>
-  
+<script setup></script>

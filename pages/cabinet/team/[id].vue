@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProfileHead :img="teamData.post_thumbnail" :breadcrumbArr="breadcrumbArr">
+    <ProfileHead :img="teamData.post_thumbnail">
       <h1 class="mb-12">{{ teamData.post_title }}</h1>
       <div v-if="teamData.leagues && teamData.discipline" class="row mb-12">
         <div v-if="teamData.leagues" class="col-auto">
@@ -98,8 +98,8 @@
     // const pending = ref(true);
     teamsData.value = teamsStore.teamData;
 
-    console.log(teamsStore.teamData.post_title);
-    breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
+    // console.log(teamsStore.teamData.post_title);
+    // breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
   });
   // onMounted(() => {
   //   breadcrumbsStore.setNameFromIds(teamsStore.teamData.post_title);
