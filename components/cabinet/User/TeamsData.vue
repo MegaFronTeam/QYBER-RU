@@ -1,5 +1,5 @@
 <template>
-  <DataTable v-if="teamsStore.myTeams.length > 0" :value="teamsStore.myTeams">
+  <DataTable v-if="myTeams" :value="myTeams">
     <Column
       :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
       field="nickname"
@@ -155,8 +155,6 @@
 </template>
 
 <script setup>
-  import CreateTeam from '@/components/cabinet/CreateTeam.vue';
-
   import { useGlobalStore } from '@/store/globalStore';
   const globalStore = useGlobalStore();
   const { userData } = storeToRefs(globalStore);
@@ -164,6 +162,10 @@
   import { useTeamStore } from '@/store/TeamStore';
   const teamsStore = useTeamStore();
 
-  import { useUserStore } from '@/store/userStore';
-  const userStore = useUserStore();
+  const { myTeams } = storeToRefs(teamsStore);
+
+  // import { useUserStore } from '@/store/userStore';
+  // const userStore = useUserStore();
+
+  teamsStore.fetchMyTeams();
 </script>

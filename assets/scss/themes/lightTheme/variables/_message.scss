@@ -96,7 +96,7 @@ $infoMessageIconColor: #ffffff;
 
 /// Background of a success message
 /// @group message
-$successMessageBg: var(--system-success-main);
+$successMessageBg: var(--green-500);
 
 /// Border of a success message
 /// @group message
@@ -128,7 +128,7 @@ $warningMessageIconColor: #dbaf4f;
 
 /// Background of an error message
 /// @group message
-$errorMessageBg: var(--red-300);
+$errorMessageBg: var(--red-500);
 
 /// Border of an error message
 /// @group message

@@ -44,13 +44,13 @@
 
           <InputGroup>
             <label for="name">Телефон</label>
-            <InputMask
+            <InputText
               id="tel"
               type="tel"
               v-model="userData.user_phone"
               placeholder="Введите телефон"
-              mask="+7 (999) 999-99-99"
             />
+            <!-- mask="+7 (999) 999-99-99" -->
           </InputGroup>
           <InputGroup>
             <label>Дата рождения</label>

@@ -1,20 +1,20 @@
 <template>
   <div>
-    <ProfileHead :img="imgRef" :breadcrumbArr="breadcrumbArr">
-      <h1 class="mb-12">{{ teamsData.post_title }}</h1>
-      <div v-if="teamsData.leagues && teamsData.discipline" class="row mb-12">
-        <div v-if="teamsData.leagues" class="col-auto">
+    <ProfileHead :img="teamData.post_thumbnail" :breadcrumbArr="breadcrumbArr">
+      <h1 class="mb-12">{{ teamData.post_title }}</h1>
+      <div v-if="teamData.leagues && teamData.discipline" class="row mb-12">
+        <div v-if="teamData.leagues" class="col-auto">
           <Badge
-            v-for="league in teamsData.leagues"
+            v-for="league in teamData.leagues"
             :key="league.term_id"
             :severity="league.name == 'Кибер атланты' ? 'secondary' : 'danger'"
             :value="league.name"
             class="p-badge-outline"
           />
         </div>
-        <div v-if="teamsData.discipline" class="col-auto">
+        <div v-if="teamData.discipline" class="col-auto">
           <span
-            v-for="discipline in teamsData.discipline"
+            v-for="discipline in teamData.discipline"
             :key="discipline.term_id"
             class="p-badge p-badge-gray"
           >
@@ -56,19 +56,22 @@
       </div>
     </div>
     <div v-else>
-      <TeamBlock v-if="!teamsStore.isCaptain" :teamData="teamsData" />
-      <MyTeamBlock v-else />
+      <CabinetTeamBlock v-if="!teamsStore.isCaptain" :teamData="teamData" />
+      <CabinetTeamMyTeamBlock v-else />
     </div>
   </div>
 </template>
 
 <script setup>
   import ProfileHead from '@/components/cabinet/ProfileHead.vue';
-  import TeamBlock from '@/components/cabinet/TeamBlock.vue';
-  import MyTeamBlock from '@/components/cabinet/MyTeamBlock.vue';
   import { useTeamStore } from '@/store/TeamStore';
   const teamsStore = useTeamStore();
   const { id } = useRoute().params;
+
+  import { useTournamentStore } from '@/store/TournamentStore';
+  const tournamentStore = useTournamentStore();
+
+  const { teamData } = storeToRefs(teamsStore);
 
   import { useGlobalStore } from '@/store/globalStore';
   const globalStore = useGlobalStore();
@@ -79,19 +82,12 @@
     { label: 'Мои команды', route: '/' },
   ]);
 
-  const imgRef = ref(null);
-  const teamsData = ref({});
-
-  // console.log(typeof id);
+  await teamsStore.fetchTeam(id);
   onMounted(async () => {
     teamsStore.currentTeamID = id;
-    console.log(teamsStore.currentTeamID);
-    await teamsStore.fetchTeam(id);
-    imgRef.value = teamsStore.teamData.post_thumbnail;
-    // const pending = ref(true);
-    teamsData.value = teamsStore.teamData;
+    tournamentStore.getMyTournaments(id);
 
-    console.log(teamsStore.teamData.value);
-    breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
+    console.log(teamData);
+    breadcrumbArr.value.push({ label: teamData.post_title });
   });
 </script>

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useGlobalStore } from './globalStore';
 import { useRoute } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+import { useToast } from 'primevue/usetoast';
 
 export const useTeamStore = defineStore('teamStore', {
   state: () => ({
@@ -13,7 +14,6 @@ export const useTeamStore = defineStore('teamStore', {
     currentTeamID: '',
     formDataCreateTeam: {
       name: '',
-      description: '',
       leagues: '',
       discipline: '',
       logo: null,
@@ -21,6 +21,7 @@ export const useTeamStore = defineStore('teamStore', {
     },
     disabledBtn: true,
     inviteEmail: '',
+    toast: useToast(),
   }),
   actions: {
     async fetcher(method, url, data = null) {
@@ -47,7 +48,38 @@ export const useTeamStore = defineStore('teamStore', {
         console.log(err);
       }
     },
+    async showToast(severity, summary, detail) {
+      this.toast.add({
+        severity,
+        summary,
+        detail,
+        life: 10000,
+      });
+    },
     async createTeam() {
+      const keysToRussian = {
+        name: 'Название',
+        leagues: 'Лигу',
+        discipline: 'Дисциплину',
+        logo: 'Логотип',
+      };
+
+      Object.keys(this.formDataCreateTeam).forEach((key) => {
+        if (this.formDataCreateTeam[key] === '' || this.formDataCreateTeam[key] === null) {
+          console.log(key);
+          if (key === 'logo') {
+            this.showToast('error', 'Ошибка', `Добавьте логотип`);
+          } else if (key === 'discipline' || key === 'leagues') {
+            this.showToast('error', 'Ошибка', `Выберите ${keysToRussian[key]}`);
+          } else {
+            this.showToast('error', 'Ошибка', `Поле ${keysToRussian[key]} не заполнено`);
+          }
+        }
+      });
+
+      if (Object.keys(this.formDataCreateTeam).some((key) => this.formDataCreateTeam[key] === ''))
+        return;
+
       const formData = new FormData();
       Object.keys(this.formDataCreateTeam).forEach((key) => {
         formData.append(key, this.formDataCreateTeam[key]);
@@ -65,9 +97,9 @@ export const useTeamStore = defineStore('teamStore', {
           Object.keys(this.formDataCreateTeam).forEach((key) => {
             this.formDataCreateTeam[key] = '';
           });
-          setTimeout(() => {
-            this.isCreate = false;
-          }, 1500);
+          // setTimeout(() => {
+          //   this.isCreate = false;
+          // }, 1500);
         }
       } catch (error) {
         console.error(error);

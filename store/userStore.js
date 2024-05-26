@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from './globalStore';
 import { useAccreditationStore } from './accreditationStore';
+// import { showToast } from '@/utils/showToast';
 
 export const useUserStore = defineStore('user', () => {
   const accreditationStore = useAccreditationStore();
@@ -213,7 +214,7 @@ export const useUserStore = defineStore('user', () => {
           showToast('error', 'Ошибка', error);
         });
       }
-      if (error.response.data.message) showToast('Ошибка', error.response.data.message);
+      if (error.response.data.message) showToast('error', 'Ошибка', error.response.data.message);
 
       return Promise.reject(error);
     }

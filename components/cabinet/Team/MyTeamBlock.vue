@@ -186,7 +186,9 @@
               </Column>
             </DataTable> -->
           </TabPanel>
-          <TabPanel> Content </TabPanel>
+          <TabPanel>
+            <CabinetTeamTournaments :teamData="tournamentsMy" />
+          </TabPanel>
         </TabView>
       </div>
       <!-- <div class="template template--footer">
@@ -223,7 +225,7 @@
   // });
 
   // const { pageID } = props;
-  const active = ref(0);
+  const active = ref(1);
   const teamStore = useTeamStore();
   const teamMembers = ref(teamStore.teamData.members);
 

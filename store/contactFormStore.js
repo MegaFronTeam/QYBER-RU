@@ -1,12 +1,23 @@
 import axios from 'axios';
 import { useUserStore } from './userStore';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-import { showToast } from '@/utils/showToast';
+import { useToast } from 'primevue/usetoast';
 
 export const useContactStore = defineStore('contact', () => {
   const { agreement } = useUserStore();
   const disabledForm = ref(false);
-  const userStore = useUserStore();
+
+  const toast = useToast();
+
+  const showToast = (severity, summary, detail) => {
+    toast.add({
+      severity,
+      summary,
+      detail,
+      life: 10000,
+    });
+  };
+
   const dataForm = ref({
     email: '',
     phone: '',
@@ -40,7 +51,7 @@ export const useContactStore = defineStore('contact', () => {
           showToast('error', 'Ошибка', error);
         });
       }
-      if (error.response.data.message) showToast('Ошибка', error.response.data.message);
+      if (error.response.data.message) showToast('error', 'Ошибка', error.response.data.message);
 
       return Promise.reject(error);
     }

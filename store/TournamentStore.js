@@ -8,9 +8,20 @@ export const useTournamentStore = defineStore('tournament', () => {
   const tournamentsList = ref([]);
   const getLast = ref(tournamentsList.value.slice(0, 7));
   const showRegModal = ref(false);
+
   const currentID = ref('');
   const hideForm = ref(false);
+  // const { currentTeamID } = teamStore;
 
+  const tournamentsMy = ref([]);
+
+  const getMyTournaments = async (id) => {
+    tournamentsMy.value = tournamentsList.value.filter((item) => {
+      console.log(item.comand_list);
+      return item.comand_list.some((elem) => elem.id === id);
+    });
+    console.log(id, tournamentsMy.value);
+  };
   const getAll = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/wp/v2/tournaments`);
@@ -79,6 +90,8 @@ export const useTournamentStore = defineStore('tournament', () => {
     showRegModal,
     currentID,
     hideForm,
+    getMyTournaments,
+    tournamentsMy,
   };
 });
 

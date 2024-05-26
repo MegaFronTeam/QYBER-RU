@@ -40,7 +40,7 @@
         >Отправить</Button
       >
     </form>
-    <Toast />
+    <!-- <Toast /> -->
   </div>
 </template>
 
@@ -51,8 +51,8 @@
   import { set } from '@vueuse/core';
   const contactStore = useContactStore();
   const { disabledForm, dataForm } = storeToRefs(contactStore);
-  import { useToast } from 'primevue/usetoast';
-  const toast = useToast();
+  // import { useToast } from 'primevue/usetoast';
+  // const toast = useToast();
   // const showToast = (severity, summary, detail) => {
   //   toast.add({
   //     severity,

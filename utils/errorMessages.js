@@ -1,4 +1,5 @@
-export const getEmailErrorsList = (element) => {
+export const getEmailErrorsList = (element, simple) => {
+  if (simple) return [!element ? 'Заполните поле email' : ''];
   return [
     !element ? 'Заполните поле email ' : '',
     !element.match(
@@ -9,7 +10,8 @@ export const getEmailErrorsList = (element) => {
   ];
 };
 
-export const getPasswordErrorsList = (password) => {
+export const getPasswordErrorsList = (password, simple) => {
+  if (simple === true) return [!password ? 'Заполни поле пароль' : ''];
   return [
     !password ? 'Заполни поле пароль' : '',
     password.length < 6 ? 'Пароль должен быть не менее 6 символов' : '',

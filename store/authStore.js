@@ -48,7 +48,7 @@ export const useAuthStore = defineStore('auth', () => {
   const validateLogin = () => {
     serverErrorsLogin.value = '';
     const emailErrorsList = getEmailErrorsList(dataFormLogin.value.email);
-    const passwordErrorsList = getPasswordErrorsList(dataFormLogin.value.password);
+    const passwordErrorsList = getPasswordErrorsList(dataFormLogin.value.password, true);
 
     errorsLogin.value.email = emailErrorsList.filter((error) => error !== '').join(' <br>');
     errorsLogin.value.password = passwordErrorsList.filter((error) => error !== '').join(' <br>');

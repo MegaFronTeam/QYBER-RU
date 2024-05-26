@@ -23,7 +23,7 @@
                 <h3>Мои команды</h3>
               </div>
               <div class="col-auto">
-                <CabinetCreateTeam />
+                <CabinetTeamCreate />
               </div>
             </div>
             <CabinetUserTeamsData />
@@ -56,8 +56,6 @@
   // import CreateTeam from '@/components/cabinet/CreateTeam.vue';
   import { useTeamStore } from '@/store/TeamStore';
   const teamsStore = useTeamStore();
-
-  teamsStore.fetchMyTeams();
 
   const active = ref(0);
 </script>
