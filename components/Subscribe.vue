@@ -12,7 +12,7 @@
             <p>
               Все новости турнира, интервью, видео, аналитика и общение – все это в телеграм канале
             </p>
-            <a :href="globalStore.contacts.socials[0].link" target="_blank">
+            <a :href="contacts.socials[0].link" target="_blank">
               <Button severity="secondary">
                 <span> Перейти в Telegram</span>
                 <svg-icon name="telegram.svg" />
@@ -28,4 +28,5 @@
 <script setup>
   import { useGlobalStore } from '@/store/globalStore';
   const globalStore = useGlobalStore();
+  const { contacts } = storeToRefs(globalStore);
 </script>
