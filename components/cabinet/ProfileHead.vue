@@ -6,7 +6,7 @@
   <section class="sProfileHead">
     <div class="container">
       <div class="sProfileHead__wrap bg-wrap">
-        <Breadcrumbs />
+        <ShareBreadcrumbs />
         <img src="/img/profile-bg-1.jpg" class="picture-bg" />
         <div class="sProfileHead__row row">
           <div class="sProfileHead__img-wrap">
