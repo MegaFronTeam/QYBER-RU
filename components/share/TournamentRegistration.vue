@@ -6,17 +6,17 @@
   <!-- currentID = id; -->
 </template>
 <script setup>
-  import { useGlobalStore } from '@/store/globalStore';
-  const globalStore = useGlobalStore();
+import { useGlobalStore } from '@/store/globalStore';
+const globalStore = useGlobalStore();
 
-  const props = defineProps({
-    id: {
-      type: Number,
-      required: true,
-    },
-  });
+const props = defineProps({
+  id: {
+    type: Number,
+    required: true,
+  },
+});
 
-  import { useTournamentStore } from '@/store/tournamentStore';
-  const tournamentStore = useTournamentStore();
-  const { showRegModal, currentID } = tournamentStore;
+import { useTournamentStore } from '@/store/TournamentStore';
+const tournamentStore = useTournamentStore();
+const { showRegModal, currentID } = tournamentStore;
 </script>

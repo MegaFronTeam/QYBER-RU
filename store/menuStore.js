@@ -4,9 +4,9 @@ const useMenuStore = defineStore('global', () => {
   // Define your state variables here
   const [menuItems, setMenuItems] = useState([]);
 
-  const getMenu = await () =>{
-    const  response = await $fetch(`${BASE_URL}/menu/v1/main`);
-    const data = response.data; 
+  const getMenu = async () => {
+    const response = await $fetch(`${BASE_URL}/menu/v1/main`);
+    const data = response.data;
     for (const item of data) {
       menuItems.push({
         label: item.title,
@@ -14,18 +14,17 @@ const useMenuStore = defineStore('global', () => {
         icon: '',
       });
     }
-  }
+  };
 
-  if(menuItems.length === 0) {
-    getMenu()
+  if (menuItems.length === 0) {
+    getMenu();
   }
-  
 
   return {
     menuItems,
     setMenuItems,
     // Add more functions or variables here as needed
   };
-};
+});
 
 export default useMenuStore;
