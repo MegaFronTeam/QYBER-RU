@@ -128,7 +128,11 @@
               filter
               filterPlaceholder="Поиск"
               emptyFilterMessage="Нет данных"
-            />
+            >
+              <template #option="slotProps">
+                <div v-html="slotProps.option.title.rendered"></div>
+              </template>
+            </Dropdown>
             <!-- :virtualScrollerOptions="{ showLoader: true, autoSize: true }" -->
           </InputGroup>
 

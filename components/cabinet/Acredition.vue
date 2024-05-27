@@ -78,7 +78,13 @@
                   placeholder="Выберите учебное заведение"
                   class="w-full"
                   filter
-                />
+                  filterPlaceholder="Поиск"
+                  emptyFilterMessage="Нет данных"
+                >
+                  <template #option="slotProps">
+                    <div v-html="slotProps.option.title.rendered"></div>
+                  </template>
+                </Dropdown>
               </InputGroup>
             </transition>
 
