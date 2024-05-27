@@ -255,7 +255,7 @@ export const useUserStore = defineStore('user', () => {
   if (
     educational_institutions.value.length === 0 &&
     globalStore.userData.user_verification &&
-    globalStore.userData.some((el) => el === 'atlants') === false
+    globalStore.userData.some((el) => el === 'talants')
   ) {
     getEducationalInstitutions();
   }

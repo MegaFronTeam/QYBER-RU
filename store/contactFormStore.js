@@ -28,8 +28,7 @@ export const useContactStore = defineStore('contact', () => {
   const submit = async () => {
     console.log(dataForm.value);
     try {
-      const response = await axios.post(`${BASE_URL}/feedback/v1/contacts`, dataForm);
-      console.log(data);
+      const response = await axios.post(`${BASE_URL}/feedback/v1/contacts`, dataForm.value);
       const data = await response;
 
       console.log(data);
