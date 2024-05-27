@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userData.user_nicename">
+  <div v-if="userData.user_nickname">
     <CabinetProfileHead
       :breadcrumbArr="[{ label: 'Личный кабинет' }]"
       :img="user_avatar"
@@ -7,7 +7,7 @@
       :profileData="userData"
     >
       <h1 :class="userData.user_verification == true ? 'verifired' : ''">
-        {{ userData.user_nicename }}
+        {{ userData.user_nickname }}
       </h1>
       <span class="sProfileHead__name">{{ userData.display_name }}</span>
       <div class="sProfileHead__status online">Онлайн</div>

@@ -44,7 +44,7 @@
                       :src="`/img/${slotProps.data.avatar}`"
                       alt="Avatar"
                     />
-                    <span>{{ slotProps.data.user_nicename }}</span>
+                    <span>{{ slotProps.data.user_nickname }}</span>
                   </div>
                 </template>
               </Column>
