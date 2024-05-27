@@ -8,9 +8,8 @@
   });
   import Overview from '@/modules/tournaments/components/Overview.vue';
 
-  import { useRouter } from 'vue-router';
-  const router = useRouter();
-  const id = router.currentRoute.value.params.id;
+  import { useRoute } from 'vue-router';
+  const { id } = useRoute().params;
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentStorePage = useTournamentPageStore();
   const { currentID } = storeToRefs(tournamentStorePage);

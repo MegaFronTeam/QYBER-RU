@@ -6,8 +6,8 @@
   definePageMeta({
     layout: 'tournament',
   });
-  const router = useRouter();
-  const id = router.currentRoute.value.params.id;
+  import { useRoute } from 'vue-router';
+  const { id } = useRoute().params;
   import ContactsBlock from '@/modules/tournaments/components/ContactsBlock.vue';
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentStorePage = useTournamentPageStore();

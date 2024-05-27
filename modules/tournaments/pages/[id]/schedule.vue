@@ -8,8 +8,8 @@
   });
   import Schedule from '@/modules/tournaments/components/Schedule.vue';
 
-  const router = useRouter();
-  const id = router.currentRoute.value.params.id;
+  import { useRoute } from 'vue-router';
+  const { id } = useRoute().params;
 
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentStorePage = useTournamentPageStore();
