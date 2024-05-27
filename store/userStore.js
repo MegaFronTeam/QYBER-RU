@@ -7,10 +7,11 @@ import { useAccreditationStore } from './accreditationStore';
 import { useTeamStore } from './TeamStore';
 
 export const useUserStore = defineStore('user', () => {
-  const accreditationStore = useAccreditationStore();
-  const router = useRouter();
-  const educational_institutions = ref([]);
+  const globalStore = useGlobalStore();
 
+  const router = useRouter();
+  const accreditationStore = useAccreditationStore();
+  const educational_institutions = ref([]);
   const TeamStore = useTeamStore();
 
   const showToast = (severity, summary, detail) => {
@@ -21,8 +22,6 @@ export const useUserStore = defineStore('user', () => {
       life: 10000,
     });
   };
-
-  const globalStore = useGlobalStore();
 
   const email = ref('');
   const agreement = ref(true);
@@ -141,11 +140,12 @@ export const useUserStore = defineStore('user', () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      const data = await response;
+      const data = await response.data;
       console.log(data);
       if (data.success === true) {
+        console.log(2, data);
         // getUserData();
-        globalStore.in_verifications = true;
+        globalStore.setIn_verification();
       }
     } catch (error) {
       console.error(error);
@@ -255,7 +255,7 @@ export const useUserStore = defineStore('user', () => {
   if (
     educational_institutions.value.length === 0 &&
     globalStore.userData.user_verification &&
-    globalStore.userData.some((el) => el === 'atlants') === false
+    globalStore.userData.leagues.some((el) => el === 'atlants') === false
   ) {
     getEducationalInstitutions();
   }

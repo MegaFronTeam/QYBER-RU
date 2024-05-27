@@ -15,7 +15,7 @@ export const useTeamStore = defineStore('teamStore', {
     currentTeamID: '',
     formDataCreateTeam: {
       name: '',
-      leagues: '',
+      leagues: [],
       discipline: '',
       logo: null,
       count_members: 1,
@@ -155,6 +155,13 @@ export const useTeamStore = defineStore('teamStore', {
       } catch (error) {
         console.error(error);
         return Promise.reject(error);
+      }
+    },
+    async leaguesStatus() {
+      const globalStore = useGlobalStore();
+      if (globalStore.userData.leagues.length !== 2) {
+        this.formDataCreateTeam.leagues = [globalStore.userData.leagues[0].slug];
+        console.log('qq', this.formDataCreateTeam.leagues);
       }
     },
   },

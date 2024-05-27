@@ -30,12 +30,16 @@
         <transition name="fade">
           <form @submit.prevent="userStore.sendVerification" v-if="!globalStore.in_verifications">
             <InputGroup>
-              <label for="inn">ИНН компании/учебного заведения</label>
+              <label for="inn"
+                >ИНН компании/учебного заведения <span style="color: var(--red-500)">*</span></label
+              >
               <InputText id="inn" type="text" v-model="data.inn" placeholder="Введите ИНН " />
             </InputGroup>
 
             <InputGroup>
-              <label for="name">Вы работаете или учитесь</label>
+              <label for="name"
+                >Вы работаете или учитесь <span style="color: var(--red-500)">*</span></label
+              >
               <Dropdown
                 v-model="data.selectedWorkStudy"
                 :options="typeUSer"
@@ -65,7 +69,7 @@
               <InputGroup
                 v-if="data.selectedWorkStudy === 'study' || data.selectedWorkStudy === 'work_study'"
               >
-                <label>Учебное заведение</label>
+                <label>Учебное заведение <span style="color: var(--red-500)">*</span></label>
                 <Dropdown
                   v-model="data.user_educational_institution"
                   :options="userStore.educational_institutions"
@@ -79,7 +83,9 @@
             </transition>
 
             <InputGroup>
-              <label for="textarea">Загрузите документ</label>
+              <label for="textarea"
+                >Загрузите документ <span style="color: var(--red-500)">*</span></label
+              >
               <div>
                 <FileUpload
                   mode="basic"
@@ -130,8 +136,6 @@
 
   const customBase64Uploader = async (event) => {
     const filepage = event.files[0];
-    data.file = filepage;
-    console.log(data.file, filepage);
     // file.value = event.files[0];
 
     const reader = new FileReader();
@@ -141,6 +145,8 @@
 
     reader.onloadend = function () {
       const base64data = reader.result;
+      data.file = filepage;
+      accreditation.setFile(filepage); // Assuming the accreditation store has a method called setFile to store the base64 data
     };
   };
 

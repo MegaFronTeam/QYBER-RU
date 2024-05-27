@@ -121,6 +121,9 @@ export const useGlobalStore = defineStore(
     // if (educational_institutions.value.length === 0) {
     //   getEducationalInstitutions();
     // }
+    const setIn_verification = () => {
+      in_verifications.value = true;
+    };
 
     getRegions();
     return {
@@ -141,6 +144,7 @@ export const useGlobalStore = defineStore(
       getContacts,
       user_genderArr,
       regions,
+      setIn_verification,
     };
   },
   { persist: { storage: persistedState.localStorage } },

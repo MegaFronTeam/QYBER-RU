@@ -46,9 +46,11 @@
                 optionValue="slug"
                 optionLabel="name"
                 :options="globalStore.leaguesOptions"
-                aria-labelledby="basic"
-                :allowEmpty="false"
+                aria-labelledby="multiple"
+                multiple
+                :disabled="globalStore.userData.leagues.length !== 2"
               />
+              <!-- :allowEmpty="false" -->
             </InputGroup>
 
             <InputGroup>
@@ -102,6 +104,8 @@
   globalStore.getDisciplines();
   import { useToast } from 'primevue/usetoast';
   const toast = useToast();
+
+  teamStore.leaguesStatus();
 
   // const name = ref();
   // const leagues = ref([]);
