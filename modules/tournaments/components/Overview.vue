@@ -1,67 +1,19 @@
 <template>
-  <section class="sTournamentOverview">
-    <div class="container">
-      <div class="sTournamentOverview__head">
-        <div class="head-item">
-          <p><span>Дисциплина</span></p>
-          <p>Dota 2</p>
-        </div>
-        <div class="head-item">
-          <p><span>Лига</span></p>
-          <p>Кибер Атланты</p>
-        </div>
-        <div class="head-item">
-          <p><span>Формат</span></p>
-          <p>5x5</p>
-        </div>
-        <div class="head-item">
-          <p><span>Команды</span></p>
-          <p>3/8</p>
-        </div>
-        <div class="head-item">
-          <p><span>Призовой фонд</span></p>
-          <p>40 000 ₽</p>
-        </div>
-      </div>
-      <div class="sTournamentOverview__wrap">
-        <div class="div">
-          <div class="wrap-header">
-            <!-- <div class="link-wrap"><a href="">Обзор</a></div>
-          <div class="link-wrap"><a href="">Расписание</a></div>
-          <div class="link-wrap"><a href="">Сетка</a></div>
-          <div class="link-wrap"><a href="">Участники</a></div>
-          <div class="link-wrap"><a href="">Правила</a></div>
-          <div class="link-wrap"><a href="">Контакты</a></div>
-          <div class="link-wrap"><a href="">Жеребьевка</a></div> -->
-            <a class="active" href="#">Обзор</a>
-            <a href="#">Расписание</a>
-            <a href="#">Сетка</a>
-            <a href="#">Участники</a>
-            <a href="#">Правила</a>
-            <a href="#">Контакты</a>
-            <a href="#">Жеребьевка <span>Для судей</span></a>
-          </div>
-        </div>
+  <div class="wrap-body">
+    <div class="sTournamentOverview__info">
+      <svg-icon name="info.svg" />
+      Для участия подтвердите свою заявку в период 28 января 2024 г. в 14:00 - 28 февраля 2024 в
+      14:00
+    </div>
+    <div class="sTournamentOverview__title-item">
+      <h3>
+        Подробное описание турнира Кибер
 
-        <div class="wrap-body">
-          <div class="sTournamentOverview__info">
-            <svg-icon name="info.svg" />
-            Для участия подтвердите свою заявку в период 28 января 2024 г. в 14:00 - 28 февраля 2024
-            в 14:00
-          </div>
-          <div class="sTournamentOverview__title-item">
-            <h3>Подробное описание турнира Кибер Атланты Осень 2024 по Dota 2</h3>
-            <p>
-              Для участия в турнире каждый игрок в обязательном порядке должен вступить на сервер в
-              Discord с указанием названия команды <br />
-              в формате — [Название команды] Никнейм
-            </p>
-            <ul>
-              <li>Все матчи проходят в формате BO1 (до одной победы).</li>
-              <li>Призы получают команды, занявшие места с 1 по 8.</li>
-            </ul>
-          </div>
-          <div class="sTournamentOverview__item">
+        {{ data.title }}
+      </h3>
+      <div v-html="data.full_description"></div>
+    </div>
+    <!-- <div class="sTournamentOverview__item">
             <h5>Расписание</h5>
             <div class="sTournamentOverview__descr overview-item">
               <p>28 февраля в 14:00 мск — окончание приема заявок;</p>
@@ -90,34 +42,38 @@
                 >
               </p>
             </div>
-          </div>
-          <NuxtLink to="/auth/login" v-if="!globalStore.isUserAuth">
-            <Button label="Регистрация на турнир" class="w-full" />
-          </NuxtLink>
-        </div>
-        <div class="wrap-footer" v-if="shareComp">
-          <div class="wrap-footer__title">Поделиться</div>
-          <div class="wrap-footer__icons">
-            <a href="#" class="contacts__link">
-              <svg-icon name="copy.svg" />
-            </a>
-            <a href="#" target="_blank" class="contacts__link">
-              <svg-icon name="telegram.svg" />
-            </a>
-            <a href="#" target="_blank" class="contacts__link">
-              <svg-icon name="vk.svg" />
-            </a>
-          </div>
-        </div>
-      </div>
-      <!-- <Button label="Подробнее о турнире" class="btn-lg" /> -->
+          </div> -->
+    <ShareTournamentRegistration />
+  </div>
+  <div class="wrap-footer" v-if="shareComp">
+    <div class="wrap-footer__title">Поделиться</div>
+    <div class="wrap-footer__icons">
+      <a href="#" class="contacts__link">
+        <svg-icon name="copy.svg" />
+      </a>
+      <a href="#" target="_blank" class="contacts__link">
+        <svg-icon name="telegram.svg" />
+      </a>
+      <a href="#" target="_blank" class="contacts__link">
+        <svg-icon name="vk.svg" />
+      </a>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup>
   import { useGlobalStore } from '~/store/globalStore';
-  import YandexShare from '@cookieseater/vue-yandex-share';
-
+  import MenuBlock from './MenuBlock.vue';
   const globalStore = useGlobalStore();
+
+  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  const tournamentStorePage = useTournamentPageStore();
+  const { data } = storeToRefs(tournamentStorePage);
+
+  const title = ref('');
+
+  onMounted(() => {
+    // tournamentStorePage.getTournament(currentID.value);
+    // title.value = data.title;
+  });
 </script>

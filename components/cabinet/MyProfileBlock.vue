@@ -7,7 +7,7 @@
           <!-- v-if="teamsStore.myTeamsCount > 0" -->
           <Button @click="active = 1" :class="active === 1 ? 'active' : ''">
             Мои команды
-            <Badge :value="teamsStore.myTeams.length"></Badge>
+            <Badge :value="myTeams.length"></Badge>
           </Button>
         </div>
       </div>
@@ -56,6 +56,7 @@
   // import CreateTeam from '@/components/cabinet/CreateTeam.vue';
   import { useTeamStore } from '@/store/TeamStore';
   const teamsStore = useTeamStore();
+  const { myTeams } = storeToRefs(teamsStore);
 
   const active = ref(0);
 </script>

@@ -4,11 +4,14 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from './globalStore';
 import { useAccreditationStore } from './accreditationStore';
 // import { showToast } from '@/utils/showToast';
+import { useTeamStore } from './teamStore';
 
 export const useUserStore = defineStore('user', () => {
   const accreditationStore = useAccreditationStore();
   const router = useRouter();
   const educational_institutions = ref([]);
+
+  const TeamStore = useTeamStore();
 
   const showToast = (severity, summary, detail) => {
     toast.add({
@@ -66,6 +69,10 @@ export const useUserStore = defineStore('user', () => {
         globalStore.user_avatar = data.user_avatar.url;
       } else [(globalStore.user_avatar = '')];
       globalStore.user_first_letter = data.user_nickname[0].toUpperCase();
+
+      if (data.user_verification) {
+      }
+      await TeamStore.fetchMyTeams();
 
       // getEducationalInstitutions();
     } catch (error) {

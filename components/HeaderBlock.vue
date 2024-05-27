@@ -12,17 +12,17 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import Breadcrumbs from '@/components/share/Breadcrumbs.vue';
-const defineProps = defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  bg: {
-    type: String,
-    required: true,
-  },
-});
-const { title, bg } = defineProps;
+  import { ref } from 'vue';
+  import Breadcrumbs from '@/components/share/Breadcrumbs.vue';
+  const props = defineProps({
+    title: {
+      type: String,
+      required: true,
+    },
+    bg: {
+      type: String,
+      required: true,
+    },
+  });
+  const { title, bg } = toRefs(props);
 </script>

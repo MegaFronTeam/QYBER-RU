@@ -16,16 +16,16 @@ export const useTournamentStore = defineStore('tournament', () => {
 
   const getMyTournaments = async (id) => {
     tournamentsMy.value = tournamentsList.value.filter((item) => {
-      console.log(item.comand_list);
+      // console.log(item.comand_list);
       return item.comand_list.some((elem) => elem.id === id);
     });
-    console.log(id, tournamentsMy.value);
+    // console.log(id, tournamentsMy.value);
   };
   const getAll = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/wp/v2/tournaments`);
       const data = await response.data;
-      console.log(data);
+      // console.log(data);
       tournamentsList.value = data;
       tournamentsList.value.forEach((item) => {
         item['prize_fundRub'] = new Intl.NumberFormat('ru-RU', {
@@ -37,7 +37,7 @@ export const useTournamentStore = defineStore('tournament', () => {
           .format(+item.prize_fund)
           .replace(/\.00$/, '');
         item.teamCount = item.comand_list.length > 0 ? item.comand_list.length : 0;
-        console.log(item);
+        // console.log(item);
         item.date = new Date(item.date).toLocaleDateString();
       });
 
@@ -64,12 +64,12 @@ export const useTournamentStore = defineStore('tournament', () => {
       const data = await response.data;
       if (data.status === true) {
         hideForm.value = true;
-        console.log('success');
+        // console.log('success');
       }
       setTimeout(() => {
         hideForm.value = false;
       }, 1500);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error(error);
       return Promise.reject(error);

@@ -45,18 +45,7 @@
               </h5>
             </div>
             <div class="sMainHeader__tournament-bottom-row row">
-              <NuxtLink to="/auth/login" v-if="!globalStore.isUserAuth">
-                <Button label="Регистрация" class="w-full" />
-              </NuxtLink>
-              <Button
-                v-else
-                @click="
-                  tournamentStore.showRegModal = true;
-                  tournamentStore.currentID = '836';
-                "
-                label="Регистрация "
-                class="w-full"
-              />
+              <ShareTournamentRegistration />
               <div class="sMainHeader__timer">
                 <!-- <span>До начала:</span> -->
 

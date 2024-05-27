@@ -14,6 +14,13 @@ export const useBreadcrumbsStore = defineStore('breadcrumbs', {
       this.lastBreadcrumb.label = label;
       return label;
     },
+
+    // setName(label) {
+    //   // console.log(label);
+    //   this.lastBreadcrumb.label = label;
+    //   return label;
+    // },
+
     createBreadcrumb() {
       const router = useRouter();
       this.items = [];

@@ -2,10 +2,12 @@
   <Card class="sNewsCard">
     <template #header>
       <div class="sNewsCard__img-wrap">
-        <div class="img-wrap-center">
-          <Skeleton v-if="skeleton === true" height="100%" width="100%"></Skeleton>
-          <img v-else class="object-fit-js" alt="user header" :src="newsData.thumbnail" />
-        </div>
+        <NuxtLink :to="'/tournaments/' + newsData.id">
+          <div class="img-wrap-center">
+            <Skeleton v-if="skeleton === true" height="100%" width="100%"></Skeleton>
+            <img v-else class="object-fit-js" alt="user header" :src="newsData.thumbnail" />
+          </div>
+        </NuxtLink>
       </div>
     </template>
     <template #title>
@@ -44,18 +46,7 @@
           <!-- TODO: add formatted date -->
           <!-- <strong>{{ formattedDate || ' ' }}</strong> -->
         </div>
-        <NuxtLink to="/auth/login" v-if="!globalStore.isUserAuth">
-          <Button label="Регистрация" class="w-full" />
-        </NuxtLink>
-        <Button
-          v-else
-          @click="
-            tournamentStore.showRegModal = true;
-            tournamentStore.currentID = id;
-          "
-          label="Регистрация "
-          class="w-full"
-        />
+        <ShareTournamentRegistration :id="newsData.id" />
       </template>
     </template>
   </Card>
@@ -66,6 +57,10 @@
   import { useTournamentStore } from '@/store/TournamentStore';
   const tournamentStore = useTournamentStore();
   const globalStore = useGlobalStore();
+
+  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  const tournamentStorePage = useTournamentPageStore();
+
   const props = defineProps({
     newsData: {
       type: Object,
@@ -77,15 +72,16 @@
       default: false,
     },
   });
-  const { newsData } = props;
 
-  const id = ref(newsData.id);
+  const { newsData } = toRefs(props);
+
   const prize_fund = ref(newsData.prize_fund);
   const teamCount = ref(newsData.teamCount);
   // let img = 'https://primefaces.org/cdn/primevue/images/usercard.png';
   // if (newsData.thumbnail) {
   //   img = newsData.thumbnail;
   // }
+  // await tournamentStorePage.fetchData(newsData.id);
 
   const date = new Date(newsData.date);
   const formattedDate = date

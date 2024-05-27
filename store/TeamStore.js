@@ -42,9 +42,9 @@ export const useTeamStore = defineStore('teamStore', {
       try {
         const res = await this.fetcher('GET', '/teams/v1/my');
         const data = res.data;
-        if (data.length > 0) {
-          this.myTeams = data;
-        }
+        // if (data.length > 0) {
+        this.myTeams = data;
+        // }
       } catch (err) {
         console.log(err);
       }

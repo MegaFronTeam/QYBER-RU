@@ -11,7 +11,7 @@
     @include media-breakpoint-up(lg) {
       padding: rem(12);
       gap: rem(12);
-      grid-template-columns: repeat( auto-fit, minmax(150px, 1fr) );
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       margin-bottom: rem(12);
     }
     &--small {
@@ -25,7 +25,7 @@
   }
   .head-item {
     border-radius: rem(10);
-    background: var(--bg-colorPrimary, #FFF);
+    background: var(--bg-colorPrimary, #fff);
     padding: rem(12);
     p {
       font-weight: 600;
@@ -153,22 +153,34 @@
     }
     li::before {
       color: var(--primary-300);
-      content: "•";
+      content: '•';
       padding-right: 10px;
     }
   }
-
+  blockquote {
+    margin-left: 0;
+  }
+  blockquote,
+  ul,
   &__descr {
     padding: rem(24);
     border-left: rem(3) solid var(--primary-300);
     margin-bottom: rem(18);
     background: var(--bg-caution-subdued);
+    ul {
+      background: none;
+      border: none;
+    }
     @include media-breakpoint-up(lg) {
       margin-bottom: rem(24);
     }
     display: flex;
     flex-direction: column;
     gap: rem(12);
+    li {
+      font-size: rem(14);
+      line-height: 143%;
+    }
     p {
       font-size: rem(14);
       line-height: 143%;
@@ -253,9 +265,10 @@
   &--participants {
     td:last-child {
       text-align: right;
-      opacity: .6;
+      opacity: 0.6;
     }
-    tr:last-child, tr:last-child td {
+    tr:last-child,
+    tr:last-child td {
       border: none;
     }
     .template {
@@ -341,7 +354,7 @@
       width: 100%;
       min-height: rem(68);
       &.danger {
-        background: rgb(236, 97, 76, .12);
+        background: rgb(236, 97, 76, 0.12);
       }
     }
     .wrap-body__item {
@@ -378,7 +391,7 @@
         display: flex;
         flex-direction: column;
         gap: rem(12);
-          @include media-breakpoint-up(lg) {
+        @include media-breakpoint-up(lg) {
           display: flex;
           flex-direction: row;
           justify-content: space-between;
@@ -497,7 +510,8 @@
         -webkit-box-orient: vertical;
         flex-direction: column;
         &:last-child .tournament-table__group {
-          &::after, &::before {
+          &::after,
+          &::before {
             content: none;
           }
         }
@@ -768,6 +782,7 @@
     margin: rem(24) auto;
   }
 
+  h2,
   h5 {
     text-align: center;
     margin-top: rem(24);
@@ -793,7 +808,7 @@
     margin-bottom: rem(24);
     background: transparent;
     border-color: var(--gray-100);
-    .p-tabview-header:not(.p-highlight) a  {
+    .p-tabview-header:not(.p-highlight) a {
       border-color: var(--gray-100);
     }
     .p-tabview-title {
@@ -829,7 +844,7 @@
       top: 50%;
       right: rem(12);
       transform: translateY(-44%);
-      cursor:pointer;
+      cursor: pointer;
     }
   }
   #calendar-timeonly {
@@ -862,7 +877,7 @@
       width: rem(44);
       height: rem(44);
       padding: rem(14);
-      color: var(--text-colorSecondary, #6D7076);
+      color: var(--text-colorSecondary, #6d7076);
     }
   }
   .p-inputnumber-input {
@@ -911,7 +926,7 @@
       background: var(--transparent-black-main);
       backdrop-filter: blur(12px);
       z-index: -1;
-      opacity: .5;
+      opacity: 0.5;
     }
   }
   p {
@@ -930,8 +945,8 @@
       max-width: 18vw;
       margin-bottom: rem(18);
     }
-  .img {
-    width: 100%;
+    .img {
+      width: 100%;
     }
   }
   .p-badge-gray {
@@ -945,5 +960,14 @@
       gap: rem(18);
       justify-content: center;
     }
+  }
+}
+
+.wrap-header {
+  a:hover,
+  .router-link-active {
+    @include mt;
+    color: var(--text-colorprimary);
+    border-bottom: 2px solid var(--primary-300);
   }
 }
