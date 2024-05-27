@@ -5,8 +5,12 @@
         <div class="div">
           <MenuBlock />
         </div>
-
         <div class="wrap-body">
+          <div class="sTournamentOverview__info">
+            <svg-icon name="info.svg" />
+            Для участия подтвердите свою заявку в период 28 января 2024 г. в 14:00 - 28 февраля 2024
+            в 14:00
+          </div>
           <slot></slot>
         </div>
         <div class="wrap-footer" v-if="shareComp">

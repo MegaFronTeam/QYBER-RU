@@ -5,7 +5,7 @@
         <NuxtLink :to="'/tournaments/' + newsData.id">
           <div class="img-wrap-center">
             <Skeleton v-if="skeleton === true" height="100%" width="100%"></Skeleton>
-            <img v-else class="object-fit-js" alt="user header" :src="newsData.thumbnail" />
+            <img v-else class="object-fit-js" alt="user header" :src="newsData.post_thumbnail" />
           </div>
         </NuxtLink>
       </div>
@@ -24,14 +24,14 @@
             <div class="card-panel-inner">
               Призовой фонд
 
-              <strong>{{ prize_fund }}</strong>
+              <strong>{{ newsData.prize_fund }}</strong>
             </div>
           </div>
           <div class="col-6">
             <div class="card-panel-inner">
               Команды
 
-              <strong>{{ teamCount }}/{{ maxTeamCount || 5 }}</strong>
+              <strong>{{ newsData.teamLength }}/{{ maxTeamCount || 5 }}</strong>
             </div>
           </div>
         </div>

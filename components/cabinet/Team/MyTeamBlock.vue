@@ -52,7 +52,7 @@
                       :src="`${slotProps.data.avatar.url}`"
                       alt="Avatar"
                     />
-                    <span>{{ slotProps.data.user_nicename }}</span>
+                    <span>{{ slotProps.data.user_login }}</span>
                   </div>
                 </template>
               </Column>

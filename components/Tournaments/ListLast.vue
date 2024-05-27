@@ -4,24 +4,7 @@
     :sectionTitle="sectionTitleTournamentsProps"
     :footerLink="footerLinkTournamentsProps"
   >
-    <TournamentsCard
-      v-for="item of getLast"
-      :newsData="{
-        id: item.id,
-        title: item.title.rendered,
-        date: item.post_date,
-        excerpt: item.post_excerpt,
-        thumbnail: item.post_thumbnail,
-        teamCount: item.teamCount,
-        // TODO: add max_team_count
-        maxTeamCount: item.max_team_count,
-        dateStart: item.date,
-        prize_fund: item.prize_fundRub,
-        // TODO: add formatted date
-        formattedDate: item.formattedDate,
-      }"
-      :key="item.id"
-    />
+    <TournamentsCard v-for="item of getLast" :newsData="item" />
   </MainContentBlock>
 </template>
 

@@ -25,10 +25,9 @@ export const useTournamentStore = defineStore('tournament', () => {
     try {
       const response = await axios.get(`${BASE_URL}/wp/v2/tournaments`);
       const data = await response.data;
-      // console.log(data);
-      tournamentsList.value = data;
-      tournamentsList.value.forEach((item) => {
-        item['prize_fundRub'] = new Intl.NumberFormat('ru-RU', {
+
+      data.map((item) => {
+        item['prize_fund'] = new Intl.NumberFormat('ru-RU', {
           style: 'currency',
           currency: 'RUB',
           minimumFractionDigits: 0,
@@ -37,11 +36,17 @@ export const useTournamentStore = defineStore('tournament', () => {
           .format(+item.prize_fund)
           .replace(/\.00$/, '');
         item.teamCount = item.comand_list.length > 0 ? item.comand_list.length : 0;
-        // console.log(item);
         item.date = new Date(item.date).toLocaleDateString();
+        item.title = item.title.rendered;
+        item.teamLength = item.comand_list.length;
+        delete item.short_description;
+        delete item.full_description;
+        delete item.regulations;
       });
 
-      getLast.value = tournamentsList.value.slice(0, 7);
+      // console.log(data);
+      tournamentsList.value = data;
+      getLast.value = data.slice(0, 7);
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
