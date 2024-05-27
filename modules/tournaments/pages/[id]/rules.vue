@@ -13,7 +13,7 @@
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentStorePage = useTournamentPageStore();
   const { currentID } = storeToRefs(tournamentStorePage);
-  console.log(id);
+
   if (id !== currentID.value) {
     tournamentStorePage.fetchData(id);
   }
