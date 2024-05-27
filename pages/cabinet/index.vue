@@ -2,7 +2,7 @@
   <div v-if="userData.user_nicename">
     <CabinetProfileHead
       :breadcrumbArr="[{ label: 'Личный кабинет' }]"
-      :img="userData.user_avatar.sizes.medium"
+      :img="user_avatar"
       :avatarText="user_first_letter"
       :profileData="userData"
     >
@@ -48,7 +48,7 @@
 
   const globalStore = useGlobalStore();
 
-  const { userData, user_first_letter } = storeToRefs(globalStore);
+  const { userData, user_first_letter, user_avatar } = storeToRefs(globalStore);
   definePageMeta({
     breadcrumbName: 'Личный кабинет',
   });

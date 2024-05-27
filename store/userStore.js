@@ -55,6 +55,9 @@ export const useUserStore = defineStore('user', () => {
       });
 
       const data = await response.data;
+
+      globalStore.userData = data;
+
       if (data.leagues === false) {
         globalStore.isAtlants = false;
         globalStore.isTalants = false;
@@ -63,11 +66,11 @@ export const useUserStore = defineStore('user', () => {
         globalStore.isTalants = data.leagues.some((elem) => elem.slug === 'talants');
       }
       data.user_registered = data.user_registered.split(' ')[0].split('-').reverse().join('.');
-      globalStore.userData = data;
       globalStore.in_verifications = globalStore.userData.in_verifications;
+      // globalStore.user_avatar = data.user_avatar !== false ? data.user_avatar.sizes.medium : null;
       if (data.user_avatar) {
-        globalStore.user_avatar = data.user_avatar.url;
-      } else [(globalStore.user_avatar = '')];
+        globalStore.user_avatar = data.user_avatar.sizes.medium;
+      }
       globalStore.user_first_letter = data.user_nickname[0].toUpperCase();
 
       if (data.user_verification) {
