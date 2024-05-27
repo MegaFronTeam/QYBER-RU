@@ -4,6 +4,23 @@
       <div class="sMyProfileBlock__head">Персональная информация</div>
       <div class="form-wrap">
         <form @submit.prevent="userStore.updateMyProfileData">
+          <!-- TODO: доделать отпарвку аватара кабинета -->
+          <InputGroup>
+            <label for="textarea">Загрузить аватар </label>
+            <div>
+              <FileUpload
+                mode="basic"
+                name="logo"
+                id="logo"
+                accept="image/*"
+                maxFileSize="5000000"
+                url="/api/upload"
+                @select="customBase64Uploader"
+                chooseLabel="Загрузить аватар "
+              >
+              </FileUpload>
+            </div>
+          </InputGroup>
           <InputGroup>
             <label for="name">Никнейм</label>
             <InputText
@@ -157,5 +174,20 @@
 
   const { educational_institutions } = storeToRefs(userStore);
 
+  const customBase64Uploader = async (event) => {
+    const file = event.files[0];
+    userData.user_avatar = file;
+
+    const reader = new FileReader();
+    let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
+
+    reader.readAsDataURL(blob);
+
+    reader.onloadend = function () {
+      const base64data = reader.result;
+      accreditation.setFile(file);
+    };
+    // console.log(logo.value);
+  };
   // const in_verifications = globalStore.userData.user_verification == false;
 </script>

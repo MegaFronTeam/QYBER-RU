@@ -85,9 +85,15 @@ export const useUserStore = defineStore('user', () => {
 
   const updateMyProfileData = async () => {
     try {
-      const response = await axios.post(`${BASE_URL}/profile/v1/update`, globalStore.userData, {
+      const formData = new FormData();
+      Object.keys(globalStore.userData).forEach((key) => {
+        formData.append(key, globalStore.userData[key]);
+      });
+
+      const response = await axios.post(`${BASE_URL}/profile/v1/update`, formData, {
         headers: {
           Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
+          'Content-Type': 'multipart/form-data',
         },
       });
       const data = await response.data;
@@ -240,12 +246,12 @@ export const useUserStore = defineStore('user', () => {
 
       educational_institutions.value.push(...data);
 
-      // const pages = response.headers['x-wp-totalpages'];
-      // for (let i = 2; i <= pages; i++) {
-      //   const response = await axios.get(`${BASE_URL}/wp/v2/educations?per_page=100&page=${i}`);
-      //   const data = await response.data;
-      //   educational_institutions.value.push(...data);
-      // }
+      const pages = response.headers['x-wp-totalpages'];
+      for (let i = 2; i <= pages; i++) {
+        const response = await axios.get(`${BASE_URL}/wp/v2/educations?per_page=100&page=${i}`);
+        const data = await response.data;
+        educational_institutions.value.push(...data);
+      }
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
@@ -255,7 +261,7 @@ export const useUserStore = defineStore('user', () => {
   if (
     educational_institutions.value.length === 0 &&
     globalStore.userData.user_verification &&
-    globalStore.userData.some((el) => el === 'talants')
+    globalStore.userData.leagues.some((el) => el === 'talants')
   ) {
     getEducationalInstitutions();
   }

@@ -32,14 +32,15 @@ export const useContactStore = defineStore('contact', () => {
       const data = await response;
 
       console.log(data);
-      // if (data.status === true) {
-      //   showToast('success', 'Заявка отправлена', 'Мы свяжемся с вами в ближайшее время');
-      //   passwordData.value = {
-      //     current_password: '',
-      //     new_password: '',
-      //     repeat_password: '',
-      //   };
-      // }
+      if (data == true) {
+        showToast('success', 'Заявка отправлена', 'Мы свяжемся с вами в ближайшее время');
+        dataForm.value = {
+          email: '',
+          phone: '',
+          name: '',
+          message: '',
+        };
+      }
     } catch (error) {
       console.error(error);
       if (error.response.data.errors) {
