@@ -4,7 +4,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from './globalStore';
 import { useAccreditationStore } from './accreditationStore';
 // import { showToast } from '@/utils/showToast';
-import { useTeamStore } from './teamStore';
+import { useTeamStore } from './TeamStore';
 
 export const useUserStore = defineStore('user', () => {
   const accreditationStore = useAccreditationStore();
