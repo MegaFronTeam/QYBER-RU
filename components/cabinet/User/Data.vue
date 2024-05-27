@@ -150,11 +150,12 @@
   import { useGlobalStore } from '@/store/globalStore';
   const globalStore = useGlobalStore();
 
-  const { userData, educational_institutions } = storeToRefs(globalStore);
-  const { regions } = storeToRefs(globalStore);
-
-  const { user_genderArr } = storeToRefs(globalStore);
+  const { userData, regions, user_genderArr } = storeToRefs(globalStore);
 
   import { useUserStore } from '@/store/userStore';
   const userStore = useUserStore();
+
+  const { educational_institutions } = storeToRefs(userStore);
+
+  // const in_verifications = globalStore.userData.user_verification == false;
 </script>
