@@ -14,12 +14,12 @@
                 <span>Организатор турнира</span>
                 <h2 class="h1">Иванов Иван</h2>
               </div>
-              <div class="sContactBlock__profile-info">
+              <!-- <div class="sContactBlock__profile-info">
                 <span>Позвонить</span>
                 <a class="h4" href="tel:+79392993030" target="_blank" rel="noopener noreferrer"
                   >+7 (939) 299-30-30</a
                 >
-              </div>
+              </div> -->
               <div class="sContactBlock__profile-info">
                 <span>Электронная почта</span>
                 <a

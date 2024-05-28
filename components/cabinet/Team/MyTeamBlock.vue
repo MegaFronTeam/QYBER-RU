@@ -109,10 +109,10 @@
                 <template #body="slotProps">
                   <div class="d-flex align-items-center">
                     <span class="small-text">
-                      {{ slotProps.data.role }}
+                      {{ slotProps.data.role.label }}
                     </span>
                     <Button
-                      v-if="slotProps.data.role !== 'Капитан'"
+                      v-if="slotProps.data.role.label !== 'капитан'"
                       severity="danger"
                       outlined
                       class="btn-sm ms-auto"
