@@ -1,10 +1,10 @@
 <template>
-  <DataTable :value="tournamentsMy">
+  <DataTable :value="teamData.tournaments">
     <Column
       style="width: 33%"
       :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
-      field="nickname"
-      header="Никнейм"
+      field="post_title"
+      header="Турнир"
       sortable
     >
       <template #sorticon="slotProps">
@@ -24,12 +24,13 @@
       </template>
       <template #body="slotProps">
         <div class="table-wrap">
-          <img :src="`/img/${slotProps.data.nickname.avatar}`" alt="Avatar" />
-          <span>{{ slotProps.data.nickname.text }}</span>
+          <!-- TODO: add tournament image -->
+          <!-- <img :src="`/img/${slotProps.data.nickname.avatar}`" alt="Avatar" /> -->
+          <span>{{ slotProps.data.post_title }}</span>
         </div>
       </template>
     </Column>
-    <Column
+    <!-- <Column
       style="width: 33%"
       :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
       field="name"
@@ -84,18 +85,14 @@
           {{ slotProps.data.role }}
         </span>
       </template>
-    </Column>
+    </Column> -->
   </DataTable>
 </template>
 
 <script lang="ts" setup>
-  import { useTournamentStore } from '@/store/TournamentStore';
-  const tournamentStore = useTournamentStore();
-  const { tournamentsMy } = storeToRefs(tournamentStore);
-
-  const props = defineProps({
-    products: Array,
-  });
+  import { useTeamStore } from '~/store/TeamStore';
+  const teamStore = useTeamStore();
+  const { teamData } = storeToRefs(teamStore);
 </script>
 
 <style></style>

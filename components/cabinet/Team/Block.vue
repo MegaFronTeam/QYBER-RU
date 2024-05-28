@@ -107,7 +107,7 @@
             </DataTable>
           </TabPanel>
           <TabPanel>
-            <CabinetTeamTournaments :teamData="tournamentsMy" />
+            <CabinetTeamTournaments />
           </TabPanel>
         </TabView>
       </div>
