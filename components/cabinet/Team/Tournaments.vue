@@ -26,7 +26,11 @@
         <div class="table-wrap">
           <!-- TODO: add tournament image -->
           <!-- <img :src="`/img/${slotProps.data.nickname.avatar}`" alt="Avatar" /> -->
-          <span>{{ slotProps.data.post_title }}</span>
+          <span>
+            <NuxtLink :to="'/tournaments/' + slotProps.data.ID">{{
+              slotProps.data.post_title
+            }}</NuxtLink></span
+          >
         </div>
       </template>
     </Column>

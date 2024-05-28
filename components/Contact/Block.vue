@@ -7,12 +7,12 @@
             <div class="sContactBlock__profile">
               <div class="sContactBlock__img-wrap">
                 <div class="img-wrap-center">
-                  <img src="/img/avatar-img-3.jpg" class="object-fit-js" alt="avatar" />
+                  <img src="/img/photo_org.jpg" class="object-fit-js" alt="avatar" />
                 </div>
               </div>
               <div class="sContactBlock__profile-info">
                 <span>Организатор турнира</span>
-                <h2 class="h1">Иванов Иван</h2>
+                <h2 class="h1">Бондаренко Александр</h2>
               </div>
               <!-- <div class="sContactBlock__profile-info">
                 <span>Позвонить</span>
