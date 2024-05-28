@@ -26,7 +26,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           minute: '2-digit',
           hour12: false,
         };
-        data.date = data.date.split('пп')[0];
+        // data.date = data.date.split('пп')[0];
         data.teamLength = data.comand_list.length;
         // data.date = new Date(data.date.split('пп')[0])
         // .toLocaleString('ru-RU', options);
