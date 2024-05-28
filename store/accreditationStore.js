@@ -2,7 +2,6 @@ export const useAccreditationStore = defineStore('accreditation', () => {
   const data = ref({
     inn: '',
     leagues: [],
-    file: '',
     selectedWorkStudy: '',
     file: {},
     user_educational_institution: '',
