@@ -3,13 +3,13 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from '@/store/globalStore';
 // import {useTournamentPageStore} from '@/store/tournamentPageStore';
 import { useTournamentsListStore } from '@/modules/tournaments/store/TournamentsListStore';
+import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
 
 export const useTournamentPageStore = defineStore('tournamentPage', {
   state: () => ({
     data: [],
     currentID: '',
-    menuList: [],
-    matches: [],
   }),
   actions: {
     async fetchData(id) {
@@ -43,7 +43,20 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           .replace(/\.00$/, '');
         this.matches = data.matches;
 
+        this.comand_list = data.comand_list;
+
+        // data.map((item) => {
+        //   delete item.matches;
+        //   delete item.comand_list;
+        // });
         // this.matches.push(...data.matches);
+        data.comand_list = data.comand_list.map((item) => {
+          item.created_at2 = format(new Date(item.team.post_date), 'EE, d MMMM yyyy  в HH:mm', {
+            locale: ru,
+          });
+          //
+          return item;
+        });
 
         this.data = data;
         this.currentID = id;

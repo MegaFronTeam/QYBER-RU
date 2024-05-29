@@ -74,7 +74,7 @@
             <div class="tournament-table__row row">
               <div
                 class="tournament-table__col col-auto"
-                v-for="(match, index) in matches"
+                v-for="(match, index) in data.matches"
                 :key="index"
               >
                 <template v-for="(item, indexSub) in match" :key="item.id">
@@ -191,12 +191,10 @@
 
 <script setup>
   import GridCard from './GridCard.vue';
-
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
-  const { matches } = storeToRefs(tournamentPageStore);
+  const { data } = storeToRefs(tournamentPageStore);
 
-  console.log('matches', matches);
   // const active = ref(1);
   // const products = ref([
   //   {
