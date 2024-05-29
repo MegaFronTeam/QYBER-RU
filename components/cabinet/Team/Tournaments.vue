@@ -93,7 +93,7 @@
   </DataTable>
 </template>
 
-<script lang="ts" setup>
+<script setup>
   import { useTeamStore } from '~/store/TeamStore';
   const teamStore = useTeamStore();
   const { teamData } = storeToRefs(teamStore);

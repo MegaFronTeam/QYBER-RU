@@ -7,12 +7,12 @@
 
   --gray-50: var(--grayscale-96);
   --gray-100: var(--grayscale-92);
-  --gray-200: var(--text-color);
+  --gray-200: var(--grayscale-92);
   --gray-300: var(--grayscale-88);
   --gray-400: var(--grayscale-60);
   --gray-500: var(--grayscale-40);
   --gray-700: var(--grayscale-11);
-  --bg-colorPrimary: #0C101A;
+  --bg-colorPrimary: #0c101a;
 
   h1,
   h2,
@@ -33,10 +33,10 @@
     }
   }
 
-  .card-panel-inner{
-    color: var(--text-colorTertiary, #6D7076);
-    strong{
-      color: var(--text-colorPrimary, #E4E5E6);
+  .card-panel-inner {
+    color: var(--text-colorTertiary, #6d7076);
+    strong {
+      color: var(--text-colorPrimary, #e4e5e6);
     }
   }
 }

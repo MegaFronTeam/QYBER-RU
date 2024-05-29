@@ -2,12 +2,14 @@ import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from '@/store/globalStore';
 // import {useTournamentPageStore} from '@/store/tournamentPageStore';
+import { useTournamentsListStore } from '@/modules/tournaments/store/TournamentsListStore';
 
 export const useTournamentPageStore = defineStore('tournamentPage', {
   state: () => ({
     data: [],
     currentID: '',
     menuList: [],
+    matches: [],
   }),
   actions: {
     async fetchData(id) {
@@ -39,8 +41,15 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         })
           .format(+data.prize_fund)
           .replace(/\.00$/, '');
+        this.matches = data.matches;
+
+        // this.matches.push(...data.matches);
+
         this.data = data;
         this.currentID = id;
+        // tournamentsListStore.matches = data.matches.map((match, index) => {
+        //   match.index = index;
+        // });
       } catch (error) {
         console.error(error);
         return Promise.reject(error);

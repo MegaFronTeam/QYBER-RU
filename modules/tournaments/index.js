@@ -42,7 +42,7 @@ export default defineNuxtModule({
         // const page = pagePath.match(/\/([^/]+)\.vue$/)[1];
         pages.push({
           name: `tournaments-${pagePath}`,
-          path: `/tournaments/:id${pagePath === 'index' ? '' : `-${pagePath}`}`,
+          path: `/tournaments/:id${pagePath === 'index' ? '' : `/${pagePath}`}`,
           file: resolve(__dirname, `pages/[id]/${pagePath}.vue`),
         });
       });

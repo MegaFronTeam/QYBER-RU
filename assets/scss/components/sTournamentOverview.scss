@@ -474,12 +474,17 @@
     @include media-breakpoint-up(lg) {
       margin-bottom: rem(12);
     }
+    .bg-block {
+      background: var(--gray-50);
+    }
+    .bg-block-panel {
+      padding: rem(24);
+    }
     .tournament-table {
       .row {
         --gutter-x: #{rem(20)};
       }
-      padding: rem(24);
-      background: var(--gray-50);
+
       overflow: auto;
       &__item:not(:last-child) {
         margin-bottom: rem(48);
@@ -509,7 +514,8 @@
         display: flex;
         -webkit-box-orient: vertical;
         flex-direction: column;
-        &:last-child .tournament-table__group {
+        &:last-child:not(:first-child)
+          .tournament-table__group:where(.sGridCardItem + .sGridCardItem) {
           &::after,
           &::before {
             content: none;
