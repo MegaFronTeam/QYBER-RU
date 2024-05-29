@@ -159,7 +159,7 @@ export const useTeamStore = defineStore('teamStore', {
     },
     async leaguesStatus() {
       const globalStore = useGlobalStore();
-      if (globalStore.userData.leagues.length !== 2) {
+      if (globalStore.userData.leagues && globalStore.userData.leagues.length !== 2) {
         this.formDataCreateTeam.leagues = [globalStore.userData.leagues[0].slug];
         console.log('qq', this.formDataCreateTeam.leagues);
       }

@@ -61,8 +61,10 @@ export const useUserStore = defineStore('user', () => {
         globalStore.isAtlants = false;
         globalStore.isTalants = false;
       } else {
-        globalStore.isAtlants = data.leagues.some((elem) => elem.slug === 'atlants');
-        globalStore.isTalants = data.leagues.some((elem) => elem.slug === 'talants');
+        globalStore.isAtlants =
+          data.leagues && data.leagues.some((elem) => elem.slug === 'atlants');
+        globalStore.isTalants =
+          data.leagues && data.leagues.some((elem) => elem.slug === 'talants');
       }
       data.user_registered = data.user_registered.split(' ')[0].split('-').reverse().join('.');
       globalStore.in_verifications = globalStore.userData.in_verifications;
@@ -72,9 +74,15 @@ export const useUserStore = defineStore('user', () => {
       }
       globalStore.user_first_letter = data.user_nickname[0].toUpperCase();
 
-      if (data.user_verification) {
+      if (globalStore.userData.user_verification === true) {
+        if (educational_institutions.value.length === 0 && globalStore.isTalants) {
+          getEducationalInstitutions();
+        }
       }
-      await TeamStore.fetchMyTeams();
+
+      if (data.user_verification) {
+        await TeamStore.fetchMyTeams();
+      }
 
       // getEducationalInstitutions();
     } catch (error) {
@@ -257,14 +265,6 @@ export const useUserStore = defineStore('user', () => {
       return Promise.reject(error);
     }
   };
-
-  if (
-    educational_institutions.value.length === 0 &&
-    globalStore.userData.user_verification &&
-    globalStore.userData.leagues.some((el) => el === 'talants')
-  ) {
-    getEducationalInstitutions();
-  }
 
   return {
     dataForm,

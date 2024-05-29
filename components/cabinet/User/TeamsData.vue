@@ -54,7 +54,7 @@
         </svg>
       </template>
       <template #body="slotProps">
-        <span class="p-badge p-badge-gray">
+        <span v-if="slotProps.data.discipline" class="p-badge p-badge-gray">
           <!-- <svg-icon :name="slotProps.data.game.icon" /> -->
           {{ slotProps.data.discipline.name }}
         </span>
@@ -155,17 +155,17 @@
 </template>
 
 <script setup>
-  import { useGlobalStore } from '@/store/globalStore';
-  const globalStore = useGlobalStore();
-  const { userData } = storeToRefs(globalStore);
+import { useGlobalStore } from '@/store/globalStore';
+const globalStore = useGlobalStore();
+const { userData } = storeToRefs(globalStore);
 
-  import { useTeamStore } from '@/store/TeamStore';
-  const teamsStore = useTeamStore();
+import { useTeamStore } from '@/store/TeamStore';
+const teamsStore = useTeamStore();
 
-  const { myTeams } = storeToRefs(teamsStore);
+const { myTeams } = storeToRefs(teamsStore);
 
-  // import { useUserStore } from '@/store/userStore';
-  // const userStore = useUserStore();
+// import { useUserStore } from '@/store/userStore';
+// const userStore = useUserStore();
 
-  teamsStore.fetchMyTeams();
+teamsStore.fetchMyTeams();
 </script>
