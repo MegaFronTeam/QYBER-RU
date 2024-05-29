@@ -29,28 +29,23 @@ export const useBreadcrumbsStore = defineStore('breadcrumbs', {
         .split('/')
         .filter((item) => item !== '')
         .map((item) => '/' + item);
-      // console.log('Current Route: ', currPagePathArr);
-      // console.log('All routes: ', routes);
+      console.log('Current Route: ', currPagePathArr);
+      console.log('All routes: ', routes);
       let customPath = '';
       currPagePathArr.forEach((route, index) => {
         customPath += route;
         const result = routes.find((item) => item.path === customPath);
         // console.log(result);
         if (result) {
-          if (currPagePathArr.length === index + 1) {
-            if (currPagePathArr.includes('/:id()')) {
-              console.log(this.lastBreadcrumb.label);
-              this.items.push(this.lastBreadcrumb);
-            } else {
+          if (route.includes('/:id()')) {
+            this.items.push(this.lastBreadcrumb);
+          } else {
+            if (result.meta.breadcrumbName) {
               this.items.push({
                 label: result.meta.breadcrumbName,
+                route: result.path,
               });
             }
-          } else {
-            this.items.push({
-              label: result.meta.breadcrumbName,
-              route: result.path,
-            });
           }
         }
       });
