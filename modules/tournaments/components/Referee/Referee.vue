@@ -23,12 +23,7 @@
 
       <div class="wrap-body__item">
         <div>
-          <RefereeItem
-            v-for="(item, index) in dataGames"
-            :key="item.id"
-            :item="item"
-            :index="index + 1"
-          />
+          <Game v-for="(item, index) in dataGames" :key="item.id" :item="item" :index="index + 1" />
         </div>
 
         <div class="game">
@@ -181,7 +176,7 @@
 </template>
 
 <script setup>
-  import RefereeItem from './RefereeItem.vue';
+  import Game from './Game.vue';
 
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();

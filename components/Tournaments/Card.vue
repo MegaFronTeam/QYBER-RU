@@ -46,7 +46,9 @@
           <!-- TODO: add formatted date -->
           <!-- <strong>{{ formattedDate || ' ' }}</strong> -->
         </div>
-        <ShareTournamentRegistration :id="newsData.id" />
+        <NuxtLink :to="'/tournaments/' + newsData.id">
+          <Button label="Регистрация на турнир" class="w-full" />
+        </NuxtLink>
       </template>
     </template>
   </Card>

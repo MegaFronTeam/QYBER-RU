@@ -4,20 +4,14 @@
       Игра {{ index }}
       <Button class="btn-trash"><svg-icon name="trash.svg" /></Button>
     </div>
-    <Button
-      outlined
-      label="+ Выбрать команду"
-      class="btn-add-team w-full active-btn dashed secondary"
-    />
-    <Button
-      outlined
-      label="+ Выбрать команду"
-      class="btn-add-team w-full active-btn dashed secondary"
-    />
+
+    <GameItem />
+    <GameItem />
   </div>
 </template>
 
 <script setup>
+  import GameItem from './GameItem.vue';
   const props = defineProps({
     item: {
       type: Array,

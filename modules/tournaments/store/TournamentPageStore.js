@@ -4,6 +4,8 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 
+import { useTeamStore } from '@/store/TeamStore';
+
 export const useTournamentPageStore = defineStore('tournamentPage', {
   state: () => ({
     data: [],
@@ -68,6 +70,17 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         console.error(error);
         return Promise.reject(error);
       }
+    },
+    async checkMyTeams() {
+      const teamStore = useTeamStore();
+      await teamStore.fetchMyTeams().then(() => {
+        teamStore.myTeams = teamStore.myTeams.map((item) => {
+          if (this.data.comand_list.some((team) => team.team.ID === item.ID)) {
+            item.Approved = true;
+          }
+          return item;
+        });
+      });
     },
   },
 });

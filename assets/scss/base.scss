@@ -918,3 +918,17 @@ body {
     padding: 0 !important;
   }
 }
+
+.game-item__card {
+  .btn-wrapper {
+    min-width: rem(120);
+    text-align: center;
+  }
+  .p-badge {
+    // width: rem(100);
+    svg {
+      fill: #fff !important;
+      margin: 0;
+    }
+  }
+}

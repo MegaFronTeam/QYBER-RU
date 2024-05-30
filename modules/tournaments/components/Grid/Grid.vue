@@ -81,8 +81,8 @@
               >
                 <template v-for="(item, indexSub) in match" :key="item.id">
                   <div class="tournament-table__group" v-if="indexSub % 2 === 0">
-                    <GridCard :item="item" :index="indexSub" />
-                    <GridCard
+                    <Card :item="item" :index="indexSub" />
+                    <Card
                       v-if="match[indexSub + 1]"
                       :item="match[indexSub + 1]"
                       :index="indexSub + 1"
@@ -118,50 +118,50 @@
           <div class="tournament-table__row row row-low">
             <div class="tournament-table__col col-auto">
               <div class="tournament-table__group tournament-table__group--single">
-                <GridCard />
+                <Card />
               </div>
               <div class="tournament-table__group tournament-table__group--single">
-                <GridCard />
+                <Card />
               </div>
               <div class="tournament-table__group tournament-table__group--single">
-                <GridCard />
+                <Card />
               </div>
               <div class="tournament-table__group tournament-table__group--single">
-                <GridCard />
+                <Card />
               </div>
             </div>
             <div class="tournament-table__col col-auto">
               <div class="tournament-table__group">
-                <GridCard />
-                <GridCard />
+                <Card />
+                <Card />
               </div>
               <div class="tournament-table__group">
-                <GridCard />
-                <GridCard />
+                <Card />
+                <Card />
               </div>
             </div>
             <div class="tournament-table__col col-auto">
               <div class="tournament-table__group tournament-table__group--small">
-                <GridCard />
+                <Card />
               </div>
               <div class="tournament-table__group tournament-table__group--small">
-                <GridCard />
+                <Card />
               </div>
             </div>
             <div class="tournament-table__col col-auto">
               <div class="tournament-table__group">
-                <GridCard />
-                <GridCard />
+                <Card />
+                <Card />
               </div>
             </div>
             <div class="tournament-table__col col-auto">
               <div class="tournament-table__group tournament-table__group--small">
-                <GridCard />
+                <Card />
               </div>
             </div>
             <div class="tournament-table__col col-auto">
               <div class="tournament-table__group">
-                <GridCard />
+                <Card />
               </div>
             </div>
           </div>
@@ -195,7 +195,7 @@
   // import { Component, Vue } from 'vue-property-decorator';
   // import TournamentBracket from './TournamentBracket.vue';
 
-  import GridCard from './GridCard.vue';
+  import Card from './Card.vue';
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
   const { data } = storeToRefs(tournamentPageStore);
