@@ -8,11 +8,7 @@
     >
       <div class="form-wrap">
         <transition name="fade">
-          <form @submit.prevent="">
-            <div style="color: var(--body-color)" class="h4 text-center mb-3" v-if="hideForm">
-              Команда успешно зарегистрирована <br />
-              <br />
-            </div>
+          <div>
             <DataTable :value="teamsStore.myTeams">
               <Column field="nickname" header="Название команды">
                 <template #body="slotProps">
@@ -31,16 +27,18 @@
                   <div></div>
                   <!-- TODO: убрать если  уже зарегистрирован ловить со стора -->
                   <Button
-                    @click="regToTournament(slotProps.data.ID, currentID)"
+                    v-if="!hideForm"
+                    @click="tournamentStore.regToTournament(slotProps.data.ID, currentID)"
                     style="width: 100px"
                     label="Выбрать"
                     class="btn-sm"
                   />
+                  <Skeleton v-else height="40px" width="100px" style="margin-left: auto"></Skeleton>
                   <!-- disabled="false" -->
                 </template>
               </Column>
             </DataTable>
-          </form>
+          </div>
         </transition>
       </div>
     </Dialog>

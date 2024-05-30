@@ -51,6 +51,8 @@
             </div>
           </div>
         </div>
+        <TournamentBracket :rounds="rounds" @onMatchClick="onMatchClick" />
+
         <div class="tournament-table bg-block-panel">
           <div class="tournament-table__item">
             <!-- <div class="tournament-table__item-title">Верхняя сетка</div> -->
@@ -190,10 +192,98 @@
 </template>
 
 <script setup>
+  // import { Component, Vue } from 'vue-property-decorator';
+  // import TournamentBracket from './TournamentBracket.vue';
+
   import GridCard from './GridCard.vue';
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
   const { data } = storeToRefs(tournamentPageStore);
+
+  // const rounds = ref([
+  //   //Semi finals
+  //   {
+  //     games: [
+  //       {
+  //         player1: { id: '1', name: 'Competitor 1', winner: false },
+  //         player2: { id: '4', name: 'Competitor 4', winner: true },
+  //       },
+  //       {
+  //         player1: { id: '5', name: 'Competitor 5', winner: false },
+  //         player2: { id: '8', name: 'Competitor 8', winner: true },
+  //       },
+  //     ],
+  //   },
+  //   //Final
+  //   {
+  //     games: [
+  //       {
+  //         player1: { id: '4', name: 'Competitor 4', winner: false },
+  //         player2: { id: '8', name: 'Competitor 8', winner: true },
+  //       },
+  //     ],
+  //   },
+  // ]);
+
+  const rounds = [
+    //Quarter
+    {
+      matchs: [
+        {
+          id: 'match1',
+          winner: '1',
+          team1: { id: '1', name: 'Competitor 1', score: 2 },
+          team2: { id: '2', name: 'Competitor 2', score: 1 },
+        },
+        {
+          id: 'match2',
+          winner: '4',
+          team1: { id: '3', name: 'Competitor 3', score: 0 },
+          team2: { id: '4', name: 'Competitor 4', score: 2 },
+        },
+        {
+          id: 'match3',
+          winner: '5',
+          team1: { id: '5', name: 'Competitor 5', score: 2 },
+          team2: { id: '6', name: 'Competitor 6', score: 1 },
+        },
+        {
+          id: 'match4',
+          winner: '8',
+          team1: { id: '7', name: 'Competitor 7', score: 0 },
+          team2: { id: '8', name: 'Competitor 8', score: 2 },
+        },
+      ],
+    },
+    //Semi
+    {
+      matchs: [
+        {
+          id: 'match5',
+          winner: '4',
+          team1: { id: '1', name: 'Competitor 1', score: 1 },
+          team2: { id: '4', name: 'Competitor 4', score: 2 },
+        },
+        {
+          id: 'match6',
+          winner: '8',
+          team1: { id: '5', name: 'Competitor 5', score: 1 },
+          team2: { id: '8', name: 'Competitor 8', score: 2 },
+        },
+      ],
+    },
+    //Final
+    {
+      matchs: [
+        {
+          id: 'any_match_id',
+          winner: '8',
+          team1: { id: '4', name: 'Competitor 4', score: 1 },
+          team2: { id: '8', name: 'Competitor 8', score: 3 },
+        },
+      ],
+    },
+  ];
 
   // const active = ref(1);
   // const products = ref([

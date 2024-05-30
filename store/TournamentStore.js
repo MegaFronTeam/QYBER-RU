@@ -1,9 +1,10 @@
 import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from './globalStore';
-
+import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
 export const useTournamentStore = defineStore('tournament', () => {
   const globalStore = useGlobalStore();
+  const TournamentPageStore = useTournamentPageStore();
   const tournamentsList = ref([]);
   const getLast = ref(tournamentsList.value.slice(0, 7));
   const showRegModal = ref(false);
@@ -11,9 +12,22 @@ export const useTournamentStore = defineStore('tournament', () => {
   const currentID = ref('');
   const hideForm = ref(false);
   // const { currentTeamID } = teamStore;
-
   const tournamentsMy = ref([]);
 
+  const toast = useToast();
+  const showToast = (severity, summary, detail) => {
+    toast.add({
+      severity,
+      summary,
+      detail,
+      life: 10000,
+    });
+  };
+
+  // const setShowRegModal = (id) => {
+  //   showRegModal.value = true;
+  //   currentID.value = id;
+  // }
   const getMyTournaments = async (id) => {
     tournamentsMy.value = tournamentsList.value.filter((item) => {
       // console.log(item.comand_list);
@@ -58,6 +72,7 @@ export const useTournamentStore = defineStore('tournament', () => {
 
   const regToTournament = async (TEAM_ID, TOURNAMENT_ID) => {
     try {
+      hideForm.value = true;
       const response = await axios.post(
         `${BASE_URL}/teams/v1/team/${TEAM_ID}/tournament_registration/${TOURNAMENT_ID}`,
         {
@@ -66,14 +81,17 @@ export const useTournamentStore = defineStore('tournament', () => {
           },
         },
       );
+
       const data = await response.data;
       if (data.status === true) {
-        hideForm.value = true;
+        hideForm.value = false;
+        showToast('success', 'Вы успешно зарегистрировались на турнир');
+        getAll();
+        TournamentPageStore.fetchData(currentID.value);
         // console.log('success');
       }
-      setTimeout(() => {
-        hideForm.value = false;
-      }, 1500);
+      // setTimeout(() => {
+      // }, 1500);
       // console.log(data);
     } catch (error) {
       console.error(error);

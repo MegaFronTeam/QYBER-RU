@@ -456,6 +456,14 @@
       .purple {
         color: var(--accent-secondary-main);
       }
+
+      .btn-add-team {
+        width: 100%;
+        min-height: rem(68);
+        &:hover {
+          color: var(--accent-secondary-main);
+        }
+      }
     }
 
     .template {

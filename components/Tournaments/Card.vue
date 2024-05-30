@@ -31,7 +31,7 @@
             <div class="card-panel-inner">
               Команды
 
-              <strong>{{ newsData.teamLength }}/{{ maxTeamCount || 5 }}</strong>
+              <strong>{{ newsData.teamLength || 0 }}</strong>
             </div>
           </div>
         </div>

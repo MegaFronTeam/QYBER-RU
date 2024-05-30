@@ -8,7 +8,7 @@
       </h3>
       <div v-html="data.full_description"></div>
     </div>
-    <ShareTournamentRegistration />
+    <ShareTournamentRegistration :id="data.id" />
   </div>
   <div class="wrap-footer" v-if="shareComp">
     <div class="wrap-footer__title">Поделиться</div>

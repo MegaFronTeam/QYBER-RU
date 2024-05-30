@@ -8,11 +8,11 @@
         <div class="sTournamentOverview__head sTournamentOverview__head--small">
           <div class="head-item">
             <p><span>Всего команд</span></p>
-            <p>64</p>
+            <p>{{ comand_listLength }}</p>
           </div>
           <div class="head-item">
             <p><span>Всего игр</span></p>
-            <p>30</p>
+            <p>{{ gamesLength }}</p>
           </div>
           <div class="head-item">
             <p><span>Свободных команд</span></p>
@@ -22,6 +22,15 @@
       </div>
 
       <div class="wrap-body__item">
+        <div>
+          <RefereeItem
+            v-for="(item, index) in dataGames"
+            :key="item.id"
+            :item="item"
+            :index="index + 1"
+          />
+        </div>
+
         <div class="game">
           <div class="game__title h6">
             Игра 1
@@ -129,8 +138,16 @@
             Игра 5
             <Button class="btn-trash"><svg-icon name="trash.svg" /></Button>
           </div>
-          <Button outlined label="+ Выбрать команду" class="w-full active-btn dashed secondary" />
-          <Button outlined label="+ Выбрать команду" class="w-full active-btn dashed secondary" />
+          <Button
+            outlined
+            label="+ Выбрать команду"
+            class="btn-add-team w-full active-btn dashed secondary"
+          />
+          <Button
+            outlined
+            label="+ Выбрать команду"
+            class="btn-add-team w-full active-btn dashed secondary"
+          />
         </div>
         <div class="game">
           <Button label="+ Добавить пару" outlined class="w-full btn-small" />
@@ -164,7 +181,11 @@
 </template>
 
 <script setup>
-  import MenuBlock from './MenuBlock.vue';
+  import RefereeItem from './RefereeItem.vue';
+
+  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  const tournamentPageStore = useTournamentPageStore();
+  const { comand_listLength, gamesLength, dataGames } = storeToRefs(tournamentPageStore);
 
   const active = ref(1);
   const products = ref([

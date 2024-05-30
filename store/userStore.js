@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', () => {
   const accreditationStore = useAccreditationStore();
   const educational_institutions = ref([]);
   const TeamStore = useTeamStore();
-
+  const toast = useToast();
   const showToast = (severity, summary, detail) => {
     toast.add({
       severity,
@@ -200,8 +200,6 @@ export const useUserStore = defineStore('user', () => {
   // Update password
   const disabledUpdatePassword = ref(false);
   const serverErrorsPassword = ref('');
-
-  const toast = useToast();
 
   const passwordData = ref({
     current_password: '',

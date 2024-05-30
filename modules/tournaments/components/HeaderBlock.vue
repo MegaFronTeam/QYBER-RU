@@ -22,19 +22,19 @@
       </div>
     </div>
     <div class="header-item">
-      <ShareTournamentRegistration />
+      <ShareTournamentRegistration :id="data.id" />
     </div>
     <div class="header-item">
       <div class="steps-wrap">
         <div class="step step_active">
           <p><span>Анонсирован</span></p>
           <!-- TODO: need data -->
-          <p>28 января 2024 г. в 14:00</p>
+          <p>{{ data.date_gmtStartReg }}</p>
         </div>
         <div class="step">
           <p><span>Регистрация</span></p>
           <!-- TODO: need data -->
-          <p>28 января 2024 г. в 14:00 - 28 февраля 2024 в 14:00</p>
+          <p>{{ data.date_gmtStartReg }} - 28 февраля 2024 в 14:00</p>
         </div>
         <div class="step">
           <p><span>Проведение турнира</span></p>
@@ -61,7 +61,7 @@
       <div class="head-item">
         <p><span>Команды</span></p>
         <!-- TODO: need data -->
-        <p>{{ data.teamLength }}/8</p>
+        <p>{{ data.teamLength }}</p>
       </div>
       <div class="head-item">
         <p><span>Призовой фонд</span></p>
