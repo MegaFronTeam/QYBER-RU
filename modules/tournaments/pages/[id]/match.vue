@@ -54,54 +54,61 @@
 </template>
 
 <script setup>
-  import { useTournamentStore } from '@/store/TournamentStore';
-  import { useGlobalStore } from '~/store/globalStore';
-  const tournamentStore = useTournamentStore();
-  const globalStore = useGlobalStore();
+import { useTournamentStore } from '@/store/TournamentStore';
+import { useGlobalStore } from '~/store/globalStore';
+const tournamentStore = useTournamentStore();
+const globalStore = useGlobalStore();
 
-  import { useRoute } from 'vue-router';
-  const { id } = useRoute().params;
+import { useRoute } from 'vue-router';
+const { id } = useRoute().params;
 
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-  const tournamentStorePage = useTournamentPageStore();
-  const { currentID } = storeToRefs(tournamentStorePage);
+import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+const tournamentStorePage = useTournamentPageStore();
+const { currentID } = storeToRefs(tournamentStorePage);
+
+const isOpen = ref(true);
+const toggle = () => {
+  isOpen.value = !isOpen.value;
+};
+
+const breadcrumb = ref([
+  {
+    label: 'Турниры',
+    route: '/',
+  },
+  {
+    label: 'Кибер Атланты Осень 2022',
+    route: '/',
+  },
+  {
+    label: 'Кибер Атланты Осень 2022 - Игра №4',
+  },
+]);
+
+const breakpoint = 991;
+const isMobile = ref(window.innerWidth <= breakpoint);
+const updateIsMobile = () => {
+  isMobile.value = window.innerWidth <= breakpoint;
+};
+
+import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
+
+const breadcrumbsStore = useBreadcrumbsStore();
+
+updateIsMobile();
+onMounted(() => {
+  updateIsMobile();
+  window.addEventListener('resize', updateIsMobile);
 
   if (id !== currentID.value) {
-    tournamentStorePage.fetchData(id);
+    tournamentStorePage.fetchData(id).then(() => {
+      // console.log(tournamentStorePage.data.title);
+      breadcrumbsStore.setNameFromIds(tournamentStorePage.data.title);
+    });
   }
-
-  const isOpen = ref(true);
-  const toggle = () => {
-    isOpen.value = !isOpen.value;
-  };
-
-  const breadcrumb = ref([
-    {
-      label: 'Турниры',
-      route: '/',
-    },
-    {
-      label: 'Кибер Атланты Осень 2022',
-      route: '/',
-    },
-    {
-      label: 'Кибер Атланты Осень 2022 - Игра №4',
-    },
-  ]);
-
-  const breakpoint = 991;
-  const isMobile = ref(window.innerWidth <= breakpoint);
-  const updateIsMobile = () => {
-    isMobile.value = window.innerWidth <= breakpoint;
-  };
-
+});
+onUnmounted(() => {
   updateIsMobile();
-  onMounted(() => {
-    updateIsMobile();
-    window.addEventListener('resize', updateIsMobile);
-  });
-  onUnmounted(() => {
-    updateIsMobile();
-    window.removeEventListener('resize', updateIsMobile);
-  });
+  window.removeEventListener('resize', updateIsMobile);
+});
 </script>

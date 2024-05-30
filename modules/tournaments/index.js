@@ -38,11 +38,17 @@ export default defineNuxtModule({
         'schedule',
       ];
 
+      pages.push({
+        name: 'tournaments',
+        path: '/tournaments',
+        file: resolve(__dirname, 'pages/index.vue'),
+      });
+
       pagePaths.forEach((pagePath) => {
         // const page = pagePath.match(/\/([^/]+)\.vue$/)[1];
         pages.push({
           name: `tournaments-${pagePath}`,
-          path: `/tournaments/:id${pagePath === 'index' ? '' : `/${pagePath}`}`,
+          path: `/tournaments/:id()${pagePath === 'index' ? '' : `/${pagePath}`}`,
           file: resolve(__dirname, `pages/[id]/${pagePath}.vue`),
         });
       });
