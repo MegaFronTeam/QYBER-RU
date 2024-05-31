@@ -6,7 +6,7 @@
     </div>
     <GameItem :item="item[0]" :indexGroup="index - 1" indexCouple="0" />
     <!-- v-if="comand_listLength % 2 === 0" -->
-    <GameItem :item="item[1]" :indexGroup="index - 1" indexCouple="1" />
+    <GameItem v-if="item[1]" :item="item[1]" :indexGroup="index - 1" indexCouple="1" />
   </div>
 </template>
 

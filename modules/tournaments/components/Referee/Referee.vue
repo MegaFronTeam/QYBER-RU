@@ -2,7 +2,12 @@
   <div class="sTournamentOverview--referee">
     <div class="wrap-body">
       <div class="wrap-body__item">
-        <Button outlined label="Провести жеребьевку" class="w-full active-btn" />
+        <Button
+          @click="refereeStore.setRandomGames"
+          outlined
+          label="Провести жеребьевку"
+          class="w-full active-btn"
+        />
       </div>
       <div class="wrap-body__item">
         <div class="sTournamentOverview__head sTournamentOverview__head--small">

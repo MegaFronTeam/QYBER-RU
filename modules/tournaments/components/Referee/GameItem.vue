@@ -1,6 +1,6 @@
 <template>
   <Button
-    v-if="!item"
+    v-if="item && item.canCheck"
     outlined
     label="+ Выбрать команду"
     class="btn-add-team w-full active-btn dashed secondary"
@@ -13,8 +13,8 @@
   />
   <div class="game__card" v-else>
     <div class="table-wrap">
-      <img :src="item.post_thumbnail" alt="Avatar" />
-      <span>{{ item.post_title }} </span>
+      <img v-if="item && item.post_thumbnail" :src="item.post_thumbnail" alt="Avatar" />
+      <span v-if="item && item.team">{{ item.team.post_title }} </span>
       <!-- TODO:Rating data -->
       <span class="p-badge" v-if="rating"> 3 453 </span>
     </div>
