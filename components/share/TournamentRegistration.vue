@@ -1,6 +1,6 @@
 <template>
   <NuxtLink to="/auth/login" v-if="!globalStore.isUserAuth">
-    <Button label="Регистрация на турнир" class="w-full" />
+    <Button label="К турнирам" class="w-full" />
   </NuxtLink>
   <Button
     v-else
@@ -8,7 +8,7 @@
       showRegModal = true;
       currentID = id;
     "
-    label="Регистрация  на турнир"
+    label="К турнирам"
     class="w-full"
   />
 </template>
