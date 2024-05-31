@@ -113,7 +113,7 @@ export const useRefereeStore = defineStore('referee', {
         this.couples.some((item) => item === undefined) ||
         this.couples.length === 0
       ) {
-        userStore.showToast('error', 'Ошибка', 'Не все игры заполнены');
+        userStore.showToast('error', 'Ошибка', 'Заполните все игры');
         return;
       } else {
         const globalStore = useGlobalStore();
@@ -124,7 +124,9 @@ export const useRefereeStore = defineStore('referee', {
         try {
           const response = await axios.post(
             `${BASE_URL}/tournaments/v1/matches/${currentID}`,
-            this.couples,
+            {
+              couples: this.couples,
+            },
             {
               headers: {
                 Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
