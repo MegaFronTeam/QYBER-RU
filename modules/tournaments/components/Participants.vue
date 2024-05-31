@@ -56,7 +56,8 @@
             <!-- TODO: Tournament need data organisation.label -->
             <template #body="slotProps">
               <span class="rating">
-                <!-- {{ slotProps.data.organisation.label }} -->
+                {{ slotProps.data.company_name }}
+                {{ console.log(slotProps.data) }}
               </span>
             </template>
           </Column>
@@ -118,44 +119,44 @@
 </template>
 
 <script setup>
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-  const tournamentPageStore = useTournamentPageStore();
-  const { data } = storeToRefs(tournamentPageStore);
+import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+const tournamentPageStore = useTournamentPageStore();
+const { data } = storeToRefs(tournamentPageStore);
 
-  const active = ref(1);
-  const products = ref([
-    {
-      team: {
-        avatar: 'team-img-1.png',
-        text: 'Team Rogue',
-      },
-      organisation: {
-        label: 'ООО Датекс Софт',
-      },
-      registration: 'вт, 30 января в 15:34',
+const active = ref(1);
+const products = ref([
+  {
+    team: {
+      avatar: 'team-img-1.png',
+      text: 'Team Rogue',
     },
-    {
-      team: {
-        avatar: 'team-img-2.svg',
-        text: 'INTZ Genesis',
-      },
-      organisation: {
-        label: 'ООО Датекс Софт',
-      },
-      registration: 'вт, 30 января в 15:34',
+    organisation: {
+      label: 'ООО Датекс Софт',
     },
-    {
-      team: {
-        avatar: 'team-img-1.png',
-        text: 'Team Rogue',
-      },
-      organisation: {
-        label: 'ООО Датекс Софт',
-      },
-      registration: 'вт, 30 января в 15:34',
+    registration: 'вт, 30 января в 15:34',
+  },
+  {
+    team: {
+      avatar: 'team-img-2.svg',
+      text: 'INTZ Genesis',
     },
-  ]);
+    organisation: {
+      label: 'ООО Датекс Софт',
+    },
+    registration: 'вт, 30 января в 15:34',
+  },
+  {
+    team: {
+      avatar: 'team-img-1.png',
+      text: 'Team Rogue',
+    },
+    organisation: {
+      label: 'ООО Датекс Софт',
+    },
+    registration: 'вт, 30 января в 15:34',
+  },
+]);
 
-  const totalRecords = ref(10);
-  const rowsPerPage = ref([5, 10, 50, 100]);
+const totalRecords = ref(10);
+const rowsPerPage = ref([5, 10, 50, 100]);
 </script>

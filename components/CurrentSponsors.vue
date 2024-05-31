@@ -16,7 +16,11 @@
             </div>
             <div class="sCurrentSponsors__content">
               <h3>{{ item.title.rendered }}</h3>
-              <Badge severity="secondary" value="Генеральный спонсор турнира" />
+              <Badge
+                v-if="item.sponsor_type !== undefined"
+                severity="secondary"
+                :value="item.sponsor_type === null ? 'Спонсор' : item.sponsor_type"
+              />
               <div v-html="item.content.rendered"></div>
               <Button label="Подробнее" />
             </div>
@@ -33,4 +37,5 @@ import { useSponsorsStore } from '@/store/sponsorsStore';
 const sponsorsStore = useSponsorsStore();
 
 sponsorsStore.getSponsors();
+console.log(sponsorsStore.sponsors);
 </script>

@@ -55,78 +55,78 @@
 </template>
 
 <script setup>
-  import { useGlobalStore } from '~/store/globalStore';
-  import { useTournamentStore } from '@/store/TournamentStore';
-  const tournamentStore = useTournamentStore();
-  const globalStore = useGlobalStore();
+import { useGlobalStore } from '~/store/globalStore';
+import { useTournamentStore } from '@/store/TournamentStore';
+const tournamentStore = useTournamentStore();
+const globalStore = useGlobalStore();
 
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-  const tournamentStorePage = useTournamentPageStore();
+import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+const tournamentStorePage = useTournamentPageStore();
 
-  const props = defineProps({
-    newsData: {
-      type: Object,
-      required: false,
-    },
-    skeleton: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-  });
+const props = defineProps({
+  newsData: {
+    type: Object,
+    required: false,
+  },
+  skeleton: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+});
 
-  const { newsData } = toRefs(props);
+const { newsData } = toRefs(props);
 
-  const prize_fund = ref(newsData.prize_fund);
-  const teamCount = ref(newsData.teamCount);
-  // let img = 'https://primefaces.org/cdn/primevue/images/usercard.png';
-  // if (newsData.thumbnail) {
-  //   img = newsData.thumbnail;
-  // }
-  // await tournamentStorePage.fetchData(newsData.id);
+const prize_fund = ref(newsData.prize_fund);
+const teamCount = ref(newsData.teamCount);
+// let img = 'https://primefaces.org/cdn/primevue/images/usercard.png';
+// if (newsData.thumbnail) {
+//   img = newsData.thumbnail;
+// }
+// await tournamentStorePage.fetchData(newsData.id);
 
-  const date = new Date(newsData.date);
-  const formattedDate = date
-    .toLocaleDateString('ru-RU', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    })
-    .slice(0, -2);
+const date = new Date(newsData.date);
+const formattedDate = date
+  .toLocaleDateString('ru-RU', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  })
+  .slice(0, -2);
 </script>
 
 <style>
-  .sNewsCard {
-    text-align: center;
-    .col-6 {
-      width: 50%;
-      /* width: ; */
-    }
+.sNewsCard {
+  text-align: center;
+  .col-6 {
+    width: 50%;
+    /* width: ; */
   }
-  .card-panel-inner {
-    border-radius: var(--S, 10px);
-    background: var(--bg-colorPrimary, #fff);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 4rem;
-    font-size: 12px;
-    color: var(--text-colorTertiary, #9e9fa3);
-    strong {
-      color: var(--text-colorPrimary, #292d36);
-      margin-top: 0.2rem;
-      font-size: 1rem;
-    }
+}
+.card-panel-inner {
+  border-radius: var(--S, 10px);
+  background: var(--bg-colorPrimary, #fff);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  font-size: 12px;
+  color: var(--text-colorTertiary, #9e9fa3);
+  strong {
+    color: var(--text-colorPrimary, #292d36);
+    margin-top: 0.2rem;
+    font-size: 1rem;
   }
-  .data-start {
-    span {
-      font-size: 14px;
-      margin-bottom: 3px;
-    }
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-bottom: 12px;
+}
+.data-start {
+  span {
+    font-size: 14px;
+    margin-bottom: 3px;
   }
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
 </style>

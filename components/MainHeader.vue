@@ -24,7 +24,7 @@
             <div class="sMainHeader__head">
               <h6>Ближайший турнир</h6>
               <!-- TODO:  сделать страницу со всеми турнирами -->
-              <NuxtLink class="sMainHeader__link ms-auto" to="#tournaments">
+              <NuxtLink class="sMainHeader__link ms-auto" to="/tournaments">
                 Все
                 <svg-icon name="chevron-right.svg" />
               </NuxtLink>
@@ -87,14 +87,14 @@
 </template>
 
 <script setup>
-  import { useTournamentStore } from '@/store/TournamentStore';
-  const tournamentStore = useTournamentStore();
-  import { useTeamStore } from '@/store/TeamStore';
-  const teamsStore = useTeamStore();
+import { useTournamentStore } from '@/store/TournamentStore';
+const tournamentStore = useTournamentStore();
+import { useTeamStore } from '@/store/TeamStore';
+const teamsStore = useTeamStore();
 
-  import { useGlobalStore } from '~/store/globalStore';
-  const globalStore = useGlobalStore();
+import { useGlobalStore } from '~/store/globalStore';
+const globalStore = useGlobalStore();
 
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
-  const { data, pending } = await useLazyFetch(`${BASE_URL}/wp/v2/posts`);
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+const { data, pending } = await useLazyFetch(`${BASE_URL}/wp/v2/posts`);
 </script>

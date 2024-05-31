@@ -12,7 +12,12 @@
 </template>
 
 <script setup>
+import { useAboutStore } from '~/store/AboutStore';
+
 definePageMeta({
   breadcrumbName: 'О проекте',
 });
+
+const aboutStore = useAboutStore();
+await aboutStore.fetchData();
 </script>

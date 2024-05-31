@@ -29,8 +29,8 @@ export const useBreadcrumbsStore = defineStore('breadcrumbs', {
         .split('/')
         .filter((item) => item !== '')
         .map((item) => '/' + item);
-      console.log('Current Route: ', currPagePathArr);
-      console.log('All routes: ', routes);
+      // console.log('Current Route: ', currPagePathArr);
+      // console.log('All routes: ', routes);
       let customPath = '';
       currPagePathArr.forEach((route, index) => {
         customPath += route;
