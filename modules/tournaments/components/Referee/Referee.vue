@@ -155,7 +155,7 @@
           <Button label="+ Добавить пару" outlined class="w-full btn-small" />
         </div>
         <div class="game">
-          <Button label="Опубликовать" class="w-full active-btn" />
+          <Button label="Опубликовать" class="w-full active-btn" @click="refereeStore.sendGames" />
         </div>
       </div>
     </div>

@@ -1,4 +1,9 @@
+import axios from 'axios';
 import { useTournamentPageStore } from './TournamentPageStore';
+import { useGlobalStore } from '~/store/globalStore';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+import { useUserStore } from '~/store/userStore';
+
 export const useRefereeStore = defineStore('referee', {
   state: () => ({
     savedId: null,
@@ -99,6 +104,44 @@ export const useRefereeStore = defineStore('referee', {
         canCheck: true,
       };
       this.couples[indexGroup][indexCouple] = undefined;
+    },
+    async sendGames() {
+      const userStore = useUserStore();
+
+      if (
+        this.couples.some((item) => item.some((item) => item === undefined)) ||
+        this.couples.some((item) => item === undefined) ||
+        this.couples.length === 0
+      ) {
+        userStore.showToast('error', 'Ошибка', 'Не все игры заполнены');
+        return;
+      } else {
+        const globalStore = useGlobalStore();
+
+        const tournamentPageStore = useTournamentPageStore();
+        const currentID = tournamentPageStore.currentID;
+
+        try {
+          const response = await axios.post(
+            `${BASE_URL}/tournaments/v1/matches/${currentID}`,
+            this.couples,
+            {
+              headers: {
+                Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
+              },
+            },
+          );
+          const data = await response.data;
+          console.log(data);
+          if (data === true) {
+            userStore.showToast('success', 'Игры успешно сохранены');
+          }
+        } catch (error) {
+          console.error(error);
+          userStore.showToast('error', 'Ошибка', 'Ошибка сохранения игр');
+          return Promise.reject(error);
+        }
+      }
     },
   },
   // persist: { storage: persistedState.localStorage },

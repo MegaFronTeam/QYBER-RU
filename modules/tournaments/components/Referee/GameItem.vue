@@ -26,7 +26,6 @@
         <div class="secondary">Ничья 0</div>
         <div class="danger">Поражения 112 (28%)</div>
       </div>
-      {{ +indexGroup }} {{ +indexCouple }}
       <Button
         @click="refereeStore.removeTeamFromCouple(+indexGroup, +indexCouple)"
         class="btn-trash"
