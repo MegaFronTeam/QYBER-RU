@@ -26,7 +26,12 @@
         <div class="secondary">Ничья 0</div>
         <div class="danger">Поражения 112 (28%)</div>
       </div>
-      <Button class="btn-trash"><svg-icon name="trash.svg" /></Button>
+      {{ +indexGroup }} {{ +indexCouple }}
+      <Button
+        @click="refereeStore.removeTeamFromCouple(+indexGroup, +indexCouple)"
+        class="btn-trash"
+        ><svg-icon name="trash.svg"
+      /></Button>
     </div>
   </div>
 
@@ -42,6 +47,9 @@
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore.js';
   const tournamentPageStore = useTournamentPageStore();
   const { ifReferee, currentID } = storeToRefs(tournamentPageStore);
+
+  import { useRefereeStore } from '@/modules/tournaments/store/RefereeStore';
+  const refereeStore = useRefereeStore();
 
   const props = defineProps({
     // id: {

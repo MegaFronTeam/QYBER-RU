@@ -39,6 +39,8 @@ export const useRefereeStore = defineStore('referee', {
       // }
     },
     async getGamesLength(comand_list) {
+      this.teamsForeferee = [];
+      this.teamsForefereeLength = 0;
       this.comand_listLength = comand_list.length;
       this.dataGames = JSON.parse(JSON.stringify(comand_list));
       this.dataGames = this.dataGames
@@ -65,6 +67,19 @@ export const useRefereeStore = defineStore('referee', {
       const comand_list = tournamentPageStore.data.comand_list;
 
       this.dataGames = JSON.parse(JSON.stringify(comand_list)).sort(() => Math.random() - 0.5);
+
+      this.couples = JSON.parse(JSON.stringify(this.dataGames)).map((value) => {
+        value = value.team.ID;
+        return value;
+      });
+      this.couples = this.couples
+        .map((value, index, array) => {
+          if (index % 2 === 0) {
+            return [value, array[index + 1] || null];
+          }
+        })
+        .filter((item) => item);
+
       this.dataGames = this.dataGames
         .map((value, index, array) => {
           if (index % 2 === 0) {
@@ -75,14 +90,16 @@ export const useRefereeStore = defineStore('referee', {
 
       this.teamsForeferee = [];
       this.teamsForefereeLength = 0;
-      this.couples = JSON.parse(JSON.stringify(this.dataGames)).map((item) => {
-        item.map((value) => {
-          value = value.team.ID;
-          return value;
-        });
-        return item;
-      });
+    },
+    async removeTeamFromCouple(indexGroup, indexCouple) {
+      const tournamentPageStore = useTournamentPageStore();
+      this.teamsForeferee.push(this.dataGames[indexGroup][indexCouple]);
+      this.teamsForefereeLength = this.teamsForeferee.length;
+      this.dataGames[indexGroup][indexCouple] = {
+        canCheck: true,
+      };
+      this.couples[indexGroup][indexCouple] = undefined;
     },
   },
-  persist: { storage: persistedState.localStorage },
+  // persist: { storage: persistedState.localStorage },
 });
