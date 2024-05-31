@@ -11,20 +11,19 @@
     label="Регистрация  на турнир"
     class="w-full"
   />
-  currentID = {{ id }};
 </template>
 <script setup>
-  import { useGlobalStore } from '@/store/globalStore';
-  const globalStore = useGlobalStore();
+import { useGlobalStore } from '@/store/globalStore';
+const globalStore = useGlobalStore();
 
-  const props = defineProps({
-    id: {
-      type: Number,
-      required: true,
-    },
-  });
+const props = defineProps({
+  id: {
+    type: Number,
+    required: true,
+  },
+});
 
-  import { useTournamentStore } from '@/store/TournamentStore';
-  const tournamentStore = useTournamentStore();
-  const { showRegModal, currentID } = storeToRefs(tournamentStore);
+import { useTournamentStore } from '@/store/TournamentStore';
+const tournamentStore = useTournamentStore();
+const { showRegModal, currentID } = storeToRefs(tournamentStore);
 </script>
