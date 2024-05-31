@@ -150,8 +150,8 @@
           />
         </div>
         -->
-
-        <div class="game">
+        <!-- TODO: add addMethod -->
+        <div class="game" v-if="added">
           <Button label="+ Добавить пару" outlined class="w-full btn-small" />
         </div>
         <div class="game">

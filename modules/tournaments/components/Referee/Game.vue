@@ -2,7 +2,8 @@
   <div class="game">
     <div class="game__title h6">
       Игра {{ index }}
-      <Button class="btn-trash"><svg-icon name="trash.svg" /></Button>
+      <!-- TODO: add removeMethod -->
+      <Button v-if="removeBtn" class="btn-trash"><svg-icon name="trash.svg" /></Button>
     </div>
     <GameItem :item="item[0]" :indexGroup="index - 1" indexCouple="0" />
     <!-- v-if="comand_listLength % 2 === 0" -->
