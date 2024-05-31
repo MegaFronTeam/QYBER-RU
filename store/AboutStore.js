@@ -9,6 +9,14 @@ export const useAboutStore = defineStore('aboutStore', {
     async fetchData() {
       const { data } = await axios.get(`${BASE_URL}/about/v1/stats`);
       this.data = data;
+      this.data.total_sum = new Intl.NumberFormat('ru-RU', {
+        style: 'currency',
+        currency: 'RUB',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+      })
+        .format(+this.data.total_sum)
+        .replace(/\.00$/, '');
     },
   },
 });

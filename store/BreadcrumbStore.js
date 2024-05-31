@@ -39,6 +39,11 @@ export const useBreadcrumbsStore = defineStore('breadcrumbs', {
         if (result) {
           if (route.includes('/:id()')) {
             this.items.push(this.lastBreadcrumb);
+          } else if (currPagePathArr.length - 1 === index) {
+            this.items.push({
+              label: result.meta.breadcrumbName,
+              // route: result.path,
+            });
           } else {
             if (result.meta.breadcrumbName) {
               this.items.push({

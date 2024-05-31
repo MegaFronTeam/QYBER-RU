@@ -104,4 +104,20 @@
       }
     }
   }
+  .btn-trash {
+    position: relative;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    margin-left: rem(12);
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: rem(24);
+      height: rem(24);
+    }
+  }
 }

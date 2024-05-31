@@ -82,6 +82,7 @@
       line-height: 1.12;
       letter-spacing: rem(-1.92);
       margin-bottom: rem(2);
+      padding-right: rem(20);
       &.verifired {
         max-width: max-content;
         padding-right: rem(26);
@@ -106,6 +107,28 @@
     }
     .mb-0 {
       margin-bottom: 0;
+    }
+  }
+  .btn-trash {
+    position: absolute;
+    bottom: rem(16);
+    right: rem(16);
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    @include media-breakpoint-up(lg) {
+      bottom: unset;
+      top: rem(16);
+      right: rem(16);
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: rem(24);
+      height: rem(24);
     }
   }
   &__name {

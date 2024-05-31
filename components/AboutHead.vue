@@ -19,7 +19,7 @@
         <div class="col">
           <div class="sAboutHead__item">
             <svg-icon name="users-medical.svg" />
-            <h4>{{ aboutStore.data.total_sum }} ₽</h4>
+            <h4>{{ aboutStore.data.total_sum }}</h4>
             <p>Cоставил общий фонд всех турниров на QYBER.RU</p>
           </div>
         </div>

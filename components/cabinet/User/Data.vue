@@ -1,10 +1,5 @@
 <template>
   <div class="sMyProfileBlock__row row">
-    <Button
-      @click="console.log(globalStore.userData)"
-      style="position: fixed; top: 0; left: 0; z-index: 1000"
-      label="Log"
-    />
     <div class="col">
       <div class="sMyProfileBlock__head">Персональная информация</div>
       <div class="form-wrap">

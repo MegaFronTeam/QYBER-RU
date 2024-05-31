@@ -53,19 +53,19 @@
 </template>
 
 <script setup>
-  // import CreateTeam from '@/components/cabinet/CreateTeam.vue';
-  import { useTeamStore } from '@/store/TeamStore';
-  const teamsStore = useTeamStore();
-  const { myTeams } = storeToRefs(teamsStore);
+// import CreateTeam from '@/components/cabinet/CreateTeam.vue';
+import { useTeamStore } from '@/store/TeamStore';
+const teamsStore = useTeamStore();
+const { myTeams } = storeToRefs(teamsStore);
 
-  const active = ref(0);
+const active = ref(0);
 </script>
 
 <style scoped lang="scss">
-  .sMyProfileBlock {
-    padding-bottom: 6px;
-    @media screen and (min-width: 992px) {
-      padding-bottom: 12px;
-    }
+.sMyProfileBlock {
+  padding-bottom: 6px;
+  @media screen and (min-width: 992px) {
+    padding-bottom: 12px;
   }
+}
 </style>

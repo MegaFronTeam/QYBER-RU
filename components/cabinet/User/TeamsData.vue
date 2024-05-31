@@ -1,4 +1,17 @@
 <template>
+  <Dialog v-model:visible="visibleShow" modal header="Вы уверены, что хотите удалить команду?">
+    <p>
+      В случае если вы удалите команду, вся информация о ней исчезнет без возможности восстановления
+    </p>
+    <div class="row">
+      <div class="col">
+        <Button severity="primary" @click="visibleShow = false" outlined>Да</Button>
+      </div>
+      <div class="col">
+        <Button @click="visibleShow = false">Нет</Button>
+      </div>
+    </div>
+  </Dialog>
   <DataTable v-if="myTeams" :value="myTeams">
     <Column
       :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
@@ -148,6 +161,9 @@
             />
             <Button v-else severity="gray" label="Перейти" class="btn-sm" />
           </NuxtLink>
+          <Button @click="visibleShow = true" class="p-button p-component btn-trash">
+            <svg-icon name="trash.svg" />
+          </Button>
         </div>
       </template>
     </Column>
@@ -163,6 +179,7 @@ import { useTeamStore } from '@/store/TeamStore';
 const teamsStore = useTeamStore();
 
 const { myTeams } = storeToRefs(teamsStore);
+const visibleShow = ref(false);
 
 // import { useUserStore } from '@/store/userStore';
 // const userStore = useUserStore();
