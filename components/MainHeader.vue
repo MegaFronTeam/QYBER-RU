@@ -45,7 +45,9 @@
               </h5>
             </div>
             <div class="sMainHeader__tournament-bottom-row row">
-              <ShareTournamentRegistration />
+              <NuxtLink class="sMainHeader__link" to="/tournaments">
+                <Button label="К турнирам" class="w-full" />
+              </NuxtLink>
               <div class="sMainHeader__timer">
                 <!-- <span>До начала:</span> -->
 
@@ -62,9 +64,9 @@
                 <svg-icon name="chevron-right.svg" />
               </NuxtLink>
             </div>
-            <div v-if="pending === false" class="sMainHeader__news-wrap">
+            <div class="sMainHeader__news-wrap">
               <NuxtLink
-                v-for="item of data.slice(0, 3)"
+                v-for="item of dataLast"
                 :to="`/news/${item.id}`"
                 class="sMainHeader__news-item"
               >
@@ -75,7 +77,7 @@
                 </div>
                 <div>
                   <p>{{ item.title.rendered }}</p>
-                  <span>17:50, 30 января 2024</span>
+                  <span>{{ item.date }}</span>
                 </div>
               </NuxtLink>
             </div>
@@ -87,14 +89,7 @@
 </template>
 
 <script setup>
-import { useTournamentStore } from '@/store/TournamentStore';
-const tournamentStore = useTournamentStore();
-import { useTeamStore } from '@/store/TeamStore';
-const teamsStore = useTeamStore();
-
-import { useGlobalStore } from '~/store/globalStore';
-const globalStore = useGlobalStore();
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
-const { data, pending } = await useLazyFetch(`${BASE_URL}/wp/v2/posts`);
+  import { useNewsStore } from '@/store/NewsStore';
+  const newsStore = useNewsStore();
+  const { dataLast } = storeToRefs(newsStore);
 </script>

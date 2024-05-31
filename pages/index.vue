@@ -5,26 +5,16 @@
     <TournamentsListLast />
 
     <MainContentBlock :sectionTitle="sectionTitleNewsProps" :footerLink="footerLinkNewsProps">
-      <NewsCard
-        v-for="item of data"
-        :newsData="{
-          id: item.id,
-          title: item.title.rendered,
-          date: item.date,
-          excerpt: item.excerpt.rendered,
-          thumbnail: item.post_thumbnail,
-        }"
-        :key="item.id"
-      />
+      <NewsCard v-for="item of data" :newsData="item" :key="item.id" />
     </MainContentBlock>
   </div>
 </template>
 
 <script setup>
-  import { useTournamentStore } from '@/store/TournamentStore';
-  const tournamentStore = useTournamentStore();
-
-  const { data } = await useFetch(`https://api.qyber.ru/wp-json/wp/v2/posts`);
+  import { useNewsStore } from '@/store/NewsStore';
+  const newsStore = useNewsStore();
+  const { data } = storeToRefs(newsStore);
+  newsStore.fetchNews(4);
 
   const sectionTitleNewsProps = {
     title: 'Последние новости',

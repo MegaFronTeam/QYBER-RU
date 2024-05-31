@@ -221,6 +221,8 @@ export const useUserStore = defineStore('user', () => {
 
       console.log(data);
       if (data.status === true) {
+        console.log('data', data[0]);
+        globalStore.setAPI_KEY(data.data[0]);
         showToast('success', 'Пароль успешно изменен');
         passwordData.value = {
           current_password: '',
@@ -228,6 +230,7 @@ export const useUserStore = defineStore('user', () => {
           repeat_password: '',
         };
       }
+
       // return response.data;
     } catch (error) {
       console.error(error);

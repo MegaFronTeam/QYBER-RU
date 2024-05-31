@@ -29,6 +29,10 @@ export const useGlobalStore = defineStore(
     const contacts = ref({});
     const telegramPath = ref('');
 
+    const setAPI_KEY = (key) => {
+      API_KEY.value = key;
+    };
+
     const getContacts = async () => {
       try {
         const response = await axios.get(`${BASE_URL}/menu/v1/settings`);
@@ -164,6 +168,7 @@ export const useGlobalStore = defineStore(
       user_genderArr,
       regions,
       setIn_verification,
+      setAPI_KEY,
     };
   },
   { persist: { storage: persistedState.localStorage } },

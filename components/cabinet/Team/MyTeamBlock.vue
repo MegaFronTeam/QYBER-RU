@@ -217,32 +217,13 @@
   import InviteMember from '@/components/cabinet/InviteMember.vue';
   import { useTeamStore } from '~/store/TeamStore';
 
-  // const props = defineProps({
-  //   pageID: {
-  //     type: String,
-  //     required: false,
-  //   },
-  // });
-
-  // const { pageID } = props;
-  const active = ref(1);
+  const active = ref(0);
   const teamStore = useTeamStore();
   const teamMembers = ref(teamStore.teamData.members);
-
-  // console.log('Members 1', teamMembers.value);
-  // console.log('Members 2', teamStore.teamData.members);
 
   //  sconst teamDataRef = ref(teamData);
   const deletePlayer = (USER_ID) => {
     teamStore.deleteTeamMember(USER_ID);
-    // teamDataRef.value.members = teamDataRef.value.members.filter((element) => element.id != USER_ID);
-    // Team.deleteTeamMember(pageID, USER_ID)
-    //   .then((response) => {
-    //     if (!response) return;
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   };
 </script>
 
