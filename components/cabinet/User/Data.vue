@@ -1,5 +1,10 @@
 <template>
   <div class="sMyProfileBlock__row row">
+    <Button
+      @click="console.log(globalStore.userData)"
+      style="position: fixed; top: 0; left: 0; z-index: 1000"
+      label="Log"
+    />
     <div class="col">
       <div class="sMyProfileBlock__head">Персональная информация</div>
       <div class="form-wrap">
@@ -168,30 +173,34 @@
 </template>
 
 <script setup>
-  import { useGlobalStore } from '@/store/globalStore';
-  const globalStore = useGlobalStore();
+import { useGlobalStore } from '@/store/globalStore';
+const globalStore = useGlobalStore();
 
-  const { userData, regions, user_genderArr } = storeToRefs(globalStore);
+const { userData, regions, user_genderArr } = storeToRefs(globalStore);
 
-  import { useUserStore } from '@/store/userStore';
-  const userStore = useUserStore();
+import { useUserStore } from '@/store/userStore';
+const userStore = useUserStore();
 
-  const { educational_institutions } = storeToRefs(userStore);
+const { educational_institutions } = storeToRefs(userStore);
 
-  const customBase64Uploader = async (event) => {
-    const file = event.files[0];
-    userData.user_avatar = file;
+const customBase64Uploader = async (event) => {
+  // const file = event.files[0];
+  // userData.user_avatar = file;
 
-    const reader = new FileReader();
-    let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
+  // const reader = new FileReader();
+  // let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
 
-    reader.readAsDataURL(blob);
+  // reader.readAsDataURL(blob);
 
-    reader.onloadend = function () {
-      const base64data = reader.result;
-      accreditation.setFile(file);
-    };
-    // console.log(logo.value);
-  };
-  // const in_verifications = globalStore.userData.user_verification == false;
+  // reader.onloadend = function () {
+  //   const base64data = reader.result;
+  //   accreditation.setFile(file);
+  // };
+  // console.log(event.files[0]);
+  globalStore.user_avatar = event.files[0].objectURL;
+  globalStore.userData.user_avatar = event.files[0];
+
+  return event.files[0];
+};
+// const in_verifications = globalStore.userData.user_verification == false;
 </script>
