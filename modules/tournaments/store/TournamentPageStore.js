@@ -5,17 +5,25 @@ import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 
 import { useTeamStore } from '@/store/TeamStore';
+import { useRefereeStore } from './RefereeStore';
+
+import { useRoute } from 'vue-router';
 
 export const useTournamentPageStore = defineStore('tournamentPage', {
   state: () => ({
     data: [],
     currentID: '',
     comand_listLength: 0,
-    gamesLength: 0,
-    dataGames: [],
+    indexGroupStore: 0,
+    indexCoupleStore: 0,
+    ifReferee: false,
   }),
   actions: {
     async fetchData(id) {
+      const refereeStore = useRefereeStore();
+      // const Routeid = route.params.id;
+      const { id: Routeid } = useRoute().params;
+      console.log('Routeid', Routeid);
       // if (id === this.currentID || !id) return;
       try {
         const response = await axios.get(`${BASE_URL}/wp/v2/tournaments/${id}`);
@@ -55,17 +63,22 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
             return item;
           });
 
-          this.comand_listLength = await data.comand_list.length;
-          this.gamesLength = await Math.ceil(data.comand_list.length / 2);
-
-          this.dataGames = Array.from({ length: this.gamesLength }, () => ({}));
+          // this.comand_listLength = await data.comand_list.length;
+          // this.gamesLength = await Math.ceil(data.comand_list.length / 2);
+          if (
+            refereeStore.teamsForefereeLength === 0 ||
+            refereeStore.teamsForefereeLength === refereeStore.comand_listLength
+          ) {
+            await refereeStore.getGamesLength(data.comand_list);
+          }
         }
 
         this.data = data;
         this.currentID = id;
-        // tournamentsListStore.matches = data.matches.map((match, index) => {
-        //   match.index = index;
-        // });
+        if (refereeStore.teamsForefereeLength === 0 || Routeid !== refereeStore.savedId) {
+          refereeStore.savedId = Routeid;
+          refereeStore.checkTeamForReferee(this.data.comand_list);
+        }
       } catch (error) {
         console.error(error);
         return Promise.reject(error);
@@ -75,7 +88,10 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       const teamStore = useTeamStore();
       await teamStore.fetchMyTeams().then(() => {
         teamStore.myTeams = teamStore.myTeams.map((item) => {
-          if (this.data.comand_list.some((team) => team.team.ID === item.ID)) {
+          if (
+            this.data.comand_list &&
+            this.data.comand_list.some((team) => team.team.ID === item.ID)
+          ) {
             item.Approved = true;
           }
           return item;

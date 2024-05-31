@@ -15,8 +15,8 @@
       >
         <!-- :class="{ 'team-success': product.team.success }" -->
         <div class="sGridCard__wrap">
-          <img :src="item.a.post_thumbnail" alt="Avatar" class="img" />
-          <span>{{ item.a.command.post_name }}</span>
+          <img :src="item.a.command.post_thumbnail" alt="Avatar" class="img" />
+          <span>{{ item.a.command.post_title }}</span>
         </div>
         <div class="sGridCard__score">
           <!-- {{ product.b.team.success ? 1 : 0 }} -->
@@ -32,8 +32,8 @@
       >
         <!-- :class="{ 'team-success': product.team.success }" -->
         <div class="sGridCard__wrap">
-          <img :src="item.b.post_thumbnail" alt="Avatar" class="img" />
-          <span>{{ item.b.command.post_name }}</span>
+          <img :src="item.b.command.post_thumbnail" alt="Avatar" class="img" />
+          <span>{{ item.b.command.post_title }}</span>
         </div>
         <div class="sGridCard__score">
           <!-- {{ product.b.team.success ? 1 : 0 }} -->

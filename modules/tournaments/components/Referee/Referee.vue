@@ -16,7 +16,7 @@
           </div>
           <div class="head-item">
             <p><span>Свободных команд</span></p>
-            <p>4</p>
+            <p>{{ teamsForefereeLength }}</p>
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
           <Game v-for="(item, index) in dataGames" :key="item.id" :item="item" :index="index + 1" />
         </div>
 
-        <div class="game">
+        <!-- <div class="game">
           <div class="game__title h6">
             Игра 1
             <Button class="btn-trash"><svg-icon name="trash.svg" /></Button>
@@ -144,6 +144,8 @@
             class="btn-add-team w-full active-btn dashed secondary"
           />
         </div>
+        -->
+
         <div class="game">
           <Button label="+ Добавить пару" outlined class="w-full btn-small" />
         </div>
@@ -180,7 +182,12 @@
 
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
-  const { comand_listLength, gamesLength, dataGames } = storeToRefs(tournamentPageStore);
+  const {} = storeToRefs(tournamentPageStore);
+
+  import { useRefereeStore } from '@/modules/tournaments/store/RefereeStore';
+  const refereeStore = useRefereeStore();
+  const { comand_listLength, gamesLength, teamsForefereeLength, dataGames } =
+    storeToRefs(refereeStore);
 
   const active = ref(1);
   const products = ref([

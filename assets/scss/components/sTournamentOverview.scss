@@ -420,6 +420,8 @@
         }
         img {
           width: rem(44);
+          height: rem(44);
+          object-fit: cover;
         }
       }
 

@@ -2,7 +2,10 @@
   <div>
     <Dialog class="p-dialog-big" v-model:visible="showRegModal" modal header="Выбрать команду">
       <div class="inner-wrapper">
-        <div class="game-item__card" v-for="item in teamsStore.myTeams">
+        <div
+          class="game-item__card"
+          v-for="item in ifReferee === true ? teamsForeferee : teamsStore.myTeams"
+        >
           <div class="">
             <NuxtLink
               :to="'/cabinet/team/' + item.ID"
@@ -18,6 +21,14 @@
                 alt="Avatar"
                 class="team-img"
               />
+
+              <img
+                v-if="item.post_thumbnail"
+                :src="`${item.post_thumbnail}`"
+                alt="Avatar"
+                class="team-img"
+              />
+
               <span>{{ item.post_title }} </span>
               <span v-if="ratingData" class="p-badge"> 3 453 </span>
             </NuxtLink>
@@ -32,16 +43,28 @@
           </div>
           <div class="btn-wrapper">
             <template v-if="!hideForm">
+              <template v-if="ifReferee !== true">
+                <Button
+                  v-if="!item.Approved"
+                  @click="tournamentStore.regToTournament(item.ID, currentID)"
+                  style="width: 100px"
+                  label="Выбрать"
+                  class="btn-sm"
+                />
+                <Badge v-else size="large" severity="success">
+                  <svg-icon name="check-white.svg" />
+                </Badge>
+              </template>
               <Button
-                v-if="!item.Approved"
-                @click="tournamentStore.regToTournament(item.ID, currentID)"
+                v-else
+                @click="
+                  refereeStore.addTeamToCouple(item.ID);
+                  showRegModal = false;
+                "
                 style="width: 100px"
                 label="Выбрать"
                 class="btn-sm"
               />
-              <Badge v-else size="large" severity="success">
-                <svg-icon name="check-white.svg" />
-              </Badge>
             </template>
             <Skeleton v-else height="40px" width="100px" style="margin-left: auto"></Skeleton>
           </div>
@@ -64,11 +87,26 @@
   const globalStore = useGlobalStore();
 
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-  const tournamentStorePage = useTournamentPageStore();
+  const tournamentPageStore = useTournamentPageStore();
+  const { ifReferee } = storeToRefs(tournamentPageStore);
+
+  import { useRefereeStore } from '@/modules/tournaments/store/RefereeStore';
+  const refereeStore = useRefereeStore();
+  const { teamsForeferee } = storeToRefs(refereeStore);
+
+  const route = useRoute();
+
+  const isRefereePage = ref(route.path.includes('/referee'));
+
+  console.log('isRefereePage', isRefereePage.value);
 
   onMounted(async () => {
-    if (globalStore.isUserAuth === true) {
-      tournamentStorePage.checkMyTeams();
+    if (ifReferee !== true) {
+      if (globalStore.isUserAuth === true) {
+        tournamentPageStore.checkMyTeams();
+      }
+    } else {
+      tournamentPageStore.checkTeamForReferee();
     }
   });
 

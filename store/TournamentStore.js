@@ -99,6 +99,12 @@ export const useTournamentStore = defineStore('tournament', () => {
     }
   };
 
+  watch(showRegModal, () => {
+    if (showRegModal.value === false) {
+      TournamentPageStore.ifReferee = false;
+    }
+  });
+
   // if( tournamentsList.value.length === 0){
   //   console.log('get all tournaments');
   //   getAll();

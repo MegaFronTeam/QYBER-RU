@@ -11,7 +11,6 @@ export const useGlobalStore = defineStore(
     const API_KEY = ref('');
     const email = ref('');
     const userData = ref({});
-    const user_registered = ref('');
     const user_first_letter = ref('');
     const user_avatar = ref(false);
     const leaguesOptions = ref([]);
@@ -52,6 +51,17 @@ export const useGlobalStore = defineStore(
           },
         });
         const data = await response.data;
+        data.map((element) => {
+          delete element.acf;
+          delete element.date;
+          delete element.guid;
+          delete element.link;
+          delete element._links;
+          delete element.modified;
+          delete element.modified_gmt;
+
+          return element;
+        });
         leaguesOptions.value = data;
         // return response.data;
       } catch (error) {
@@ -88,12 +98,22 @@ export const useGlobalStore = defineStore(
 
     const getRegions = async () => {
       try {
+        if (regions.value.length > 0) return;
         const response = await axios.get(`${BASE_URL}/wp/v2/subjects?per_page=100`);
         const data = await response.data;
-        // data.map((element) => {
-        //   element.ID = +element.ID;
-        //   element.post_title = element.title;
-        // });
+
+        data.map((element) => {
+          delete element.acf;
+          delete element.date;
+          delete element.guid;
+          delete element.link;
+          delete element._links;
+          delete element.modified;
+          delete element.modified_gmt;
+          delete element.date_gmt;
+
+          return element;
+        });
         regions.value = data;
       } catch (error) {
         console.error(error);
@@ -130,7 +150,6 @@ export const useGlobalStore = defineStore(
       API_KEY,
       email,
       userData,
-      user_registered,
       user_avatar,
       user_first_letter,
       leaguesOptions,

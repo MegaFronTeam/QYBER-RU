@@ -57,20 +57,12 @@
           <div class="tournament-table__item">
             <!-- <div class="tournament-table__item-title">Верхняя сетка</div> -->
             <div class="tournament-table__title-row row">
-              <div class="tournament-table__title-col col-auto">
-                <p>Раунд 1 (Online)</p>
-              </div>
-              <div class="tournament-table__title-col col-auto">
-                <p>Раунд 2 (Online)</p>
-              </div>
-              <div class="tournament-table__title-col col-auto">
-                <p>Раунд 3 (LAN)</p>
-              </div>
-              <div class="tournament-table__title-col col-auto">
-                <p>Раунд 4 (LAN)</p>
-              </div>
-              <div class="tournament-table__title-col col-auto">
-                <p>Финал (LAN)</p>
+              <div
+                class="tournament-table__title-col col-auto"
+                v-for="(item, index) in data.stages_labels"
+                :key="index"
+              >
+                <p>{{ item.name }} ({{ item.subname }})</p>
               </div>
             </div>
             <div class="tournament-table__row row">

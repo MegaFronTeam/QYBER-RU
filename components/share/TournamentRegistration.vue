@@ -11,7 +11,7 @@
     label="Регистрация  на турнир"
     class="w-full"
   />
-  <!-- currentID = {{ id }}; -->
+  currentID = {{ id }};
 </template>
 <script setup>
   import { useGlobalStore } from '@/store/globalStore';

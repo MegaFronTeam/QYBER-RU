@@ -27,8 +27,8 @@
             <template #body="slotProps">
               <div class="table-wrap">
                 <!-- TODO: Tournament need data img -->
-                <img :src="`/img/${slotProps.data.team.avatar}`" alt="Avatar" />
-                <span v-html="slotProps.data.team.post_name"></span>
+                <img :src="slotProps.data.post_thumbnail" alt="Avatar" />
+                <span v-html="slotProps.data.team.post_title"></span>
               </div>
             </template>
           </Column>
