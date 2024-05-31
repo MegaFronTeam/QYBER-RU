@@ -22,8 +22,8 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     async fetchData(id) {
       const refereeStore = useRefereeStore();
       // const Routeid = route.params.id;
-      const { id: Routeid } = useRoute().params;
-      console.log('Routeid', Routeid);
+      // const { id: Routeid } = useRoute().params;
+      // console.log('Routeid', Routeid);
       // if (id === this.currentID || !id) return;
       try {
         const response = await axios.get(`${BASE_URL}/wp/v2/tournaments/${id}`);
@@ -66,7 +66,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           // this.comand_listLength = await data.comand_list.length;
           // this.gamesLength = await Math.ceil(data.comand_list.length / 2);
           if (
-            refereeStore.teamsForefereeLength === 0 ||
+            refereeStore.couples.length === 0 ||
             refereeStore.teamsForefereeLength === refereeStore.comand_listLength
           ) {
             await refereeStore.getGamesLength(data.comand_list);
@@ -75,8 +75,9 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
 
         this.data = data;
         this.currentID = id;
-        if (refereeStore.teamsForefereeLength === 0 || Routeid !== refereeStore.savedId) {
-          refereeStore.savedId = Routeid;
+        if (refereeStore.couples.length === 0 || this.currentID !== refereeStore.savedId) {
+          console.log('checkTeamForReferee');
+          refereeStore.savedId = this.currentID;
           refereeStore.checkTeamForReferee(this.data.comand_list);
         }
       } catch (error) {

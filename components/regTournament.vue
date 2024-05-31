@@ -29,7 +29,7 @@
                 class="team-img"
               />
 
-              <span>{{ item.post_title }} </span>
+              <span>{{ item.post_title || item.team.post_title }} </span>
               <span v-if="ratingData" class="p-badge"> 3 453 </span>
             </NuxtLink>
             <div class="table-wrap" v-if="ratingData">
@@ -58,7 +58,7 @@
               <Button
                 v-else
                 @click="
-                  refereeStore.addTeamToCouple(item.ID);
+                  refereeStore.addTeamToCouple(item.team.ID);
                   showRegModal = false;
                 "
                 style="width: 100px"

@@ -278,5 +278,6 @@ export const useUserStore = defineStore('user', () => {
     disabledUpdatePassword,
     educational_institutions,
     getEducationalInstitutions,
+    showToast,
   };
 });
