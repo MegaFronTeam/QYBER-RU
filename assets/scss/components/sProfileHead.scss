@@ -215,4 +215,13 @@
       top: 0;
     }
   }
+  .edit-team {
+    position: absolute;
+    padding: 0;
+    border: none;
+    top: rem(42);
+    right: rem(16);
+    background-color: transparent;
+    border-radius: rem(4);
+  }
 }

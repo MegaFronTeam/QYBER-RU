@@ -58,6 +58,9 @@ body {
 .d-flex {
   display: flex !important;
 }
+.mb-0 {
+  margin-bottom: 0 !important;
+}
 .align-items-center {
   align-items: center !important;
 }
@@ -81,6 +84,16 @@ body {
   .align-items-#{$key}-center {
     @include media-breakpoint-up($key) {
       align-items: center !important;
+    }
+  }
+  .align-items-#{$key}-center {
+    @include media-breakpoint-up($key) {
+      align-items: center !important;
+    }
+  }
+  .mb-#{$key}-0 {
+    @include media-breakpoint-up($key) {
+      margin-bottom: 0 !important;
     }
   }
 }
@@ -931,4 +944,13 @@ body {
       margin: 0;
     }
   }
+}
+
+.delete-team {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background-color: transparent !important;
+  color: var(--red-300);
+  margin-top: rem(18);
 }

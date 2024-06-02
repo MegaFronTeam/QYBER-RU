@@ -46,6 +46,7 @@
       <div class="sProfileHead__time mb-0" v-if="globalStore.userData.user_inn">
         ИНН {{ globalStore.userData.user_inn }}
       </div>
+      <EditTeam />
       <Button @click="visibleShow = true" class="p-button p-component btn-trash">
         <svg-icon name="trash.svg" />
       </Button>
@@ -93,6 +94,7 @@ const tournamentStore = useTournamentStore();
 const { teamData } = storeToRefs(teamsStore);
 
 import { useGlobalStore } from '@/store/globalStore';
+import EditTeam from '~/components/cabinet/Team/EditTeam.vue';
 const globalStore = useGlobalStore();
 
 const visibleShow = ref(false);

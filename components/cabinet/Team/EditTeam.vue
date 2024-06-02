@@ -1,21 +1,19 @@
 <template>
   <div>
     <Button
-      style="margin-bottom: 1.5rem"
-      class="ms-auto btn-sm"
+      class="edit-team"
       severity="primary"
       outlined
-      @click="
-        visibleShow = true;
-        isSend = false;
-      "
+      @click="visibleEditModal = true"
       label="Создать команду"
-    />
+    >
+      <SvgIcon name="pencil.svg" />
+    </Button>
 
-    <Dialog v-model:visible="visibleShow" modal header="Редактировать команду">
-      <div class="form-wrap">
+    <Dialog v-model:visible="visibleEditModal" modal header="Создание команды">
+      <div class="form-wrap mb-0">
         <transition name="fade">
-          <form @submit.prevent="teamStore.createTeam" v-if="!teamStore.isCreate">
+          <form @submit.prevent="">
             <InputGroup>
               <label for="name">Название команды</label>
               <InputText
@@ -48,7 +46,6 @@
                 :options="globalStore.leaguesOptions"
                 aria-labelledby="multiple"
                 multiple
-                :disabled="globalStore.userData.leagues.length !== 2"
               />
               <!-- :allowEmpty="false" -->
             </InputGroup>
@@ -76,11 +73,8 @@
               </div>
             </InputGroup>
             <Button type="submit" class="btn-lg">Создать команду</Button>
+            <Button type="button" class="delete-team">Удалить команду</Button>
           </form>
-          <div v-else>
-            <p>Команда успешно создана</p>
-            <Button @click="visibleShow = false" label="Закрыть" />
-          </div>
         </transition>
       </div>
     </Dialog>
@@ -90,16 +84,12 @@
 
 <script setup>
 // TODO: переделать на Store
-const visibleShow = ref(false);
+const visibleEditModal = ref(false);
 import { useGlobalStore } from '@/store/globalStore';
 import { useTeamStore } from '@/store/TeamStore';
 
 const globalStore = useGlobalStore();
 const teamStore = useTeamStore();
-
-if (visibleShow.value === false) {
-  teamStore.isCreate = false;
-}
 
 globalStore.getDisciplines();
 import { useToast } from 'primevue/usetoast';
