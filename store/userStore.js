@@ -163,6 +163,13 @@ export const useUserStore = defineStore('user', () => {
       }
     } catch (error) {
       console.error(error);
+      if (error.response.data.errors) {
+        Object.values(error.response.data.errors).forEach((error) => {
+          showToast('error', 'Ошибка', error);
+        });
+      }
+      if (error.response.data.message) showToast('error', 'Ошибка', error.response.data.message);
+
       return Promise.reject(error);
     }
   };

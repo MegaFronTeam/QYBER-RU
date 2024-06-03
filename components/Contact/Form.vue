@@ -1,5 +1,5 @@
 <template>
-  <Toast />
+  <!-- <Toast /> -->
   <div class="form-wrap">
     <h2 class="h1">Напишите нам</h2>
     <form @submit.prevent="contactStore.submit">
