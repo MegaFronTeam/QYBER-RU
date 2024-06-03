@@ -31,10 +31,10 @@
                 >
               </div>
               <div class="sContactBlock__profile-info">
-                <a :href="globalStore.contacts.socials[0].link" target="_blank">
+                <a :href="globalStore.contacts.discord[0].link" target="_blank">
                   <Button class="sContactBlock__btn btn-lg p-button-gray">
-                    <svg-icon name="telegram.svg" />
-                    Написать в Telegram
+                    <svg-icon name="discord.svg" />
+                    Написать в Discord
                   </Button>
                 </a>
               </div>
