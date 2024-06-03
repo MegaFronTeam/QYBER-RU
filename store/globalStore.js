@@ -28,6 +28,7 @@ export const useGlobalStore = defineStore(
 
     const contacts = ref({});
     const telegramPath = ref('');
+    const DiscordServer = ref('');
 
     const setAPI_KEY = (key) => {
       API_KEY.value = key;
@@ -39,6 +40,9 @@ export const useGlobalStore = defineStore(
         const data = await response.data;
         contacts.value = data.contacts;
         telegramPath.value = data.contacts.socials[0].link.split('//')[1];
+        contacts.value.discord = data.contacts.socials.filter(
+          (item) => item.social.value === 'discord',
+        );
         // console.log('contact', contacts.value);
       } catch (error) {
         console.error(error);

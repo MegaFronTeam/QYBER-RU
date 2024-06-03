@@ -2,7 +2,12 @@
   <div class="sTournamentOverview--participants">
     <div class="wrap-body">
       <div class="template">
-        <DataTable :value="data.comand_list">
+        <DataTable
+          :value="data.comand_list"
+          paginator
+          :rows="5"
+          :rowsPerPageOptions="[5, 10, 20, 50]"
+        >
           <Column
             :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
             field="team"
@@ -95,7 +100,7 @@
         </DataTable>
       </div>
     </div>
-    <div class="wrap-footer">
+    <div class="wrap-footer" v-if="Paginator">
       <div class="template template--footer">
         <Paginator
           :rows="rowsPerPage[0]"
@@ -119,44 +124,12 @@
 </template>
 
 <script setup>
-import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-const tournamentPageStore = useTournamentPageStore();
-const { data } = storeToRefs(tournamentPageStore);
+  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  const tournamentPageStore = useTournamentPageStore();
+  const { data } = storeToRefs(tournamentPageStore);
 
-const active = ref(1);
-const products = ref([
-  {
-    team: {
-      avatar: 'team-img-1.png',
-      text: 'Team Rogue',
-    },
-    organisation: {
-      label: 'ООО Датекс Софт',
-    },
-    registration: 'вт, 30 января в 15:34',
-  },
-  {
-    team: {
-      avatar: 'team-img-2.svg',
-      text: 'INTZ Genesis',
-    },
-    organisation: {
-      label: 'ООО Датекс Софт',
-    },
-    registration: 'вт, 30 января в 15:34',
-  },
-  {
-    team: {
-      avatar: 'team-img-1.png',
-      text: 'Team Rogue',
-    },
-    organisation: {
-      label: 'ООО Датекс Софт',
-    },
-    registration: 'вт, 30 января в 15:34',
-  },
-]);
+  const active = ref(1);
 
-const totalRecords = ref(10);
-const rowsPerPage = ref([5, 10, 50, 100]);
+  const totalRecords = ref(10);
+  const rowsPerPage = ref([5, 10, 50, 100]);
 </script>

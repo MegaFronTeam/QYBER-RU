@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <h1>This is fsdfsdfds {{ $route.name }}</h1>
-  </div>
+  <!-- <div class="container">
+    <h1>Турниры</h1>
+  </div> -->
+
+  <TournamentsListLast />
 </template>
 <script setup>
   definePageMeta({

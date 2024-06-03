@@ -6,10 +6,10 @@
           <MenuBlock />
         </div>
         <div class="wrap-body">
-          <div class="sTournamentOverview__info">
+          <div class="sTournamentOverview__info" v-if="data.date2 && isNotStart === true">
             <svg-icon name="info.svg" />
-            Для участия подтвердите свою заявку в период 28 января 2024 г. в 14:00 - 28 февраля 2024
-            в 14:00
+            Для участия подтвердите свою заявку в период {{ data.date_gmtStartReg }} -
+            {{ data.date2 }}
           </div>
           <slot></slot>
         </div>
@@ -40,7 +40,7 @@
 
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentStorePage = useTournamentPageStore();
-  const { data } = storeToRefs(tournamentStorePage);
+  const { data, isNotStart } = storeToRefs(tournamentStorePage);
 
   const title = ref('');
 

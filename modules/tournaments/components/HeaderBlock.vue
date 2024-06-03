@@ -28,17 +28,15 @@
       <div class="steps-wrap">
         <div class="step step_active">
           <p><span>Анонсирован</span></p>
-          <!-- TODO: need data -->
           <p>{{ data.date_gmtStartReg }}</p>
         </div>
         <div class="step">
           <p><span>Регистрация</span></p>
-          <!-- TODO: need data -->
-          <p>{{ data.date_gmtStartReg }} - 28 февраля 2024 в 14:00</p>
+          <p>{{ data.date_gmtStartReg }} - {{ data.date }}</p>
         </div>
         <div class="step">
           <p><span>Проведение турнира</span></p>
-          <p v-html="data.date"></p>
+          <p v-html="data.date2"></p>
         </div>
       </div>
     </div>
@@ -55,12 +53,10 @@
       </div>
       <div class="head-item">
         <p><span>Формат</span></p>
-        <!-- TODO: need data -->
-        <p>5x5</p>
+        <p>{{ data.format }}</p>
       </div>
       <div class="head-item">
         <p><span>Команды</span></p>
-        <!-- TODO: need data -->
         <p>{{ data.teamLength }}</p>
       </div>
       <div class="head-item">

@@ -17,6 +17,10 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     indexGroupStore: 0,
     indexCoupleStore: 0,
     ifReferee: false,
+    matches: [],
+    stages_labels: {},
+    stages_labelsLength: 0,
+    isNotStart: true,
   }),
   actions: {
     async fetchData(id) {
@@ -28,12 +32,19 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       try {
         const response = await axios.get(`${BASE_URL}/wp/v2/tournaments/${id}`);
         const data = await response.data;
+        const today = new Date();
+        if (new Date(data.date) >= today) {
+          this.isNotStart = false;
+        }
 
-        data.date_gmtStartReg = format(new Date(data.date_gmt), 'd MMMM yyyy в HH:mm', {
+        data.date2 = format(new Date(data.date_gmt), 'd MMMM yyyy  HH:mm', {
           locale: ru,
         });
 
-        console.log(data);
+        data.date_gmtStartReg = format(new Date(data.date_gmt), 'd MMMM yyyy  HH:mm', {
+          locale: ru,
+        });
+
         data.title = data.title.rendered;
 
         data.prize_fund = new Intl.NumberFormat('ru-RU', {
@@ -46,7 +57,22 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           .replace(/\.00$/, '');
         this.matches = data.matches;
 
-        this.comand_list = data.comand_list;
+        if (data.stages_labels) {
+          data.stages_labels = data.stages_labels.map((item, index) => {
+            item.index = index;
+            return item;
+          });
+
+          this.stages_labelsLength = data.stages_labels.length;
+          const subnameLAN = data.stages_labels.filter((item) => item.subname.trim() === 'LAN');
+          const subnameOnline = data.stages_labels.filter(
+            (item) => item.subname.trim() === 'Online',
+          );
+          this.stages_labels = [
+            { name: 'Online', items: subnameOnline, stageLength: subnameOnline.length },
+            { name: 'LAN', items: subnameLAN, stageLength: subnameLAN.length },
+          ];
+        }
 
         // data.map((item) => {
         //   delete item.matches;

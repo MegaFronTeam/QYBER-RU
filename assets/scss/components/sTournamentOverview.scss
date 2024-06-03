@@ -279,31 +279,62 @@
       content: none;
     }
     .title-wrap {
+      // gap: rem(20) rem(20);
       display: grid;
-      grid-template-columns: 1fr;
-      row-gap: rem(6);
-      margin-bottom: rem(24);
+      margin-bottom: rem(20);
       @include media-breakpoint-up(lg) {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(var(--countStages), 1fr);
       }
+      &__place {
+        @include media-breakpoint-up(lg) {
+          grid-column: span var(--countStage);
+
+          display: grid;
+        }
+        grid-template-columns: subgrid;
+        // &:nth-child(1) {
+        //   flex-grow: 1;
+        // }
+        .title-span {
+          grid-column: span var(--countStage);
+        }
+
+        @include media-breakpoint-up(lg) {
+          &:nth-child(1) {
+            .title-span {
+              border-right: 1px solid var(--gray-100);
+            }
+          }
+          &:nth-child(1) .buttons {
+            padding-left: 0;
+          }
+          &:nth-child(2) .buttons {
+            padding-right: 0;
+            // margin-left: rem(10);
+          }
+        }
+      }
+      // display: grid;
+      // grid-template-columns: 1fr;
+      // margin-bottom: rem(24);
+      // @include media-breakpoint-up(lg) {
+      //   grid-template-columns: repeat(2, 1fr);
+      // }
     }
     .buttons {
+      grid-column: span var(--countStage);
+      padding: rem(10);
+      gap: rem(20);
       display: grid;
-      grid-template-columns: 1fr;
-      gap: rem(6);
+      grid-template-columns: repeat(1, 1fr);
       .secondary {
         color: var(--gray-500);
         border-color: var(--gray-200);
       }
       @include media-breakpoint-up(lg) {
-        grid-template-columns: repeat(3, 1fr);
+        // display: flex;
+        grid-template-columns: subgrid;
         gap: rem(20);
-        &.mr-1 {
-          margin-right: rem(10);
-        }
-        &.ml-1 {
-          margin-left: rem(10);
-        }
       }
       span {
         font-weight: 400;
@@ -323,9 +354,6 @@
       margin-bottom: rem(6);
       @include media-breakpoint-up(lg) {
         font-size: rem(30);
-        &_border {
-          border-right: 1px solid var(--gray-100);
-        }
       }
     }
 
