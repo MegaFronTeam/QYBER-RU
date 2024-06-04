@@ -75,6 +75,7 @@ export const useTeamStore = defineStore('teamStore', {
           } else {
             this.showToast('error', 'Ошибка', `Поле ${keysToRussian[key]} не заполнено`);
           }
+          return;
         }
       });
 

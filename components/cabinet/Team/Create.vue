@@ -8,6 +8,7 @@
       @click="
         visibleShow = true;
         isSend = false;
+        teamStore.isCreate = false;
       "
       label="Создать команду"
     />
@@ -97,13 +98,13 @@
   const globalStore = useGlobalStore();
   const teamStore = useTeamStore();
 
-  if (visibleShow.value === false) {
-    teamStore.isCreate = false;
-  }
+  // if (visibleShow.value === false) {
+  //   teamStore.isCreate = false;
+  // }
 
   globalStore.getDisciplines();
-  import { useToast } from 'primevue/usetoast';
-  const toast = useToast();
+  // import { useToast } from 'primevue/usetoast';
+  // const toast = useToast();
 
   teamStore.leaguesStatus();
 

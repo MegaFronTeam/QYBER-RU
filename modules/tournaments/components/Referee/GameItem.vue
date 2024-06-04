@@ -1,6 +1,6 @@
 <template>
   <Button
-    v-if="item && item.canCheck"
+    v-if="matches.length <= 0 && item && item.canCheck"
     outlined
     label="+ Выбрать команду"
     class="btn-add-team w-full active-btn dashed secondary"
@@ -14,7 +14,9 @@
   <div class="game__card" v-else>
     <div class="table-wrap">
       <img v-if="item && item.post_thumbnail" :src="item.post_thumbnail" alt="Avatar" />
-      <span v-if="item && item.team">{{ item.team.post_title }} </span>
+      <span v-if="item.post_title || (item && item.team)"
+        >{{ item.post_title || item.team.post_title }}
+      </span>
       <!-- TODO:Rating data -->
       <span class="p-badge" v-if="rating"> 3 453 </span>
     </div>
@@ -27,6 +29,7 @@
         <div class="danger">Поражения 112 (28%)</div>
       </div>
       <Button
+        v-if="matches.length <= 0"
         @click="refereeStore.removeTeamFromCouple(+indexGroup, +indexCouple)"
         class="btn-trash"
         ><svg-icon name="trash.svg"
@@ -45,7 +48,7 @@
 
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore.js';
   const tournamentPageStore = useTournamentPageStore();
-  const { ifReferee, currentID } = storeToRefs(tournamentPageStore);
+  const { ifReferee, matches } = storeToRefs(tournamentPageStore);
 
   import { useRefereeStore } from '@/modules/tournaments/store/RefereeStore';
   const refereeStore = useRefereeStore();

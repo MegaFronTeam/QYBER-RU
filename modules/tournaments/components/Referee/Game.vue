@@ -5,16 +5,31 @@
       <!-- TODO: add removeMethod -->
       <Button v-if="removeBtn" class="btn-trash"><svg-icon name="trash.svg" /></Button>
     </div>
-    <GameItem :item="item[0]" :indexGroup="index - 1" indexCouple="0" />
+    <template v-if="item['a']">
+      <GameItem :item="item['a'].command" :indexGroup="index - 1" indexCouple="0" />
+    </template>
+    <template v-else>
+      <GameItem :item="item[0]" :indexGroup="index - 1" indexCouple="0" />
+    </template>
     <!-- v-if="comand_listLength % 2 === 0" -->
-    <GameItem v-if="item[1]" :item="item[1]" :indexGroup="index - 1" indexCouple="1" />
+    <template v-if="item['b']">
+      <GameItem
+        v-if="item['b'].command"
+        :item="item['b'].command"
+        :indexGroup="index - 1"
+        indexCouple="1"
+      />
+    </template>
+    <template v-else>
+      <GameItem v-if="item[1]" :item="item[1]" :indexGroup="index - 1" indexCouple="1" />
+    </template>
   </div>
 </template>
 
 <script setup>
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
-  const { data } = storeToRefs(tournamentPageStore);
+  const { data, matches } = storeToRefs(tournamentPageStore);
 
   import { useRefereeStore } from '@/modules/tournaments/store/RefereeStore';
   const refereeStore = useRefereeStore();

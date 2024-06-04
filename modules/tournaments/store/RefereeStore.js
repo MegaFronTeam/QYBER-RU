@@ -16,7 +16,6 @@ export const useRefereeStore = defineStore('referee', {
   }),
   actions: {
     async checkTeamForReferee(comand_list) {
-      console.log('checkTeamForReferee');
       this.teamsForeferee = comand_list;
       // .map((item) => {
       //   // TODO: add rating data
@@ -107,6 +106,7 @@ export const useRefereeStore = defineStore('referee', {
     },
     async sendGames() {
       const userStore = useUserStore();
+      const tournamentPageStore = useTournamentPageStore();
 
       if (
         this.couples.some((item) => item.some((item) => item === undefined)) ||
@@ -137,6 +137,7 @@ export const useRefereeStore = defineStore('referee', {
           console.log(data);
           if (data === true) {
             userStore.showToast('success', 'Игры успешно сохранены');
+            tournamentPageStore.fetchData(tournamentPageStore.currentID);
           }
         } catch (error) {
           console.error(error);
