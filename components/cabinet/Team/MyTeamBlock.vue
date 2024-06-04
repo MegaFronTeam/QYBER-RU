@@ -52,7 +52,7 @@
                       :src="`${slotProps.data.avatar.url}`"
                       alt="Avatar"
                     />
-                    <span>{{ slotProps.data.user_login }}</span>
+                    <span>{{ slotProps.data.user_nickname }}</span>
                   </div>
                 </template>
               </Column>
@@ -80,7 +80,8 @@
                 </template>
                 <template #body="slotProps">
                   <span class="small-text">
-                    {{ slotProps.data.user_login }}
+                    {{ slotProps.data.user_last_name }}
+                    {{ slotProps.data.user_first_name }}
                   </span>
                 </template>
               </Column>

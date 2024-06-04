@@ -21,7 +21,7 @@
           >{{ globalStore.contacts.email }}</a
         >
       </div>
-      <div class="sContactBlock__profile-info">
+      <!-- <div class="sContactBlock__profile-info">
         <span>Почта для связи с организаторами</span>
         <a
           :href="'mailto:' + globalStore.contacts.email"
@@ -38,7 +38,7 @@
           rel="noopener noreferrer"
           >{{ globalStore.contacts.email }}</a
         >
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
