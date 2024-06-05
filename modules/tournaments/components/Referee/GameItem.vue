@@ -1,6 +1,6 @@
 <template>
   <Button
-    v-if="matches.length <= 0 && item && item.canCheck"
+    v-if="item === null"
     outlined
     label="+ Выбрать команду"
     class="btn-add-team w-full active-btn dashed secondary"
@@ -10,6 +10,7 @@
       tournamentPageStore.indexGroupStore = +indexGroup;
       tournamentPageStore.indexCoupleStore = +indexCouple;
     "
+    :disabled="teamsForefereeLength === 0"
   />
   <div class="game__card" v-else>
     <div class="table-wrap">
@@ -17,11 +18,9 @@
       <span v-if="item.post_title || (item && item.team)"
         >{{ item.post_title || item.team.post_title }}
       </span>
-      <!-- TODO:Rating data -->
       <span class="p-badge" v-if="rating"> 3 453 </span>
     </div>
     <div class="table-wrap">
-      <!-- TODO:Rating data -->
       <div class="game__list" v-if="rating">
         <div class="">Сыграно 678 матчей</div>
         <div class="success">Победы 479 (72%)</div>
@@ -52,6 +51,7 @@
 
   import { useRefereeStore } from '@/modules/tournaments/store/RefereeStore';
   const refereeStore = useRefereeStore();
+  const { teamsForefereeLength } = storeToRefs(refereeStore);
 
   const props = defineProps({
     // id: {

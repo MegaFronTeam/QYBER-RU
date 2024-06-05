@@ -55,7 +55,15 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         })
           .format(+data.prize_fund)
           .replace(/\.00$/, '');
-        this.matches = data.matches;
+
+        // this.matches = Array.from(data.matches)
+        // this.matches = data.matches
+        this.matches = Object.values(data.matches)
+        this.matches = this.matches.map((item) => item.filter((subItem) => subItem.b.command !== false))
+
+        console.log('matches', this.matches);
+        // this.matches = this.matches.filter((item) => item[1].b.command !== false);
+        // this.matches = Object.keys(this.matches)
 
         if (data.stages_labels) {
           data.stages_labels = data.stages_labels.map((item, index) => {
