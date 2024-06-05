@@ -57,7 +57,7 @@ export const useTeamStore = defineStore('teamStore', {
         life: 10000,
       });
     },
-    async createTeam() {
+    async createTeam(url = '/teams/v1/create', id = '') {
       const keysToRussian = {
         name: 'Название',
         leagues: 'Лигу',
@@ -89,7 +89,8 @@ export const useTeamStore = defineStore('teamStore', {
       console.log(formData);
 
       try {
-        const response = await this.fetcher('POST', '/teams/v1/create', formData);
+        const customUrl = id ? `${url}/${id}` : url;
+        const response = await this.fetcher('POST', customUrl, formData);
         const data = await response.data;
         if (data) {
           console.log(data);
