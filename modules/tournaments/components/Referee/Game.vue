@@ -21,7 +21,7 @@
       />
     </template>
     <template v-else>
-      <GameItem v-if="item[1]" :item="item[1]" :indexGroup="index - 1" indexCouple="1" />
+      <GameItem :item="item[1]" :indexGroup="index - 1" indexCouple="1" />
     </template>
   </div>
 </template>
