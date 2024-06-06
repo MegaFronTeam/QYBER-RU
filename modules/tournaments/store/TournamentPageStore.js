@@ -58,13 +58,15 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           .replace(/\.00$/, '');
 
         if (data.matches[1].length > 0) {
-          this.matches = Object.values(data.matches);
-          this.matches = this.matches.map((item) => {
+          const matches = Object.values(JSON.parse(JSON.stringify(data.matches)));
+          this.matches = matches.map((item, index) => {
             item.map((subItem) => {
-              if (subItem.date === null) return;
-              subItem.date = format(new Date(subItem.date), 'd MMMM yyyy  HH:mm', {
-                locale: ru,
-              });
+              if (subItem.date !== null && subItem.date !== '') {
+                console.log(index, 'subItem.date', subItem.date);
+                subItem.date = format(new Date(subItem.date), 'd MMMM yyyy  HH:mm', {
+                  locale: ru,
+                });
+              }
               return subItem;
             });
             return item;
