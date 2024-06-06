@@ -18,7 +18,7 @@
           </div>
           <div class="head-item">
             <p><span>Всего игр</span></p>
-            <p>{{ gamesLength }}</p>
+            <p>{{ comand_listLength > 0 ? gamesLength : 0 }}</p>
           </div>
           <div class="head-item">
             <p><span>Свободных команд</span></p>

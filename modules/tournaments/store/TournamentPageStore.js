@@ -23,7 +23,23 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     matchesReferee: [],
   }),
   actions: {
+    reset() {
+      this.data = [];
+      this.comand_listLength = 0;
+      this.indexGroupStore = 0;
+      this.indexCoupleStore = 0;
+      this.ifReferee = false;
+      this.matches = [];
+      this.matchesGrid = [];
+      this.stages_labels = {};
+      this.stages_labelsLength = 0;
+      this.isNotStart = true;
+      this.matchesReferee = [];
+    },
     async fetchData(id) {
+      if (id !== this.currentID) {
+        this.reset();
+      }
       const refereeStore = useRefereeStore();
       // const Routeid = route.params.id;
       // const { id: Routeid } = useRoute().params;
@@ -57,7 +73,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           .format(+data.prize_fund)
           .replace(/\.00$/, '');
 
-        if (data.matches[1].length > 0) {
+        if (data.matches.length || (data.matches[1] && data.matches[1].length > 0)) {
           const matches = Object.values(JSON.parse(JSON.stringify(data.matches)));
           this.matches = matches.map((item, index) => {
             item.map((subItem) => {
