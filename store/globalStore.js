@@ -29,6 +29,7 @@ export const useGlobalStore = defineStore(
     const contacts = ref({});
     const telegramPath = ref('');
     const DiscordServer = ref('');
+    const tableRows = ref(10);
 
     const setAPI_KEY = (key) => {
       API_KEY.value = key;
@@ -173,6 +174,7 @@ export const useGlobalStore = defineStore(
       regions,
       setIn_verification,
       setAPI_KEY,
+      tableRows,
     };
   },
   { persist: { storage: persistedState.localStorage } },

@@ -28,7 +28,12 @@
       <div class="template table--schedule">
         <TabView v-model:activeIndex="active">
           <TabPanel v-if="data" v-for="(item, index) in matches" :key="index">
-            <DataTable :value="item" paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]">
+            <DataTable
+              :value="item"
+              paginator
+              :rows="tableRows"
+              :rowsPerPageOptions="[5, 10, 20, 50]"
+            >
               <Column
                 :header-props="{ 'sort-icon': 'mdi-triangle-down' }"
                 field="registration"
@@ -125,6 +130,10 @@
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
   const { data, stages_labels, stages_labelsLength, matches } = storeToRefs(tournamentPageStore);
+
+  import { useGlobalStore } from '~/store/globalStore';
+  const globalStore = useGlobalStore();
+  const { tableRows } = storeToRefs(globalStore);
 
   const totalRecords = ref(10);
   const rowsPerPage = ref([5, 10, 50, 100]);

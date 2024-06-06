@@ -5,7 +5,7 @@
         <DataTable
           :value="data.comand_list"
           paginator
-          :rows="5"
+          :rows="tableRows"
           :rowsPerPageOptions="[5, 10, 20, 50]"
         >
           <Column
@@ -124,6 +124,10 @@
 </template>
 
 <script setup>
+  import { useGlobalStore } from '~/store/globalStore';
+  const globalStore = useGlobalStore();
+  const { tableRows } = storeToRefs(globalStore);
+
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
   const { data } = storeToRefs(tournamentPageStore);
