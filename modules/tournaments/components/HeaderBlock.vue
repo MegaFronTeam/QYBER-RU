@@ -4,7 +4,9 @@
     :bg="data.post_thumbnail"
     class="sHeaderBlock sHeaderBlock--detailed"
   >
-    <div class="header-item">
+    <!-- TODO: add timer -->
+
+    <div class="header-item" v-if="timer">
       <div class="data-start"><span>До начала турнира:</span></div>
       <div class="timer">
         <div class="timer__item">
