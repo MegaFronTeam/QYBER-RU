@@ -34,7 +34,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       this.matchesGrid = [];
       this.stages_labels = {};
       this.stages_labelsLength = 0;
-      this.isNotStart = true;
+      // this.isNotStart = true;
       this.matchesReferee = [];
     },
     async fetchData(id) {
@@ -51,15 +51,15 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         const data = await response.data;
         const today = new Date();
         this.matchesReferee = Object.values(JSON.parse(JSON.stringify(data.matches)));
-        if (new Date(data.date) >= today) {
+        if (new Date(data.accepting_applications.end) >= today) {
           this.isNotStart = false;
         }
 
         data.date2 = formatDate(data.date);
 
         data.date_gmtStartReg = formatDate(data.date_gmt);
-        data.accepting_applications.end = formatDate(data.accepting_applications.end);
-        data.accepting_applications.start = formatDate(data.accepting_applications.start);
+        data.accepting_applications.endFormat = formatDate(data.accepting_applications.end);
+        data.accepting_applications.startFormat = formatDate(data.accepting_applications.start);
         data.title = data.title.rendered;
 
         data.prize_fund = new Intl.NumberFormat('ru-RU', {

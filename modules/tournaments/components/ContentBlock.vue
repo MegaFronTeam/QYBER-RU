@@ -6,10 +6,14 @@
           <MenuBlock />
         </div>
         <div class="wrap-body">
-          <div class="sTournamentOverview__info" v-if="data.accepting_applications">
+          <div
+            class="sTournamentOverview__info"
+            v-if="data.accepting_applications && isNotStart == false"
+          >
             <svg-icon name="info.svg" />
-            Для участия подтвердите свою заявку в период {{ data.accepting_applications.start }} -
-            {{ data.accepting_applications.end }}
+            Для участия подтвердите свою заявку в период
+            {{ data.accepting_applications.startFormat }} -
+            {{ data.accepting_applications.endFormat }}
           </div>
           <slot></slot>
         </div>

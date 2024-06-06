@@ -35,7 +35,8 @@
         <div class="step">
           <p><span>Регистрация</span></p>
           <p v-if="data.accepting_applications">
-            {{ data.accepting_applications.start }} - {{ data.accepting_applications.end }}
+            {{ data.accepting_applications.startFormat }} -
+            {{ data.accepting_applications.endFormat }}
           </p>
         </div>
         <div class="step">
