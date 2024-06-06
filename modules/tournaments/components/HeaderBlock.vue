@@ -34,7 +34,9 @@
         </div>
         <div class="step">
           <p><span>Регистрация</span></p>
-          <p>{{ data.date_gmtStartReg }} - {{ data.date }}</p>
+          <p v-if="data.accepting_applications">
+            {{ data.accepting_applications.start }} - {{ data.accepting_applications.end }}
+          </p>
         </div>
         <div class="step">
           <p><span>Проведение турнира</span></p>

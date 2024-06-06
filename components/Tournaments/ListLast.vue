@@ -20,7 +20,7 @@
 
   const footerLinkTournamentsProps = {
     text: 'Смотреть все турниры',
-    href: '/',
+    href: '/tournaments',
   };
 </script>
 

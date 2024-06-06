@@ -21,16 +21,16 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  sectionTitle: {
-    type: Object,
-    required: false,
-  },
-  footerLink: {
-    type: Object,
-    required: false,
-  },
-});
+  const props = defineProps({
+    sectionTitle: {
+      type: Object,
+      required: false,
+    },
+    footerLink: {
+      type: Object,
+      required: false,
+    },
+  });
 
-const { sectionTitle, footerLink } = props;
+  const { sectionTitle, footerLink } = props;
 </script>

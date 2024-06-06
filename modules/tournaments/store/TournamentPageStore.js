@@ -3,6 +3,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
+import { formatDate } from '@/utils/formatData';
 
 import { useTeamStore } from '@/store/TeamStore';
 import { useRefereeStore } from './RefereeStore';
@@ -54,14 +55,11 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           this.isNotStart = false;
         }
 
-        data.date2 = format(new Date(data.date_gmt), 'd MMMM yyyy  HH:mm', {
-          locale: ru,
-        });
+        data.date2 = formatDate(data.date);
 
-        data.date_gmtStartReg = format(new Date(data.date_gmt), 'd MMMM yyyy  HH:mm', {
-          locale: ru,
-        });
-
+        data.date_gmtStartReg = formatDate(data.date_gmt);
+        data.accepting_applications.end = formatDate(data.accepting_applications.end);
+        data.accepting_applications.start = formatDate(data.accepting_applications.start);
         data.title = data.title.rendered;
 
         data.prize_fund = new Intl.NumberFormat('ru-RU', {

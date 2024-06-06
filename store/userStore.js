@@ -110,7 +110,7 @@ export const useUserStore = defineStore('user', () => {
 
       formData.user_birthday = format(new Date(globalStore.userData.user_birthday), 'yyyy-MM-dd');
 
-      console.log(formData);
+      // console.log(formData);
 
       // return;
 
