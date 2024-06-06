@@ -25,7 +25,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
   }),
   actions: {
     reset() {
-      this.data = [];
+      // this.data = [];
       this.comand_listLength = 0;
       this.indexGroupStore = 0;
       this.indexCoupleStore = 0;
