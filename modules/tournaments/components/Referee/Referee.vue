@@ -3,7 +3,7 @@
     <div class="wrap-body">
       <div class="wrap-body__item">
         <Button
-          v-if="matches.length <= 0"
+          v-if="matchesReferee.length <= 0"
           @click="refereeStore.setRandomGames"
           outlined
           label="Провести жеребьевку"
@@ -30,7 +30,7 @@
       <div class="wrap-body__item">
         <div>
           <Game
-            v-for="(item, index) in matches[1] || dataGames"
+            v-for="(item, index) in matchesReferee[0] || dataGames"
             :key="item.id"
             :item="item"
             :index="index + 1"
@@ -41,7 +41,7 @@
         <div class="game" v-if="added">
           <Button label="+ Добавить пару" outlined class="w-full btn-small" />
         </div>
-        <div class="game" v-if="matches.length <= 0">
+        <div class="game" v-if="matchesReferee.length <= 0">
           <Button label="Опубликовать" class="w-full active-btn" @click="refereeStore.sendGames" />
         </div>
       </div>
@@ -54,7 +54,7 @@
 
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
-  const { matches } = storeToRefs(tournamentPageStore);
+  const { matchesReferee } = storeToRefs(tournamentPageStore);
 
   import { useRefereeStore } from '@/modules/tournaments/store/RefereeStore';
   const refereeStore = useRefereeStore();

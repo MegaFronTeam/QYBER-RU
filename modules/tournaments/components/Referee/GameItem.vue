@@ -2,7 +2,6 @@
   <Button
     v-if="item === null"
     outlined
-    label="+ Выбрать команду"
     class="btn-add-team w-full active-btn dashed secondary"
     @click="
       showRegModal = true;
@@ -11,7 +10,8 @@
       tournamentPageStore.indexCoupleStore = +indexCouple;
     "
     :disabled="teamsForefereeLength === 0"
-  />
+    >{{ teamsForefereeLength !== 0 ? '+ Выбрать команду' : '' }}</Button
+  >
   <div class="game__card" v-else>
     <div class="table-wrap">
       <img v-if="item && item.post_thumbnail" :src="item.post_thumbnail" alt="Avatar" />

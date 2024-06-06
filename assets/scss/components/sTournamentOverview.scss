@@ -553,8 +553,7 @@
         display: flex;
         -webkit-box-orient: vertical;
         flex-direction: column;
-        &:last-child:not(:first-child)
-          .tournament-table__group:where(.sGridCardItem + .sGridCardItem) {
+        &:last-child .tournament-table__group {
           &::after,
           &::before {
             content: none;

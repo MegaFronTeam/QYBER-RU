@@ -16,6 +16,8 @@ export const useRefereeStore = defineStore('referee', {
   }),
   actions: {
     async checkTeamForReferee(comand_list) {
+      this.dataGames = [];
+      this.couples = [];
       this.teamsForeferee = comand_list;
       // .map((item) => {
       //   // TODO: add rating data
@@ -87,6 +89,8 @@ export const useRefereeStore = defineStore('referee', {
       for (let i = 0; i < this.dataGames.length; i++) {
         if (randomTeams.length) {
           this.dataGames[i][0] = randomTeams.pop();
+        } else {
+          break;
         }
       }
 

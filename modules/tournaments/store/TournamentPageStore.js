@@ -7,8 +7,6 @@ import { ru } from 'date-fns/locale';
 import { useTeamStore } from '@/store/TeamStore';
 import { useRefereeStore } from './RefereeStore';
 
-import { useRoute } from 'vue-router';
-
 export const useTournamentPageStore = defineStore('tournamentPage', {
   state: () => ({
     data: [],
@@ -18,9 +16,11 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     indexCoupleStore: 0,
     ifReferee: false,
     matches: [],
+    matchesGrid: [],
     stages_labels: {},
     stages_labelsLength: 0,
     isNotStart: true,
+    matchesReferee: [],
   }),
   actions: {
     async fetchData(id) {
@@ -33,6 +33,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         const response = await axios.get(`${BASE_URL}/wp/v2/tournaments/${id}`);
         const data = await response.data;
         const today = new Date();
+        this.matchesReferee = Object.values(JSON.parse(JSON.stringify(data.matches)));
         if (new Date(data.date) >= today) {
           this.isNotStart = false;
         }
@@ -56,14 +57,24 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           .format(+data.prize_fund)
           .replace(/\.00$/, '');
 
-        // this.matches = Array.from(data.matches)
-        // this.matches = data.matches
-        this.matches = Object.values(data.matches)
-        this.matches = this.matches.map((item) => item.filter((subItem) => subItem.b.command !== false))
+        if (data.matches[1].length > 0) {
+          this.matches = Object.values(data.matches);
+          this.matches = this.matches.map((item) => {
+            item.map((subItem) => {
+              if (subItem.date === null) return;
+              subItem.date = format(new Date(subItem.date), 'd MMMM yyyy  HH:mm', {
+                locale: ru,
+              });
+              return subItem;
+            });
+            return item;
+          });
+          await this.setGrid(data.matches);
+        }
 
-        console.log('matches', this.matches);
-        // this.matches = this.matches.filter((item) => item[1].b.command !== false);
-        // this.matches = Object.keys(this.matches)
+        this.matches = this.matches.map((item) =>
+          item.filter((subItem) => subItem.b.command !== false),
+        );
 
         if (data.stages_labels) {
           data.stages_labels = data.stages_labels.map((item, index) => {
@@ -82,11 +93,6 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           ];
         }
 
-        // data.map((item) => {
-        //   delete item.matches;
-        //   delete item.comand_list;
-        // });
-        // this.matches.push(...data.matches);
         if (data.comand_list) {
           data.teamLength = data.comand_list.length;
           data.comand_list = data.comand_list.map((item) => {
@@ -113,6 +119,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           console.log('checkTeamForReferee');
           refereeStore.savedId = this.currentID;
           refereeStore.checkTeamForReferee(this.data.comand_list);
+          await refereeStore.getGamesLength(data.comand_list);
         }
       } catch (error) {
         console.error(error);
@@ -132,6 +139,89 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           return item;
         });
       });
+    },
+
+    async setGrid(data) {
+      const grid = Object.values(data);
+
+      let mathLength = data[1].length;
+      const newGroup = {
+        command: {},
+        counter: '0',
+        members: false,
+        prevText: 'Будет определен',
+      };
+      const obj = (indexPlus) => {
+        return {
+          a: newGroup,
+          b: newGroup,
+          status: { value: 'pending' },
+          indexPlus,
+        };
+      };
+
+      while (mathLength > 1) {
+        let mathLengthPrev = mathLength;
+        mathLength = mathLength / 2;
+        grid.push(Array.from({ length: mathLength }, (index) => obj(mathLengthPrev + index)));
+        mathLengthPrev = mathLength;
+      }
+
+      // this.matchesGrid = grid.map((item, index) => {
+      //   item.map((subItem, subIndex) => {
+      //     subItem.indexPlus = counter++;
+
+      //     if (subItem.a.command && subItem.b.command === false) {
+      //       subItem.a.counter = 1;
+      //       subItem.status.value = 'done';
+      //     }
+      //     if (subItem.status.value === 'done') {
+      //       const winnerSymbol = subItem.a.counter > subItem.b.counter ? 'a' : 'b';
+      //       // const winner = subItem.a.counter > subItem.b.counter ? subItem.a : subItem.b;
+      //       const winnerIndex = Math.floor(subIndex / 2);
+      //       const winner = JSON.parse(JSON.stringify(subItem[winnerSymbol]));
+      //       winner.counter = 0;
+      //       const MatchIndex = subIndex % 2 === 0 ? 'a' : 'b';
+      //       console.log('MatchIndex', MatchIndex);
+
+      //       if (grid[index + 1] && grid[index + 1][winnerIndex].members === undefined) {
+      //         grid[index + 1][winnerIndex][MatchIndex] = winner;
+      //         // this.matchesGrid[index + 1][winnerIndex][winnerSymbol].counter = 0;
+      //       }
+      //     }
+      //     return subItem;
+      //   });
+      //   return item;
+      // });
+
+      let counter = 1;
+      for (let i = 0; i < grid.length; i++) {
+        const element = grid[i];
+        for (let j = 0; j < element.length; j++) {
+          const subElement = element[j];
+
+          console.log('subElement', subElement);
+          if (!subElement.indexPlus) subElement.indexPlus = counter;
+          counter++;
+
+          if (subElement.a.command && subElement.b.command === false) {
+            subElement.a.counter = 1;
+            subElement.status.value = 'done';
+          }
+          if (subElement.status.value === 'done') {
+            const winnerEl =
+              subElement.a.counter > subElement.b.counter ? subElement.a : subElement.b;
+            const winner = JSON.parse(JSON.stringify(winnerEl));
+            winner.counter = 0;
+            const winnerIndex = Math.floor(j / 2);
+            const MatchIndex = j % 2 === 0 ? 'a' : 'b';
+            if (grid[i + 1]) {
+              grid[i + 1][winnerIndex][MatchIndex] = winner;
+            }
+          }
+        }
+      }
+      this.matchesGrid = grid;
     },
   },
 });

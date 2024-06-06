@@ -12,7 +12,7 @@
                     <div class="sGridCard sGridCard__team team-winner">
                       <div class="sGridCard__score">1</div>
                       <div class="sGridCard__wrap">
-                        <NuxtImg :src="`/img/teamGrid-1.png`" alt="Avatar" class="img" />
+                        <img :src="`/img/teamGrid-1.png`" alt="Avatar" class="img" />
                         <span>Команда 1</span>
                       </div>
                     </div>
@@ -26,7 +26,7 @@
                     <div class="sGridCard sGridCard__team">
                       <div class="sGridCard__score">2</div>
                       <div class="sGridCard__wrap">
-                        <NuxtImg :src="`/img/teamGrid-1.png`" alt="Avatar" class="img" />
+                        <img :src="`/img/teamGrid-1.png`" alt="Avatar" class="img" />
                         <span>Команда 1</span>
                       </div>
                     </div>
@@ -40,7 +40,7 @@
                     <div class="sGridCard sGridCard__team">
                       <div class="sGridCard__score">3</div>
                       <div class="sGridCard__wrap">
-                        <NuxtImg :src="`/img/teamGrid-1.png`" alt="Avatar" class="img" />
+                        <img :src="`/img/teamGrid-1.png`" alt="Avatar" class="img" />
                         <span>Команда 1</span>
                       </div>
                     </div>
@@ -68,7 +68,7 @@
             <div class="tournament-table__row row">
               <div
                 class="tournament-table__col col-auto"
-                v-for="(match, index) in data.matches"
+                v-for="(match, index) in matchesGrid"
                 :key="index"
               >
                 <template v-for="(item, indexSub) in match" :key="item.id">
@@ -160,157 +160,12 @@
         </div>
       </div>
     </div>
-    <!-- <div class="wrap-footer d-lg-none">
-      <div class="template template--footer">
-        <Paginator
-          :rows="rowsPerPage[0]"
-          :totalRecords="totalRecords"
-          :rowsPerPageOptions="rowsPerPage"
-          :pageLinkSize="4"
-        >
-          <template #start="slotProps">
-            Показано от {{ slotProps.state.page * slotProps.state.rows + 1 }} до
-            {{
-              slotProps.state.first + slotProps.state.rows > totalRecords
-                ? totalRecords
-                : slotProps.state.first + slotProps.state.rows
-            }}
-            из {{ totalRecords }} данных
-          </template>
-        </Paginator>
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script setup>
-  // import { Component, Vue } from 'vue-property-decorator';
-  // import TournamentBracket from './TournamentBracket.vue';
-
   import Card from './Card.vue';
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
-  const { data } = storeToRefs(tournamentPageStore);
-
-  // const rounds = ref([
-  //   //Semi finals
-  //   {
-  //     games: [
-  //       {
-  //         player1: { id: '1', name: 'Competitor 1', winner: false },
-  //         player2: { id: '4', name: 'Competitor 4', winner: true },
-  //       },
-  //       {
-  //         player1: { id: '5', name: 'Competitor 5', winner: false },
-  //         player2: { id: '8', name: 'Competitor 8', winner: true },
-  //       },
-  //     ],
-  //   },
-  //   //Final
-  //   {
-  //     games: [
-  //       {
-  //         player1: { id: '4', name: 'Competitor 4', winner: false },
-  //         player2: { id: '8', name: 'Competitor 8', winner: true },
-  //       },
-  //     ],
-  //   },
-  // ]);
-
-  const rounds = [
-    //Quarter
-    {
-      matchs: [
-        {
-          id: 'match1',
-          winner: '1',
-          team1: { id: '1', name: 'Competitor 1', score: 2 },
-          team2: { id: '2', name: 'Competitor 2', score: 1 },
-        },
-        {
-          id: 'match2',
-          winner: '4',
-          team1: { id: '3', name: 'Competitor 3', score: 0 },
-          team2: { id: '4', name: 'Competitor 4', score: 2 },
-        },
-        {
-          id: 'match3',
-          winner: '5',
-          team1: { id: '5', name: 'Competitor 5', score: 2 },
-          team2: { id: '6', name: 'Competitor 6', score: 1 },
-        },
-        {
-          id: 'match4',
-          winner: '8',
-          team1: { id: '7', name: 'Competitor 7', score: 0 },
-          team2: { id: '8', name: 'Competitor 8', score: 2 },
-        },
-      ],
-    },
-    //Semi
-    {
-      matchs: [
-        {
-          id: 'match5',
-          winner: '4',
-          team1: { id: '1', name: 'Competitor 1', score: 1 },
-          team2: { id: '4', name: 'Competitor 4', score: 2 },
-        },
-        {
-          id: 'match6',
-          winner: '8',
-          team1: { id: '5', name: 'Competitor 5', score: 1 },
-          team2: { id: '8', name: 'Competitor 8', score: 2 },
-        },
-      ],
-    },
-    //Final
-    {
-      matchs: [
-        {
-          id: 'any_match_id',
-          winner: '8',
-          team1: { id: '4', name: 'Competitor 4', score: 1 },
-          team2: { id: '8', name: 'Competitor 8', score: 3 },
-        },
-      ],
-    },
-  ];
-
-  // const active = ref(1);
-  // const products = ref([
-  //   {
-  //     team: {
-  //       avatar: 'team-img-1.png',
-  //       text: 'Team Rogue',
-  //     },
-  //     organisation: {
-  //       label: 'ООО Датекс Софт',
-  //     },
-  //     registration: 'вт, 30 января в 15:34',
-  //   },
-  //   {
-  //     team: {
-  //       avatar: 'team-img-2.svg',
-  //       text: 'INTZ Genesis',
-  //     },
-  //     organisation: {
-  //       label: 'ООО Датекс Софт',
-  //     },
-  //     registration: 'вт, 30 января в 15:34',
-  //   },
-  //   {
-  //     team: {
-  //       avatar: 'team-img-1.png',
-  //       text: 'Team Rogue',
-  //     },
-  //     organisation: {
-  //       label: 'ООО Датекс Софт',
-  //     },
-  //     registration: 'вт, 30 января в 15:34',
-  //   },
-  // ]);
-
-  // const totalRecords = ref(10);
-  // const rowsPerPage = ref([5, 10, 50, 100]);
+  const { data, matchesGrid } = storeToRefs(tournamentPageStore);
 </script>

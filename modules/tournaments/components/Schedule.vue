@@ -51,7 +51,7 @@
                   </svg>
                 </template>
                 <template #body="slotProps">
-                  <span class="rating">{{ slotProps.data.registration }} </span>
+                  <span class="rating">{{ slotProps.data.date }} </span>
                 </template>
               </Column>
               <Column field="team1" header="">

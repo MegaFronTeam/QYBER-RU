@@ -1,7 +1,7 @@
 <template>
   <div class="sGridCardItem">
     <div class="sGridCardItem__order">
-      {{ +index + 1 }}
+      {{ item.indexPlus }}
       <template v-if="referee">
         <svg-icon name="star.svg" />
       </template>
@@ -15,8 +15,15 @@
       >
         <!-- :class="{ 'team-success': product.team.success }" -->
         <div class="sGridCard__wrap">
-          <img :src="item.a.command.post_thumbnail" alt="Avatar" class="img" />
-          <span>{{ item.a.command.post_title }}</span>
+          <img
+            v-if="item.a.command.post_thumbnail && item.a.command.post_thumbnail !== false"
+            :src="item.a.command.post_thumbnail"
+            alt="Avatar"
+            class="img"
+          />
+          <span>{{
+            item.a.prevText || (item.a.command.post_title && item.a.command.post_title)
+          }}</span>
         </div>
         <div class="sGridCard__score">
           <!-- {{ product.b.team.success ? 1 : 0 }} -->
@@ -32,8 +39,15 @@
       >
         <!-- :class="{ 'team-success': product.team.success }" -->
         <div class="sGridCard__wrap">
-          <img :src="item.b.command.post_thumbnail" alt="Avatar" class="img" />
-          <span>{{ item.b.command.post_title }}</span>
+          <img
+            v-if="item.b.command.post_thumbnail && item.b.command.post_thumbnail !== false"
+            :src="item.b.command.post_thumbnail"
+            alt="Avatar"
+            class="img"
+          />
+          <span>{{
+            item.b.prevText || (item.b.command.post_title && item.b.command.post_title)
+          }}</span>
         </div>
         <div class="sGridCard__score">
           <!-- {{ product.b.team.success ? 1 : 0 }} -->
