@@ -7,19 +7,28 @@
             <div class="sContactBlock__profile">
               <div class="sContactBlock__img-wrap">
                 <div class="img-wrap-center">
-                  <img src="/img/photo_org.jpg" class="object-fit-js" alt="avatar" />
+                  <img
+                    v-if="globalStore.contacts.image"
+                    :src="globalStore.contacts.image.sizes.medium"
+                    class="object-fit-js"
+                    alt="avatar"
+                  />
                 </div>
               </div>
               <div class="sContactBlock__profile-info">
                 <span>Организатор турнира</span>
                 <h2 class="h1">Бондаренко Александр</h2>
               </div>
-              <!-- <div class="sContactBlock__profile-info">
+              <div v-if="globalStore.contacts.phone" class="sContactBlock__profile-info">
                 <span>Позвонить</span>
-                <a class="h4" href="tel:+79392993030" target="_blank" rel="noopener noreferrer"
-                  >+7 (939) 299-30-30</a
+                <a
+                  class="h4"
+                  href="tel:globalStore.contacts.phone"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >{{ globalStore.contacts.phone }}</a
                 >
-              </div> -->
+              </div>
               <div class="sContactBlock__profile-info">
                 <span>Электронная почта</span>
                 <a

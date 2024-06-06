@@ -819,6 +819,9 @@ p {
 .p-datepicker {
   width: rem(300);
 }
+.p-datepicker table td {
+  padding: 0.1rem;
+}
 
 .p-icon-field > .p-input-icon {
   z-index: 10;

@@ -1,19 +1,5 @@
 <template>
   <div>
-    <Dialog v-model:visible="visibleShow" modal header="Вы уверены, что хотите удалить команду?">
-      <p>
-        В случае если вы удалите команду, вся информация о ней исчезнет без возможности
-        восстановления
-      </p>
-      <div class="row">
-        <div class="col">
-          <Button severity="primary" @click="visibleShow = false" outlined>Да</Button>
-        </div>
-        <div class="col">
-          <Button @click="visibleShow = false">Нет</Button>
-        </div>
-      </div>
-    </Dialog>
     <ProfileHead :img="teamData.post_thumbnail">
       <h1 class="mb-12">
         {{ teamData.post_title }}
@@ -47,9 +33,7 @@
         ИНН {{ globalStore.userData.user_inn }}
       </div>
       <EditTeam />
-      <Button @click="visibleShow = true" class="p-button p-component btn-trash">
-        <svg-icon name="trash.svg" />
-      </Button>
+      <CabinetTeamDelete :id="id" />
     </ProfileHead>
     <div v-if="teamsStore.loader" class="container table-skeleton" style="margin-bottom: 0.8rem">
       <Skeleton height="3rem" borderRadius="12px" style="margin-bottom: 0.8rem" />
@@ -83,48 +67,46 @@
 </template>
 
 <script setup>
-import ProfileHead from '@/components/cabinet/ProfileHead.vue';
-import { useTeamStore } from '@/store/TeamStore';
-const teamsStore = useTeamStore();
-const { id } = useRoute().params;
+  import ProfileHead from '@/components/cabinet/ProfileHead.vue';
+  import { useTeamStore } from '@/store/TeamStore';
+  const teamsStore = useTeamStore();
+  const { id } = useRoute().params;
 
-import { useTournamentStore } from '@/store/TournamentStore';
-const tournamentStore = useTournamentStore();
+  import { useTournamentStore } from '@/store/TournamentStore';
+  const tournamentStore = useTournamentStore();
 
-const { teamData } = storeToRefs(teamsStore);
+  const { teamData } = storeToRefs(teamsStore);
 
-import { useGlobalStore } from '@/store/globalStore';
-import EditTeam from '~/components/cabinet/Team/EditTeam.vue';
-const globalStore = useGlobalStore();
+  import { useGlobalStore } from '@/store/globalStore';
+  import EditTeam from '~/components/cabinet/Team/EditTeam.vue';
+  const globalStore = useGlobalStore();
 
-const visibleShow = ref(false);
+  // definePageMeta({
+  //   breadcrumbName: 'Команда',
+  // });
 
-// definePageMeta({
-//   breadcrumbName: 'Команда',
-// });
+  // const breadcrumbArr = ref([
+  //   { label: 'Личный кабинет', route: '/' },
 
-// const breadcrumbArr = ref([
-//   { label: 'Личный кабинет', route: '/' },
+  //   { label: 'Мои команды', route: '/' },
+  // ]);
 
-//   { label: 'Мои команды', route: '/' },
-// ]);
+  const imgRef = ref(null);
+  const teamsData = ref({});
 
-const imgRef = ref(null);
-const teamsData = ref({});
+  // console.log(typeof id);
+  onMounted(async () => {
+    teamsStore.currentTeamID = id;
+    console.log(teamsStore.currentTeamID);
+    await teamsStore.fetchTeam(id);
+    imgRef.value = teamsStore.teamData.post_thumbnail;
+    // const pending = ref(true);
+    teamsData.value = teamsStore.teamData;
 
-// console.log(typeof id);
-onMounted(async () => {
-  teamsStore.currentTeamID = id;
-  console.log(teamsStore.currentTeamID);
-  await teamsStore.fetchTeam(id);
-  imgRef.value = teamsStore.teamData.post_thumbnail;
-  // const pending = ref(true);
-  teamsData.value = teamsStore.teamData;
-
-  // console.log(teamsStore.teamData.post_title);
-  // breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
-});
-// onMounted(() => {
-//   breadcrumbsStore.setNameFromIds(teamsStore.teamData.post_title);
-// });
+    // console.log(teamsStore.teamData.post_title);
+    // breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
+  });
+  // onMounted(() => {
+  //   breadcrumbsStore.setNameFromIds(teamsStore.teamData.post_title);
+  // });
 </script>

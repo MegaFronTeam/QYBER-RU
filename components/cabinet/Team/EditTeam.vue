@@ -13,41 +13,15 @@
     <Dialog v-model:visible="visibleEditModal" modal header="Редактирование команды">
       <div class="form-wrap mb-0">
         <transition name="fade">
-          <form @submit.prevent="teamStore.createTeam('/teams/v1/update', teamStore.teamData.ID)">
+          <form @submit.prevent="teamStore.teamUpdate">
             <InputGroup>
               <label for="name">Название команды</label>
               <InputText
                 id="name"
                 type="text"
-                v-model="teamStore.formDataCreateTeam.name"
+                v-model="teamStore.formDataEditTeam.name"
                 placeholder="Введите Название команды"
               />
-            </InputGroup>
-
-            <InputGroup>
-              <label for="discipline">Дисциплина</label>
-              <Dropdown
-                v-model="teamStore.formDataCreateTeam.discipline"
-                :options="globalStore.disciplineList"
-                optionValue="slug"
-                optionLabel="name"
-                placeholder="Выбрать"
-                class="w-full"
-              />
-            </InputGroup>
-
-            <InputGroup class="select-team">
-              <label for="leagues">Лига</label>
-              <SelectButton
-                id="leagues"
-                v-model="teamStore.formDataCreateTeam.leagues"
-                optionValue="slug"
-                optionLabel="name"
-                :options="globalStore.leaguesOptions"
-                aria-labelledby="multiple"
-                multiple
-              />
-              <!-- :allowEmpty="false" -->
             </InputGroup>
 
             <InputGroup>
@@ -83,78 +57,78 @@
 </template>
 
 <script setup>
-// TODO: переделать на Store
-const visibleEditModal = ref(false);
-import { useGlobalStore } from '@/store/globalStore';
-import { useTeamStore } from '@/store/TeamStore';
+  // TODO: переделать на Store
+  const visibleEditModal = ref(false);
+  import { useGlobalStore } from '@/store/globalStore';
+  import { useTeamStore } from '@/store/TeamStore';
 
-const globalStore = useGlobalStore();
-const teamStore = useTeamStore();
+  const globalStore = useGlobalStore();
+  const teamStore = useTeamStore();
 
-globalStore.getDisciplines();
-import { useToast } from 'primevue/usetoast';
-const toast = useToast();
+  globalStore.getDisciplines();
+  import { useToast } from 'primevue/usetoast';
+  const toast = useToast();
 
-teamStore.leaguesStatus();
+  teamStore.leaguesStatus();
 
-// const name = ref();
-// const leagues = ref([]);
-// const discipline = ref([]);
+  // const name = ref();
+  // const leagues = ref([]);
+  // const discipline = ref([]);
 
-// const logo = ref();
+  // const logo = ref();
 
-// Team.getDisciplines()
-//   .then((response) => {
-//     disciplineList.value = response;
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
+  // Team.getDisciplines()
+  //   .then((response) => {
+  //     disciplineList.value = response;
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
 
-const customBase64Uploader = async (event) => {
-  const file = event.files[0];
-  teamStore.formDataCreateTeam.logo = file;
+  const customBase64Uploader = async (event) => {
+    const file = event.files[0];
+    teamStore.formDataEditTeam.logo = file;
 
-  const reader = new FileReader();
-  let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
+    const reader = new FileReader();
+    let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
 
-  reader.readAsDataURL(blob);
+    reader.readAsDataURL(blob);
 
-  reader.onloadend = function () {
-    const base64data = reader.result;
+    reader.onloadend = function () {
+      const base64data = reader.result;
+    };
+    // console.log(logo.value);
   };
-  // console.log(logo.value);
-};
 
-console.log(teamStore.teamData);
+  console.log(teamStore.teamData);
 
-// const onUpload = (event) => {
-//   console.log(event);
-// };
+  // const onUpload = (event) => {
+  //   console.log(event);
+  // };
 
-// const submit = (event) => {
-// event.preventDefault();
-// const formData = new FormData();
-// formData.append('name', name.value);
-// formData.append('discipline', discipline.value);
-// formData.append('leagues', leagues.value);
-// formData.append('logo', logo.value);
+  // const submit = (event) => {
+  // event.preventDefault();
+  // const formData = new FormData();
+  // formData.append('name', name.value);
+  // formData.append('discipline', discipline.value);
+  // formData.append('leagues', leagues.value);
+  // formData.append('logo', logo.value);
 
-// Team.createTeam(formData)
-//   .then((response) => {
-//     isSend.value = true;
-//     // console.log(response);
-//     name.value = '';
-//     discipline.value = [];
-//     leagues.value = [];
-//     logo.value = '';
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
-// };
+  // Team.createTeam(formData)
+  //   .then((response) => {
+  //     isSend.value = true;
+  //     // console.log(response);
+  //     name.value = '';
+  //     discipline.value = [];
+  //     leagues.value = [];
+  //     logo.value = '';
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  // };
 </script>
 
 <style lang="scss" scoped>
-/* Your component's styles here */
+  /* Your component's styles here */
 </style>

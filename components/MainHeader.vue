@@ -92,4 +92,9 @@
   import { useNewsStore } from '@/store/NewsStore';
   const newsStore = useNewsStore();
   const { dataLast } = storeToRefs(newsStore);
+
+  import { useTournamentStore } from '@/store/TournamentStore';
+  const tournamentStore = useTournamentStore();
+  const { data } = storeToRefs(tournamentStore);
+  // tournamentStore.getLastOne();
 </script>

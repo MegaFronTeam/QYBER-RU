@@ -134,7 +134,6 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         this.data = data;
         this.currentID = id;
         if (refereeStore.couples.length === 0 || this.currentID !== refereeStore.savedId) {
-          console.log('checkTeamForReferee');
           refereeStore.savedId = this.currentID;
           refereeStore.checkTeamForReferee(this.data.comand_list);
           await refereeStore.getGamesLength(data.comand_list);
@@ -162,7 +161,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     async setGrid(data) {
       const grid = Object.values(data);
 
-      let mathLength = data[1].length;
+      let mathLength = grid[grid.length - 1].length;
       const newGroup = {
         command: {},
         counter: '0',
@@ -184,33 +183,6 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         grid.push(Array.from({ length: mathLength }, (index) => obj(mathLengthPrev + index)));
         mathLengthPrev = mathLength;
       }
-
-      // this.matchesGrid = grid.map((item, index) => {
-      //   item.map((subItem, subIndex) => {
-      //     subItem.indexPlus = counter++;
-
-      //     if (subItem.a.command && subItem.b.command === false) {
-      //       subItem.a.counter = 1;
-      //       subItem.status.value = 'done';
-      //     }
-      //     if (subItem.status.value === 'done') {
-      //       const winnerSymbol = subItem.a.counter > subItem.b.counter ? 'a' : 'b';
-      //       // const winner = subItem.a.counter > subItem.b.counter ? subItem.a : subItem.b;
-      //       const winnerIndex = Math.floor(subIndex / 2);
-      //       const winner = JSON.parse(JSON.stringify(subItem[winnerSymbol]));
-      //       winner.counter = 0;
-      //       const MatchIndex = subIndex % 2 === 0 ? 'a' : 'b';
-      //       console.log('MatchIndex', MatchIndex);
-
-      //       if (grid[index + 1] && grid[index + 1][winnerIndex].members === undefined) {
-      //         grid[index + 1][winnerIndex][MatchIndex] = winner;
-      //         // this.matchesGrid[index + 1][winnerIndex][winnerSymbol].counter = 0;
-      //       }
-      //     }
-      //     return subItem;
-      //   });
-      //   return item;
-      // });
 
       let counter = 1;
       for (let i = 0; i < grid.length; i++) {

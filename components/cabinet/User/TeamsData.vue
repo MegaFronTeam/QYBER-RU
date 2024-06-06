@@ -162,9 +162,7 @@
             />
             <Button v-else severity="gray" label="Перейти" class="btn-sm" />
           </NuxtLink>
-          <Button @click="visibleShow = true" class="p-button p-component btn-trash">
-            <svg-icon name="trash.svg" />
-          </Button>
+          <CabinetTeamDelete :id="slotProps.data.ID" />
         </div>
       </template>
     </Column>
@@ -172,18 +170,18 @@
 </template>
 
 <script setup>
-import { useGlobalStore } from '@/store/globalStore';
-const globalStore = useGlobalStore();
-const { userData } = storeToRefs(globalStore);
+  import { useGlobalStore } from '@/store/globalStore';
+  const globalStore = useGlobalStore();
+  const { userData } = storeToRefs(globalStore);
 
-import { useTeamStore } from '@/store/TeamStore';
-const teamsStore = useTeamStore();
+  import { useTeamStore } from '@/store/TeamStore';
+  const teamsStore = useTeamStore();
 
-const { myTeams } = storeToRefs(teamsStore);
-const visibleShow = ref(false);
+  const { myTeams } = storeToRefs(teamsStore);
+  const visibleShow = ref(false);
 
-// import { useUserStore } from '@/store/userStore';
-// const userStore = useUserStore();
+  // import { useUserStore } from '@/store/userStore';
+  // const userStore = useUserStore();
 
-teamsStore.fetchMyTeams();
+  teamsStore.fetchMyTeams();
 </script>

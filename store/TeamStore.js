@@ -20,6 +20,9 @@ export const useTeamStore = defineStore('teamStore', {
       logo: null,
       count_members: 1,
     },
+
+    formDataEditTeam: {},
+
     disabledBtn: true,
     inviteEmail: '',
     toast: useToast(),
@@ -109,6 +112,27 @@ export const useTeamStore = defineStore('teamStore', {
         return Promise.reject(error);
       }
     },
+    async teamUpdate() {
+      const formData = new FormData();
+      Object.keys(this.formDataEditTeam).forEach((key) => {
+        formData.append(key, this.formDataEditTeam[key]);
+      });
+      console.log(formData);
+
+      try {
+        const customUrl = '/teams/v1/update/' + this.teamData.ID;
+        const response = await this.fetcher('POST', customUrl, formData);
+        const data = await response.data;
+        console.log(data);
+        if (data) {
+          this.fetchTeam(this.teamData.ID);
+        }
+      } catch (error) {
+        console.error(error);
+        return Promise.reject(error);
+      }
+    },
+
     async fetchTeam(id) {
       try {
         const breadcrumbsStore = useBreadcrumbsStore();
@@ -117,6 +141,10 @@ export const useTeamStore = defineStore('teamStore', {
         const data = res.data;
 
         this.teamData = data;
+        this.formDataEditTeam = {
+          name: data.post_title,
+          logo: null,
+        };
         console.log(this.teamData);
         breadcrumbsStore.setNameFromIds(data.post_title);
         this.teamData.members.forEach((member) => {
@@ -145,6 +173,19 @@ export const useTeamStore = defineStore('teamStore', {
             this.isCreate = false;
           }, 1500);
         }
+      } catch (error) {
+        console.error(error);
+        return Promise.reject(error);
+      }
+    },
+    async deleteTeam(id) {
+      try {
+        const response = await this.fetcher('DELETE', `/teams/v1/delete/${id}`);
+        const data = await response.data;
+        // console.log(data);
+        // if (data) {
+        // }
+        this.fetchMyTeams();
       } catch (error) {
         console.error(error);
         return Promise.reject(error);

@@ -5,6 +5,8 @@ import { useGlobalStore } from './globalStore';
 import { useAccreditationStore } from './accreditationStore';
 // import { showToast } from '@/utils/showToast';
 import { useTeamStore } from './TeamStore';
+import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
 
 export const useUserStore = defineStore('user', () => {
   const globalStore = useGlobalStore();
@@ -94,9 +96,23 @@ export const useUserStore = defineStore('user', () => {
   const updateMyProfileData = async () => {
     try {
       const formData = new FormData();
+      // globalStore.userData.user_birthday = format(
+      //   new Date(globalStore.userData.user_birthday),
+      //   'dd.mm.yyyy',
+      //   {
+      //     locale: ru,
+      //   },
+      // );
+      console.log(globalStore.userData.user_birthday);
       Object.keys(globalStore.userData).forEach((key) => {
         formData.append(key, globalStore.userData[key]);
       });
+
+      formData.user_birthday = format(new Date(globalStore.userData.user_birthday), 'yyyy-MM-dd');
+
+      console.log(formData);
+
+      // return;
 
       const response = await axios.post(`${BASE_URL}/profile/v1/update`, formData, {
         headers: {
@@ -108,7 +124,7 @@ export const useUserStore = defineStore('user', () => {
       console.log(data);
       if (data === true) {
         showToast('success', 'Данные успешно изменены');
-        await getUserData();
+        // await getUserData();
       }
     } catch (error) {
       console.error(error);
