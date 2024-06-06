@@ -19,7 +19,7 @@
         {{ teamData.post_title }}
       </h1>
       <div v-if="teamData.leagues && teamData.discipline" class="row mb-12">
-        <div v-if="teamData.leagues" class="col-auto">
+        <div v-if="teamData.leagues.length" class="col-auto">
           <Badge
             v-for="league in teamData.leagues"
             :key="league.term_id"

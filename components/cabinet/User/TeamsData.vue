@@ -96,6 +96,7 @@
       </template>
       <template #body="slotProps">
         <Badge
+          v-if="slotProps.data.leagues"
           :severity="slotProps.data.leagues.name == 'QYBER Атланты' ? 'secondary' : 'danger'"
           class="p-badge-outline"
           :value="slotProps.data.leagues.name"
