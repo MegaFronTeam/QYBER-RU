@@ -64,9 +64,7 @@ export const useTournamentStore = defineStore('tournament', () => {
 
   const getLastFetch = async () => {
     try {
-      const response = await axios.get(
-        `${BASE_URL}/wp/v2/tournaments?sortby=date&order=desc&limit=8`,
-      );
+      const response = await axios.get(`${BASE_URL}/wp/v2/tournaments?nearest=1&per_page=8`);
       const data = await response.data;
       getLast.value = data;
 
@@ -92,7 +90,9 @@ export const useTournamentStore = defineStore('tournament', () => {
 
       // console.log(data);
       tournamentsList.value = data;
-      getLast.value = data.slice(0, 7);
+
+      lastOne.value = data[0];
+      // getLast.value = data.slice(0, 7);
     } catch (error) {
       console.error(error);
       return Promise.reject(error);

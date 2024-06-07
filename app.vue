@@ -2,8 +2,8 @@
   <NuxtLoadingIndicator />
   <NuxtLayout dir="routing/middleware" v-if="!lazyShow || globalStore.API_KEY">
     <NuxtPage />
-    <Toast />
   </NuxtLayout>
+  <Toast />
 </template>
 
 <script setup>

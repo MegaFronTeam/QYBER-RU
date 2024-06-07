@@ -41,7 +41,7 @@
               </div>
             </div>
             <!-- <d> -->
-            
+
             <div class="col">
               <div class="sAboutBody__img-wrap">
                 <div class="img-wrap-center">
@@ -56,7 +56,6 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
         <div class="sAboutBody__tournaments">
@@ -71,7 +70,10 @@
                   завоевать славу среди лучших игроков любительского уровня, студентов и
                   корпоративных сотрудников? Тогда этот кибертурнир создан специально для вас!npm
                 </p>
-                <Button severity="secondary" class="btn-lg">
+                <!--
+                  TODO: сделать страницу со всеми турнирами
+                -->
+                <Button to="/tournaments" severity="secondary" class="btn-lg">
                   Смотреть турниры
                   <svg-icon name="chevron-right.svg" />
                 </Button>
@@ -87,7 +89,10 @@
                   профессиональных и образовательных сфер, чтобы они могли помериться силами в
                   виртуальном мире разнообразных игровых дисциплин.
                 </p>
-                <Button severity="danger" class="btn-lg">
+                <!--
+                  TODO: сделать страницу со всеми турнирами
+                -->
+                <Button to="/tournaments" severity="danger" class="btn-lg">
                   Смотреть турниры
                   <svg-icon name="chevron-right.svg" />
                 </Button>

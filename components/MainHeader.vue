@@ -24,29 +24,33 @@
             <div class="sMainHeader__head">
               <h6>Ближайший турнир</h6>
               <!-- TODO:  сделать страницу со всеми турнирами -->
-              <NuxtLink class="sMainHeader__link ms-auto" to="/tournaments">
+              <NuxtLink class="sMainHeader__link ms-auto" :to="'/tournaments'">
                 Все
                 <svg-icon name="chevron-right.svg" />
               </NuxtLink>
             </div>
             <h5 class="sMainHeader__tournament-title">
               <!-- <svg-icon name="dota.svg" /> -->
-              QYBER Атланты Лето 2024
+              {{ lastOne.title }}
             </h5>
             <div class="sMainHeader__tournament-row row">
-              <Badge severity="secondary" class="p-badge-outline" value="8 команд" />
-              <Badge severity="secondary" class="p-badge-outline" value="5x5" />
+              <Badge
+                severity="secondary"
+                class="p-badge-outline"
+                :value="lastOne.teamCount + 'команд'"
+              />
+              <Badge severity="secondary" class="p-badge-outline" :value="lastOne.format" />
             </div>
             <div class="sMainHeader__tournament-foundation">
               <span>Призовой фонд</span>
               <h5>
                 <svg-icon name="bank.svg" />
-                200 000 ₽
+                {{ lastOne.prize_fund }}
               </h5>
             </div>
             <div class="sMainHeader__tournament-bottom-row row">
-              <NuxtLink class="sMainHeader__link" to="/tournaments">
-                <Button label="К турнирам" class="w-full" />
+              <NuxtLink class="sMainHeader__link" :to="'/tournaments/' + lastOne.id">
+                <Button label="К турниру" class="w-full" />
               </NuxtLink>
               <div class="sMainHeader__timer">
                 <!-- <span>До начала:</span> -->
@@ -95,6 +99,6 @@
 
   import { useTournamentStore } from '@/store/TournamentStore';
   const tournamentStore = useTournamentStore();
-  const { data } = storeToRefs(tournamentStore);
+  const { lastOne } = storeToRefs(tournamentStore);
   // tournamentStore.getLastOne();
 </script>
