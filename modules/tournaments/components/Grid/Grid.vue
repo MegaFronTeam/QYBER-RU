@@ -2,7 +2,7 @@
   <div class="sTournamentOverview--grid">
     <div class="wrap-body">
       <div class="bg-block">
-        <div class="bg-block-panel">
+        <div class="bg-block-panel" v-if="finalEnd">
           <div class="tournament-table__item">
             <div class="tournament-table__item-title">Победители</div>
             <div class="tournament-table__winner-row row">
@@ -51,8 +51,6 @@
             </div>
           </div>
         </div>
-        <TournamentBracket :rounds="rounds" @onMatchClick="onMatchClick" />
-
         <div class="tournament-table bg-block-panel">
           <div class="tournament-table__item">
             <!-- <div class="tournament-table__item-title">Верхняя сетка</div> -->

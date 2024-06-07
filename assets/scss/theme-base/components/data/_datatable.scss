@@ -350,7 +350,7 @@
   .p-datatable-tbody {
     > tr {
       background: $tableBodyRowBg;
-      color: $tableBodyRowTextColor;
+      // color: $tableBodyRowTextColor;
       transition: $listItemTransition;
 
       > td {

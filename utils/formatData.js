@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 
-export function formatDate(date) {
-  return format(new Date(date), 'd MMMM yyyy  HH:mm', {
+export function formatDate(date, formatPattern = 'd MMMM yyyy  HH:mm') {
+  return format(new Date(date), formatPattern, {
     locale: ru,
   });
 }

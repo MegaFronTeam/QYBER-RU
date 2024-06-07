@@ -14,6 +14,7 @@ export const useTournamentStore = defineStore('tournament', () => {
   const hideForm = ref(false);
   // const { currentTeamID } = teamStore;
   const tournamentsMy = ref([]);
+  const BroadCast = ref('');
 
   const toast = useToast();
   const showToast = (severity, summary, detail) => {
@@ -127,6 +128,17 @@ export const useTournamentStore = defineStore('tournament', () => {
       return Promise.reject(error);
     }
   };
+  const getBroadCast = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/tournaments/v1/broadcast`);
+      const data = response.data;
+      // BroadCast.value = data;
+      BroadCast.value = data.split('=')[1];
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  };
 
   watch(showRegModal, () => {
     if (showRegModal.value === false) {
@@ -151,6 +163,8 @@ export const useTournamentStore = defineStore('tournament', () => {
     tournamentsMy,
     lastOne,
     getLastFetch,
+    getBroadCast,
+    BroadCast,
   };
 });
 

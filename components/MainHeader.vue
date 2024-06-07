@@ -4,7 +4,24 @@
       <div class="sMainHeader__row row">
         <div class="col">
           <div class="sMainHeader__wrap bg-wrap">
-            <img src="/img/mainHeader-bg-1.jpg" class="picture-bg" alt="Bg" />
+            <div class="iframe-wrap" v-if="BroadCast">
+              <iframe
+                width="560"
+                height="315"
+                :src="
+                  'https://www.youtube.com/embed/' +
+                  BroadCast +
+                  '?autoplay=1&mute=1&loop=1&controls=0&showinfo=0'
+                "
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <img v-else src="/img/mainHeader-bg-1.jpg" class="picture-bg" alt="Bg" />
+
             <h1>Корпоративный и студенческий турнир <span>по киберспорту</span></h1>
             <p>
               Киберспортивные турниры в дисциплинах Counter Strike 2, Dota 2 и Спортивное
@@ -20,7 +37,8 @@
         </div>
         <div class="sMainHeader__col col">
           <div class="sMainHeader__tournament bg-wrap">
-            <img src="/img/mainHeader-bg-2.jpg" class="picture-bg" alt="bg" />
+            <img :src="lastOne.post_thumbnail" class="picture-bg" alt="bg" />
+
             <div class="sMainHeader__head">
               <h6>Ближайший турнир</h6>
               <!-- TODO:  сделать страницу со всеми турнирами -->
@@ -99,6 +117,7 @@
 
   import { useTournamentStore } from '@/store/TournamentStore';
   const tournamentStore = useTournamentStore();
-  const { lastOne } = storeToRefs(tournamentStore);
-  // tournamentStore.getLastOne();
+  const { lastOne, BroadCast } = storeToRefs(tournamentStore);
+
+  tournamentStore.getBroadCast();
 </script>

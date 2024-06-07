@@ -4,6 +4,9 @@ import { useRoute } from 'vue-router';
 import { useBreadcrumbsStore } from './BreadcrumbStore';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useToast } from 'primevue/usetoast';
+import { sub } from 'date-fns';
+
+import { formatDate } from '@/utils/formatData';
 
 export const useTeamStore = defineStore('teamStore', {
   state: () => ({
@@ -13,6 +16,7 @@ export const useTeamStore = defineStore('teamStore', {
     teamData: [],
     isCreate: false,
     currentTeamID: '',
+    tournaments: [],
     formDataCreateTeam: {
       name: '',
       leagues: [],
@@ -140,12 +144,13 @@ export const useTeamStore = defineStore('teamStore', {
         const res = await this.fetcher('GET', `/teams/v1/team/${id}`);
         const data = res.data;
 
+        this.formatTournament(data.tournaments);
         this.teamData = data;
         this.formDataEditTeam = {
           name: data.post_title,
           logo: null,
         };
-        console.log(this.teamData);
+
         breadcrumbsStore.setNameFromIds(data.post_title);
         this.teamData.members.forEach((member) => {
           if (member.id === globalStore.userData.ID) {
@@ -157,6 +162,21 @@ export const useTeamStore = defineStore('teamStore', {
       } catch (error) {
         console.log(error);
       }
+    },
+    formatTournament(data) {
+      data = data.map((item) => {
+        console.log('item', item);
+        item.date = formatDate(item.date, 'dd.MM.yyyy, HH:mm');
+        item.prize_fund = new Intl.NumberFormat('ru-RU', {
+          style: 'currency',
+          currency: 'RUB',
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2,
+        })
+          .format(+item.prize_fund)
+          .replace(/\.00$/, '');
+        return item;
+      });
     },
     async inviteMember() {
       try {
