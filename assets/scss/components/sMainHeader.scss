@@ -33,12 +33,13 @@
     padding: rem(23);
     height: 100%;
     .iframe-wrap {
-      height: 100%;
-      transform: translateX(-50%);
+      min-height: 100%;
+      min-width: 100%;
       left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
       aspect-ratio: 16/9;
       position: absolute;
-      top: 0;
       z-index: -1;
     }
     iframe {
@@ -70,7 +71,7 @@
         rgba(41, 45, 54, 0.48) 0%,
         rgba(41, 45, 54, 0.48) 100%
       );
-      z-index: -1;
+      z-index: -2;
     }
     h1 {
       color: #fff;
