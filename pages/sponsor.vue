@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderBlock
-      title="Давайте начнем продвигать киберспорт в массы вместе"
+      title="Спонсоры"
       bg="/img/headerBlock-bg-3.jpg"
       class="sHeaderBlock sHeaderBlock--max-height"
     >
@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-definePageMeta({
-  breadcrumbName: 'Спонсоры',
-});
+  definePageMeta({
+    breadcrumbName: 'Спонсоры',
+  });
 </script>

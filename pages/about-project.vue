@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderBlock
-      title="Добро пожаловать на захватывающий киберспортивный турнир высокого уровня QYBER.RU"
+      title="О QYBER"
       bg="/img/headerBlock-bg-5.jpg"
       class="sHeaderBlock sHeaderBlock--max-height"
     >
@@ -12,12 +12,12 @@
 </template>
 
 <script setup>
-import { useAboutStore } from '~/store/AboutStore';
+  import { useAboutStore } from '~/store/AboutStore';
 
-definePageMeta({
-  breadcrumbName: 'О проекте',
-});
+  definePageMeta({
+    breadcrumbName: 'О QYBER',
+  });
 
-const aboutStore = useAboutStore();
-await aboutStore.fetchData();
+  const aboutStore = useAboutStore();
+  await aboutStore.fetchData();
 </script>

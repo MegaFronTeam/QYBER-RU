@@ -17,7 +17,7 @@
               </div>
               <div class="sContactBlock__profile-info">
                 <span>Организатор турнира</span>
-                <h2 class="h1">Бондаренко Александр</h2>
+                <h2 class="h1">{{ globalStore.contacts.name }}</h2>
               </div>
               <div v-if="globalStore.contacts.phone" class="sContactBlock__profile-info">
                 <span>Позвонить</span>

@@ -105,12 +105,16 @@ export const useUserStore = defineStore('user', () => {
       // );
       console.log(globalStore.userData.user_birthday);
       Object.keys(globalStore.userData).forEach((key) => {
-        formData.append(key, globalStore.userData[key]);
+        if (key === 'user_birthday') {
+          formData.append(key, format(new Date(globalStore.userData[key]), 'Y-MM-dd'));
+        } else {
+          formData.append(key, globalStore.userData[key]);
+        }
       });
 
-      formData.user_birthday = format(new Date(globalStore.userData.user_birthday), 'yyyy-MM-dd');
+      // formData.user_birthday = format(new Date(globalStore.userData.user_birthday), 'Y-m-d');
 
-      // console.log(formData);
+      console.log(formData);
 
       // return;
 
@@ -124,7 +128,7 @@ export const useUserStore = defineStore('user', () => {
       console.log(data);
       if (data === true) {
         showToast('success', 'Данные успешно изменены');
-        // await getUserData();
+        await getUserData();
       }
     } catch (error) {
       console.error(error);

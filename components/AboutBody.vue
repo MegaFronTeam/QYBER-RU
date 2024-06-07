@@ -73,10 +73,12 @@
                 <!--
                   TODO: сделать страницу со всеми турнирами
                 -->
-                <Button to="/tournaments" severity="secondary" class="btn-lg">
-                  Смотреть турниры
-                  <svg-icon name="chevron-right.svg" />
-                </Button>
+                <NuxtLink to="/tournaments">
+                  <Button severity="secondary" class="btn-lg">
+                    Смотреть турниры
+                    <svg-icon name="chevron-right.svg" />
+                  </Button>
+                </NuxtLink>
               </div>
             </div>
             <div class="col">
@@ -92,10 +94,12 @@
                 <!--
                   TODO: сделать страницу со всеми турнирами
                 -->
-                <Button to="/tournaments" severity="danger" class="btn-lg">
-                  Смотреть турниры
-                  <svg-icon name="chevron-right.svg" />
-                </Button>
+                <NuxtLink to="/tournaments">
+                  <Button severity="danger" class="btn-lg">
+                    Смотреть турниры
+                    <svg-icon name="chevron-right.svg" />
+                  </Button>
+                </NuxtLink>
               </div>
             </div>
           </div>

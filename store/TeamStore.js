@@ -188,7 +188,7 @@ export const useTeamStore = defineStore('teamStore', {
         if (data) {
           this.isCreate = true;
           this.inviteEmail = '';
-          this.fetchTeam(currentTeamID);
+          this.fetchTeam(this.currentTeamID);
           setTimeout(() => {
             this.isCreate = false;
           }, 1500);
@@ -201,10 +201,8 @@ export const useTeamStore = defineStore('teamStore', {
     async deleteTeam(id) {
       try {
         const response = await this.fetcher('DELETE', `/teams/v1/delete/${id}`);
-        const data = await response.data;
+        const data = await response;
         // console.log(data);
-        // if (data) {
-        // }
         this.fetchMyTeams();
       } catch (error) {
         console.error(error);
