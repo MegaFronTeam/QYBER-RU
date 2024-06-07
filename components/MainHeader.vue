@@ -37,7 +37,7 @@
               <Badge
                 severity="secondary"
                 class="p-badge-outline"
-                :value="lastOne.teamCount + 'команд'"
+                :value="lastOne.teamCount + ' команд'"
               />
               <Badge severity="secondary" class="p-badge-outline" :value="lastOne.format" />
             </div>

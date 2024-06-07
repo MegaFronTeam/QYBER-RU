@@ -13,6 +13,8 @@
   const tournamentStore = useTournamentStore();
   const { getLast } = storeToRefs(tournamentStore);
 
+  tournamentStore.getLastFetch();
+
   const sectionTitleTournamentsProps = {
     title: 'Ближайшие турниры',
     text: 'Ты лидер команды? Подай заявку на участие в ближайшем турнире!',

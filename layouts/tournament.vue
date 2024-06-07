@@ -19,10 +19,6 @@
   const dataMenu = await $fetch(`${BASE_URL}/menu/v1/main`);
   const menubar = [];
 
-  import { useTournamentStore } from '~/store/TournamentStore';
-  const tournamentStore = useTournamentStore();
-  tournamentStore.getLastFetch();
-
   for (const item of dataMenu) {
     menubar.push({
       label: item.title,

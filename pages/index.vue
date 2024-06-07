@@ -16,9 +16,6 @@
   const { data } = storeToRefs(newsStore);
   newsStore.fetchNews(4);
 
-  import { useTournamentStore } from '~/store/TournamentStore';
-  const tournamentStore = useTournamentStore();
-  tournamentStore.getLastFetch();
   const sectionTitleNewsProps = {
     title: 'Последние новости',
     text: 'Актуальные новости киберспортивных турниров от QYBER.RU',

@@ -9,7 +9,4 @@
   definePageMeta({
     breadcrumbName: 'Турниры',
   });
-  import { useTournamentStore } from '~/store/TournamentStore';
-  const tournamentStore = useTournamentStore();
-  tournamentStore.getLastFetch();
 </script>
