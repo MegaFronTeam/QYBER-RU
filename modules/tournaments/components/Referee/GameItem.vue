@@ -10,7 +10,10 @@
       tournamentPageStore.indexCoupleStore = +indexCouple;
     "
     :disabled="teamsForefereeLength === 0"
-    >{{ teamsForefereeLength !== 0 ? '+ Выбрать команду' : '' }}</Button
+  >
+    <span class="p-button-label">{{
+      teamsForefereeLength !== 0 ? '+ Выбрать команду' : ''
+    }}</span></Button
   >
   <div class="game__card" v-else>
     <div class="table-wrap">

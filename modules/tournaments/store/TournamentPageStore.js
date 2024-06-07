@@ -76,7 +76,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           this.matches = matches.map((item, index) => {
             item.map((subItem) => {
               if (subItem.date !== null && subItem.date !== '') {
-                console.log(index, 'subItem.date', subItem.date);
+                // console.log(index, 'subItem.date', subItem.date);
                 subItem.date = format(new Date(subItem.date), 'd MMMM yyyy  HH:mm', {
                   locale: ru,
                 });
@@ -188,7 +188,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         for (let j = 0; j < element.length; j++) {
           const subElement = element[j];
 
-          console.log('subElement', subElement);
+          // console.log('subElement', subElement);
           if (!subElement.indexPlus) subElement.indexPlus = counter;
           counter++;
 

@@ -18,14 +18,8 @@ export const useRefereeStore = defineStore('referee', {
     async checkTeamForReferee(comand_list) {
       this.dataGames = [];
       this.couples = [];
-      this.teamsForeferee = comand_list;
-      // .map((item) => {
-      //   // TODO: add rating data
-      //   item.ID = item.team.ID;
-      //   item.post_title = item.team.post_title;
-      //   item.post_thumbnail = item.post_thumbnail;w
-      //   return item;
-      // });
+      this.teamsForeferee = JSON.parse(JSON.stringify(comand_list));
+
       this.teamsForefereeLength = this.teamsForeferee.length;
     },
     async addTeamToCouple(teamID) {
@@ -45,8 +39,8 @@ export const useRefereeStore = defineStore('referee', {
       // }
     },
     async getGamesLength(comand_list) {
-      this.teamsForeferee = [];
-      this.teamsForefereeLength = 0;
+      // this.teamsForeferee = [];
+      // this.teamsForefereeLength = 0;
       this.comand_listLength = comand_list.length;
 
       function secondRoundCount(CommandCount) {
