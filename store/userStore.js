@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useRouter } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from './globalStore';
 import { useAccreditationStore } from './accreditationStore';
@@ -11,7 +10,6 @@ import { ru } from 'date-fns/locale';
 export const useUserStore = defineStore('user', () => {
   const globalStore = useGlobalStore();
 
-  const router = useRouter();
   const accreditationStore = useAccreditationStore();
   const educational_institutions = ref([]);
   const TeamStore = useTeamStore();

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useGlobalStore } from './globalStore';
-import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useBreadcrumbsStore } from './BreadcrumbStore';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useToast } from 'primevue/usetoast';
@@ -10,6 +10,7 @@ import { formatDate } from '@/utils/formatData';
 
 export const useTeamStore = defineStore('teamStore', {
   state: () => ({
+    router: useRouter(),
     loader: true,
     isCaptain: false,
     myTeams: [],
@@ -198,11 +199,18 @@ export const useTeamStore = defineStore('teamStore', {
         return Promise.reject(error);
       }
     },
-    async deleteTeam(id) {
+    async deleteTeam(teamId) {
+      const id = this.currentTeamID;
       try {
-        const response = await this.fetcher('DELETE', `/teams/v1/delete/${id}`);
+        const response = await this.fetcher('DELETE', `/teams/v1/delete/${teamId}`);
         const data = await response;
-        // console.log(data);
+        // // console.log(data);
+        if (data) {
+          if (teamId === id) {
+            this.router.push('/cabinet');
+          }
+          this.fetchMyTeams();
+        }
         this.fetchMyTeams();
       } catch (error) {
         console.error(error);
