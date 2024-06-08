@@ -22,6 +22,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     stages_labelsLength: 0,
     isNotStart: true,
     matchesReferee: [],
+    teamsForReg: [],
   }),
   actions: {
     reset() {
@@ -36,6 +37,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       this.stages_labelsLength = 0;
       // this.isNotStart = true;
       this.matchesReferee = [];
+      this.teamsForReg = [];
     },
     async fetchData(id) {
       if (id !== this.currentID) {
@@ -49,6 +51,8 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       try {
         const response = await axios.get(`${BASE_URL}/wp/v2/tournaments/${id}`);
         const data = await response.data;
+
+        await this.checkMyTeams(data);
         const today = new Date();
         this.matchesReferee = Object.values(JSON.parse(JSON.stringify(data.matches)));
         if (new Date(data.accepting_applications.end) >= today) {
@@ -141,18 +145,25 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         return Promise.reject(error);
       }
     },
-    async checkMyTeams() {
+    async checkMyTeams(data) {
       const teamStore = useTeamStore();
+
       await teamStore.fetchMyTeams().then(() => {
-        teamStore.myTeams = teamStore.myTeams.map((item) => {
-          if (
-            this.data.comand_list &&
-            this.data.comand_list.some((team) => team.team.ID === item.ID)
-          ) {
-            item.Approved = true;
-          }
-          return item;
-        });
+        this.teamsForReg = JSON.parse(JSON.stringify(teamStore.myTeams));
+        this.teamsForReg = this.teamsForReg
+          .filter((item) => {
+            return (
+              data.leagues[0].slug === item.leagues.slug &&
+              data.discipline[0].slug === item.discipline.slug
+            );
+          })
+          .map((item) => {
+            if (data.comand_list && data.comand_list.some((team) => team.team.ID === item.ID)) {
+              // console.log('item', item, this.data.comand_list);
+              item.Approved = true;
+            }
+            return item;
+          });
       });
     },
 

@@ -52,7 +52,7 @@ export const useRefereeStore = defineStore('referee', {
 
         return y / 2;
       }
-      console.log('comand_listLength', secondRoundCount(this.comand_listLength));
+      // console.log('comand_listLength', secondRoundCount(this.comand_listLength));
       this.dataGames = Array.from({ length: secondRoundCount(this.comand_listLength) }, () => [
         null,
         null,
@@ -132,7 +132,7 @@ export const useRefereeStore = defineStore('referee', {
             },
           );
           const data = await response.data;
-          console.log(data);
+          // console.log(data);
           if (data === true) {
             userStore.showToast('success', 'Игры успешно сохранены');
             tournamentPageStore.fetchData(tournamentPageStore.currentID);

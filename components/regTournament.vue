@@ -4,7 +4,7 @@
       <div class="inner-wrapper">
         <div
           class="game-item__card"
-          v-for="item in ifReferee === true ? teamsForeferee : teamsStore.myTeams"
+          v-for="item in ifReferee === true ? teamsForeferee : teamsForReg"
         >
           <div class="">
             <NuxtLink
@@ -88,7 +88,7 @@
 
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
-  const { ifReferee } = storeToRefs(tournamentPageStore);
+  const { ifReferee, teamsForReg } = storeToRefs(tournamentPageStore);
 
   import { useRefereeStore } from '@/modules/tournaments/store/RefereeStore';
   const refereeStore = useRefereeStore();
@@ -101,11 +101,7 @@
   console.log('isRefereePage', isRefereePage.value);
 
   onMounted(async () => {
-    if (ifReferee !== true) {
-      if (globalStore.isUserAuth === true) {
-        tournamentPageStore.checkMyTeams();
-      }
-    } else {
+    if (ifReferee === true) {
       tournamentPageStore.checkTeamForReferee();
     }
   });
