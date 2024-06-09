@@ -4,6 +4,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const useSponsorsStore = defineStore('sponsorsStore', () => {
   const sponsors = ref([]);
+  const ids = ref(0);
 
   const getSponsors = async () => {
     const response = await axios.get(`${BASE_URL}/wp/v2/sponsors`);
@@ -14,5 +15,6 @@ export const useSponsorsStore = defineStore('sponsorsStore', () => {
   return {
     sponsors,
     getSponsors,
+    ids,
   };
 });

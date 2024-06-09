@@ -958,3 +958,51 @@ body {
   color: var(--red-300);
   margin-top: rem(18);
 }
+
+.sponsors-modal {
+  text-align: center;
+  @include media-breakpoint-up(lg) {
+    max-width: rem(900);
+    text-align: left;
+  }
+  .sCurrentSponsors__img-wrap {
+    margin-right: rem(12);
+    @include media-breakpoint-down(lg) {
+      margin: 0 auto;
+      margin-bottom: rem(12);
+    }
+  }
+  .sCurrentSponsors__content {
+    p {
+      @include media-breakpoint-up(lg) {
+        text-align: left;
+      }
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+  h3 {
+    margin-bottom: rem(12);
+    @include media-breakpoint-down(lg) {
+      margin: 0 auto rem(12);
+    }
+  }
+  .p-badge {
+    margin-bottom: rem(12);
+    @include media-breakpoint-down(lg) {
+      margin: 0 auto rem(12);
+    }
+  }
+  .p-dialog-header {
+    padding: rem(48) 0 0 0;
+  }
+  .p-dialog-content {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    @include media-breakpoint-up(lg) {
+      flex-direction: row;
+    }
+  }
+}
