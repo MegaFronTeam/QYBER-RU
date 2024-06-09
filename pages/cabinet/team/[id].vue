@@ -60,8 +60,8 @@
       </div>
     </div>
     <div v-else>
-      <CabinetTeamBlock v-if="!teamsStore.isCaptain" :teamData="teamData" />
-      <CabinetTeamMyTeamBlock v-else />
+      <CabinetTeamBlock :teamData="teamData" />
+      <!-- <CabinetTeamMyTeamBlock v-else /> -->
     </div>
   </div>
 </template>
@@ -72,41 +72,14 @@
   const teamsStore = useTeamStore();
   const { id } = useRoute().params;
 
-  import { useTournamentStore } from '@/store/TournamentStore';
-  const tournamentStore = useTournamentStore();
+  // import { useTournamentStore } from '@/store/TournamentStore';
+  // const tournamentStore = useTournamentStore();
 
-  const { teamData } = storeToRefs(teamsStore);
+  const { teamData, isCaptain } = storeToRefs(teamsStore);
 
   import { useGlobalStore } from '@/store/globalStore';
   import EditTeam from '~/components/cabinet/Team/EditTeam.vue';
   const globalStore = useGlobalStore();
 
-  // definePageMeta({
-  //   breadcrumbName: 'Команда',
-  // });
-
-  // const breadcrumbArr = ref([
-  //   { label: 'Личный кабинет', route: '/' },
-
-  //   { label: 'Мои команды', route: '/' },
-  // ]);
-
-  const imgRef = ref(null);
-  const teamsData = ref({});
-
-  // console.log(typeof id);
-  onMounted(async () => {
-    teamsStore.currentTeamID = id;
-    console.log(teamsStore.currentTeamID);
-    await teamsStore.fetchTeam(id);
-    imgRef.value = teamsStore.teamData.post_thumbnail;
-    // const pending = ref(true);
-    teamsData.value = teamsStore.teamData;
-
-    // console.log(teamsStore.teamData.post_title);
-    // breadcrumbArr.value.push({ label: teamsStore.teamData.post_title });
-  });
-  // onMounted(() => {
-  //   breadcrumbsStore.setNameFromIds(teamsStore.teamData.post_title);
-  // });
+  await teamsStore.fetchTeam(id);
 </script>

@@ -18,6 +18,7 @@ export default defineNuxtModule({
       const tournamentPages = glob.sync(join(__dirname, 'pages/*.vue'));
 
       const tournamentIdPages = glob.sync(join(__dirname, 'pages/[id]/*.vue'));
+      const tournamentIdPagesMatch = glob.sync(join(__dirname, 'pages/[id]/schedule/[id].vue'));
 
       tournamentPages.forEach((page) => {
         pages.push({
@@ -31,7 +32,6 @@ export default defineNuxtModule({
         'contacts',
         'grid',
         'index',
-        'match',
         'participants',
         'referee',
         'rules',
@@ -46,11 +46,25 @@ export default defineNuxtModule({
 
       pagePaths.forEach((pagePath) => {
         // const page = pagePath.match(/\/([^/]+)\.vue$/)[1];
+        if (pagePath === 'schedule') {
+          pages.push({
+            name: `tournaments-${pagePath}`,
+            path: `/tournaments/:id()/schedule`,
+            file: resolve(__dirname, `pages/[id]/schedule/index.vue`),
+          });
+          return;
+        }
         pages.push({
           name: `tournaments-${pagePath}`,
           path: `/tournaments/:id()${pagePath === 'index' ? '' : `/${pagePath}`}`,
           file: resolve(__dirname, `pages/[id]/${pagePath}.vue`),
         });
+      });
+
+      pages.push({
+        name: `tournaments-match`,
+        path: `/tournaments/:id()/schedule/:id()`,
+        file: resolve(__dirname, `pages/[id]/schedule/[id].vue`),
       });
     });
   },

@@ -113,7 +113,7 @@
                       {{ slotProps.data.role.label }}
                     </span>
                     <Button
-                      v-if="slotProps.data.role.label !== 'капитан'"
+                      v-if="slotProps.data.role.value !== 'captain'"
                       severity="danger"
                       outlined
                       class="btn-sm ms-auto"

@@ -136,12 +136,12 @@ export const useUserStore = defineStore('user', () => {
 
   const showInvite = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/profile/v1/invite`, {
+      const response = await axios.get(`${BASE_URL}/teams/v1/my-invites`, {
         headers: {
           Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
         },
       });
-      const data = await response.data;
+      const data = await response;
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -307,5 +307,6 @@ export const useUserStore = defineStore('user', () => {
     educational_institutions,
     getEducationalInstitutions,
     showToast,
+    showInvite,
   };
 });

@@ -162,7 +162,10 @@
             />
             <Button v-else severity="gray" label="Перейти" class="btn-sm" />
           </NuxtLink>
-          <CabinetTeamDelete :id="slotProps.data.ID" />
+          <CabinetTeamDelete
+            v-if="slotProps.data.post_author === userData.ID"
+            :id="slotProps.data.ID"
+          />
         </div>
       </template>
     </Column>

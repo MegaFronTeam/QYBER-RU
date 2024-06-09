@@ -1,6 +1,6 @@
 <template>
   <div class="container head-messages">
-    <!-- <ShowInvite /> -->
+    <CabinetShowInvite />
     <CabinetAcredition />
   </div>
   <section class="sProfileHead">
@@ -47,7 +47,6 @@
 </template>
 
 <script setup>
-  import ShowInvite from '@/components/cabinet/ShowInvite.vue';
   const props = defineProps({
     img: {
       type: String,

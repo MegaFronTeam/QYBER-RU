@@ -41,7 +41,7 @@
                   <div class="table-wrap">
                     <img
                       v-if="slotProps.data.avatar"
-                      :src="`/img/${slotProps.data.avatar}`"
+                      :src="`${slotProps.data.avatar.url}`"
                       alt="Avatar"
                     />
                     <span>{{ slotProps.data.user_nickname }}</span>
@@ -72,7 +72,8 @@
                 </template>
                 <template #body="slotProps">
                   <span class="small-text">
-                    {{ slotProps.data.user_login }}
+                    {{ slotProps.data.user_last_name }}
+                    {{ slotProps.data.user_first_name }}
                   </span>
                 </template>
               </Column>
@@ -100,7 +101,15 @@
                 </template>
                 <template #body="slotProps">
                   <span class="small-text">
-                    {{ slotProps.data.role }}
+                    {{ slotProps.data.role.label }}
+                    <Button
+                      v-if="slotProps.data.role.value !== 'captain'"
+                      severity="danger"
+                      outlined
+                      class="btn-sm ms-auto"
+                      @click="deletePlayer(slotProps.data.id)"
+                      >Удалить</Button
+                    >
                   </span>
                 </template>
               </Column>
@@ -134,9 +143,9 @@
 </template>
 
 <script setup>
-  import { useTournamentStore } from '@/store/TournamentStore';
-  const tournamentStore = useTournamentStore();
-  const { tournamentsMy } = tournamentStore;
+  // import { useTournamentStore } from '@/store/TournamentStore';
+  // const tournamentStore = useTournamentStore();
+  // const { tournamentsMy } = tournamentStore;
 
   const props = defineProps({
     teamData: {
@@ -144,22 +153,7 @@
       required: false,
     },
   });
-
-  const { teamData } = props;
   const active = ref(0);
-  const products = ref([
-    {
-      nickname: {
-        avatar: 'avatar-img-1.jpg',
-        text: 'Dando',
-      },
-      name: 'Константин Завгородний',
-      role: 'Игрок',
-    },
-  ]);
-
-  const totalRecords = ref(10);
-  const rowsPerPage = ref([5, 10, 50, 100]);
 </script>
 
 <style scoped lang="scss">
@@ -168,5 +162,12 @@
     @media screen and (min-width: 992px) {
       padding-bottom: 12px;
     }
+  }
+  .ms-auto {
+    margin-left: auto;
+  }
+  .small-text {
+    display: flex;
+    align-items: center;
   }
 </style>

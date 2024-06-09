@@ -144,8 +144,15 @@ export const useTeamStore = defineStore('teamStore', {
         const globalStore = useGlobalStore();
         const res = await this.fetcher('GET', `/teams/v1/team/${id}`);
         const data = res.data;
+        this.currentTeamID = id;
 
-        this.formatTournament(data.tournaments);
+        if (data.tournaments > 0) {
+          await this.formatTournament(data.tournaments);
+        }
+        // if (data.members.some((member) => member.id === globalStore.userData.ID)) {
+        //   this.isCaptain = true;
+        // }
+
         this.teamData = data;
         this.formDataEditTeam = {
           name: data.post_title,
@@ -153,20 +160,14 @@ export const useTeamStore = defineStore('teamStore', {
         };
 
         breadcrumbsStore.setNameFromIds(data.post_title);
-        this.teamData.members.forEach((member) => {
-          if (member.id === globalStore.userData.ID) {
-            this.isCaptain = true;
-          }
-        });
 
         this.loader = false;
       } catch (error) {
         console.log(error);
       }
     },
-    formatTournament(data) {
+    async formatTournament(data) {
       data = data.map((item) => {
-        console.log('item', item);
         item.date = formatDate(item.date, 'dd.MM.yyyy, HH:mm');
         item.prize_fund = new Intl.NumberFormat('ru-RU', {
           style: 'currency',

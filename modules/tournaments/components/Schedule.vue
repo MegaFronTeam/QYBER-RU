@@ -95,7 +95,9 @@
               <Column>
                 <template #body="slotProps">
                   <!-- TODO: add link to detail -->
-                  <NuxtLink disabled href="#"><span class="p-badge"> Подробнее </span></NuxtLink>
+                  <NuxtLink disabled :to="path + '/' + slotProps.data.id">
+                    <span class="p-badge"> Подробнее </span>
+                  </NuxtLink>
                 </template>
               </Column>
             </DataTable>
@@ -134,6 +136,8 @@
   import { useGlobalStore } from '~/store/globalStore';
   const globalStore = useGlobalStore();
   const { tableRows } = storeToRefs(globalStore);
+  const router = useRouter();
+  const path = router.currentRoute.value.path;
 
   const totalRecords = ref(10);
   const rowsPerPage = ref([5, 10, 50, 100]);

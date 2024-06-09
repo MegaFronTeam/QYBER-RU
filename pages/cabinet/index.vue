@@ -54,5 +54,6 @@
   });
 
   await userStore.getUserData();
+  await userStore.showInvite();
 </script>
 <style lang="scss"></style>
