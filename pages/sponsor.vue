@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderBlock
-      title="Спонсоры"
+      :title="sponsorsStore.sponsorsPage.post_title"
       bg="/img/headerBlock-bg-3.jpg"
       class="sHeaderBlock sHeaderBlock--max-height"
     >
@@ -14,7 +14,12 @@
 </template>
 
 <script setup>
-  definePageMeta({
-    breadcrumbName: 'Спонсоры',
-  });
+import { useSponsorsStore } from '@/store/sponsorsStore';
+
+definePageMeta({
+  breadcrumbName: 'Спонсоры',
+});
+
+const sponsorsStore = useSponsorsStore();
+sponsorsStore.getSponsorsPage();
 </script>
