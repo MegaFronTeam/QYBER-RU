@@ -37,6 +37,14 @@
     border-radius: 0;
     justify-content: center;
   }
+  &__settings {
+    background-color: transparent;
+    border: none;
+    color: var(--gray-500);
+    &:hover {
+      color: var(--primary-300);
+    }
+  }
 }
 
 .sGridCard {

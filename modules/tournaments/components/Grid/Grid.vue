@@ -162,8 +162,9 @@
 </template>
 
 <script setup>
-  import Card from './Card.vue';
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-  const tournamentPageStore = useTournamentPageStore();
-  const { data, matchesGrid } = storeToRefs(tournamentPageStore);
+import Card from './Card.vue';
+import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+const tournamentPageStore = useTournamentPageStore();
+const { data, matchesGrid } = storeToRefs(tournamentPageStore);
+console.log(matchesGrid.value);
 </script>
