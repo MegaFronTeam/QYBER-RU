@@ -26,7 +26,8 @@
 </template>
 
 <script setup>
-  import { useGlobalStore } from '@/store/globalStore';
-  const globalStore = useGlobalStore();
-  const { contacts } = storeToRefs(globalStore);
+import { useGlobalStore } from '@/store/globalStore';
+
+const globalStore = useGlobalStore();
+const { contacts } = storeToRefs(globalStore);
 </script>

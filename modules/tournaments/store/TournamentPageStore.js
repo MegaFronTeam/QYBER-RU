@@ -167,17 +167,18 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     },
     async checkMyTeams(data) {
       const teamStore = useTeamStore();
-
       await teamStore.fetchMyTeams().then(() => {
         this.teamsForReg = JSON.parse(JSON.stringify(teamStore.myTeams));
         this.teamsForReg = this.teamsForReg
           .filter((item) => {
-            return (
-              data.leagues[0].slug === item.leagues.slug &&
-              data.discipline[0].slug === item.discipline.slug
-              // &&
-              // +item.count_members >= +data.format[0]
-            );
+            if (item.leagues && item.discipline) {
+              return (
+                data.leagues[0].slug === item.leagues.slug &&
+                data.discipline[0].slug === item.discipline.slug
+                // &&
+                // +item.count_members >= +data.format[0]
+              );
+            }
           })
           .map((item) => {
             if (data.comand_list && data.comand_list.some((team) => team.team.ID === item.ID)) {

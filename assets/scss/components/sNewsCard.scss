@@ -12,6 +12,10 @@
     position: relative;
   }
   .p-card-title {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: rem(6);
     margin-bottom: rem(12);
   }
   .p-card-body {
@@ -26,7 +30,7 @@
   .p-card-content {
     padding: 0;
   }
-  .p-card-footer {
+  .p-card-content {
     margin-top: auto;
   }
   .date {
@@ -35,13 +39,14 @@
     font-weight: 600;
     line-height: 1.6;
     letter-spacing: 0.2px;
-    border: 1px solid var(--gray-200);
-    color: var(--gray-500);
+    border: 1px solid var(--system-info-main);
+    color: var(--system-info-main);
     margin-bottom: rem(12);
     max-width: max-content;
     border-radius: rem(6);
   }
   h5 {
+    width: 100%;
     font-size: rem(18);
     color: var(--gray-700);
     @include media-breakpoint-up(lg) {
