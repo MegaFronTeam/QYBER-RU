@@ -14,7 +14,7 @@
     <TabView>
       <TabPanel header="Настройки">
         <div class="form-wrap">
-          <InputGroup>
+          <!-- <InputGroup>
             <label for="name">Формат</label>
             <Dropdown
               v-model="selectedFormat"
@@ -23,7 +23,7 @@
               placeholder="5x5"
               class="w-full md:w-14rem"
             />
-          </InputGroup>
+          </InputGroup> -->
           <InputGroup>
             <label for="calendar">Начало игры (мск)</label>
             <div class="d-flex date-flex">
