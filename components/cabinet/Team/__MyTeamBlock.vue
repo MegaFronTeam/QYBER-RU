@@ -216,9 +216,9 @@
 
 <script setup>
   import InviteMember from '@/components/cabinet/InviteMember.vue';
-  import { useTeamStore } from '~/store/TeamStore';
 
   const active = ref(0);
+  import { useTeamStore } from '~/store/TeamStore';
   const teamStore = useTeamStore();
   const teamMembers = ref(teamStore.teamData.members);
 

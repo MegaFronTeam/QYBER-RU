@@ -13,7 +13,7 @@
       </div>
       <div class="template">
         <TabView v-model:activeIndex="active">
-          <TabPanel v-if="teamData.members.length > 0">
+          <TabPanel v-if="teamData.members && teamData.members.length > 0">
             <div class="sMyTeamBlock__head-row row">
               <div class="col">
                 <h3>Состав команды</h3>
@@ -115,7 +115,7 @@
                       severity="danger"
                       outlined
                       class="btn-sm ms-auto"
-                      @click="deletePlayer(slotProps.data.id)"
+                      @click="teamStore.deleteTeamMember(slotProps.data.id)"
                       >Удалить</Button
                     >
                   </span>
@@ -151,6 +151,8 @@
 </template>
 
 <script setup>
+  import { useTeamStore } from '~/store/TeamStore';
+  const teamStore = useTeamStore();
   // import { useTournamentStore } from '@/store/TournamentStore';
   // const tournamentStore = useTournamentStore();
   // const { tournamentsMy } = tournamentStore;
