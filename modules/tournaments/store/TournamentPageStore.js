@@ -121,11 +121,12 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
             item.index = index;
             return item;
           });
-
           this.stages_labelsLength = data.stages_labels.length;
-          const subnameLAN = data.stages_labels.filter((item) => item.subname.trim() === 'LAN');
+          const subnameLAN = data.stages_labels.filter(
+            (item) => item.subname.value.trim() === 'LAN',
+          );
           const subnameOnline = data.stages_labels.filter(
-            (item) => item.subname.trim() === 'Online',
+            (item) => item.subname.value.trim() === 'Online',
           );
           this.stages_labels = [
             { name: 'Online', items: subnameOnline, stageLength: subnameOnline.length },
