@@ -60,7 +60,7 @@
                 v-for="(item, index) in data.stages_labels"
                 :key="index"
               >
-                <p>{{ item.name }} ({{ item.subname }})</p>
+                <p>{{ item.name }} ({{ item.subname.label }})</p>
               </div>
             </div>
             <div class="tournament-table__row row">
@@ -162,9 +162,9 @@
 </template>
 
 <script setup>
-import Card from './Card.vue';
-import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-const tournamentPageStore = useTournamentPageStore();
-const { data, matchesGrid } = storeToRefs(tournamentPageStore);
-console.log(matchesGrid.value);
+  import Card from './Card.vue';
+  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  const tournamentPageStore = useTournamentPageStore();
+  const { data, matchesGrid } = storeToRefs(tournamentPageStore);
+  console.log(matchesGrid.value);
 </script>

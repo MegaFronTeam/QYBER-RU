@@ -3,37 +3,49 @@
     <div class="container">
       <div class="sMainHeader__row row">
         <div class="col">
-          <div class="sMainHeader__wrap bg-wrap">
-            <div class="iframe-wrap" v-if="BroadCast">
-              <iframe
-                width="560"
-                height="315"
-                :src="
-                  'https://www.youtube.com/embed/' +
-                  BroadCast +
-                  '?autoplay=1&mute=1&loop=1&controls=0&showinfo=0'
-                "
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-              ></iframe>
-            </div>
-            <img v-else src="/img/mainHeader-bg-1.jpg" class="picture-bg" alt="Bg" />
+          <ShareFancybox
+            :options="{
+              width: '100%',
+              autoStart: true,
+            }"
+          >
+            <div class="sMainHeader__wrap bg-wrap">
+              <a
+                data-fancybox="gallery"
+                :href="'https://www.youtube.com/watch?v=' + BroadCast"
+                class="iframe-wrap"
+                v-if="BroadCast"
+              >
+                <iframe
+                  width="560"
+                  height="315"
+                  :src="
+                    'https://www.youtube.com/embed/' +
+                    BroadCast +
+                    '?autoplay=1&mute=1&loop=1&controls=0&showinfo=0'
+                  "
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                ></iframe>
+              </a>
+              <img v-else src="/img/mainHeader-bg-1.jpg" class="picture-bg" alt="Bg" />
 
-            <h1>Корпоративный и студенческий турнир <span>по киберспорту</span></h1>
-            <p>
-              Киберспортивные турниры в дисциплинах Counter Strike 2, Dota 2 и Спортивное
-              программирование
-            </p>
-            <!-- TODO: узнать что здесь выводить сейчас  Т к турнир сразу на несколько игр- у нас это не предусмотрено -->
-            <!-- <Button severity="primary" label="Кнопка если нужна" outlined /> -->
-            <NuxtLink class="sMainHeader__link" to="/about-project">
-              <svg-icon name="arrow-down.svg" />
-              Подробнее о проекте
-            </NuxtLink>
-          </div>
+              <h1>Корпоративный и студенческий турнир <span>по киберспорту</span></h1>
+              <p>
+                Киберспортивные турниры в дисциплинах Counter Strike 2, Dota 2 и Спортивное
+                программирование
+              </p>
+              <!-- TODO: узнать что здесь выводить сейчас  Т к турнир сразу на несколько игр- у нас это не предусмотрено -->
+              <!-- <Button severity="primary" label="Кнопка если нужна" outlined /> -->
+              <NuxtLink class="sMainHeader__link" to="/about-project">
+                <svg-icon name="arrow-down.svg" />
+                Подробнее о проекте
+              </NuxtLink>
+            </div>
+          </ShareFancybox>
         </div>
         <div class="sMainHeader__col col">
           <div class="sMainHeader__tournament bg-wrap">
@@ -121,3 +133,11 @@
 
   tournamentStore.getBroadCast();
 </script>
+
+<style>
+  .fancybox__slide.has-youtube .fancybox__content {
+    width: 80% !important;
+    height: auto !important;
+    /* height: 100% !important; */
+  }
+</style>
