@@ -40,6 +40,7 @@ export const useAuthStore = defineStore('auth', () => {
       globalStore.API_KEY = data[0];
       globalStore.email = dataFormLogin.value.email;
       globalStore.isUserAuth = true;
+      userStore.getUserData();
       router.back();
     }
     // console.log(data);

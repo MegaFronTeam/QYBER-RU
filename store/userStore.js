@@ -5,7 +5,7 @@ import { useAccreditationStore } from './accreditationStore';
 // import { showToast } from '@/utils/showToast';
 import { useTeamStore } from './TeamStore';
 import { format } from 'date-fns';
-import { ca, ru } from 'date-fns/locale';
+import { ca, da, ru } from 'date-fns/locale';
 
 export const useUserStore = defineStore('user', () => {
   const globalStore = useGlobalStore();
@@ -86,11 +86,16 @@ export const useUserStore = defineStore('user', () => {
         await TeamStore.fetchMyTeams();
       }
 
+      await checkUserRoles(data);
+
       // getEducationalInstitutions();
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
     }
+  };
+  const checkUserRoles = async (data) => {
+    globalStore.isReferee = data.roles[0] === 'judge' || data.roles[0] === 'administrator';
   };
 
   const updateMyProfileData = async () => {

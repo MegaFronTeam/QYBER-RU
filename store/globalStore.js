@@ -23,6 +23,7 @@ export const useGlobalStore = defineStore(
     ]);
     const isAtlants = ref(false);
     const isTalants = ref(false);
+    const isReferee = ref(false);
 
     const regions = ref([]);
 
@@ -91,6 +92,7 @@ export const useGlobalStore = defineStore(
       useTeamStore.myTeams = [];
       useTeamStore.teamData = [];
       user_avatar.value = '';
+      isReferee.value = false;
 
       router.push('/');
     };
@@ -175,6 +177,7 @@ export const useGlobalStore = defineStore(
       setIn_verification,
       setAPI_KEY,
       tableRows,
+      isReferee,
     };
   },
   { persist: { storage: persistedState.localStorage } },
