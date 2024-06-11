@@ -15,6 +15,9 @@ export const useTournamentStore = defineStore('tournament', () => {
   // const { currentTeamID } = teamStore;
   const tournamentsMy = ref([]);
   const BroadCast = ref('');
+  const upcomingTournaments = ref([]);
+  const currentTournaments = ref([]);
+  const endedTournaments = ref([]);
 
   const toast = useToast();
   const showToast = (severity, summary, detail) => {
@@ -47,7 +50,7 @@ export const useTournamentStore = defineStore('tournament', () => {
           .format(+item.prize_fund)
           .replace(/\.00$/, '');
         item.teamCount = item.comand_list.length > 0 ? item.comand_list.length : 0;
-        item.date = new Date(item.date).toLocaleDateString();
+        // item.date = new Date(item.date).toLocaleDateString();
         item.title = item.title.rendered;
         item.teamLength = item.comand_list.length;
         delete item.short_description;
@@ -57,6 +60,8 @@ export const useTournamentStore = defineStore('tournament', () => {
 
       // console.log(data);
       tournamentsList.value = data;
+
+      return data;
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
@@ -69,7 +74,7 @@ export const useTournamentStore = defineStore('tournament', () => {
       const data = await response.data;
       getLast.value = data;
 
-      console.log(data);
+      // console.log(data);
 
       data.map((item) => {
         item['prize_fund'] = new Intl.NumberFormat('ru-RU', {
@@ -81,7 +86,7 @@ export const useTournamentStore = defineStore('tournament', () => {
           .format(+item.prize_fund)
           .replace(/\.00$/, '');
         item.teamCount = item.comand_list.length > 0 ? item.comand_list.length : 0;
-        item.date = new Date(item.date).toLocaleDateString();
+        // item.date = new Date(item.date).toLocaleDateString();
         item.title = item.title.rendered;
         item.teamLength = item.comand_list.length;
         delete item.short_description;
@@ -140,6 +145,39 @@ export const useTournamentStore = defineStore('tournament', () => {
     }
   };
 
+  const sortTournamnts = () => {
+    const nowDate = new Date().toISOString();
+
+    upcomingTournaments.value = [];
+    endedTournaments.value = [];
+    currentTournaments.value = [];
+
+    tournamentsList.value.forEach((tournament) => {
+      const tournamentStartDate = tournament.date ? new Date(tournament.date).toISOString() : null;
+      const tournamentEndDate = tournament.date_end
+        ? new Date(tournament.date_end).toISOString()
+        : null;
+      if (tournamentStartDate !== null && tournamentStartDate > nowDate) {
+        upcomingTournaments.value.push(tournament);
+      }
+      if (tournamentEndDate !== null && tournamentEndDate < nowDate) {
+        endedTournaments.value.push(tournament);
+      }
+      if (
+        tournamentEndDate !== null &&
+        tournamentStartDate !== null &&
+        tournamentStartDate < nowDate &&
+        nowDate < tournamentEndDate
+      ) {
+        currentTournaments.value.push(tournament);
+      }
+    });
+
+    // console.log(upcomingTournaments.value);
+    // console.log(currentTournaments.value);
+    // console.log(endedTournaments.value);
+  };
+
   watch(showRegModal, () => {
     if (showRegModal.value === false) {
       TournamentPageStore.ifReferee = false;
@@ -165,6 +203,10 @@ export const useTournamentStore = defineStore('tournament', () => {
     getLastFetch,
     getBroadCast,
     BroadCast,
+    sortTournamnts,
+    upcomingTournaments,
+    currentTournaments,
+    endedTournaments,
   };
 });
 
