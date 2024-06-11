@@ -221,7 +221,12 @@ export const useTeamStore = defineStore('teamStore', {
     async deleteTeamMember(USER_ID) {
       this.teamData.members = this.teamData.members.filter((element) => element.id != USER_ID);
       try {
-        await this.fetcher('DELETE', `/teams/v1/team/${this.teamData.ID}/member/${USER_ID}`);
+        const response = await this.fetcher(
+          'DELETE',
+          `/teams/v1/team/${this.teamData.ID}/member/${USER_ID}`,
+        );
+        const data = await response.data;
+        console.log(data);
       } catch (error) {
         console.error(error);
         return Promise.reject(error);

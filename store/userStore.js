@@ -5,7 +5,7 @@ import { useAccreditationStore } from './accreditationStore';
 // import { showToast } from '@/utils/showToast';
 import { useTeamStore } from './TeamStore';
 import { format } from 'date-fns';
-import { ca, ru } from 'date-fns/locale';
+import { ca, da, ru } from 'date-fns/locale';
 
 export const useUserStore = defineStore('user', () => {
   const globalStore = useGlobalStore();
@@ -44,6 +44,8 @@ export const useUserStore = defineStore('user', () => {
       label: 'Мужской',
     },
   ]);
+
+  const myInvites = ref([]);
 
   const getUserData = async () => {
     try {
@@ -84,11 +86,16 @@ export const useUserStore = defineStore('user', () => {
         await TeamStore.fetchMyTeams();
       }
 
+      await checkUserRoles(data);
+
       // getEducationalInstitutions();
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
     }
+  };
+  const checkUserRoles = async (data) => {
+    globalStore.isReferee = data.roles[0] === 'judge' || data.roles[0] === 'administrator';
   };
 
   const updateMyProfileData = async () => {
@@ -141,7 +148,8 @@ export const useUserStore = defineStore('user', () => {
           Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
         },
       });
-      const data = await response;
+      const data = await response.data;
+      myInvites.value = data;
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -149,15 +157,6 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
-  // const dataVerification = ref({
-  //   inn: '',
-  //   leagues: [],
-  //   file: '',
-  //   selectedWorkStudy: '',
-  //   file: {},
-  //   user_educational_institution: '',
-  //   user_company: '',
-  // });
   const sendVerification = async () => {
     console.log(accreditationStore.data);
 
@@ -191,30 +190,20 @@ export const useUserStore = defineStore('user', () => {
       return Promise.reject(error);
     }
   };
-  const getInvites = async () => {
-    try {
-      const response = await axios.get(`${BASE_URL}/teams/v1/my-invites`, {
-        headers: {
-          Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
-        },
-      });
-      const data = await response.data;
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
-    }
-  };
 
-  const acceptInvite = async (dataForm) => {
+  const acceptInvite = async (teamId) => {
     try {
-      const response = await axios.post(`${BASE_URL}/profile/v1/invite`, dataForm, {
+      const response = await axios.post(`${BASE_URL}/teams/v1/access-invite/${teamId}`, dataForm, {
         headers: {
           Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
         },
       });
       const data = await response.data;
       console.log(data);
+      if (data === true) {
+        showToast('success', 'Приглашение успешно принято');
+        showInvite();
+      }
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
@@ -322,6 +311,7 @@ export const useUserStore = defineStore('user', () => {
     getEducationalInstitutions,
     showToast,
     showInvite,
-    getInvites,
+    myInvites,
+    acceptInvite,
   };
 });

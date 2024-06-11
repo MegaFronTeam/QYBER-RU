@@ -9,7 +9,7 @@
       <NuxtLink :to="`/tournaments/${currentID}/participants`">Участники </NuxtLink>
       <NuxtLink :to="`/tournaments/${currentID}/rules`"> Правила</NuxtLink>
       <NuxtLink :to="`/tournaments/${currentID}/contacts`">Контакты </NuxtLink>
-      <NuxtLink :to="`/tournaments/${currentID}/referee`" v-if="isUserAuth"
+      <NuxtLink :to="`/tournaments/${currentID}/referee`" v-if="isUserAuth && isReferee"
         >Жеребьевка <span>Для судей</span></NuxtLink
       >
     </div>
@@ -19,7 +19,7 @@
 <script setup>
   import { useGlobalStore } from '~/store/globalStore';
   const globalStore = useGlobalStore();
-  const { isUserAuth } = storeToRefs(globalStore);
+  const { isUserAuth, isReferee } = storeToRefs(globalStore);
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentStorePage = useTournamentPageStore();
   const { currentID, data, matches } = storeToRefs(tournamentStorePage);

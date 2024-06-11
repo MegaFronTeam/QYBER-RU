@@ -9,22 +9,22 @@
 </template>
 
 <script lang="ts" setup>
-import { useTournamentStore } from '@/store/TournamentStore';
+  import { useTournamentStore } from '@/store/TournamentStore';
 
-const tournamentStore = useTournamentStore();
-const { getLast } = storeToRefs(tournamentStore);
+  const tournamentStore = useTournamentStore();
+  const { getLast } = storeToRefs(tournamentStore);
 
-tournamentStore.getLastFetch();
+  tournamentStore.getLastFetch();
 
-const sectionTitleTournamentsProps = {
-  title: 'Ближайшие турниры',
-  text: 'Ты лидер команды? Подай заявку на участие в ближайшем турнире!',
-};
+  const sectionTitleTournamentsProps = {
+    title: 'Предстоящие',
+    text: 'Ты лидер команды? Подай заявку на участие в ближайшем турнире!',
+  };
 
-const footerLinkTournamentsProps = {
-  text: 'Смотреть все турниры',
-  href: '/tournaments',
-};
+  const footerLinkTournamentsProps = {
+    text: 'Смотреть все турниры',
+    href: '/tournaments',
+  };
 </script>
 
 <style></style>

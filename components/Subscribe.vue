@@ -8,16 +8,22 @@
             <img src="/img/sSubscribe-img-1.png" alt="Juggernaut" class="sSubscribe__img" />
           </div>
           <div class="sSubscribe__col col">
-            <div class="h1">Подпишитесь на актуальные новости в нашем телеграм канале</div>
-            <p>
-              Все новости турнира, интервью, видео, аналитика и общение – все это в телеграм канале
-            </p>
-            <a :href="contacts.socials[0].link" target="_blank">
-              <Button severity="secondary">
-                <span> Перейти в Telegram</span>
-                <svg-icon name="telegram.svg" />
-              </Button>
-            </a>
+            <div class="h1">Подпишитесь на актуальные новости в наших соцсетях</div>
+            <p>Все новости турнира, интервью, видео, аналитика и общение – в Telergram и Discord</p>
+            <div style="margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px">
+              <a :href="contacts.socials[0].link" target="_blank">
+                <Button severity="secondary">
+                  <span> Перейти в Telegram</span>
+                  <svg-icon name="telegram.svg" />
+                </Button>
+              </a>
+              <a :href="globalStore.contacts.discord[0].link" target="_blank">
+                <Button severity="secondary">
+                  Перейти в {{ globalStore.contacts.discord[0].social.label }}
+                  <svg-icon :name="globalStore.contacts.discord[0].social.value" />
+                </Button>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -26,8 +32,8 @@
 </template>
 
 <script setup>
-import { useGlobalStore } from '@/store/globalStore';
+  import { useGlobalStore } from '@/store/globalStore';
 
-const globalStore = useGlobalStore();
-const { contacts } = storeToRefs(globalStore);
+  const globalStore = useGlobalStore();
+  const { contacts } = storeToRefs(globalStore);
 </script>
