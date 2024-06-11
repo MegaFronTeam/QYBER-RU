@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h5>{{ days }} д {{ hours }} ч {{ minutes }} м</h5>
+    <h5 v-if="days > 0 && hours > 0 && minutes > 0">{{ days }} д {{ hours }} ч {{ minutes }} м</h5>
+    <h5 v-else>Таймер истек</h5>
   </div>
 </template>
 
