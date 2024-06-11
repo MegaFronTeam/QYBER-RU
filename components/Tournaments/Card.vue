@@ -43,10 +43,7 @@
     <template #footer>
       <Skeleton v-if="skeleton === true" height="44px" width="100%"></Skeleton>
       <template v-else>
-        <div class="data-start">
-          <span>До начала:</span>
-          <CountDown :targetDate="new Date(newsData.date)" />
-        </div>
+        <CountDown :targetDate="new Date(newsData.date)" />
         <NuxtLink :to="'/tournaments/' + newsData.id">
           <Button label="Регистрация на турнир" class="w-full" />
         </NuxtLink>

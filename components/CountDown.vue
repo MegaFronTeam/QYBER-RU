@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h5 v-if="days > 0 && hours > 0 && minutes > 0">{{ days }} д {{ hours }} ч {{ minutes }} м</h5>
-    <h5 v-else>Таймер истек</h5>
+  <div v-if="days > 0 && hours > 0 && minutes > 0" class="data-start">
+    <span>До начала:</span>
+    <h5>{{ days }} д {{ hours }} ч {{ minutes }} м</h5>
   </div>
 </template>
 
