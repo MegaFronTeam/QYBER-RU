@@ -148,7 +148,10 @@ export const useTournamentStore = defineStore('tournament', () => {
   const sortTournamnts = () => {
     const nowDate = new Date().toISOString();
 
-    console.log(tournamentsList.value);
+    upcomingTournaments.value = [];
+    endedTournaments.value = [];
+    currentTournaments.value = [];
+
     tournamentsList.value.forEach((tournament) => {
       const tournamentStartDate = tournament.date ? new Date(tournament.date).toISOString() : null;
       const tournamentEndDate = tournament.date_end
