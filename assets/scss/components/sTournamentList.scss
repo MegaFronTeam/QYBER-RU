@@ -1,0 +1,8 @@
+.sTournamentList {
+  padding-top: rem(6);
+  padding-bottom: rem(6);
+  @include media-breakpoint-up(lg) {
+    padding-top: rem(12);
+    padding-bottom: rem(12);
+  }
+}

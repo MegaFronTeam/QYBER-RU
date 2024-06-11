@@ -83,7 +83,7 @@ const prize_fund = ref(newsData.prize_fund);
 const teamCount = ref(newsData.teamCount);
 
 const date = ref(new Date('2024-07-07T00:00:00'));
-// console.log(newsData.value);
+console.log(newsData.value);
 </script>
 
 <style>

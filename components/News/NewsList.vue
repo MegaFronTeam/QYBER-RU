@@ -8,7 +8,7 @@
         </div>
       </div>
       <!-- v-if="data.length > rowsPerPage[0]" -->
-      <div class="template template--footer">
+      <div v-if="false" class="template template--footer">
         <Paginator
           :rows="rowsPerPage[0]"
           :totalRecords="totalRecords"
@@ -31,11 +31,11 @@
 </template>
 
 <script setup>
-  import { useNewsStore } from '@/store/NewsStore';
-  const newsStore = useNewsStore();
-  const { data } = storeToRefs(newsStore);
-  newsStore.fetchNews(50);
+import { useNewsStore } from '@/store/NewsStore';
+const newsStore = useNewsStore();
+const { data } = storeToRefs(newsStore);
+newsStore.fetchNews(50);
 
-  const totalRecords = ref(10);
-  const rowsPerPage = ref([5, 10, 50, 100]);
+const totalRecords = ref(10);
+const rowsPerPage = ref([5, 10, 50, 100]);
 </script>
