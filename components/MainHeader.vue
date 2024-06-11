@@ -1,7 +1,6 @@
 <template>
   <section class="sMainHeader">
     <div class="container">
-      <button @click="goFullscreen">Go Fullscreen</button>
       <div class="sMainHeader__row row">
         <div class="col">
           <div class="sMainHeader__wrap bg-wrap">
@@ -122,7 +121,10 @@
   const youtubeIframe = ref(null);
 
   const goFullscreen = () => {
-    tournamentStore.BroadCast = tournamentStore.BroadCast.replace('mute=1', 'mute=0');
+    tournamentStore.BroadCast = tournamentStore.BroadCast.replace(
+      'mute=1&controls=0',
+      'mute=0&controls=1',
+    );
     const iframe = youtubeIframe.value;
     if (iframe.requestFullscreen) {
       iframe.requestFullscreen();
@@ -142,7 +144,10 @@
     if (!document.fullscreenElement) {
       // Вышли из полноэкранного режима
       // Верните URL ифрейма к исходному состоянию
-      tournamentStore.BroadCast = tournamentStore.BroadCast.replace('mute=0', 'mute=1');
+      tournamentStore.BroadCast = tournamentStore.BroadCast.replace(
+        'mute=0&controls=1',
+        'mute=1&controls=0',
+      );
     }
   };
 

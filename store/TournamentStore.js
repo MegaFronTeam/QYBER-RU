@@ -140,7 +140,7 @@ export const useTournamentStore = defineStore('tournament', () => {
       // BroadCast.value = data;
       BroadCast.value = data.split('=')[1];
       BroadCast.value =
-        'https://www.youtube.com/embed/' + BroadCast.value + '?autoplay=1&loop=1&showinfo=0&mute=1';
+        'https://www.youtube.com/embed/' + BroadCast.value + '?autoplay=1&mute=1&controls=0';
     } catch (error) {
       console.error(error);
       return Promise.reject(error);

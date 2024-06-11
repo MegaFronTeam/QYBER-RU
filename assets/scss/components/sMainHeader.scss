@@ -40,7 +40,12 @@
       transform: translate(-50%, -50%);
       aspect-ratio: 16/9;
       position: absolute;
+      cursor: pointer;
       z-index: -1;
+      @include mt;
+      &:hover {
+        scale: 0.988;
+      }
     }
     iframe {
       &:not(:fullscreen) {
