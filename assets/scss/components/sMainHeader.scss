@@ -33,7 +33,7 @@
     padding: rem(23);
     height: 100%;
     .iframe-wrap {
-      min-height: 100%;
+      min-height: calc(100% + 80px);
       min-width: 100%;
       left: 50%;
       top: 50%;
@@ -43,11 +43,14 @@
       z-index: -1;
     }
     iframe {
-      width: 100% !important;
-      height: 100% !important;
-      pointer-events: none;
-      position: absolute;
-      inset: 0;
+      &:not(:fullscreen) {
+        width: 100% !important;
+        height: 100% !important;
+        // aspect-ratio: 16/9;
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
       // height: 100%;
     }
     // aspect-ratio: 696/ 750;
