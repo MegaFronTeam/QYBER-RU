@@ -10,12 +10,19 @@
         class="banner bg-wrap sticky-element"
       >
         <img class="picture-bg" src="/img/banner-bg-1.jpg" alt="bg" />
-        <div class="h5">Подпишитесь на актуальные новости в нашем Telelgram-канале</div>
-        <p>Узнавайте о новостях одним из первых</p>
+        <div class="h5">Подпишитесь на актуальные новости в наших соцсетях</div>
+        <p>Все новости турнира, интервью, видео, аналитика и общение – в Telergram и Discord</p>
         <a :href="globalStore.contacts.socials[0].link" style="margin-top: auto" target="_blank">
           <Button>
             <svg-icon name="telegram" />
             Перейти в Telegram
+          </Button>
+        </a>
+
+        <a :href="globalStore.contacts.discord[0].link" style="margin-top: auto" target="_blank">
+          <Button>
+            <svg-icon :name="globalStore.contacts.discord[0].social.value" />
+            Перейти в {{ globalStore.contacts.discord[0].social.label }}
           </Button>
         </a>
       </div>
