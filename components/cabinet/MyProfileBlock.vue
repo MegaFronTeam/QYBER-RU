@@ -5,7 +5,11 @@
         <div class="btn-wrap template-wrap">
           <Button @click="active = 0" :class="active === 0 ? 'active' : ''"> Мой профиль </Button>
           <!-- v-if="teamsStore.myTeamsCount > 0" -->
-          <Button @click="active = 1" :class="active === 1 ? 'active' : ''">
+          <Button
+            v-if="userData.user_verification"
+            @click="active = 1"
+            :class="active === 1 ? 'active' : ''"
+          >
             Мои команды
             <Badge :value="myTeams.length"></Badge>
           </Button>
@@ -17,7 +21,7 @@
             <h3>Мой профиль</h3>
             <CabinetUserData />
           </TabPanel>
-          <TabPanel>
+          <TabPanel v-if="userData.user_verification">
             <div class="sMyProfileBlock__head-row row">
               <div class="col">
                 <h3>Мои команды</h3>
@@ -53,19 +57,23 @@
 </template>
 
 <script setup>
-// import CreateTeam from '@/components/cabinet/CreateTeam.vue';
-import { useTeamStore } from '@/store/TeamStore';
-const teamsStore = useTeamStore();
-const { myTeams } = storeToRefs(teamsStore);
+  // import CreateTeam from '@/components/cabinet/CreateTeam.vue';
+  import { useTeamStore } from '@/store/TeamStore';
+  const teamsStore = useTeamStore();
+  const { myTeams } = storeToRefs(teamsStore);
 
-const active = ref(0);
+  import { useGlobalStore } from '~/store/globalStore';
+  const globalStore = useGlobalStore();
+  const { userData } = storeToRefs(globalStore);
+
+  const active = ref(0);
 </script>
 
 <style scoped lang="scss">
-.sMyProfileBlock {
-  padding-bottom: 6px;
-  @media screen and (min-width: 992px) {
-    padding-bottom: 12px;
+  .sMyProfileBlock {
+    padding-bottom: 6px;
+    @media screen and (min-width: 992px) {
+      padding-bottom: 12px;
+    }
   }
-}
 </style>
