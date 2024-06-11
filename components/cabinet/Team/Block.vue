@@ -13,7 +13,15 @@
       </div>
       <div class="template">
         <TabView v-model:activeIndex="active">
-          <TabPanel>
+          <TabPanel v-if="teamData.members.length > 0">
+            <div class="sMyTeamBlock__head-row row">
+              <div class="col">
+                <h3>Состав команды</h3>
+              </div>
+              <div class="col-auto">
+                <CabinetInviteMember />
+              </div>
+            </div>
             <DataTable :value="teamData.members">
               <Column
                 style="width: 33%"

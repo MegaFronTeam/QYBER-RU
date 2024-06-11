@@ -5,7 +5,7 @@ import { useAccreditationStore } from './accreditationStore';
 // import { showToast } from '@/utils/showToast';
 import { useTeamStore } from './TeamStore';
 import { format } from 'date-fns';
-import { ru } from 'date-fns/locale';
+import { ca, ru } from 'date-fns/locale';
 
 export const useUserStore = defineStore('user', () => {
   const globalStore = useGlobalStore();
@@ -191,6 +191,20 @@ export const useUserStore = defineStore('user', () => {
       return Promise.reject(error);
     }
   };
+  const getInvites = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/teams/v1/my-invites`, {
+        headers: {
+          Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
+        },
+      });
+      const data = await response.data;
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  };
 
   const acceptInvite = async (dataForm) => {
     try {
@@ -308,5 +322,6 @@ export const useUserStore = defineStore('user', () => {
     getEducationalInstitutions,
     showToast,
     showInvite,
+    getInvites,
   };
 });

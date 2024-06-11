@@ -19,7 +19,7 @@
                 <h3>Состав команды</h3>
               </div>
               <div class="col-auto">
-                <InviteMember />
+                <CabinetTeamInviteMember />
               </div>
             </div>
             <DataTable :value="teamStore.teamData.members">
