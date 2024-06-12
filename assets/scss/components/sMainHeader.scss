@@ -42,7 +42,7 @@
       position: absolute;
       cursor: pointer;
       z-index: -1;
-      @include mt;
+      @include mt(0.9s);
       &:hover {
         scale: 0.988;
       }
