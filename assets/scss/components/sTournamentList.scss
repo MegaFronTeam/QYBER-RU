@@ -19,6 +19,17 @@
       color: var(--gray-500);
     }
   }
+  table {
+    .text-link {
+      @include mt;
+      &:not(:hover) {
+        color: var(--body-color);
+      }
+    }
+    button {
+      margin-left: rem(8);
+    }
+  }
   &__changeVision {
     width: rem(92);
     height: rem(48);

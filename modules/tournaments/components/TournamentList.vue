@@ -29,7 +29,7 @@
             <DataTable v-if="checked" :value="upcomingTournaments" removableSort>
               <Column field="tournament" header="Турнир">
                 <template #body="slotProps">
-                  <NuxtLink :to="'/tournaments/' + slotProps.data.id">
+                  <NuxtLink class="text-link" :to="'/tournaments/' + slotProps.data.id">
                     {{ slotProps.data.title }}
                   </NuxtLink>
                 </template>
@@ -68,7 +68,12 @@
               </Column>
               <Column field="tournament" header="Фонд">
                 <template #body="slotProps">
-                  {{ slotProps.data.prize_fund }}
+                  <div class="d-flex align-items-center">
+                    {{ slotProps.data.prize_fund }}
+                    <NuxtLink class="ms-auto" :to="'/tournaments/' + slotProps.data.id">
+                      <Button class="btn-sm" label="Регистрация" />
+                    </NuxtLink>
+                  </div>
                 </template>
               </Column>
             </DataTable>
@@ -80,7 +85,7 @@
             <DataTable v-if="checked" :value="currentTournaments" removableSort>
               <Column field="tournament" header="Турнир">
                 <template #body="slotProps">
-                  <NuxtLink :to="'/tournaments/' + slotProps.data.id">
+                  <NuxtLink class="text-link" :to="'/tournaments/' + slotProps.data.id">
                     {{ slotProps.data.title }}
                   </NuxtLink>
                 </template>
@@ -131,7 +136,7 @@
             <DataTable v-if="checked" :value="endedTournaments" removableSort>
               <Column field="tournament" header="Турнир">
                 <template #body="slotProps">
-                  <NuxtLink :to="'/tournaments/' + slotProps.data.id">
+                  <NuxtLink class="text-link" :to="'/tournaments/' + slotProps.data.id">
                     {{ slotProps.data.title }}
                   </NuxtLink>
                 </template>
@@ -199,6 +204,7 @@ const active = ref(querryList.value.tab);
 const checked = ref(querryList.value.grid);
 
 const clickOnTab = (id) => {
+  console.log(router);
   // console.log(route);
   active.value = id;
   router.push({
