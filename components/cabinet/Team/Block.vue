@@ -18,7 +18,7 @@
               <div class="col">
                 <h3>Состав команды</h3>
               </div>
-              <div class="col-auto">
+              <div class="col-auto" v-if="teamData.isCaptain">
                 <CabinetInviteMember />
               </div>
             </div>
@@ -111,7 +111,7 @@
                   <span class="small-text">
                     {{ slotProps.data.role.label }}
                     <Button
-                      v-if="slotProps.data.role.value !== 'captain'"
+                      v-if="teamData.isCaptain && slotProps.data.role.value !== 'captain'"
                       severity="danger"
                       outlined
                       class="btn-sm ms-auto"

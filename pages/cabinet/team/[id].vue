@@ -32,8 +32,10 @@
       <div class="sProfileHead__time mb-0" v-if="globalStore.userData.user_inn">
         ИНН {{ globalStore.userData.user_inn }}
       </div>
-      <EditTeam />
-      <CabinetTeamDelete :id="id" />
+      <template v-if="teamData.isCaptain">
+        <EditTeam />
+        <CabinetTeamDelete :id="id" />
+      </template>
     </ProfileHead>
     <div v-if="teamsStore.loader" class="container table-skeleton" style="margin-bottom: 0.8rem">
       <Skeleton height="3rem" borderRadius="12px" style="margin-bottom: 0.8rem" />
