@@ -18,6 +18,19 @@
         <transition name="fade">
           <form @submit.prevent="teamStore.createTeam()" v-if="!teamStore.isCreate">
             <InputGroup>
+              <label for="name">Название компании/учебного заведения</label>
+              <p style="text-align: left">
+                {{
+                  userData.user_company ||
+                  (userData.user_educational_institution !== false
+                    ? educational_institutions.find(
+                        (item) => item.id === userData.user_educational_institution,
+                      ).title.rendered
+                    : '')
+                }}
+              </p>
+            </InputGroup>
+            <InputGroup>
               <label for="name">Название команды</label>
               <InputText
                 id="name"
@@ -31,7 +44,7 @@
               <label for="discipline">Дисциплина</label>
               <Dropdown
                 v-model="teamStore.formDataCreateTeam.discipline"
-                :options="globalStore.disciplineList"
+                :options="disciplineList"
                 optionValue="slug"
                 optionLabel="name"
                 placeholder="Выбрать"
@@ -46,10 +59,10 @@
                 v-model="teamStore.formDataCreateTeam.leagues"
                 optionValue="slug"
                 optionLabel="name"
-                :options="globalStore.leaguesOptions"
+                :options="leaguesOptions"
                 aria-labelledby="multiple"
                 multiple
-                :disabled="globalStore.userData.leagues.length !== 2"
+                :disabled="userData.leagues.length !== 2"
               />
               <!-- :allowEmpty="false" -->
             </InputGroup>
@@ -90,80 +103,85 @@
 </template>
 
 <script setup>
-// TODO: переделать на Store
-const visibleShow = ref(false);
-import { useGlobalStore } from '@/store/globalStore';
-import { useTeamStore } from '@/store/TeamStore';
+  // TODO: переделать на Store
+  const visibleShow = ref(false);
+  import { useGlobalStore } from '@/store/globalStore';
+  import { useTeamStore } from '@/store/TeamStore';
 
-const globalStore = useGlobalStore();
-const teamStore = useTeamStore();
+  const globalStore = useGlobalStore();
+  const { userData, leaguesOptions, disciplineList } = storeToRefs(globalStore);
+  const teamStore = useTeamStore();
 
-// if (visibleShow.value === false) {
-//   teamStore.isCreate = false;
-// }
+  import { useUserStore } from '~/store/userStore';
+  const userStore = useUserStore();
+  const { educational_institutions } = storeToRefs(userStore);
 
-globalStore.getDisciplines();
-// import { useToast } from 'primevue/usetoast';
-// const toast = useToast();
+  // if (visibleShow.value === false) {
+  //   teamStore.isCreate = false;
+  // }
 
-teamStore.leaguesStatus();
+  globalStore.getDisciplines();
+  // import { useToast } from 'primevue/usetoast';
+  // const toast = useToast();
 
-// const name = ref();
-// const leagues = ref([]);
-// const discipline = ref([]);
+  teamStore.leaguesStatus();
 
-// const logo = ref();
+  // const name = ref();
+  // const leagues = ref([]);
+  // const discipline = ref([]);
 
-// Team.getDisciplines()
-//   .then((response) => {
-//     disciplineList.value = response;
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
+  // const logo = ref();
 
-const customBase64Uploader = async (event) => {
-  const file = event.files[0];
-  teamStore.formDataCreateTeam.logo = file;
+  // Team.getDisciplines()
+  //   .then((response) => {
+  //     disciplineList.value = response;
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
 
-  const reader = new FileReader();
-  let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
+  const customBase64Uploader = async (event) => {
+    const file = event.files[0];
+    teamStore.formDataCreateTeam.logo = file;
 
-  reader.readAsDataURL(blob);
+    const reader = new FileReader();
+    let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
 
-  reader.onloadend = function () {
-    const base64data = reader.result;
+    reader.readAsDataURL(blob);
+
+    reader.onloadend = function () {
+      const base64data = reader.result;
+    };
+    // console.log(logo.value);
   };
-  // console.log(logo.value);
-};
 
-// const onUpload = (event) => {
-//   console.log(event);
-// };
+  // const onUpload = (event) => {
+  //   console.log(event);
+  // };
 
-// const submit = (event) => {
-// event.preventDefault();
-// const formData = new FormData();
-// formData.append('name', name.value);
-// formData.append('discipline', discipline.value);
-// formData.append('leagues', leagues.value);
-// formData.append('logo', logo.value);
+  // const submit = (event) => {
+  // event.preventDefault();
+  // const formData = new FormData();
+  // formData.append('name', name.value);
+  // formData.append('discipline', discipline.value);
+  // formData.append('leagues', leagues.value);
+  // formData.append('logo', logo.value);
 
-// Team.createTeam(formData)
-//   .then((response) => {
-//     isSend.value = true;
-//     // console.log(response);
-//     name.value = '';
-//     discipline.value = [];
-//     leagues.value = [];
-//     logo.value = '';
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
-// };
+  // Team.createTeam(formData)
+  //   .then((response) => {
+  //     isSend.value = true;
+  //     // console.log(response);
+  //     name.value = '';
+  //     discipline.value = [];
+  //     leagues.value = [];
+  //     logo.value = '';
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  // };
 </script>
 
 <style lang="scss" scoped>
-/* Your component's styles here */
+  /* Your component's styles here */
 </style>

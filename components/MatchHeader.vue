@@ -1,5 +1,5 @@
 <template>
-  <div class="sMatchHeader"  >
+  <div class="sMatchHeader">
     <div class="sMatchHeader__item">
       <div class="img-wrap">
         <NuxtImg :src="`/img/team-img-1.png`" alt="Avatar" class="img" />
@@ -7,7 +7,7 @@
       <div class="sMatchHeader__status">Team Rogue</div>
     </div>
     <div class="sMatchHeader__item description">
-      <p>Супер игра за выход в финал</p>
+      <p>VS</p>
       <span class="p-badge p-badge-gray">
         <svg-icon name="dota.svg" />
         Dota 2
@@ -26,10 +26,5 @@
 
 <script setup>
   import { ref } from 'vue';
-
-
 </script>
-<style scoped lang="scss">
-  
-
-</style>
+<style scoped lang="scss"></style>

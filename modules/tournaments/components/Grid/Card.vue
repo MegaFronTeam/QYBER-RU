@@ -66,12 +66,12 @@
             </div>
           </InputGroup>
           <InputGroup>
-            <label for="IP">Сервер</label>
+            <label for="IP">Информация для подключения</label>
             <InputText
               id="IP"
               type="text"
               v-model="tournamentPageStore.editMatch.editForm.server"
-              placeholder="IP адрес"
+              placeholder="Лобби"
             />
           </InputGroup>
         </div>
@@ -227,46 +227,46 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useTournamentPageStore } from '../../store/TournamentPageStore';
+  import { ref } from 'vue';
+  import { useTournamentPageStore } from '../../store/TournamentPageStore';
 
-const tournamentPageStore = useTournamentPageStore();
-const props = defineProps({
-  item: {
-    type: Array,
-    required: true,
-  },
-  index: {
-    type: Number,
-    required: true,
-  },
-});
-// const products = ref([
-//   {
-//     team: {
-//       avatar: 'teamGrid-1.png',
-//       text: 'Команда 1',
-//       success: 1,
-//     },
-//   },
-//   {
-//     team: {
-//       avatar: 'teamGrid-2.png',
-//       text: 'Команда 2',
-//       success: 0,
-//     },
-//   },
-// ]);
+  const tournamentPageStore = useTournamentPageStore();
+  const props = defineProps({
+    item: {
+      type: Array,
+      required: true,
+    },
+    index: {
+      type: Number,
+      required: true,
+    },
+  });
+  // const products = ref([
+  //   {
+  //     team: {
+  //       avatar: 'teamGrid-1.png',
+  //       text: 'Команда 1',
+  //       success: 1,
+  //     },
+  //   },
+  //   {
+  //     team: {
+  //       avatar: 'teamGrid-2.png',
+  //       text: 'Команда 2',
+  //       success: 0,
+  //     },
+  //   },
+  // ]);
 
-const filteredMatch = ref({});
-console.log(tournamentPageStore.matchesGrid);
-filteredMatch.value = tournamentPageStore.matchesGrid.filter(
-  (id) => id === tournamentPageStore.editMatch.id,
-);
+  const filteredMatch = ref({});
+  console.log(tournamentPageStore.matchesGrid);
+  filteredMatch.value = tournamentPageStore.matchesGrid.filter(
+    (id) => id === tournamentPageStore.editMatch.id,
+  );
 
-const settingsModalVisible = ref(false);
-const formats = ref([{ name: '5x5' }]);
+  const settingsModalVisible = ref(false);
+  const formats = ref([{ name: '5x5' }]);
 
-const totalRecords = ref(10);
-const rowsPerPage = ref([5, 10, 50, 100]);
+  const totalRecords = ref(10);
+  const rowsPerPage = ref([5, 10, 50, 100]);
 </script>

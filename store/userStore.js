@@ -19,7 +19,7 @@ export const useUserStore = defineStore('user', () => {
       severity,
       summary,
       detail,
-      life: 10000,
+      life: 3000,
     });
   };
 
@@ -58,7 +58,14 @@ export const useUserStore = defineStore('user', () => {
       const data = await response.data;
 
       globalStore.userData = data;
+      Object.keys(globalStore.userData).forEach((key) => {
+        if (globalStore.userData[key] === null || globalStore.userData[key] === 'null') {
+          console.log(key, globalStore.userData[key]);
+          globalStore.userData[key] = '';
+        }
+      });
 
+      globalStore.userData.user_region = +globalStore.userData.user_region;
       if (data.leagues === false) {
         globalStore.isAtlants = false;
         globalStore.isTalants = false;
@@ -111,17 +118,22 @@ export const useUserStore = defineStore('user', () => {
       console.log(globalStore.userData.user_birthday);
       Object.keys(globalStore.userData).forEach((key) => {
         if (key === 'user_birthday') {
-          formData.append(key, format(new Date(globalStore.userData[key]), 'Y-MM-dd'));
+          if (globalStore.userData[key] === '') {
+            toast.add({
+              severity: 'error',
+              summary: 'Ошибка',
+              detail: 'Дата рождения не может быть пустой',
+              life: 3000,
+            });
+            return;
+          } else {
+            formData.append(key, format(new Date(globalStore.userData[key]), 'Y-MM-dd'));
+          }
         } else {
           formData.append(key, globalStore.userData[key]);
         }
       });
-
-      // formData.user_birthday = format(new Date(globalStore.userData.user_birthday), 'Y-m-d');
-
-      console.log(formData);
-
-      // return;
+      if (globalStore.userData.user_birthday === '') return;
 
       const response = await axios.post(`${BASE_URL}/profile/v1/update`, formData, {
         headers: {
