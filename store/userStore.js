@@ -164,6 +164,8 @@ export const useUserStore = defineStore('user', () => {
     Object.keys(accreditationStore.data).forEach((key) => {
       formData.append(key, accreditationStore.data[key]);
     });
+    console.log(formData);
+    return;
     try {
       const response = await axios.post(`${BASE_URL}/profile/v1/verification`, formData, {
         headers: {

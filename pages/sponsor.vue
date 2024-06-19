@@ -7,6 +7,7 @@
     >
       <!-- TODO: добавить модалку -->
       <!-- <Button class="sHeaderBlock__btn" label="Стать спонсором" /> -->
+      <BecomeSponsor />
     </HeaderBlock>
     <CurrentSponsors />
     <SponsorsAdvantages />
@@ -14,12 +15,12 @@
 </template>
 
 <script setup>
-import { useSponsorsStore } from '@/store/sponsorsStore';
+  import { useSponsorsStore } from '@/store/sponsorsStore';
 
-definePageMeta({
-  breadcrumbName: 'Спонсоры',
-});
+  definePageMeta({
+    breadcrumbName: 'Спонсоры',
+  });
 
-const sponsorsStore = useSponsorsStore();
-sponsorsStore.getSponsorsPage();
+  const sponsorsStore = useSponsorsStore();
+  sponsorsStore.getSponsorsPage();
 </script>

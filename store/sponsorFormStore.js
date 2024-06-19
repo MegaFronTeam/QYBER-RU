@@ -3,7 +3,7 @@ import { useUserStore } from './userStore';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useToast } from 'primevue/usetoast';
 
-export const useContactStore = defineStore('contact', () => {
+export const useSponsorStore = defineStore('sponsor', () => {
   const userStore = useUserStore();
   const disabledForm = ref(false);
 
@@ -19,25 +19,30 @@ export const useContactStore = defineStore('contact', () => {
   };
 
   const dataForm = ref({
+    name: '',
+    organization: '',
+    jobtitle: '',
     email: '',
     phone: '',
-    name: '',
     message: '',
   });
 
   const submit = async () => {
-    console.log(dataForm.value);
+    if (dataForm.value.email == '') {
+      showToast('error', 'Ошибка', 'Заполните поле email');
+      return;
+    }
     try {
-      const response = await axios.post(`${BASE_URL}/feedback/v1/contacts`, dataForm.value);
-      const data = await response;
-
-      console.log(data);
-      if (data == true) {
+      const response = await axios.post(`${BASE_URL}/feedback/v1/sponsor`, dataForm.value);
+      console.log(response);
+      if (response.status === 200) {
         showToast('success', 'Заявка отправлена', 'Мы свяжемся с вами в ближайшее время');
         dataForm.value = {
+          name: '',
+          organization: '',
+          jobtitle: '',
           email: '',
           phone: '',
-          name: '',
           message: '',
         };
       }

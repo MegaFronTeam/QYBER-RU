@@ -45,27 +45,7 @@
 </template>
 
 <script setup>
-  import Toast from 'primevue/toast';
-  // import { contactForm } from '@/server/api/contact';
   import { useContactStore } from '@/store/contactFormStore';
-  import { set } from '@vueuse/core';
   const contactStore = useContactStore();
   const { disabledForm, dataForm } = storeToRefs(contactStore);
-  // import { useToast } from 'primevue/usetoast';
-  // const toast = useToast();
-  // const showToast = (severity, summary, detail) => {
-  //   toast.add({
-  //     severity,
-  //     summary,
-  //     detail,
-  //     life: 10000,
-  //   });
-  // };
-  // setTimeout(() => {
-  //   showToast('success', 'Пароль успешно изменен', 'sfdf');
-  //   // showToast('success', 'Пароль успешно изменен', 'sfdf');
-  // }, 3000);
-  // const submit = async () => {
-  //   await contactForm(dataForm);
-  // };
 </script>

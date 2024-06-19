@@ -55,7 +55,7 @@
               <SelectButton
                 id="leagues"
                 v-model="data.leagues"
-                optionValue="slug"
+                optionValue="id"
                 optionLabel="name"
                 :options="globalStore.leaguesOptions"
                 :allowEmpty="false"

@@ -1,4 +1,7 @@
+import { useGlobalStore } from './globalStore';
+
 export const useAccreditationStore = defineStore('accreditation', () => {
+  const globalStore = useGlobalStore();
   const data = ref({
     inn: '',
     leagues: [],
@@ -20,12 +23,13 @@ export const useAccreditationStore = defineStore('accreditation', () => {
     () => data.value.selectedWorkStudy,
     () => {
       if (data.value.selectedWorkStudy === 'study') {
-        data.value.leagues = ['talants'];
+        data.value.leagues = [9];
       } else if (data.value.selectedWorkStudy === 'work') {
-        data.value.leagues = ['atlants'];
+        data.value.leagues = [10];
       } else if (data.value.selectedWorkStudy === 'work_study') {
-        data.value.leagues = ['atlants', 'talants'];
+        data.value.leagues = [10, 9];
       }
+      console.log(data.value.leagues);
     },
   );
 
