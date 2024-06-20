@@ -7,7 +7,9 @@
       :key="index"
       :closable="false"
     >
-      <div class="me-auto">Пользователь {{}} приглашает Вас в команду {{item.post_title}}</div>
+      <div class="me-auto">
+        Пользователь {{ item.author }} приглашает Вас в команду {{ item.post_title }}
+      </div>
       <!-- TODO: заглушки функций есть в useGlobalStore -->
       <Button
         class="btn-sm"

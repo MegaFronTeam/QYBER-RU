@@ -6,6 +6,8 @@ import { useAccreditationStore } from './accreditationStore';
 import { useTeamStore } from './TeamStore';
 import { format } from 'date-fns';
 
+import UserServices from '@/services/UserServices';
+
 export const useUserStore = defineStore('user', () => {
   const globalStore = useGlobalStore();
 
@@ -212,21 +214,11 @@ export const useUserStore = defineStore('user', () => {
   };
 
   const acceptInvite = async (teamId) => {
-    try {
-      const response = await axios.post(`${BASE_URL}/teams/v1/access-invite/${teamId}`, dataForm, {
-        headers: {
-          Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
-        },
-      });
-      const data = await response.data;
-      console.log(data);
-      if (data === true) {
-        showToast('success', 'Приглашение успешно принято');
-        showInvite();
-      }
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
+    const response = await UserServices.acceptInvite(teamId);
+    console.log(response);
+    if (response === true) {
+      showToast('success', 'Приглашение успешно принято');
+      showInvite();
     }
   };
 
