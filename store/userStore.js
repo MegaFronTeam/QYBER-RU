@@ -5,7 +5,6 @@ import { useAccreditationStore } from './accreditationStore';
 // import { showToast } from '@/utils/showToast';
 import { useTeamStore } from './TeamStore';
 import { format } from 'date-fns';
-import { ca, da, ru } from 'date-fns/locale';
 
 export const useUserStore = defineStore('user', () => {
   const globalStore = useGlobalStore();
@@ -174,7 +173,13 @@ export const useUserStore = defineStore('user', () => {
 
     const formData = new FormData();
     Object.keys(accreditationStore.data).forEach((key) => {
-      formData.append(key, accreditationStore.data[key]);
+      if (key === 'leagues') {
+        accreditationStore.data[key].forEach((elem) => {
+          formData.append('leagues[]', elem);
+        });
+      } else {
+        formData.append(key, accreditationStore.data[key]);
+      }
     });
     // console.log(formData);
     // return;
@@ -187,10 +192,11 @@ export const useUserStore = defineStore('user', () => {
       });
       const data = await response.data;
       console.log(data);
-      if (data.success === true) {
+      if (data.status === true) {
         console.log(2, data);
         // getUserData();
         globalStore.setIn_verification();
+        showToast('success', 'Заявка на верификацию успешно отправлена');
       }
     } catch (error) {
       console.error(error);

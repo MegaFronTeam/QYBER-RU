@@ -132,26 +132,6 @@ export const useGlobalStore = defineStore(
       }
     };
 
-    // const getEducationalInstitutions = async () => {
-    //   try {
-    //     const response = await axios.get(`${BASE_URL}/wp/v2/educations?per_page=100&page=1`);
-    //     const data = await response.data;
-    //     educational_institutions.value.push(...data);
-
-    //     // const pages = response.headers['x-wp-totalpages'];
-    //     // for (let i = 2; i <= pages; i++) {
-    //     //   const response = await axios.get(`${BASE_URL}/wp/v2/educations?per_page=100&page=${i}`);
-    //     //   const data = await response.data;
-    //     //   educational_institutions.value.push(...data);
-    //     // }
-    //   } catch (error) {
-    //     console.error(error);
-    //     return Promise.reject(error);
-    //   }
-    // };
-    // if (educational_institutions.value.length === 0) {
-    //   getEducationalInstitutions();
-    // }
     const setIn_verification = () => {
       in_verifications.value = true;
     };

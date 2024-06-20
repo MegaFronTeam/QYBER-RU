@@ -7,7 +7,7 @@ export const useAccreditationStore = defineStore('accreditation', () => {
     leagues: [],
     selectedWorkStudy: '',
     file: {},
-    user_educational_institution: '',
+    educational_institution: '',
   });
 
   const typeUSer = ref([

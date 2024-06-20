@@ -1,7 +1,7 @@
 <template>
   <div v-if="!globalStore.userData.user_verification">
     <Message severity="warn" :closable="false">
-      <div v-if="globalStore.in_verifications">Заявка на аккредитацию на рассмотрении</div>
+      <div v-if="in_verifications">Заявка на аккредитацию на рассмотрении</div>
       <template v-else>
         <div style="margin-block: 0.3rem">
           Для того чтобы пользоваться сервисом и участвовать в турнирах вам необходимо пройти
@@ -13,7 +13,7 @@
           outlined=""
           @click="
             visibleShow = true;
-            globalStore.in_verifications = false;
+            in_verifications = false;
           "
           label="Аккредитация"
         />
@@ -21,14 +21,14 @@
     </Message>
 
     <Dialog
-      v-if="!globalStore.in_verifications"
+      v-if="!in_verifications"
       v-model:visible="visibleShow"
       modal
-      :header="!globalStore.in_verifications ? 'Аккредитация' : 'На проверке'"
+      :header="!in_verifications ? 'Аккредитация' : 'На проверке'"
     >
       <div class="form-wrap">
         <transition name="fade">
-          <form @submit.prevent="userStore.sendVerification" v-if="!globalStore.in_verifications">
+          <form @submit.prevent="userStore.sendVerification" v-if="!in_verifications">
             <InputGroup>
               <label for="inn"
                 >ИНН компании/учебного заведения <span style="color: var(--red-500)">*</span></label
@@ -71,7 +71,7 @@
               >
                 <label>Учебное заведение <span style="color: var(--red-500)">*</span></label>
                 <Dropdown
-                  v-model="data.user_educational_institution"
+                  v-model="data.educational_institution"
                   :options="userStore.educational_institutions"
                   optionValue="id"
                   optionLabel="title.rendered"
@@ -135,7 +135,7 @@
   const globalStore = useGlobalStore();
   const accreditation = useAccreditationStore();
 
-  const { userData } = useGlobalStore();
+  const { userData, in_verifications } = storeToRefs(globalStore);
   const { data, typeUSer } = storeToRefs(accreditation);
 
   const visibleShow = ref(false);
