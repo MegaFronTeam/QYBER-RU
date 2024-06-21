@@ -12,7 +12,7 @@ export const useTeamStore = defineStore('teamStore', {
   state: () => ({
     router: useRouter(),
     loader: true,
-    isCaptain: false,
+
     myTeams: [],
     teamData: [],
     isCreate: false,
@@ -32,6 +32,12 @@ export const useTeamStore = defineStore('teamStore', {
     inviteEmail: '',
     toast: useToast(),
   }),
+  getters: {
+    isCaptain: (state) => {
+      const globalStore = useGlobalStore();
+      return state.teamData.members.some((member) => member.id === globalStore.userData.ID);
+    },
+  },
   actions: {
     async fetcher(method, url, data = null) {
       const globalStore = useGlobalStore();
@@ -151,9 +157,6 @@ export const useTeamStore = defineStore('teamStore', {
         if (data.tournaments > 0) {
           await this.formatTournament(data.tournaments);
         }
-        // if (data.members.some((member) => member.id === globalStore.userData.ID)) {
-        //   this.isCaptain = true;
-        // }
 
         this.teamData = data;
         this.formDataEditTeam = {

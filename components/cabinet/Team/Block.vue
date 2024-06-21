@@ -18,7 +18,7 @@
               <div class="col">
                 <h3>Состав команды</h3>
               </div>
-              <div class="col-auto" v-if="teamData.isCaptain">
+              <div class="col-auto" v-if="isCaptain">
                 <CabinetInviteMember />
               </div>
             </div>
@@ -111,7 +111,7 @@
                   <span class="small-text">
                     {{ slotProps.data.role.label }}
                     <Button
-                      v-if="teamData.isCaptain && slotProps.data.role.value !== 'captain'"
+                      v-if="isCaptain && slotProps.data.role.value !== 'captain'"
                       severity="danger"
                       outlined
                       class="btn-sm ms-auto"
@@ -153,6 +153,7 @@
 <script setup>
   import { useTeamStore } from '~/store/TeamStore';
   const teamStore = useTeamStore();
+  const { isCaptain } = storeToRefs(teamStore);
   // import { useTournamentStore } from '@/store/TournamentStore';
   // const tournamentStore = useTournamentStore();
   // const { tournamentsMy } = tournamentStore;
