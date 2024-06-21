@@ -156,73 +156,89 @@
       </TabPanel>
     </TabView>
   </Dialog>
-  <div class="sGridCardItem">
-    <div class="sGridCardItem__order">
-      {{ item.indexPlus }}
-      <template v-if="item.status.value === 'pending'">
-        <Button
-          class="sGridCardItem__settings"
-          type="button"
-          @click="
-            (settingsModalVisible = true),
-              (tournamentPageStore.editMatch.id = item.id),
-              (tournamentPageStore.editMatch.title = `Игра ${item.indexPlus}`)
+  <div
+    class="sGridCardItem"
+    :class="{
+      'sGridCardItem--empty': item.b.command === false,
+    }"
+  >
+    <template v-if="item.b.command !== false">
+      <div class="sGridCardItem__order">
+        {{ item.indexPlus }}
+        <template v-if="item.status.value === 'pending'">
+          <Button
+            class="sGridCardItem__settings"
+            type="button"
+            @click="
+              (settingsModalVisible = true),
+                (tournamentPageStore.editMatch.id = item.id),
+                (tournamentPageStore.editMatch.title = `Игра ${item.indexPlus}`)
+            "
+          >
+            <svg-icon name="gear.svg" />
+          </Button>
+        </template>
+      </div>
+      <div class="teams-group">
+        <div
+          class="sGridCard sGridCard__team"
+          :class="
+            item.status.value === 'done' && item.a.counter > item.b.counter ? 'team-success' : ''
           "
         >
-          <svg-icon name="gear.svg" />
-        </Button>
-      </template>
-    </div>
-    <div class="teams-group">
-      <div
-        class="sGridCard sGridCard__team"
-        :class="
-          item.status.value === 'done' && item.a.counter > item.b.counter ? 'team-success' : ''
-        "
-      >
-        <!-- :class="{ 'team-success': product.team.success }" -->
-        <div class="sGridCard__wrap">
-          <img
-            v-if="item.a.command.post_thumbnail && item.a.command.post_thumbnail !== false"
-            :src="item.a.command.post_thumbnail"
-            alt="Avatar"
-            class="img"
-          />
-          <span>{{
-            item.a.prevText || (item.a.command.post_title && item.a.command.post_title)
-          }}</span>
+          <!-- :class="{ 'team-success': product.team.success }" -->
+          <div class="sGridCard__wrap">
+            <img
+              v-if="item.a.command.post_thumbnail && item.a.command.post_thumbnail !== false"
+              :src="item.a.command.post_thumbnail"
+              alt="Avatar"
+              class="img"
+            />
+            <span
+              >{{ item.a.prevText || item.a.command.post_title }}
+              <small v-if="item.a.command.company || item.a.command.educational_institution">
+                <br />
+                {{ item.a.command.company || item.a.command.educational_institution.abbreviation }}
+              </small>
+            </span>
+          </div>
+          <div class="sGridCard__score">
+            <!-- {{ product.b.team.success ? 1 : 0 }} -->
+            {{ item.a.counter }}
+          </div>
         </div>
-        <div class="sGridCard__score">
-          <!-- {{ product.b.team.success ? 1 : 0 }} -->
-          {{ item.a.counter }}
-        </div>
-      </div>
 
-      <div
-        class="sGridCard sGridCard__team"
-        :class="
-          item.status.value === 'done' && item.a.counter < item.b.counter ? 'team-success' : ''
-        "
-      >
-        <!-- :class="{ 'team-success': product.team.success }" -->
-        <div class="sGridCard__wrap">
-          <img
-            v-if="item.b.command.post_thumbnail && item.b.command.post_thumbnail !== false"
-            :src="item.b.command.post_thumbnail"
-            alt="Avatar"
-            class="img"
-          />
-          <span>{{
-            item.b.prevText || (item.b.command.post_title && item.b.command.post_title)
-          }}</span>
+        <div
+          class="sGridCard sGridCard__team"
+          :class="
+            item.status.value === 'done' && item.a.counter < item.b.counter ? 'team-success' : ''
+          "
+        >
+          <!-- :class="{ 'team-success': product.team.success }" -->
+          <div class="sGridCard__wrap">
+            <img
+              v-if="item.b.command.post_thumbnail && item.b.command.post_thumbnail !== false"
+              :src="item.b.command.post_thumbnail"
+              alt="Avatar"
+              class="img"
+            />
+            <span
+              >{{ item.b.prevText || item.b.command.post_title }}
+
+              <small v-if="item.b.command.company || item.b.command.educational_institution">
+                <br />
+                {{ item.b.command.company || item.b.command.educational_institution.abbreviation }}
+              </small>
+            </span>
+          </div>
+          <div class="sGridCard__score">
+            <!-- {{ product.b.team.success ? 1 : 0 }} -->
+            {{ item.b.counter }}
+          </div>
         </div>
-        <div class="sGridCard__score">
-          <!-- {{ product.b.team.success ? 1 : 0 }} -->
-          {{ item.b.counter }}
-        </div>
+        <Button v-if="referee">Присоединиться</Button>
       </div>
-      <Button v-if="referee">Присоединиться</Button>
-    </div>
+    </template>
   </div>
 </template>
 

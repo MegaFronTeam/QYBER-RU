@@ -22,7 +22,7 @@
           </div>
           <div class="head-item">
             <p><span>Свободных команд</span></p>
-            <p>{{ teamsForefereeLength }}</p>
+            <p>{{ matchesReferee.length > 0 ? 0 : teamsForefereeLength }}</p>
           </div>
         </div>
       </div>

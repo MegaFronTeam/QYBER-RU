@@ -66,7 +66,7 @@
   const { id } = useRoute().params;
   const tournamentID = useRoute().fullPath.split('/')[2];
 
-  import { useTournamentPageStore } from '~/modules/tournaments/store/TournamentPageStore';
+  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
   const { currentID, data } = storeToRefs(tournamentPageStore);
 
@@ -95,9 +95,10 @@
     updateIsMobile();
     window.addEventListener('resize', updateIsMobile);
 
-    if (tournamentID !== currentID.value) {
+    if (tournamentID !== currentID.value || tournamentPageStore.currentID === '') {
       tournamentPageStore.fetchData(tournamentID).then(() => {
         // console.log(tournamentPageStore.data.title);
+        // matchStore.dataTournament = tournamentPageStore.data;
         breadcrumbsStore.setNameFromIds(tournamentPageStore.data?.title);
       });
     }

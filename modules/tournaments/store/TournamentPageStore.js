@@ -20,8 +20,8 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     stages_labels: {},
     stages_labelsLength: 0,
     isNotStart: true,
-    matchesReferee: [],
-    teamsForReg: [],
+    // matchesReferee: [],
+    // teamsForReg: [],
     editMatch: {
       id: 0,
       title: '',
@@ -110,6 +110,10 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       }
       return grid;
     },
+    matchesReferee: (state) => {
+      if (!state.data) return [];
+      return Object.values(JSON.parse(JSON.stringify(state.data.matches || [])));
+    },
   },
   actions: {
     reset() {
@@ -121,8 +125,8 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       this.stages_labels = {};
       this.stages_labelsLength = 0;
       // this.isNotStart = true;
-      this.matchesReferee = [];
-      this.teamsForReg = [];
+      // this.matchesReferee = [];
+      // this.teamsForReg = [];
     },
     async fetchData(id) {
       if (id !== this.currentID) {
@@ -139,7 +143,6 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
 
         await this.checkMyTeams(data);
         const today = new Date();
-        this.matchesReferee = Object.values(JSON.parse(JSON.stringify(data.matches)));
         if (new Date(data.accepting_applications.end) >= today) {
           this.isNotStart = false;
         }

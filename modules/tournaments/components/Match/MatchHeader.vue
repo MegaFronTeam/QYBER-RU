@@ -8,7 +8,7 @@
     </div>
     <div class="sMatchHeader__item description">
       <p>VS</p>
-      <span class="p-badge p-badge-gray">
+      <span class="p-badge p-badge-gray" v-if="data.discipline">
         <!-- <svg-icon name="dota.svg" /> -->
         {{ data.discipline[0].name }}
       </span>
@@ -29,9 +29,9 @@
 <script setup lang="ts">
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
-  const { currentID, data } = storeToRefs(tournamentPageStore);
+  const data = storeToRefs(tournamentPageStore);
 
-  import { useMyMatchStore } from '~/modules/tournaments/store/MatchStore';
+  import { useMyMatchStore } from '@/modules/tournaments/store/MatchStore';
   const matchStore = useMyMatchStore();
   const { dataMatch } = storeToRefs(matchStore);
 </script>

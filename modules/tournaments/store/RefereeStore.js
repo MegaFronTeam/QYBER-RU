@@ -14,6 +14,7 @@ export const useRefereeStore = defineStore('referee', {
     couples: [],
     comand_listLength: null,
   }),
+  getters: {},
   actions: {
     async checkTeamForReferee(comand_list) {
       this.dataGames = [];

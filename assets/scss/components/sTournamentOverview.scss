@@ -576,16 +576,32 @@
           position: absolute;
           top: 50%;
           bottom: auto;
-          -webkit-transform: translateY(-50%);
-          -ms-transform: translateY(-50%);
           transform: translateY(-50%);
-          height: 50%;
           right: rem(-8);
           width: rem(4);
           border: rem(2) solid var(--gray-700);
           border-left: none;
+          height: 50%;
           z-index: 2;
         }
+        &:has(.sGridCardItem--empty:nth-child(2))::before {
+          height: 25%;
+          transform: translateY(calc(-100% + #{rem(1)}));
+          border-bottom: none;
+        }
+
+        &:has(.sGridCardItem--empty:nth-child(1))::before {
+          height: 25%;
+          transform: translateY(calc(0% - #{rem(1)}));
+          border-top: none;
+        }
+        &:has(.sGridCardItem--empty:nth-child(1)):has(.sGridCardItem--empty:nth-child(2)) {
+          &::after,
+          &::before {
+            display: none;
+          }
+        }
+
         &::after {
           content: '';
           position: absolute;
@@ -598,6 +614,7 @@
           height: rem(2);
           right: rem(-12);
           background-color: var(--gray-700);
+          border-bottom: none;
         }
         &--single {
           &::before {

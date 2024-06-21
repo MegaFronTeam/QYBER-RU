@@ -6,6 +6,17 @@
   margin-top: rem(15);
   display: grid;
   grid-template-columns: rem(32) rem(218);
+  min-height: rem(74);
+  position: relative;
+  // &:has(.sGridCardItem__order)::after {
+  //   content: '';
+  //   top: calc(50% - #{rem(1)});
+  //   width: rem(4);
+  //   height: rem(2);
+  //   right: rem(-8);
+  //   background-color: var(--gray-700);
+  //   position: absolute;
+  // }
 
   &__order {
     font-size: rem(10);
