@@ -4,7 +4,8 @@ import { useRouter } from 'vue-router';
 import { useBreadcrumbsStore } from './BreadcrumbStore';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useToast } from 'primevue/usetoast';
-import { sub } from 'date-fns';
+
+import teamService from '~/services/teamService';
 
 import { formatDate } from '@/utils/formatData';
 
@@ -31,6 +32,7 @@ export const useTeamStore = defineStore('teamStore', {
     disabledBtn: true,
     inviteEmail: '',
     toast: useToast(),
+    potentialMembers: {},
   }),
   getters: {
     isCaptain: (state) => {
@@ -165,7 +167,7 @@ export const useTeamStore = defineStore('teamStore', {
         };
 
         breadcrumbsStore.setNameFromIds(data.post_title);
-
+        this.getPotentialMembers(id);
         this.loader = false;
       } catch (error) {
         console.log(error);
@@ -185,25 +187,27 @@ export const useTeamStore = defineStore('teamStore', {
         return item;
       });
     },
-    async inviteMember() {
+    async inviteMember(email) {
       try {
         const response = await this.fetcher('POST', `/teams/v1/team/${this.currentTeamID}/member`, {
-          email: this.inviteEmail,
+          email,
         });
         const data = await response.data;
         console.log(data);
         if (data) {
           this.isCreate = true;
-          this.inviteEmail = '';
           this.fetchTeam(this.currentTeamID);
-          setTimeout(() => {
-            this.isCreate = false;
-          }, 1500);
+          // setTimeout(() => {
+          //   this.isCreate = false;
+          // }, 1500);
         }
       } catch (error) {
         console.error(error);
         return Promise.reject(error);
       }
+    },
+    hideModal() {
+      this.isCreate = false;
     },
     async deleteTeam(teamId) {
       const id = this.currentTeamID;
@@ -243,6 +247,12 @@ export const useTeamStore = defineStore('teamStore', {
         this.formDataCreateTeam.leagues = [globalStore.userData.leagues[0].slug];
         console.log('qq', this.formDataCreateTeam.leagues);
       }
+    },
+    async getPotentialMembers(teamId) {
+      const response = await teamService.getPotentialMembers(teamId);
+      this.potentialMembers = response;
+      // console.log(response);
+      // return response;
     },
   },
   watch: {
