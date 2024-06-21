@@ -17,8 +17,6 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     indexGroupStore: 0,
     indexCoupleStore: 0,
     ifReferee: false,
-    matches: [],
-    matchesGrid: [],
     stages_labels: {},
     stages_labelsLength: 0,
     isNotStart: true,
@@ -44,6 +42,75 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       },
     },
   }),
+  getters: {
+    formattedMatches: (state) => {
+      const matchesArr = Object.values(JSON.parse(JSON.stringify(state.data.matches || [])));
+      return matchesArr
+        .map((item) => {
+          item.map((subItem) => {
+            if (subItem.date !== null && subItem.date !== '') {
+              subItem.date = format(new Date(subItem.date), 'd MMMM yyyy  HH:mm', {
+                locale: ru,
+              });
+            }
+            return subItem;
+          });
+          return item;
+        })
+        .map((item) => item.filter((subItem) => subItem.b.command !== false));
+    },
+    matchesGrid: (state) => {
+      if (!state.data.matches) return [];
+      const grid = Object.values(JSON.parse(JSON.stringify(state.data.matches || [])));
+      let mathLength = grid[grid.length - 1].length;
+      const newGroup = {
+        command: {},
+        counter: '0',
+        members: false,
+        prevText: 'Будет определен',
+      };
+      const obj = (indexPlus) => {
+        return {
+          a: newGroup,
+          b: newGroup,
+          status: { value: 'pending' },
+          indexPlus,
+        };
+      };
+      while (mathLength > 1) {
+        let mathLengthPrev = mathLength;
+        mathLength = mathLength / 2;
+        grid.push(Array.from({ length: mathLength }, (index) => obj(mathLengthPrev + index)));
+        mathLengthPrev = mathLength;
+      }
+      let counter = 1;
+      for (let i = 0; i < grid.length; i++) {
+        const element = grid[i];
+        for (let j = 0; j < element.length; j++) {
+          const subElement = element[j];
+          // console.log('subElement', subElement);
+          if (!subElement.indexPlus) subElement.indexPlus = counter;
+          counter++;
+          if (subElement.a.command && subElement.b.command === false) {
+            subElement.a.counter = 1;
+            subElement.status.value = 'done';
+          }
+          if (subElement.status.value === 'done') {
+            const winnerEl =
+              subElement.a.counter > subElement.b.counter ? subElement.a : subElement.b;
+            const winner = JSON.parse(JSON.stringify(winnerEl));
+            winner.counter = 0;
+            const winnerIndex = Math.floor(j / 2);
+            const MatchIndex = j % 2 === 0 ? 'a' : 'b';
+            if (grid[i + 1]) {
+              grid[i + 1][winnerIndex][MatchIndex] = winner;
+            }
+          }
+        }
+      }
+      return grid;
+    },
+  },
   actions: {
     reset() {
       // this.data = [];
@@ -51,8 +118,6 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       this.indexGroupStore = 0;
       this.indexCoupleStore = 0;
       this.ifReferee = false;
-      this.matches = [];
-      this.matchesGrid = [];
       this.stages_labels = {};
       this.stages_labelsLength = 0;
       // this.isNotStart = true;
@@ -94,27 +159,6 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         })
           .format(+data.prize_fund)
           .replace(/\.00$/, '');
-
-        if (data.matches.length || (data.matches[1] && data.matches[1].length > 0)) {
-          const matches = Object.values(JSON.parse(JSON.stringify(data.matches)));
-          this.matches = matches.map((item, index) => {
-            item.map((subItem) => {
-              if (subItem.date !== null && subItem.date !== '') {
-                // console.log(index, 'subItem.date', subItem.date);
-                subItem.date = format(new Date(subItem.date), 'd MMMM yyyy  HH:mm', {
-                  locale: ru,
-                });
-              }
-              return subItem;
-            });
-            return item;
-          });
-          await this.setGrid(data.matches);
-        }
-
-        this.matches = this.matches.map((item) =>
-          item.filter((subItem) => subItem.b.command !== false),
-        );
 
         if (data.stages_labels) {
           data.stages_labels = data.stages_labels.map((item, index) => {
@@ -191,61 +235,6 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       });
     },
 
-    async setGrid(data) {
-      const grid = Object.values(data);
-
-      let mathLength = grid[grid.length - 1].length;
-      const newGroup = {
-        command: {},
-        counter: '0',
-        members: false,
-        prevText: 'Будет определен',
-      };
-      const obj = (indexPlus) => {
-        return {
-          a: newGroup,
-          b: newGroup,
-          status: { value: 'pending' },
-          indexPlus,
-        };
-      };
-
-      while (mathLength > 1) {
-        let mathLengthPrev = mathLength;
-        mathLength = mathLength / 2;
-        grid.push(Array.from({ length: mathLength }, (index) => obj(mathLengthPrev + index)));
-        mathLengthPrev = mathLength;
-      }
-
-      let counter = 1;
-      for (let i = 0; i < grid.length; i++) {
-        const element = grid[i];
-        for (let j = 0; j < element.length; j++) {
-          const subElement = element[j];
-
-          // console.log('subElement', subElement);
-          if (!subElement.indexPlus) subElement.indexPlus = counter;
-          counter++;
-
-          if (subElement.a.command && subElement.b.command === false) {
-            subElement.a.counter = 1;
-            subElement.status.value = 'done';
-          }
-          if (subElement.status.value === 'done') {
-            const winnerEl =
-              subElement.a.counter > subElement.b.counter ? subElement.a : subElement.b;
-            const winner = JSON.parse(JSON.stringify(winnerEl));
-            winner.counter = 0;
-            const winnerIndex = Math.floor(j / 2);
-            const MatchIndex = j % 2 === 0 ? 'a' : 'b';
-            if (grid[i + 1]) {
-              grid[i + 1][winnerIndex][MatchIndex] = winner;
-            }
-          }
-        }
-      }
-      this.matchesGrid = grid;
-    },
     modifyDate() {
       this.editMatch.date;
       this.editMatch.time;

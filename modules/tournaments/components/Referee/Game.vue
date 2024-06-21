@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  import { useTournamentPageStore } from '~/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
   const { data, matches } = storeToRefs(tournamentPageStore);
 

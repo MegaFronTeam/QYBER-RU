@@ -66,7 +66,7 @@
   const { id } = useRoute().params;
   const tournamentID = useRoute().fullPath.split('/')[2];
 
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  import { useTournamentPageStore } from '~/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
   const { currentID, data } = storeToRefs(tournamentPageStore);
 

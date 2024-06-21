@@ -27,7 +27,7 @@
       </div>
       <div class="template table--schedule">
         <TabView v-model:activeIndex="active">
-          <TabPanel v-if="data" v-for="(item, index) in matches" :key="index">
+          <TabPanel v-if="data" v-for="(item, index) in formattedMatches" :key="index">
             <DataTable
               :value="item"
               paginator
@@ -62,7 +62,16 @@
               <Column field="team1" header="">
                 <template #body="slotProps">
                   <div class="table-wrap">
-                    <span>{{ slotProps.data.a.command.post_title }}</span>
+                    <span style="text-align: right"
+                      >{{ slotProps.data.a.command.post_title }}
+                      <br />
+                      <small>
+                        {{
+                          slotProps.data.a.command.company ||
+                          slotProps.data.a.command.educational_institution.abbreviation
+                        }}
+                      </small>
+                    </span>
                     <img
                       v-if="slotProps.data.a.command.post_thumbnail !== false"
                       :src="slotProps.data.a.command.post_thumbnail"
@@ -88,7 +97,16 @@
                       :src="slotProps.data.b.command.post_thumbnail"
                       alt="Avatar"
                     />
-                    <span>{{ slotProps.data.b.command.post_title }}</span>
+                    <span
+                      >{{ slotProps.data.b.command.post_title }}
+                      <br />
+                      <small>
+                        {{
+                          slotProps.data.b.command.post_title ||
+                          slotProps.data.b.command.educational_institution.abbreviation
+                        }}
+                      </small>
+                    </span>
                   </div>
                 </template>
               </Column>
@@ -131,7 +149,8 @@
 <script setup>
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
-  const { data, stages_labels, stages_labelsLength, matches } = storeToRefs(tournamentPageStore);
+  const { data, stages_labels, stages_labelsLength, formattedMatches } =
+    storeToRefs(tournamentPageStore);
 
   import { useGlobalStore } from '~/store/globalStore';
   const globalStore = useGlobalStore();

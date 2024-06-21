@@ -31,7 +31,7 @@
         <div class="danger">Поражения 112 (28%)</div>
       </div>
       <Button
-        v-if="matches.length <= 0"
+        v-if="formattedMatches.length <= 0"
         @click="refereeStore.removeTeamFromCouple(+indexGroup, +indexCouple)"
         class="btn-trash"
         ><svg-icon name="trash.svg"
@@ -50,7 +50,7 @@
 
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore.js';
   const tournamentPageStore = useTournamentPageStore();
-  const { ifReferee, matches } = storeToRefs(tournamentPageStore);
+  const { ifReferee, formattedMatches } = storeToRefs(tournamentPageStore);
 
   import { useRefereeStore } from '@/modules/tournaments/store/RefereeStore';
   const refereeStore = useRefereeStore();

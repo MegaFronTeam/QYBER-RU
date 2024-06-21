@@ -52,7 +52,7 @@
 <script setup>
   import Game from './Game.vue';
 
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  import { useTournamentPageStore } from '~/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
   const { matchesReferee } = storeToRefs(tournamentPageStore);
 

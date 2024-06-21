@@ -42,7 +42,7 @@
   import { useGlobalStore } from '~/store/globalStore';
   const globalStore = useGlobalStore();
 
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  import { useTournamentPageStore } from '~/modules/tournaments/store/TournamentPageStore';
   const tournamentStorePage = useTournamentPageStore();
   const { data, isNotStart } = storeToRefs(tournamentStorePage);
 

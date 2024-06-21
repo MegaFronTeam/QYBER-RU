@@ -2,10 +2,12 @@
   <div class="div">
     <div class="wrap-header">
       <NuxtLink :to="`/tournaments/${currentID}`"> Обзор</NuxtLink>
-      <NuxtLink v-if="matches.length > 0" :to="`/tournaments/${currentID}/schedule`"
+      <NuxtLink v-if="formattedMatches?.length > 0" :to="`/tournaments/${currentID}/schedule`"
         >Расписание
       </NuxtLink>
-      <NuxtLink v-if="matches.length > 0" :to="`/tournaments/${currentID}/grid`">Сетка </NuxtLink>
+      <NuxtLink v-if="formattedMatches?.length > 0" :to="`/tournaments/${currentID}/grid`"
+        >Сетка
+      </NuxtLink>
       <NuxtLink :to="`/tournaments/${currentID}/participants`">Участники </NuxtLink>
       <NuxtLink :to="`/tournaments/${currentID}/rules`"> Правила</NuxtLink>
       <NuxtLink :to="`/tournaments/${currentID}/contacts`">Контакты </NuxtLink>
@@ -16,11 +18,11 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import { useGlobalStore } from '~/store/globalStore';
   const globalStore = useGlobalStore();
   const { isUserAuth, isReferee } = storeToRefs(globalStore);
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentStorePage = useTournamentPageStore();
-  const { currentID, data, matches } = storeToRefs(tournamentStorePage);
+  const { currentID, formattedMatches } = storeToRefs(tournamentStorePage);
 </script>

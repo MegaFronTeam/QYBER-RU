@@ -10,7 +10,7 @@
       <p>VS</p>
       <span class="p-badge p-badge-gray">
         <!-- <svg-icon name="dota.svg" /> -->
-        Dota 2
+        {{ data.discipline[0].name }}
       </span>
       <div class="sMatchHeader__score h2">
         {{ dataMatch.command_a?.counter }} : {{ dataMatch.command_b?.counter }}
@@ -27,6 +27,10 @@
 </template>
 
 <script setup lang="ts">
+  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  const tournamentPageStore = useTournamentPageStore();
+  const { currentID, data } = storeToRefs(tournamentPageStore);
+
   import { useMyMatchStore } from '~/modules/tournaments/store/MatchStore';
   const matchStore = useMyMatchStore();
   const { dataMatch } = storeToRefs(matchStore);
