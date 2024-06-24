@@ -31,6 +31,15 @@
             />
           </InputGroup>
           <InputGroup>
+            <label for="name">SteamID</label>
+            <InputText
+              id="name"
+              type="text"
+              v-model="userData.user_steam"
+              placeholder="Введите SteamID"
+            />
+          </InputGroup>
+          <InputGroup>
             <label for="name">Email</label>
             <InputText
               id="email"
