@@ -1,14 +1,17 @@
 export interface MatchInterface {
   id: string;
   name: string;
+  title: {
+    rendered: string;
+  };
   a: commandInterface;
   b: commandInterface;
-  status?:
+  status:
     | {
         label: string;
         value: string;
       }
-    | string;
+    | MatchStatus;
   server: string;
   steam_id: string;
   discord: string;
@@ -20,11 +23,29 @@ export interface MatchInterface {
   time?: string;
 }
 
+enum MatchStatus {
+  done = 'done',
+  play = 'play',
+  pending = 'pending',
+}
+
 interface commandInterface {
   command: {
     post_title: string;
+    post_thumbnail: string;
   };
+
   counter: number;
+  members: MembersInterface;
+}
+
+export interface MembersInterface {
+  avatar: {
+    sizes: {
+      thumbnail: string;
+    };
+  };
+  nickname: string;
 }
 
 export interface TournamentInterface {

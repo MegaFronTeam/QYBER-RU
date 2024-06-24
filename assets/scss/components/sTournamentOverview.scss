@@ -713,13 +713,22 @@
       align-items: center;
       justify-content: center;
       background: var(--gray-50);
-      min-height: rem(212);
+      // min-height: rem(212);
       max-width: 100%;
       margin-bottom: rem(6);
-      aspect-ratio: 390/218;
+      aspect-ratio: 16/9;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--XL, 20px);
+      iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
       @include media-breakpoint-up(lg) {
-        aspect-ratio: auto;
-        min-height: rem(600);
+        // aspect-ratio: auto;
+        // min-height: rem(600);
       }
       p {
         font-size: rem(14);
@@ -969,6 +978,19 @@
 
   @include media-breakpoint-down(lg) {
     margin-bottom: rem(12);
+    display: inline-flex;
+    &__item:not(.description) {
+      flex-grow: 1;
+      width: 100%;
+      text-align: center;
+    }
+    &__item-inner {
+      display: inline-flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
   }
 
   &__score {

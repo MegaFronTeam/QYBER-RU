@@ -20,10 +20,15 @@
             <div class="col">
               <div class="team-inner">
                 <div class="team-inner__name d-lg-none">
-                  {{ dataMatch.command_a?.command.post_title }}
+                  {{ dataMatch.a?.command.post_title }}
                 </div>
                 <div class="team-inner__wrap">
-                  <PersonCard v-for="index in 6" :key="index" />
+                  <PersonCard
+                    v-if="dataMatch.a?.members"
+                    v-for="(item, index) in dataMatch.a?.members"
+                    :key="index"
+                    :item="item"
+                  />
                 </div>
               </div>
             </div>
@@ -35,34 +40,46 @@
             <div class="col">
               <div class="team-inner">
                 <div class="team-inner__name d-lg-none">
-                  {{ dataMatch.command_b?.command.post_title }}
+                  {{ dataMatch.b?.command.post_title }}
                 </div>
                 <div class="team-inner__wrap">
-                  <PersonCard v-for="index in 6" :key="index" />
+                  <!-- {{ dataMatch.b?.members }} -->
+                  <PersonCard
+                    v-if="dataMatch.b?.members"
+                    v-for="(item, index) in dataMatch.b?.members"
+                    :key="index"
+                    :item="item"
+                  />
                 </div>
               </div>
             </div>
           </div>
         </Transition>
       </div>
-      <div class="header-item">
-        <NuxtLink to="/auth/login" v-if="!globalStore.isUserAuth">
-          <Button label="Подключиться к игре" class="w-full" />
-        </NuxtLink>
-        <Button label="Подключиться к игре" class="w-full" v-else />
+      <div class="header-item" v-if="dataMatch.status.value !== 'done'">
+        <JoinGameModal />
       </div>
     </HeaderBlock>
-    <TournamentsMatch />
+
+    <section v-if="dataMatch.broadcast" class="sTournamentOverview sTournamentOverview--match">
+      <div class="container">
+        <div class="stream-container">
+          <iframe :src="broadcastIframe" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
     <!-- <h1>This is {{ $route.name }}</h1> -->
   </div>
 </template>
 
 <script setup lang="ts">
   import MatchHeader from '@/modules/tournaments/components/Match/MatchHeader.vue';
+  import PersonCard from '@/modules/tournaments/components/Match/PersonCard.vue';
+  import JoinGameModal from '@/modules/tournaments/components/Match/JoinGameModal.vue';
+  import Broadcast from '@/modules/tournaments/components/Match/Broadcast.vue';
   import { useGlobalStore } from '~/store/globalStore';
   const globalStore = useGlobalStore();
 
-  import { useRoute } from 'vue-router';
   const { id } = useRoute().params;
   const tournamentID = useRoute().fullPath.split('/')[2];
 
@@ -72,9 +89,9 @@
 
   import { useMyMatchStore } from '~/modules/tournaments/store/MatchStore';
   const matchStore = useMyMatchStore();
-  matchStore.fetchData(id);
+  await matchStore.fetchData(id as string);
 
-  const { dataMatch } = storeToRefs(matchStore);
+  const { dataMatch, broadcastIframe } = storeToRefs(matchStore);
 
   const isOpen = ref(true);
   const toggle = () => {

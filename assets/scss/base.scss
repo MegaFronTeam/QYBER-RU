@@ -1006,3 +1006,17 @@ body {
     }
   }
 }
+
+.p-button-info {
+  background-color: var(--gray-100);
+  border-color: var(--gray-100);
+  color: var(--body-color);
+  .small-title {
+    color: var(--gray-400);
+  }
+  &:hover,
+  &:active {
+    background-color: var(--gray-300);
+    border-color: var(--gray-300);
+  }
+}
