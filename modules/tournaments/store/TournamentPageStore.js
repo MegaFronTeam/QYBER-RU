@@ -262,11 +262,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
 
       this.editMatch.editForm.date = `${date} ${time}`;
     },
-    checkMatchStatus() {
-      this.editMatch.checked
-        ? (this.editMatch.editForm.status = 'pending')
-        : (this.editMatch.editForm.status = '');
-    },
+
     async postEditedMatch() {
       const globalStore = useGlobalStore();
       if (this.editMatch.id) {

@@ -1,12 +1,23 @@
 export interface MatchInterface {
   id: string;
   name: string;
-  command_a: commandInterface;
-  command_b: commandInterface;
-  status: {
-    label: string;
-    value: string;
-  };
+  a: commandInterface;
+  b: commandInterface;
+  status?:
+    | {
+        label: string;
+        value: string;
+      }
+    | string;
+  server: string;
+  steam_id: string;
+  discord: string;
+  broadcast: string;
+  show_in_main: boolean;
+  date: string;
+  checked: boolean;
+  oldDate?: string;
+  time?: string;
 }
 
 interface commandInterface {

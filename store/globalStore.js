@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useTeamStore } from './TeamStore';
+import { useToast } from 'primevue/usetoast';
 
 export const useGlobalStore = defineStore(
   'global',
@@ -36,6 +37,15 @@ export const useGlobalStore = defineStore(
       API_KEY.value = key;
     };
 
+    const showToast = (severity, summary, detail) => {
+      const toast = useToast();
+      toast.add({
+        severity,
+        summary,
+        detail,
+        life: 10000,
+      });
+    };
     const getContacts = async () => {
       try {
         const response = await axios.get(`${BASE_URL}/menu/v1/settings`);
@@ -158,6 +168,7 @@ export const useGlobalStore = defineStore(
       setAPI_KEY,
       tableRows,
       isReferee,
+      showToast,
     };
   },
   { persist: { storage: persistedState.localStorage } },

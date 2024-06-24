@@ -8,7 +8,7 @@
     <template v-if="item.b.command !== false">
       <div class="sGridCardItem__order">
         {{ item.indexPlus }}
-        <!-- <MatchModal v-if="item.id" :item="item" /> -->
+        <MatchModal v-if="item.id" :item="item" />
       </div>
       <div class="teams-group">
         <div
@@ -74,7 +74,7 @@
 </template>
 
 <script setup>
-  // import MatchModal from './MatchModal.vue';
+  import MatchModal from './MatchModal.vue';
 
   const props = defineProps({
     item: {
