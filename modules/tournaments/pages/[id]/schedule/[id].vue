@@ -56,7 +56,7 @@
           </div>
         </Transition>
       </div>
-      <div class="header-item" v-if="dataMatch.status.value !== 'done'">
+      <div class="header-item" v-if="dataMatch.status.valueOf() !== 'done'">
         <JoinGameModal />
       </div>
     </HeaderBlock>
