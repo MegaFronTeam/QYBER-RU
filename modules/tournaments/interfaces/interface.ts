@@ -29,7 +29,7 @@ enum MatchStatus {
   pending = 'pending',
 }
 
-interface commandInterface {
+export interface commandInterface {
   command: {
     post_title: string;
     post_thumbnail: string;

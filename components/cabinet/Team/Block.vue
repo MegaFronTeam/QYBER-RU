@@ -143,8 +143,8 @@
                   <template #body="slotProps">
                     <div class="table-wrap">
                       <img
-                        v-if="slotProps.data.avatar"
-                        :src="`${slotProps.data.avatar.url}`"
+                        v-if="slotProps.data.user_avatar !== false"
+                        :src="`${slotProps.data.user_avatar.sizes.thumbnail}`"
                         alt="Avatar"
                       />
                       <span>{{ slotProps.data.user_login }}</span>
@@ -160,6 +160,7 @@
                   <template #body="slotProps">
                     <span class="small-text">
                       {{ slotProps.data.user_last_name }}
+
                       {{ slotProps.data.user_first_name }}
                     </span>
                   </template>

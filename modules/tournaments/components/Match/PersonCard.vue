@@ -11,20 +11,9 @@
 </template>
 
 <script setup lang="ts">
+  import type { commandInterface } from '@/modules/tournaments/interfaces/interface';
   const props = defineProps<{
-    item: {
-      avatar?:
-        | {
-            sizes: {
-              thumbnail?: string;
-            };
-          }
-        | false;
-      nickname?: string;
-      role: {
-        value: string;
-      };
-    };
+    item: commandInterface;
   }>();
 </script>
 <style scoped lang="scss">

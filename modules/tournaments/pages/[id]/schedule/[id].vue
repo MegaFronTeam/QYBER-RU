@@ -73,6 +73,8 @@
 </template>
 
 <script setup lang="ts">
+  import type { commandInterface } from '@/modules/tournaments/interfaces/interface';
+
   import MatchHeader from '@/modules/tournaments/components/Match/MatchHeader.vue';
   import PersonCard from '@/modules/tournaments/components/Match/PersonCard.vue';
   import JoinGameModal from '@/modules/tournaments/components/Match/JoinGameModal.vue';
