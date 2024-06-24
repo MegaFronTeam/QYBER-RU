@@ -17,7 +17,7 @@ export default class UserServices {
 
   static declineInvite = async (inviteId: string) => {
     try {
-      const response = await axios.delete(`${BASE_URL}/teams/v1/access-invite/${inviteId}`, {
+      const response = await axios.post(`${BASE_URL}/teams/v1/denied-invite/${inviteId}`, null, {
         headers: GlobalServices.getHeaders(),
       });
       return response.data;

@@ -1,5 +1,5 @@
 <template>
-  <Button @click="copyText(data)" class="btn-lg" severity="info">
+  <Button @click="copyText(data)" class="btn-lg" severity="info2">
     <div>
       <div class="small-title">{{ title }}</div>
       <div class="btn-text">{{ data }}</div>

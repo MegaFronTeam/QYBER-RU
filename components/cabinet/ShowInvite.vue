@@ -21,7 +21,7 @@
         class="btn-sm"
         severity="info"
         outlined=""
-        @click="userStore.declineInvite"
+        @click="userStore.declineInvite(item.ID)"
         label="Отклонить"
       />
     </Message>
@@ -30,13 +30,9 @@
 
 <script setup>
   import { useUserStore } from '@/store/userStore';
-  import { useGlobalStore } from '@/store/globalStore';
   const userStore = useUserStore();
-  const globalStore = useGlobalStore();
 
   const { myInvites } = storeToRefs(userStore);
-
-  const visibleShow = ref(false);
 
   // globalStore.showInvite();
 </script>

@@ -222,18 +222,12 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
-  const declineInvite = async (dataForm) => {
-    try {
-      const response = await axios.post(`${BASE_URL}/profile/v1/decline`, dataForm, {
-        headers: {
-          Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
-        },
-      });
-      const data = await response.data;
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-      return Promise.reject(error);
+  const declineInvite = async (teamId) => {
+    const response = await UserServices.declineInvite(teamId);
+    console.log(response);
+    if (response === true) {
+      // showToast('success', 'Приглашение успешно отклонено');
+      showInvite();
     }
   };
 
@@ -325,5 +319,6 @@ export const useUserStore = defineStore('user', () => {
     showInvite,
     myInvites,
     acceptInvite,
+    declineInvite,
   };
 });
