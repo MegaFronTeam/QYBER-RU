@@ -161,6 +161,8 @@ export const useTeamStore = defineStore('teamStore', {
           await this.formatTournament(data.tournaments);
         }
 
+        data.members = data.members.filter((item) => item.active === true);
+
         this.teamData = data;
         this.formDataEditTeam = {
           name: data.post_title,
