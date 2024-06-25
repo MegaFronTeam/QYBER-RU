@@ -93,10 +93,14 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
               +subElement.a.counter > +subElement.b.counter ? subElement.a : subElement.b;
             console.log('winnerEl', winnerEl);
             const winner = JSON.parse(JSON.stringify(winnerEl));
-            winner.counter = 0;
             const winnerIndex = Math.floor(j / 2);
             const MatchIndex = j % 2 === 0 ? 'a' : 'b';
-            if (grid[i + 1] && !grid[i + 1][winnerIndex]) {
+            if (
+              grid[i + 1] &&
+              grid[i + 1][winnerIndex][MatchIndex].prevText === 'Будет определен'
+            ) {
+              winner.counter = 0;
+              // if (grid[i + 1][winnerIndex][MatchIndex])
               grid[i + 1][winnerIndex][MatchIndex] = winner;
             }
           }
