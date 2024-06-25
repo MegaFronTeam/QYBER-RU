@@ -1,14 +1,16 @@
 <template>
-  <div
+  <div class="sGridCardItem">
+    <!-- <div
     class="sGridCardItem"
     :class="{
       'sGridCardItem--empty': item.b.command === false,
     }"
-  >
-    <template v-if="item.b.command !== false">
+  > -->
+    <!-- <template v-if="item.b.command !== false"> -->
+    <template v-if="item.a">
       <div class="sGridCardItem__order">
         {{ item.indexPlus }}
-        <MatchModal v-if="item.id" :item="item" />
+        <MatchModal v-if="item.id && item.b.command !== false" :item="item" />
       </div>
       <div class="teams-group">
         <div
