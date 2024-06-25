@@ -517,14 +517,19 @@
       background: var(--gray-50);
     }
     .bg-block-panel {
-      padding: rem(24);
+      .tournament-table__item {
+        padding: rem(24);
+        width: auto;
+        display: inline-block;
+      }
     }
     .tournament-table {
       .row {
         --gutter-x: #{rem(20)};
       }
 
-      overflow: auto;
+      overflow-x: auto;
+
       &__item:not(:last-child) {
         margin-bottom: rem(48);
       }
@@ -553,10 +558,13 @@
         display: flex;
         -webkit-box-orient: vertical;
         flex-direction: column;
-        &:last-child .tournament-table__group {
-          &::after,
-          &::before {
-            content: none;
+        &:last-child {
+          .tournament-table__group {
+            justify-content: center;
+            &::after,
+            &::before {
+              content: none;
+            }
           }
         }
       }

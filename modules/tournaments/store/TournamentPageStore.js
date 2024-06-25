@@ -61,6 +61,8 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           indexPlus,
         };
       };
+      if (grid.length === state.data.stages_labels.length) return grid;
+
       while (mathLength > 1) {
         let mathLengthPrev = mathLength;
         mathLength = mathLength / 2;
@@ -91,7 +93,6 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
               grid[i + 1][winnerIndex][MatchIndex].prevText === 'Будет определен'
             ) {
               winner.counter = 0;
-              // if (grid[i + 1][winnerIndex][MatchIndex])
               grid[i + 1][winnerIndex][MatchIndex] = winner;
             }
           }
@@ -233,93 +234,5 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           });
       });
     },
-
-    // modifyDate() {
-    //   this.editMatch.date;
-    //   this.editMatch.time;
-
-    //   let date = '';
-    //   let time = '';
-
-    //   let year = '';
-    //   let month = '';
-    //   let day = '';
-    //   let hours = '';
-    //   let minutes = '';
-    //   let seconds = '';
-
-    //   if (this.editMatch.date) {
-    //     year = this.editMatch.date.getFullYear();
-    //     month = String(this.editMatch.date.getMonth() + 1).padStart(2, '0');
-    //     day = String(this.editMatch.date.getDate()).padStart(2, '0');
-
-    //     date = `${year}-${month}-${day}`;
-    //   }
-    //   if (this.editMatch.time) {
-    //     hours = String(this.editMatch.time.getHours()).padStart(2, '0');
-    //     minutes = String(this.editMatch.time.getMinutes()).padStart(2, '0');
-    //     seconds = String(this.editMatch.time.getSeconds()).padStart(2, '0');
-
-    //     time = `${hours}:${minutes}:${seconds}`;
-    //   }
-
-    //   this.editMatch.editForm.date = `${date} ${time}`;
-    // },
-
-    // async postEditedMatch() {
-    //   const globalStore = useGlobalStore();
-    //   if (this.editMatch.id) {
-    //     try {
-    //       const formData = new FormData();
-
-    //       Object.keys(this.editMatch.editForm).forEach((key) => {
-    //         if (this.editMatch.editForm[key] !== '') {
-    //           formData.append(key, this.editMatch.editForm[key]);
-    //         }
-    //       });
-
-    //       const response = await axios.post(
-    //         `${BASE_URL}/tournaments/v1/update-match/${this.editMatch.id}`,
-    //         formData,
-    //         {
-    //           headers: {
-    //             Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
-    //             'Content-Type': 'application/json',
-    //           },
-    //         },
-    //       );
-    //       const data = await response.data;
-
-    //       return data;
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   }
-    // },
-    // async editResults() {
-    //   const globalStore = useGlobalStore();
-    //   try {
-    //     const formData = new FormData();
-
-    //     formData.append('counter_a', this.editMatch.editResults.counter_a);
-    //     formData.append('counter_b', this.editMatch.editResults.counter_b);
-
-    //     const response = await axios.post(
-    //       `${BASE_URL}/tournaments/v1/update-match/${this.editMatch.id}`,
-    //       formData,
-    //       {
-    //         headers: {
-    //           Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
-    //           'Content-Type': 'application/json',
-    //         },
-    //       },
-    //     );
-    //     const data = await response.data;
-
-    //     return data;
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
   },
 });

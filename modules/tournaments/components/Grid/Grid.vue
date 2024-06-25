@@ -52,34 +52,36 @@
           </div>
         </div>
         <div class="tournament-table bg-block-panel">
-          <div class="tournament-table__item">
-            <!-- <div class="tournament-table__item-title">Верхняя сетка</div> -->
-            <div class="tournament-table__title-row row">
-              <div
-                class="tournament-table__title-col col-auto"
-                v-for="(item, index) in data.stages_labels"
-                :key="index"
-              >
-                <p>{{ item.name }} ({{ item.subname.label }})</p>
+          <div>
+            <div class="tournament-table__item">
+              <!-- <div class="tournament-table__item-title">Верхняя сетка</div> -->
+              <div class="tournament-table__title-row row">
+                <div
+                  class="tournament-table__title-col col-auto"
+                  v-for="(item, index) in data.stages_labels"
+                  :key="index"
+                >
+                  <p>{{ item.name }} ({{ item.subname.label }})</p>
+                </div>
               </div>
-            </div>
-            <div class="tournament-table__row row">
-              <div
-                class="tournament-table__col col-auto"
-                v-if="matchesGrid && matchesGrid.length > 0"
-                v-for="(match, index) in matchesGrid"
-                :key="index"
-              >
-                <template v-for="(item, indexSub) in match" :key="item.id">
-                  <div class="tournament-table__group" v-if="indexSub % 2 === 0">
-                    <Card :item="item" :index="indexSub" />
-                    <Card
-                      v-if="match[indexSub + 1]"
-                      :item="match[indexSub + 1]"
-                      :index="indexSub + 1"
-                    />
-                  </div>
-                </template>
+              <div class="tournament-table__row row">
+                <div
+                  class="tournament-table__col col-auto"
+                  v-if="matchesGrid && matchesGrid.length > 0"
+                  v-for="(match, index) in matchesGrid"
+                  :key="index"
+                >
+                  <template v-for="(item, indexSub) in match" :key="item.id">
+                    <div class="tournament-table__group" v-if="indexSub % 2 === 0">
+                      <Card :item="item" :index="indexSub" />
+                      <Card
+                        v-if="match[indexSub + 1]"
+                        :item="match[indexSub + 1]"
+                        :index="indexSub + 1"
+                      />
+                    </div>
+                  </template>
+                </div>
               </div>
             </div>
           </div>
