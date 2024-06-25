@@ -76,32 +76,33 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         grid.push(Array.from({ length: mathLength }, (index) => obj(mathLengthPrev + index)));
         mathLengthPrev = mathLength;
       }
-      let counter = 1;
+      let indexMatch = 1;
       for (let i = 0; i < grid.length; i++) {
         const element = grid[i];
         for (let j = 0; j < element.length; j++) {
           const subElement = element[j];
           // console.log('subElement', subElement);
-          if (!subElement.indexPlus) subElement.indexPlus = counter;
-          counter++;
+          if (!subElement.indexPlus) subElement.indexPlus = indexMatch;
+          indexMatch++;
           if (subElement.a.command && subElement.b.command === false) {
             subElement.a.counter = 1;
             subElement.status.value = 'done';
           }
           if (subElement.status.value === 'done') {
             const winnerEl =
-              subElement.a.counter > subElement.b.counter ? subElement.a : subElement.b;
+              +subElement.a.counter > +subElement.b.counter ? subElement.a : subElement.b;
             console.log('winnerEl', winnerEl);
             const winner = JSON.parse(JSON.stringify(winnerEl));
             winner.counter = 0;
             const winnerIndex = Math.floor(j / 2);
             const MatchIndex = j % 2 === 0 ? 'a' : 'b';
-            if (grid[i + 1]) {
+            if (grid[i + 1] && !grid[i + 1][winnerIndex]) {
               grid[i + 1][winnerIndex][MatchIndex] = winner;
             }
           }
         }
       }
+
       return grid;
     },
     matchesReferee: (state) => {
@@ -232,92 +233,92 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       });
     },
 
-    modifyDate() {
-      this.editMatch.date;
-      this.editMatch.time;
+    // modifyDate() {
+    //   this.editMatch.date;
+    //   this.editMatch.time;
 
-      let date = '';
-      let time = '';
+    //   let date = '';
+    //   let time = '';
 
-      let year = '';
-      let month = '';
-      let day = '';
-      let hours = '';
-      let minutes = '';
-      let seconds = '';
+    //   let year = '';
+    //   let month = '';
+    //   let day = '';
+    //   let hours = '';
+    //   let minutes = '';
+    //   let seconds = '';
 
-      if (this.editMatch.date) {
-        year = this.editMatch.date.getFullYear();
-        month = String(this.editMatch.date.getMonth() + 1).padStart(2, '0');
-        day = String(this.editMatch.date.getDate()).padStart(2, '0');
+    //   if (this.editMatch.date) {
+    //     year = this.editMatch.date.getFullYear();
+    //     month = String(this.editMatch.date.getMonth() + 1).padStart(2, '0');
+    //     day = String(this.editMatch.date.getDate()).padStart(2, '0');
 
-        date = `${year}-${month}-${day}`;
-      }
-      if (this.editMatch.time) {
-        hours = String(this.editMatch.time.getHours()).padStart(2, '0');
-        minutes = String(this.editMatch.time.getMinutes()).padStart(2, '0');
-        seconds = String(this.editMatch.time.getSeconds()).padStart(2, '0');
+    //     date = `${year}-${month}-${day}`;
+    //   }
+    //   if (this.editMatch.time) {
+    //     hours = String(this.editMatch.time.getHours()).padStart(2, '0');
+    //     minutes = String(this.editMatch.time.getMinutes()).padStart(2, '0');
+    //     seconds = String(this.editMatch.time.getSeconds()).padStart(2, '0');
 
-        time = `${hours}:${minutes}:${seconds}`;
-      }
+    //     time = `${hours}:${minutes}:${seconds}`;
+    //   }
 
-      this.editMatch.editForm.date = `${date} ${time}`;
-    },
+    //   this.editMatch.editForm.date = `${date} ${time}`;
+    // },
 
-    async postEditedMatch() {
-      const globalStore = useGlobalStore();
-      if (this.editMatch.id) {
-        try {
-          const formData = new FormData();
+    // async postEditedMatch() {
+    //   const globalStore = useGlobalStore();
+    //   if (this.editMatch.id) {
+    //     try {
+    //       const formData = new FormData();
 
-          Object.keys(this.editMatch.editForm).forEach((key) => {
-            if (this.editMatch.editForm[key] !== '') {
-              formData.append(key, this.editMatch.editForm[key]);
-            }
-          });
+    //       Object.keys(this.editMatch.editForm).forEach((key) => {
+    //         if (this.editMatch.editForm[key] !== '') {
+    //           formData.append(key, this.editMatch.editForm[key]);
+    //         }
+    //       });
 
-          const response = await axios.post(
-            `${BASE_URL}/tournaments/v1/update-match/${this.editMatch.id}`,
-            formData,
-            {
-              headers: {
-                Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
-                'Content-Type': 'application/json',
-              },
-            },
-          );
-          const data = await response.data;
+    //       const response = await axios.post(
+    //         `${BASE_URL}/tournaments/v1/update-match/${this.editMatch.id}`,
+    //         formData,
+    //         {
+    //           headers: {
+    //             Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
+    //             'Content-Type': 'application/json',
+    //           },
+    //         },
+    //       );
+    //       const data = await response.data;
 
-          return data;
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    },
-    async editResults() {
-      const globalStore = useGlobalStore();
-      try {
-        const formData = new FormData();
+    //       return data;
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   }
+    // },
+    // async editResults() {
+    //   const globalStore = useGlobalStore();
+    //   try {
+    //     const formData = new FormData();
 
-        formData.append('counter_a', this.editMatch.editResults.counter_a);
-        formData.append('counter_b', this.editMatch.editResults.counter_b);
+    //     formData.append('counter_a', this.editMatch.editResults.counter_a);
+    //     formData.append('counter_b', this.editMatch.editResults.counter_b);
 
-        const response = await axios.post(
-          `${BASE_URL}/tournaments/v1/update-match/${this.editMatch.id}`,
-          formData,
-          {
-            headers: {
-              Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
-              'Content-Type': 'application/json',
-            },
-          },
-        );
-        const data = await response.data;
+    //     const response = await axios.post(
+    //       `${BASE_URL}/tournaments/v1/update-match/${this.editMatch.id}`,
+    //       formData,
+    //       {
+    //         headers: {
+    //           Authorization: 'Basic ' + btoa(`${globalStore.email}:${globalStore.API_KEY}`),
+    //           'Content-Type': 'application/json',
+    //         },
+    //       },
+    //     );
+    //     const data = await response.data;
 
-        return data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    //     return data;
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
   },
 });
