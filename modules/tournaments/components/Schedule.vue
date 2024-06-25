@@ -13,13 +13,13 @@
             <!-- TODO: условие для блокировки кнопок -->
             <Button
               v-for="(item, index) in stages_label.items"
-              :key="index"
+              :key="item.index"
               :class="active !== item.index ? 'secondary' : ''"
               @click="active = item.index"
               rounded
               :label="item.index"
               :outlined="active !== item.index"
-              :disabled="active !== item.index"
+              :disabled="!formattedMatches[item.index]"
               >{{ item.name }}<br />28.01 15:10</Button
             >
           </div>
@@ -149,7 +149,7 @@
 <script setup>
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
-  const { data, stages_labels, stages_labelsLength, formattedMatches } =
+  const { data, stages_labels, stages_labelsLength, formattedMatches, formattedMatchesLength } =
     storeToRefs(tournamentPageStore);
 
   import { useGlobalStore } from '~/store/globalStore';
@@ -160,5 +160,6 @@
 
   const totalRecords = ref(10);
   const rowsPerPage = ref([5, 10, 50, 100]);
-  const active = ref(0);
+
+  const active = ref(formattedMatchesLength);
 </script>

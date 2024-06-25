@@ -17,25 +17,15 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     indexGroupStore: 0,
     indexCoupleStore: 0,
     ifReferee: false,
-    stages_labels: {},
-    stages_labelsLength: 0,
-    isNotStart: true,
     // matchesReferee: [],
-    // teamsForReg: [],
-    editMatch: {
-      id: 0,
-      counter_a: 0,
-      counter_b: 0,
-      status: '',
-      server: '',
-      steam_id: '',
-      discord: '',
-      broadcast: '',
-      show_in_main: '',
-      date: '',
-    },
+    // teamsForReg: [],\
+    formattedMatchesLength: 0,
   }),
   getters: {
+    isNotStart: (state) => {
+      if (!state.data.accepting_applications) return true;
+      return new Date(state.data.accepting_applications.end) >= new Date();
+    },
     formattedMatches: (state) => {
       const matchesArr = Object.values(JSON.parse(JSON.stringify(state.data.matches || [])));
       return matchesArr
@@ -52,6 +42,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         })
         .map((item) => item.filter((subItem) => subItem.b.command !== false));
     },
+
     matchesGrid: (state) => {
       if (!state.data.matches) return [];
       const grid = Object.values(JSON.parse(JSON.stringify(state.data.matches || [])));
@@ -113,6 +104,22 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       if (!state.data) return [];
       return Object.values(JSON.parse(JSON.stringify(state.data.matches || [])));
     },
+    stages_labelsLength: (state) => {
+      return state.data.stages_labels ? state.data.stages_labels.length : 0;
+    },
+    stages_labels: (state) => {
+      if (!state.data.stages_labels) return [];
+      const subnameLAN = state.data.stages_labels.filter(
+        (item) => item.subname.value.trim() === 'lan',
+      );
+      const subnameOnline = state.data.stages_labels.filter(
+        (item) => item.subname.value.trim() === 'online',
+      );
+      return [
+        { name: 'Online', items: subnameOnline, stageLength: subnameOnline.length },
+        { name: 'LAN', items: subnameLAN, stageLength: subnameLAN.length },
+      ];
+    },
   },
   actions: {
     reset() {
@@ -121,8 +128,6 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       this.indexGroupStore = 0;
       this.indexCoupleStore = 0;
       this.ifReferee = false;
-      this.stages_labels = {};
-      this.stages_labelsLength = 0;
       // this.isNotStart = true;
       // this.matchesReferee = [];
       // this.teamsForReg = [];
@@ -141,10 +146,6 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         const data = await response.data;
 
         await this.checkMyTeams(data);
-        const today = new Date();
-        if (new Date(data.accepting_applications.end) >= today) {
-          this.isNotStart = false;
-        }
 
         data.date2 = formatDate(data.date);
 
@@ -167,17 +168,11 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
             item.index = index;
             return item;
           });
-          this.stages_labelsLength = data.stages_labels.length;
-          const subnameLAN = data.stages_labels.filter(
-            (item) => item.subname.value.trim() === 'LAN',
-          );
-          const subnameOnline = data.stages_labels.filter(
-            (item) => item.subname.value.trim() === 'Online',
-          );
-          this.stages_labels = [
-            { name: 'Online', items: subnameOnline, stageLength: subnameOnline.length },
-            { name: 'LAN', items: subnameLAN, stageLength: subnameLAN.length },
-          ];
+
+          // this.stages_labels = [
+          //   { name: 'Online', items: subnameOnline, stageLength: subnameOnline.length },
+          //   { name: 'LAN', items: subnameLAN, stageLength: subnameLAN.length },
+          // ];
         }
 
         if (data.comand_list) {
@@ -202,6 +197,8 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
 
         this.data = data;
         this.currentID = id;
+        this.formattedMatchesLength = Object.values(data.matches).length - 1;
+
         if (refereeStore.couples.length === 0 || this.currentID !== refereeStore.savedId) {
           refereeStore.savedId = this.currentID;
           refereeStore.checkTeamForReferee(this.data.comand_list);
