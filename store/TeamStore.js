@@ -24,7 +24,7 @@ export const useTeamStore = defineStore('teamStore', {
       leagues: [],
       discipline: '',
       logo: null,
-      count_members: 1,
+      // count_members: 1,
     },
 
     formDataEditTeam: {},
