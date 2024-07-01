@@ -16,23 +16,25 @@
         </div>
       </div>
       <div class="template">
-        <TabView v-model:activeIndex="active">
-          <TabPanel>
-            <h3>Мой профиль</h3>
-            <CabinetUserData />
-          </TabPanel>
-          <TabPanel v-if="userData.user_verification">
-            <div class="sMyProfileBlock__head-row row">
-              <div class="col">
-                <h3>Мои команды</h3>
+        <keep-alive>
+          <TabView v-model:activeIndex="active">
+            <TabPanel>
+              <h3>Мой профиль</h3>
+              <CabinetUserData />
+            </TabPanel>
+            <TabPanel v-if="userData.user_verification">
+              <div class="sMyProfileBlock__head-row row">
+                <div class="col">
+                  <h3>Мои команды</h3>
+                </div>
+                <div class="col-auto">
+                  <CabinetTeamCreate />
+                </div>
               </div>
-              <div class="col-auto">
-                <CabinetTeamCreate />
-              </div>
-            </div>
-            <CabinetUserTeamsData />
-          </TabPanel>
-        </TabView>
+              <CabinetUserTeamsData />
+            </TabPanel>
+          </TabView>
+        </keep-alive>
       </div>
       <!-- <div v-if="active === 1 && teamsArr.length > 0" class="template template--footer">
         <Paginator

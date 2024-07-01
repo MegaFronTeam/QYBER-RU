@@ -20,7 +20,7 @@
               :label="item.index"
               :outlined="active !== item.index"
               :disabled="!formattedMatches[item.index]"
-              >{{ item.name }}<br />28.01 15:10</Button
+              >{{ item.name }}<br />{{ item.date }}</Button
             >
           </div>
         </div>
