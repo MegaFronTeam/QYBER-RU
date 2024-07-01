@@ -63,7 +63,7 @@
               </Column>
               <Column field="tournament" header="Участники">
                 <template #body="slotProps">
-                  {{ slotProps.data.max_commands }}
+                  {{ slotProps.data.teamLength || 0 }}
                 </template>
               </Column>
               <Column field="tournament" header="Фонд">
@@ -196,6 +196,7 @@ const route = useRoute();
 const router = useRouter();
 const tournamentStore = useTournamentStore();
 const { upcomingTournaments, currentTournaments, endedTournaments } = storeToRefs(tournamentStore);
+
 const querryList = ref({
   tab: route.query.tab ? Number(route.query.tab) : 1,
   grid: route.query.grid ? Boolean(route.query.grid) : false,
@@ -204,8 +205,6 @@ const active = ref(querryList.value.tab);
 const checked = ref(querryList.value.grid);
 
 const clickOnTab = (id) => {
-  console.log(router);
-  // console.log(route);
   active.value = id;
   router.push({
     query: { ...route.query, tab: id },
