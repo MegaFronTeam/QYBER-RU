@@ -113,18 +113,13 @@ export const useTeamStore = defineStore('teamStore', {
         const response = await this.fetcher('POST', customUrl, formData);
         const data = await response.data;
         if (data) {
-          console.log(data);
-          this.isCreate = true;
           this.myTeams.push(data);
-          console.log(this.myTeams);
+
           Object.keys(this.formDataCreateTeam).forEach((key) => {
             if (key !== 'leagues') {
               this.formDataCreateTeam[key] = '';
             }
           });
-          // setTimeout(() => {
-          //   this.isCreate = false;
-          // }, 1500);
         }
       } catch (error) {
         console.error(error);
