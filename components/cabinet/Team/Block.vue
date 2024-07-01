@@ -201,35 +201,35 @@
 </template>
 
 <script setup>
-  const visibleShow = ref(false);
-  import { useTeamStore } from '~/store/TeamStore';
-  const teamStore = useTeamStore();
-  const { isCaptain, potentialMembers, isCreate } = storeToRefs(teamStore);
-  // import { useTournamentStore } from '@/store/TournamentStore';
-  // const tournamentStore = useTournamentStore();
-  // const { tournamentsMy } = tournamentStore;
+const visibleShow = ref(false);
+import { useTeamStore } from '~/store/TeamStore';
+const teamStore = useTeamStore();
+const { isCaptain, potentialMembers, isCreate } = storeToRefs(teamStore);
+// import { useTournamentStore } from '@/store/TournamentStore';
+// const tournamentStore = useTournamentStore();
+// const { tournamentsMy } = tournamentStore;
 
-  const props = defineProps({
-    teamData: {
-      type: Object,
-      required: false,
-    },
-  });
-  const active = ref(0);
+const props = defineProps({
+  teamData: {
+    type: Object,
+    required: false,
+  },
+});
+const active = ref(0);
 </script>
 
 <style scoped lang="scss">
-  .sTeamBlock {
-    padding-bottom: 6px;
-    @media screen and (min-width: 992px) {
-      padding-bottom: 12px;
-    }
+.sTeamBlock {
+  padding-bottom: 6px;
+  @media screen and (min-width: 992px) {
+    padding-bottom: 12px;
   }
-  .ms-auto {
-    margin-left: auto;
-  }
-  .small-text {
-    display: flex;
-    align-items: center;
-  }
+}
+.ms-auto {
+  margin-left: auto;
+}
+.small-text {
+  display: flex;
+  align-items: center;
+}
 </style>

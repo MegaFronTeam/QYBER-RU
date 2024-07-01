@@ -32,7 +32,11 @@
             <template #body="slotProps">
               <div class="table-wrap">
                 <!-- TODO: Tournament need data img -->
-                <img :src="slotProps.data.post_thumbnail" alt="Avatar" />
+                <img
+                  v-if="slotProps.data.post_thumbnail"
+                  :src="slotProps.data.post_thumbnail"
+                  alt="Avatar"
+                />
                 <span v-html="slotProps.data.team.post_title"></span>
               </div>
             </template>
@@ -124,16 +128,16 @@
 </template>
 
 <script setup>
-  import { useGlobalStore } from '~/store/globalStore';
-  const globalStore = useGlobalStore();
-  const { tableRows } = storeToRefs(globalStore);
+import { useGlobalStore } from '~/store/globalStore';
+const globalStore = useGlobalStore();
+const { tableRows } = storeToRefs(globalStore);
 
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-  const tournamentPageStore = useTournamentPageStore();
-  const { data } = storeToRefs(tournamentPageStore);
+import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+const tournamentPageStore = useTournamentPageStore();
+const { data } = storeToRefs(tournamentPageStore);
 
-  const active = ref(1);
+const active = ref(1);
 
-  const totalRecords = ref(10);
-  const rowsPerPage = ref([5, 10, 50, 100]);
+const totalRecords = ref(10);
+const rowsPerPage = ref([5, 10, 50, 100]);
 </script>

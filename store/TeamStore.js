@@ -37,8 +37,11 @@ export const useTeamStore = defineStore('teamStore', {
   getters: {
     isCaptain: (state) => {
       if (!state.teamData.members) return false;
+
       const globalStore = useGlobalStore();
-      return state.teamData.members.some((member) => member.id === globalStore.userData.ID);
+      const captineID = state.teamData.members.find((member) => member.role.value === 'captain').id;
+
+      return captineID === globalStore.userData.ID;
     },
   },
   actions: {
