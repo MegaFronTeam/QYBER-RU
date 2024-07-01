@@ -31,23 +31,23 @@
 </template>
 
 <script setup lang="ts">
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-  const tournamentPageStore = useTournamentPageStore();
-  const { data } = storeToRefs(tournamentPageStore);
+import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+const tournamentPageStore = useTournamentPageStore();
+const { data } = storeToRefs(tournamentPageStore);
 
-  import { useMyMatchStore } from '@/modules/tournaments/store/MatchStore';
-  const matchStore = useMyMatchStore();
-  const { dataMatch } = storeToRefs(matchStore);
+import { useMyMatchStore } from '@/modules/tournaments/store/MatchStore';
+const matchStore = useMyMatchStore();
+const { dataMatch } = storeToRefs(matchStore);
 </script>
 <style scoped lang="scss">
-  .img-wrap {
-    aspect-ratio: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img {
-      max-width: 100%;
-      flex: 0 0 auto;
-    }
+.img-wrap {
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    max-width: 100%;
+    flex: 0 0 auto;
   }
+}
 </style>
