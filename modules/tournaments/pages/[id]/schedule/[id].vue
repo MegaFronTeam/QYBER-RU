@@ -56,7 +56,10 @@
           </div>
         </Transition>
       </div>
-      <div class="header-item" v-if="dataMatch.status.valueOf() !== 'done'">
+      <div
+        class="header-item"
+        v-if="matchStore.isPlayerInMatch && dataMatch.status.valueOf() !== 'done'"
+      >
         <JoinGameModal />
       </div>
     </HeaderBlock>
@@ -73,57 +76,57 @@
 </template>
 
 <script setup lang="ts">
-  import type { commandInterface } from '@/modules/tournaments/interfaces/interface';
+import type { commandInterface } from '@/modules/tournaments/interfaces/interface';
 
-  import MatchHeader from '@/modules/tournaments/components/Match/MatchHeader.vue';
-  import PersonCard from '@/modules/tournaments/components/Match/PersonCard.vue';
-  import JoinGameModal from '@/modules/tournaments/components/Match/JoinGameModal.vue';
-  import Broadcast from '@/modules/tournaments/components/Match/Broadcast.vue';
-  import { useGlobalStore } from '~/store/globalStore';
-  const globalStore = useGlobalStore();
+import MatchHeader from '@/modules/tournaments/components/Match/MatchHeader.vue';
+import PersonCard from '@/modules/tournaments/components/Match/PersonCard.vue';
+import JoinGameModal from '@/modules/tournaments/components/Match/JoinGameModal.vue';
+import Broadcast from '@/modules/tournaments/components/Match/Broadcast.vue';
+import { useGlobalStore } from '~/store/globalStore';
+const globalStore = useGlobalStore();
 
-  const { id } = useRoute().params;
-  const tournamentID = useRoute().fullPath.split('/')[2];
+const { id } = useRoute().params;
+const tournamentID = useRoute().fullPath.split('/')[2];
 
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-  const tournamentPageStore = useTournamentPageStore();
-  const { currentID, data } = storeToRefs(tournamentPageStore);
+import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+const tournamentPageStore = useTournamentPageStore();
+const { currentID, data } = storeToRefs(tournamentPageStore);
 
-  import { useMyMatchStore } from '~/modules/tournaments/store/MatchStore';
-  const matchStore = useMyMatchStore();
-  await matchStore.fetchData(id as string);
+import { useMyMatchStore } from '~/modules/tournaments/store/MatchStore';
+const matchStore = useMyMatchStore();
+await matchStore.fetchData(id as string);
 
-  const { dataMatch, broadcastIframe } = storeToRefs(matchStore);
+const { dataMatch, broadcastIframe } = storeToRefs(matchStore);
 
-  const isOpen = ref(true);
-  const toggle = () => {
-    isOpen.value = !isOpen.value;
-  };
+const isOpen = ref(true);
+const toggle = () => {
+  isOpen.value = !isOpen.value;
+};
 
-  const breakpoint = 991;
-  const isMobile = ref(window.innerWidth <= breakpoint);
-  const updateIsMobile = () => {
-    isMobile.value = window.innerWidth <= breakpoint;
-  };
+const breakpoint = 991;
+const isMobile = ref(window.innerWidth <= breakpoint);
+const updateIsMobile = () => {
+  isMobile.value = window.innerWidth <= breakpoint;
+};
 
-  import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
-  const breadcrumbsStore = useBreadcrumbsStore();
+import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
+const breadcrumbsStore = useBreadcrumbsStore();
 
+updateIsMobile();
+onMounted(() => {
   updateIsMobile();
-  onMounted(() => {
-    updateIsMobile();
-    window.addEventListener('resize', updateIsMobile);
+  window.addEventListener('resize', updateIsMobile);
 
-    if (tournamentID !== currentID.value || tournamentPageStore.currentID === '') {
-      tournamentPageStore.fetchData(tournamentID).then(() => {
-        // console.log(tournamentPageStore.data.title);
-        // matchStore.dataTournament = tournamentPageStore.data;
-        breadcrumbsStore.setNameFromIds(tournamentPageStore.data?.title);
-      });
-    }
-  });
-  onUnmounted(() => {
-    updateIsMobile();
-    window.removeEventListener('resize', updateIsMobile);
-  });
+  if (tournamentID !== currentID.value || tournamentPageStore.currentID === '') {
+    tournamentPageStore.fetchData(tournamentID).then(() => {
+      // console.log(tournamentPageStore.data.title);
+      // matchStore.dataTournament = tournamentPageStore.data;
+      breadcrumbsStore.setNameFromIds(tournamentPageStore.data?.title);
+    });
+  }
+});
+onUnmounted(() => {
+  updateIsMobile();
+  window.removeEventListener('resize', updateIsMobile);
+});
 </script>

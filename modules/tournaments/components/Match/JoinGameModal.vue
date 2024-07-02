@@ -1,10 +1,15 @@
 <template>
-  <template v-if="matchStore.isPlayerInMatch">
-    <NuxtLink to="/auth/login" v-if="!globalStore.isUserAuth">
-      <Button label="Подключиться к игре" class="w-full" />
-    </NuxtLink>
-    <Button @click="show = true" label="Подключиться к игре" class="w-full" v-else />
-  </template>
+  <NuxtLink to="/auth/login" v-if="!globalStore.isUserAuth">
+    <Button :label="btnLabel" class="w-full" />
+  </NuxtLink>
+  <Button
+    @click="show = true"
+    v-on:click="fetchMatch(id)"
+    :label="btnLabel"
+    class="w-full"
+    v-else
+  />
+
   <Dialog class="join-modal" v-model:visible="show" modal header="Подключение к игре">
     <CopyButton title="Формат" :data="data.format" />
     <CopyButton title="Начало игры (мск)" :data="dataMatch.date" />
@@ -17,18 +22,36 @@
 
 <script lang="ts" setup>
 import { useGlobalStore } from '~/store/globalStore';
-import CopyButton from './CopyButton.vue';
-const globalStore = useGlobalStore();
-
 import { useMyMatchStore } from '~/modules/tournaments/store/MatchStore';
-const matchStore = useMyMatchStore();
-const { dataMatch } = storeToRefs(matchStore);
-
 import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+import CopyButton from './CopyButton.vue';
+
+const props = defineProps({
+  btnLabel: {
+    default: 'Подключиться к игре',
+  },
+  id: {
+    type: String,
+    required: false,
+  },
+});
+
+const globalStore = useGlobalStore();
+const matchStore = useMyMatchStore();
 const tournamentPageStore = useTournamentPageStore();
+
+const { dataMatch } = storeToRefs(matchStore);
 const { data } = storeToRefs(tournamentPageStore);
 
 const show = ref(false);
+
+const fetchMatch = (id: string) => {
+  console.log(id);
+
+  if (id) {
+    matchStore.fetchData(id);
+  }
+};
 </script>
 
 <style lang="scss">

@@ -71,13 +71,15 @@
             {{ item.b.counter }}
           </div>
         </div>
-        <Button v-if="referee">Присоединиться</Button>
+        <!-- <Button v-if="isPlayerInMatch">Присоединиться</Button> -->
+        <JoinGameModal v-if="isPlayerInMatch" btnLabel="Присоединиться" :id="item.id" />
       </div>
     </template>
   </div>
 </template>
 
 <script setup>
+import JoinGameModal from '../Match/JoinGameModal.vue';
 import MatchModal from './MatchModal.vue';
 import { useGlobalStore } from '~/store/globalStore';
 
@@ -92,6 +94,8 @@ const props = defineProps({
   },
 });
 
+const { item } = props;
+
 const globalStore = useGlobalStore();
 
 const isAccessRole = computed(() => {
@@ -101,6 +105,17 @@ const isAccessRole = computed(() => {
 
     return false;
   }
+  return false;
+});
+
+const isPlayerInMatch = computed(() => {
+  if (item.status.value === 'done') return false;
+
+  if (item.a.members && item.a.members.find((member) => member.id === globalStore.userData.ID))
+    return true;
+  if (item.b.members && item.b.members.find((member) => member.id === globalStore.userData.ID))
+    return true;
+
   return false;
 });
 </script>
