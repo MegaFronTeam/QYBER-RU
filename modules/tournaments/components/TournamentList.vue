@@ -119,7 +119,7 @@
               </Column>
               <Column field="tournament" header="Участники">
                 <template #body="slotProps">
-                  {{ slotProps.data.max_commands }}
+                  {{ slotProps.data.teamLength || 0 }}
                 </template>
               </Column>
               <Column field="tournament" header="Фонд">
@@ -170,7 +170,7 @@
               </Column>
               <Column field="tournament" header="Участники">
                 <template #body="slotProps">
-                  {{ slotProps.data.max_commands }}
+                  {{ slotProps.data.teamLength || 0 }}
                 </template>
               </Column>
               <Column field="tournament" header="Фонд">

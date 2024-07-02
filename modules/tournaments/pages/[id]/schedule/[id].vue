@@ -58,7 +58,7 @@
       </div>
       <div
         class="header-item"
-        v-if="matchStore.isPlayerInMatch && dataMatch.status.valueOf() !== 'done'"
+        v-if="matchStore.isPlayerInMatch && dataMatch.status.value !== 'done'"
       >
         <JoinGameModal />
       </div>
