@@ -23,13 +23,12 @@ export const useAccreditationStore = defineStore('accreditation', () => {
     () => data.value.selectedWorkStudy,
     () => {
       if (data.value.selectedWorkStudy === 'study') {
-        data.value.leagues = [9];
-      } else if (data.value.selectedWorkStudy === 'work') {
         data.value.leagues = [10];
+      } else if (data.value.selectedWorkStudy === 'work') {
+        data.value.leagues = [9];
       } else if (data.value.selectedWorkStudy === 'work_study') {
         data.value.leagues = [10, 9];
       }
-      console.log(data.value.leagues);
     },
   );
 

@@ -126,41 +126,39 @@
 </template>
 
 <script setup>
-  // import { User } from '@/services/user';
-  import { useUserStore } from '@/store/userStore';
-  import { useGlobalStore } from '@/store/globalStore';
-  import { useAccreditationStore } from '@/store/accreditationStore';
+// import { User } from '@/services/user';
+import { useUserStore } from '@/store/userStore';
+import { useGlobalStore } from '@/store/globalStore';
+import { useAccreditationStore } from '@/store/accreditationStore';
 
-  const userStore = useUserStore();
-  const globalStore = useGlobalStore();
-  const accreditation = useAccreditationStore();
+const userStore = useUserStore();
+const globalStore = useGlobalStore();
+const accreditation = useAccreditationStore();
 
-  const { userData, in_verifications } = storeToRefs(globalStore);
-  const { data, typeUSer } = storeToRefs(accreditation);
+const { userData, in_verifications } = storeToRefs(globalStore);
+const { data, typeUSer } = storeToRefs(accreditation);
 
-  const visibleShow = ref(false);
+const visibleShow = ref(false);
 
-  const customBase64Uploader = async (event) => {
-    const filepage = event.files[0];
-    // file.value = event.files[0];
+const customBase64Uploader = async (event) => {
+  const filepage = event.files[0];
+  const reader = new FileReader();
+  let blob = await fetch(filepage.objectURL).then((r) => r.blob());
 
-    const reader = new FileReader();
-    let blob = await fetch(filepage.objectURL).then((r) => r.blob()); //blob:url
+  reader.readAsDataURL(blob);
 
-    reader.readAsDataURL(blob);
-
-    reader.onloadend = function () {
-      const base64data = reader.result;
-      data.file = filepage;
-      accreditation.setFile(filepage); // Assuming the accreditation store has a method called setFile to store the base64 data
-    };
+  reader.onloadend = function () {
+    const base64data = reader.result;
+    data.file = filepage;
+    accreditation.setFile(filepage);
   };
+};
 
-  onMounted(() => {
-    if (userStore.educational_institutions.length === 0) userStore.getEducationalInstitutions();
-  });
+onMounted(() => {
+  if (userStore.educational_institutions.length === 0) userStore.getEducationalInstitutions();
+});
 </script>
 
 <style lang="scss" scoped>
-  /* Your component's styles here */
+/* Your component's styles here */
 </style>
