@@ -46,8 +46,6 @@ const { data } = storeToRefs(tournamentPageStore);
 const show = ref(false);
 
 const fetchMatch = (id: string) => {
-  console.log(id);
-
   if (id) {
     matchStore.fetchData(id);
   }

@@ -530,7 +530,7 @@ p {
           color: var(--primary-300);
         }
       }
-      &:last-child {
+      &:has(> span) {
         color: rgba(255, 255, 255, 0.64);
       }
     }
