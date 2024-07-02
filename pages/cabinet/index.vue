@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userData.user_nickname">
+  <div>
     <CabinetProfileHead
       :breadcrumbArr="[{ label: 'Личный кабинет' }]"
       :img="user_avatar"
@@ -41,19 +41,19 @@
 </template>
 
 <script setup>
-  import { useGlobalStore } from '@/store/globalStore';
-  import { useUserStore } from '@/store/userStore';
+import { useGlobalStore } from '@/store/globalStore';
+import { useUserStore } from '@/store/userStore';
 
-  const userStore = useUserStore();
+const userStore = useUserStore();
 
-  const globalStore = useGlobalStore();
+const globalStore = useGlobalStore();
 
-  const { userData, user_first_letter, user_avatar } = storeToRefs(globalStore);
-  definePageMeta({
-    breadcrumbName: 'Личный кабинет',
-  });
+const { userData, user_first_letter, user_avatar } = storeToRefs(globalStore);
+definePageMeta({
+  breadcrumbName: 'Личный кабинет',
+});
 
-  await userStore.getUserData();
-  await userStore.showInvite();
+await userStore.getUserData();
+await userStore.showInvite();
 </script>
 <style lang="scss"></style>
