@@ -10,7 +10,9 @@
     <template v-if="item.a">
       <div class="sGridCardItem__order">
         {{ item.indexPlus }}
-        <MatchModal v-if="item.id && item.b.command !== false" :item="item" />
+        <div v-if="isAccessRole">
+          <MatchModal v-if="item.id && item.b.command !== false" :item="item" />
+        </div>
       </div>
       <div class="teams-group">
         <div
@@ -76,16 +78,29 @@
 </template>
 
 <script setup>
-  import MatchModal from './MatchModal.vue';
+import MatchModal from './MatchModal.vue';
+import { useGlobalStore } from '~/store/globalStore';
 
-  const props = defineProps({
-    item: {
-      type: Array,
-      required: true,
-    },
-    index: {
-      type: Number,
-      required: true,
-    },
-  });
+const props = defineProps({
+  item: {
+    type: Array,
+    required: true,
+  },
+  index: {
+    type: Number,
+    required: true,
+  },
+});
+
+const globalStore = useGlobalStore();
+
+const isAccessRole = computed(() => {
+  if (globalStore.isUserAuth) {
+    if (globalStore.userData.roles.includes('administrator')) return true;
+    if (globalStore.userData.roles.includes('judge')) return true;
+
+    return false;
+  }
+  return false;
+});
 </script>
