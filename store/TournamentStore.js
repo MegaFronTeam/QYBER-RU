@@ -5,7 +5,6 @@ import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPa
 export const useTournamentStore = defineStore('tournament', () => {
   const globalStore = useGlobalStore();
   const TournamentPageStore = useTournamentPageStore();
-  const tournamentsList = ref([]);
   const getLast = ref([]);
   const lastOne = ref([]);
   const showRegModal = ref(false);
@@ -15,6 +14,10 @@ export const useTournamentStore = defineStore('tournament', () => {
   // const { currentTeamID } = teamStore;
   const tournamentsMy = ref([]);
   const BroadCast = ref('');
+
+  const tournamentsList = ref([]);
+  // TODO: Убрать эти данные- менять один массив по запросу
+
   const upcomingTournaments = ref([]);
   const currentTournaments = ref([]);
   const endedTournaments = ref([]);

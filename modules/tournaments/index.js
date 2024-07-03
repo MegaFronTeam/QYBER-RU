@@ -17,8 +17,8 @@ export default defineNuxtModule({
     extendPages((pages) => {
       const tournamentPages = glob.sync(join(__dirname, 'pages/*.vue'));
 
-      const tournamentIdPages = glob.sync(join(__dirname, 'pages/[id]/*.vue'));
-      const tournamentIdPagesMatch = glob.sync(join(__dirname, 'pages/[id]/schedule/[id].vue'));
+      // const tournamentIdPages = glob.sync(join(__dirname, 'pages/[id]/*.vue'));
+      // const tournamentIdPagesMatch = glob.sync(join(__dirname, 'pages/[id]/schedule/[id].vue'));
 
       tournamentPages.forEach((page) => {
         pages.push({

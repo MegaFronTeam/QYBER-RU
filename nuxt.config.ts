@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     '@vee-validate/nuxt',
     '@/modules/tournaments',
+    '@/modules/ratings',
   ],
 
   // mode: universal,
