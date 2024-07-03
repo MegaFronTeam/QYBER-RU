@@ -56,11 +56,9 @@
           </div>
         </Transition>
       </div>
-      <div
-        class="header-item"
-        v-if="matchStore.isPlayerInMatch && dataMatch.status.value !== 'done'"
-      >
-        <JoinGameModal />
+      <div class="header-item">
+        <JoinGameModal v-if="matchStore.isPlayerInMatch && dataMatch.status.value !== 'done'" />
+        <MatchModal v-if="isAccessRole" :item="dataMatch" btnLabel="Настройки игры" />
       </div>
     </HeaderBlock>
 
@@ -83,6 +81,7 @@ import PersonCard from '@/modules/tournaments/components/Match/PersonCard.vue';
 import JoinGameModal from '@/modules/tournaments/components/Match/JoinGameModal.vue';
 import Broadcast from '@/modules/tournaments/components/Match/Broadcast.vue';
 import { useGlobalStore } from '~/store/globalStore';
+import MatchModal from '~/modules/tournaments/components/Grid/MatchModal.vue';
 const globalStore = useGlobalStore();
 
 const { id } = useRoute().params;
@@ -111,6 +110,16 @@ const updateIsMobile = () => {
 
 import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
 const breadcrumbsStore = useBreadcrumbsStore();
+
+const isAccessRole = computed(() => {
+  if (globalStore.isUserAuth) {
+    if (globalStore.userData.roles.includes('administrator')) return true;
+    if (globalStore.userData.roles.includes('judge')) return true;
+
+    return false;
+  }
+  return false;
+});
 
 updateIsMobile();
 onMounted(() => {

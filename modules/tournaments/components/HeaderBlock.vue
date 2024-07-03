@@ -73,7 +73,10 @@
 </template>
 <script setup>
 import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+import { useGlobalStore } from '~/store/globalStore';
+
 const tournamentStorePage = useTournamentPageStore();
+const globalStore = useGlobalStore();
 
 const { data } = storeToRefs(tournamentStorePage);
 </script>
