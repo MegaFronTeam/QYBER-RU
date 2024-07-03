@@ -24,7 +24,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
   getters: {
     isNotStart: (state) => {
       if (!state.data.accepting_applications) return true;
-      return new Date(state.data.accepting_applications.end) >= new Date();
+      return new Date(state.data.accepting_applications.end) <= new Date();
     },
     formattedMatches: (state) => {
       const matchesArr = Object.values(JSON.parse(JSON.stringify(state.data.matches || [])));
