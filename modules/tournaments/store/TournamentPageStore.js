@@ -18,7 +18,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     indexCoupleStore: 0,
     ifReferee: false,
     // matchesReferee: [],
-    // teamsForReg: [],\
+    teamsForReg: [],
     formattedMatchesLength: 0,
   }),
   getters: {
@@ -131,9 +131,11 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       this.ifReferee = false;
       // this.isNotStart = true;
       // this.matchesReferee = [];
-      // this.teamsForReg = [];
+      this.teamsForReg = [];
     },
     async fetchData(id) {
+      const globalStore = useGlobalStore();
+
       if (id !== this.currentID) {
         this.reset();
       }
@@ -212,6 +214,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     },
     async checkMyTeams(data) {
       const teamStore = useTeamStore();
+      const globalStore = useGlobalStore();
       await teamStore.fetchMyTeams().then(() => {
         this.teamsForReg = JSON.parse(JSON.stringify(teamStore.myTeams));
         this.teamsForReg = this.teamsForReg
@@ -219,9 +222,9 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
             if (item.leagues && item.discipline) {
               return (
                 data.leagues[0].slug === item.leagues.slug &&
-                data.discipline[0].slug === item.discipline.slug
-                // &&
-                // +item.count_members >= +data.format[0]
+                data.discipline[0].slug === item.discipline.slug &&
+                +item.count_members >= +data.format[0] &&
+                +item.post_author === +globalStore.userData.ID
               );
             }
           })
