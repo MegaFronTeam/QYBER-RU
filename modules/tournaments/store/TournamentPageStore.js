@@ -166,6 +166,22 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           .format(+data.prize_fund)
           .replace(/\.00$/, '');
 
+        if (data.winners) {
+          data.winners = data.winners.map((item, index) => {
+            item.amount = new Intl.NumberFormat('ru-RU', {
+              style: 'currency',
+              currency: 'RUB',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 2,
+            })
+              .format(+data.prize[index].amount)
+              .replace(/\.00$/, '');
+            item.avatar = data.comand_list.find(
+              (team) => team.team.ID === item.team.ID,
+            ).post_thumbnail;
+            return item;
+          });
+        }
         if (data.stages_labels) {
           data.stages_labels = data.stages_labels.map((item, index) => {
             item.index = index;

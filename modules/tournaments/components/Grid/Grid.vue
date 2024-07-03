@@ -2,49 +2,24 @@
   <div class="sTournamentOverview--grid">
     <div class="wrap-body">
       <div class="bg-block">
-        <div class="bg-block-panel" v-if="finalEnd">
-          <div class="tournament-table__item">
+        <div class="bg-block-panel">
+          <div class="tournament-table__item" v-if="data.winners">
             <div class="tournament-table__item-title">Победители</div>
             <div class="tournament-table__winner-row row">
-              <div class="col-auto">
+              <div class="col-auto" v-for="(item, index) in data.winners" :key="index">
                 <div class="sGridCardItem sGridCardItem--winner">
                   <div class="teams-group">
-                    <div class="sGridCard sGridCard__team team-winner">
-                      <div class="sGridCard__score">1</div>
+                    <div
+                      class="sGridCard sGridCard__team"
+                      :class="index === 0 ? 'team-winner' : ''"
+                    >
+                      <div class="sGridCard__score">{{ index + 1 }}</div>
                       <div class="sGridCard__wrap">
-                        <img :src="`/img/teamGrid-1.png`" alt="Avatar" class="img" />
-                        <span>Команда 1</span>
+                        <img v-if="data.avatar" :src="data.avatar" alt="Avatar" class="img" />
+                        <span>{{ item.team.post_name }}</span>
                       </div>
                     </div>
-                    <div class="sGridCard__price">Приз: 200 000 ₽</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div class="sGridCardItem sGridCardItem--winner">
-                  <div class="teams-group">
-                    <div class="sGridCard sGridCard__team">
-                      <div class="sGridCard__score">2</div>
-                      <div class="sGridCard__wrap">
-                        <img :src="`/img/teamGrid-1.png`" alt="Avatar" class="img" />
-                        <span>Команда 1</span>
-                      </div>
-                    </div>
-                    <div class="sGridCard__price">Приз: 100 000 ₽</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div class="sGridCardItem sGridCardItem--winner">
-                  <div class="teams-group">
-                    <div class="sGridCard sGridCard__team">
-                      <div class="sGridCard__score">3</div>
-                      <div class="sGridCard__wrap">
-                        <img :src="`/img/teamGrid-1.png`" alt="Avatar" class="img" />
-                        <span>Команда 1</span>
-                      </div>
-                    </div>
-                    <div class="sGridCard__price">Приз: 50 000 ₽</div>
+                    <div class="sGridCard__price">Приз: {{ item.amount }}</div>
                   </div>
                 </div>
               </div>
@@ -172,9 +147,9 @@
 </template>
 
 <script setup>
-import Card from './Card.vue';
-import { useTournamentPageStore } from '~/modules/tournaments/store/TournamentPageStore';
-const tournamentPageStore = useTournamentPageStore();
-const { data, matchesGrid } = storeToRefs(tournamentPageStore);
-console.log(matchesGrid.value);
+  import Card from './Card.vue';
+  import { useTournamentPageStore } from '~/modules/tournaments/store/TournamentPageStore';
+  const tournamentPageStore = useTournamentPageStore();
+  const { data, matchesGrid } = storeToRefs(tournamentPageStore);
+  console.log(matchesGrid.value);
 </script>
