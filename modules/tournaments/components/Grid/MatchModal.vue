@@ -1,10 +1,11 @@
 <template>
   <Button
-    class="sGridCardItem__settings"
+    :class="btnLabel ? '' : 'sGridCardItem__settings'"
     type="button"
     @click="(settingsModalVisible = true), matchEditStore.setModalData(item)"
   >
-    <svg-icon name="gear.svg" />
+    <svg-icon v-if="btnLabel === ''" name="gear.svg" />
+    <span v-else>{{ btnLabel }}</span>
   </Button>
   <Dialog
     class="edit-match"
@@ -105,7 +106,7 @@
                 class="team-img"
               />
               <span>{{ editMatch.a.command.post_title }} </span>
-              <span class="p-badge"> 3 453 </span>
+              <!-- <span class="p-badge"> 3 453 </span> -->
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
@@ -142,7 +143,7 @@
                 class="team-img"
               />
               <span>{{ editMatch.b.command.post_title }} </span>
-              <span class="p-badge"> 3 453 </span>
+              <!-- <span class="p-badge"> 3 453 </span> -->
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
@@ -189,32 +190,37 @@
 </template>
 
 <script setup>
-  import { useMatchEditStore } from '@/modules/tournaments/store/MatchEditStore';
-  const matchEditStore = useMatchEditStore();
-  const { editMatch, isFinished } = storeToRefs(matchEditStore);
+import { useMatchEditStore } from '@/modules/tournaments/store/MatchEditStore';
+const matchEditStore = useMatchEditStore();
+const { editMatch, isFinished } = storeToRefs(matchEditStore);
 
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-  const tournamentPageStore = useTournamentPageStore();
-  const settingsModalVisible = ref(false);
+import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+const tournamentPageStore = useTournamentPageStore();
+const settingsModalVisible = ref(false);
 
-  const props = defineProps({
-    item: {
-      type: Array,
-      required: true,
-    },
-  });
+const props = defineProps({
+  item: {
+    type: Array,
+    required: true,
+  },
+  btnLabel: {
+    type: String,
+    default: '',
+    required: false,
+  },
+});
 </script>
 
 <style lang="scss">
-  .edit-match {
-    .p-checkbox {
-      margin-right: 10px;
-      margin-bottom: 0.625rem;
-      position: relative;
-    }
+.edit-match {
+  .p-checkbox {
+    margin-right: 10px;
+    margin-bottom: 0.625rem;
+    position: relative;
   }
-  .flex {
-    display: flex;
-    align-items: center;
-  }
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
 </style>

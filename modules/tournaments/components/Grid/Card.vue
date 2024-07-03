@@ -10,8 +10,8 @@
     <template v-if="item.a">
       <div class="sGridCardItem__order">
         {{ item.indexPlus }}
-        <div v-if="isAccessRole">
-          <MatchModal v-if="item.id && item.b.command !== false" :item="item" />
+        <div v-if="isAccessRole && item.id && item.b.command !== false">
+          <MatchModal :item="item" />
         </div>
       </div>
       <div class="teams-group">
