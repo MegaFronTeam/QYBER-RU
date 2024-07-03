@@ -30,7 +30,7 @@
       <div class="steps-wrap">
         <div class="step step_active">
           <p><span>Анонсирован</span></p>
-          <p>{{ data.date_gmtStartReg }}</p>
+          <p>{{ formatDate(data.announcement) }}</p>
         </div>
         <div class="step">
           <p><span>Регистрация</span></p>
@@ -72,8 +72,8 @@
   </div>
 </template>
 <script setup>
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-  const tournamentStorePage = useTournamentPageStore();
+import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+const tournamentStorePage = useTournamentPageStore();
 
-  const { data } = storeToRefs(tournamentStorePage);
+const { data } = storeToRefs(tournamentStorePage);
 </script>
