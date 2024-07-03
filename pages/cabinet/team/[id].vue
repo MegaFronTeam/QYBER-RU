@@ -69,19 +69,21 @@
 </template>
 
 <script setup>
-  import ProfileHead from '@/components/cabinet/ProfileHead.vue';
-  import { useTeamStore } from '@/store/TeamStore';
-  const teamsStore = useTeamStore();
-  const { id } = useRoute().params;
+import ProfileHead from '@/components/cabinet/ProfileHead.vue';
+import { useTeamStore } from '@/store/TeamStore';
+const teamsStore = useTeamStore();
+const { id } = useRoute().params;
 
-  // import { useTournamentStore } from '@/store/TournamentStore';
-  // const tournamentStore = useTournamentStore();
+// import { useTournamentStore } from '@/store/TournamentStore';
+// const tournamentStore = useTournamentStore();
 
-  const { teamData, isCaptain } = storeToRefs(teamsStore);
+const { teamData, isCaptain } = storeToRefs(teamsStore);
 
-  import { useGlobalStore } from '@/store/globalStore';
-  import EditTeam from '~/components/cabinet/Team/EditTeam.vue';
-  const globalStore = useGlobalStore();
+console.log(teamData.value);
 
-  await teamsStore.fetchTeam(id);
+import { useGlobalStore } from '@/store/globalStore';
+import EditTeam from '~/components/cabinet/Team/EditTeam.vue';
+const globalStore = useGlobalStore();
+
+await teamsStore.fetchTeam(id);
 </script>
