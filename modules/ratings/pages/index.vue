@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeaderBlock title="Турниры" bg="/img/headerBlock-bg-9.jpg" class="sHeaderBlock">
+    <HeaderBlock title="Рейтинги" bg="/img/headerBlock-bg-9.jpg" class="sHeaderBlock">
       <ul class="sHeaderBlock__filter" v-if="false">
         <li>
           <Button class="active">Все лиги</Button>
@@ -28,15 +28,11 @@
         </li>
       </ul>
     </HeaderBlock>
-    <TournamentList />
+    <h2 class="container">Рейтинги</h2>
   </div>
-
-  <!-- <TournamentsListLast /> -->
 </template>
 <script setup>
-import TournamentList from '../components/TournamentList.vue';
-
 definePageMeta({
-  breadcrumbName: 'Турниры',
+  breadcrumbName: 'Рейтинги',
 });
 </script>
