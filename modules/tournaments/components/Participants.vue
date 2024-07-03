@@ -66,7 +66,6 @@
             <template #body="slotProps">
               <span class="rating">
                 {{ slotProps.data.company_name }}
-                {{ console.log(slotProps.data) }}
               </span>
             </template>
           </Column>
@@ -92,7 +91,8 @@
               </svg>
             </template>
             <template #body="slotProps">
-              <span class="rating">{{ slotProps.data.created_at2 }} </span>
+              <span class="rating">{{ formatDate(slotProps.data.created_at) }} </span>
+              {{ console.log(slotProps.data) }}
             </template>
           </Column>
           <!-- TODO: Tournament need data -->

@@ -71,9 +71,16 @@
                   v-for="(match, index) in matchesGrid"
                   :key="index"
                 >
+                  <!-- {{ index + 1 === matchesGrid.length ? 'asd' : '' }} -->
                   <template v-for="(item, indexSub) in match" :key="item.id">
                     <div class="tournament-table__group" v-if="indexSub % 2 === 0">
                       <Card :item="item" :index="indexSub" />
+                      <span
+                        v-if="index + 1 === matchesGrid.length && match.length === 2"
+                        class="mt-2 mb-2"
+                      >
+                        Матч за 3 место
+                      </span>
                       <Card
                         v-if="match[indexSub + 1]"
                         :item="match[indexSub + 1]"
@@ -165,9 +172,9 @@
 </template>
 
 <script setup>
-  import Card from './Card.vue';
-  import { useTournamentPageStore } from '~/modules/tournaments/store/TournamentPageStore';
-  const tournamentPageStore = useTournamentPageStore();
-  const { data, matchesGrid } = storeToRefs(tournamentPageStore);
-  console.log(matchesGrid.value);
+import Card from './Card.vue';
+import { useTournamentPageStore } from '~/modules/tournaments/store/TournamentPageStore';
+const tournamentPageStore = useTournamentPageStore();
+const { data, matchesGrid } = storeToRefs(tournamentPageStore);
+console.log(matchesGrid.value);
 </script>
