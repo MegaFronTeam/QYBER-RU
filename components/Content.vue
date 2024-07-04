@@ -18,7 +18,7 @@
             Перейти в Telegram
           </Button>
         </a>
-
+        <br />
         <a :href="globalStore.contacts.discord[0].link" style="margin-top: auto" target="_blank">
           <Button>
             <svg-icon :name="globalStore.contacts.discord[0].social.value" />

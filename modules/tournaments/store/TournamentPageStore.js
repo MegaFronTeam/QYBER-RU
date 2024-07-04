@@ -197,7 +197,8 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         if (data.comand_list) {
           data.teamLength = data.comand_list.length;
           data.comand_list = data.comand_list.map((item) => {
-            item.created_at = format(new Date(item.team.post_date), ' d MMMM yyy ', {
+            const data = item.created_at.split('/');
+            item.created_at = format(new Date(`${data[1]}-${data[0]}-${data[2]}`), ' d MMMM yyy ', {
               locale: ru,
             });
             item.created_at2 = format(new Date(item.team.post_date), 'EE, d MMMM yyyy  в HH:mm', {
