@@ -26,4 +26,26 @@ export default class UserServices {
       return Promise.reject(error);
     }
   };
+
+  static fetchNewsById = async (id: string) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/wp/v2/posts/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  };
+
+  static fetchNews = async (page: number, filters: string) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/wp/v2/posts?page=${page}${filters ? `${filters}` : ''}`,
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  };
 }
