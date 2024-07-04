@@ -1,31 +1,45 @@
 <template>
-  <div>
-    <CabinetProfileHead>
-      <h1 :class="true == true ? 'verifired' : ''">123123</h1>
-      <span class="sProfileHead__name">name</span>
-      <div class="sProfileHead__status online">Онлайн</div>
-      <div class="sProfileHead__time">На сайте с 10.10.10</div>
+  <div v-if="!raitingUserStore.error">
+    <CabinetProfileHead :img="data.user_avatar.url" :showInvites="false">
+      <h1 :class="data.in_verifications === true ? 'verifired' : ''">{{ data.user_nickname }}</h1>
+      <span class="sProfileHead__name">{{ data.display_name }}</span>
+      <!-- TODO: Check online status -->
+      <!-- <div class="sProfileHead__status online">Онлайн</div> -->
+      <div class="sProfileHead__time">На сайте с {{ raitingUserStore.getRegisteredDate }}</div>
 
       <div class="row">
-        <div class="col-auto">
-          <Badge severity="secondary" value="QYBER Атланты" class="p-badge-outline" />
-        </div>
-        <div class="col-auto">
-          <Badge severity="danger" value="QYBER Таланты" class="p-badge-outline" />
+        <div v-for="league in data.leagues" class="col-auto">
+          <Badge
+            :severity="league.slug === 'atlants' ? 'secondary' : 'danger'"
+            :value="league.name"
+            class="p-badge-outline"
+          />
         </div>
       </div>
     </CabinetProfileHead>
-    <!-- TODO: Сделать внутрений компонент "Команда игрока" -->
-    <CabinetMyProfileBlock />
+    <TeamBlock />
   </div>
+  <h1 class="container" v-else>{{ raitingUserStore.error }}</h1>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import TeamBlock from '../modules/ratings/components/TeamBlock';
 import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
+import { useRaitingUserStore } from '../modules/ratings/store/RaitingUserStore';
+import { useRaitingTeamStore } from '../modules/ratings/store/RaitingTeamStore';
+
+const route = useRoute();
 
 const breadcrumbsStore = useBreadcrumbsStore();
+const raitingUserStore = useRaitingUserStore();
+const raitingTeamStore = useRaitingTeamStore();
+
+const { data } = storeToRefs(raitingUserStore);
+
+await raitingUserStore.fetchUser(`/wp/v2/users/${route.params.id}`);
+await raitingTeamStore.fetchUserTeams(`/wp/v2/teams?member=${route.params.id}`);
 
 onMounted(() => {
-  breadcrumbsStore.setNameFromIds('123w/12');
+  breadcrumbsStore.setNameFromIds('Пользователь');
 });
 </script>

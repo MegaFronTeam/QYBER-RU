@@ -491,6 +491,6 @@ const jsonData = {
 };
 
 onMounted(() => {
-  breadcrumbsStore.setNameFromIds('123w');
+  breadcrumbsStore.setNameFromIds('Команда');
 });
 </script>
