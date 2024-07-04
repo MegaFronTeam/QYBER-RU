@@ -5,7 +5,7 @@
     class="btn-add-team w-full active-btn dashed secondary"
     @click="
       showRegModal = true;
-      ifReferee = true;
+      ifRefereePage = true;
       tournamentPageStore.indexGroupStore = +indexGroup;
       tournamentPageStore.indexCoupleStore = +indexCouple;
     "
@@ -50,7 +50,7 @@
 
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore.js';
   const tournamentPageStore = useTournamentPageStore();
-  const { ifReferee, formattedMatches } = storeToRefs(tournamentPageStore);
+  const { ifRefereePage, formattedMatches } = storeToRefs(tournamentPageStore);
 
   import { useRefereeStore } from '@/modules/tournaments/store/RefereeStore';
   const refereeStore = useRefereeStore();

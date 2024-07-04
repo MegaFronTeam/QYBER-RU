@@ -16,7 +16,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     comand_listLength: 0,
     indexGroupStore: 0,
     indexCoupleStore: 0,
-    ifReferee: false,
+    ifRefereePage: false,
     // matchesReferee: [],
     teamsForReg: [],
     formattedMatchesLength: 0,
@@ -128,7 +128,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       this.comand_listLength = 0;
       this.indexGroupStore = 0;
       this.indexCoupleStore = 0;
-      this.ifReferee = false;
+      this.ifRefereePage = false;
       // this.isNotStart = true;
       // this.matchesReferee = [];
       this.teamsForReg = [];
@@ -197,7 +197,8 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         if (data.comand_list) {
           data.teamLength = data.comand_list.length;
           data.comand_list = data.comand_list.map((item) => {
-            item.created_at = format(new Date(item.team.post_date), ' d MMMM yyy ', {
+            const data = item.created_at.split('/');
+            item.created_at = format(new Date(`${data[1]}-${data[0]}-${data[2]}`), ' d MMMM yyy ', {
               locale: ru,
             });
             item.created_at2 = format(new Date(item.team.post_date), 'EE, d MMMM yyyy  в HH:mm', {

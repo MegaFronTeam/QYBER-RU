@@ -4,7 +4,7 @@
       <div class="inner-wrapper">
         <div
           class="game-item__card"
-          v-for="item in ifReferee === true ? teamsForeferee : teamsForReg"
+          v-for="item in ifRefereePage === true ? teamsForeferee : teamsForReg"
         >
           <div class="">
             <NuxtLink
@@ -43,7 +43,7 @@
           </div>
           <div class="btn-wrapper">
             <template v-if="!hideForm">
-              <template v-if="ifReferee !== true">
+              <template v-if="ifRefereePage !== true">
                 <Button
                   v-if="!item.Approved"
                   @click="tournamentStore.regToTournament(item.ID, currentID)"
@@ -75,49 +75,49 @@
 </template>
 
 <script setup>
-// TODO: переделать на Store
-const visibleShow = ref(false);
-import { useTournamentStore } from '@/store/TournamentStore';
-const tournamentStore = useTournamentStore();
-import { useTeamStore } from '@/store/TeamStore';
-const teamsStore = useTeamStore();
-const { showRegModal, hideForm, currentID } = storeToRefs(tournamentStore);
+  // TODO: переделать на Store
+  const visibleShow = ref(false);
+  import { useTournamentStore } from '@/store/TournamentStore';
+  const tournamentStore = useTournamentStore();
+  import { useTeamStore } from '@/store/TeamStore';
+  const teamsStore = useTeamStore();
+  const { showRegModal, hideForm, currentID } = storeToRefs(tournamentStore);
 
-import { useGlobalStore } from '@/store/globalStore';
-const globalStore = useGlobalStore();
+  import { useGlobalStore } from '@/store/globalStore';
+  const globalStore = useGlobalStore();
 
-import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-const tournamentPageStore = useTournamentPageStore();
-const { ifReferee, teamsForReg } = storeToRefs(tournamentPageStore);
+  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  const tournamentPageStore = useTournamentPageStore();
+  const { ifRefereePage: ifRefereePage, teamsForReg } = storeToRefs(tournamentPageStore);
 
-import { useRefereeStore } from '@/modules/tournaments/store/RefereeStore';
-const refereeStore = useRefereeStore();
-const { teamsForeferee } = storeToRefs(refereeStore);
+  import { useRefereeStore } from '@/modules/tournaments/store/RefereeStore';
+  const refereeStore = useRefereeStore();
+  const { teamsForeferee } = storeToRefs(refereeStore);
 
-const route = useRoute();
+  const route = useRoute();
 
-const isRefereePage = ref(route.path.includes('/referee'));
+  const isRefereePage = ref(route.path.includes('/referee'));
 
-console.log('isRefereePage', isRefereePage.value);
+  console.log('isRefereePage', isRefereePage.value);
 
-onMounted(async () => {
-  if (ifReferee === true) {
-    await tournamentPageStore.checkTeamForReferee();
-  }
-});
+  onMounted(async () => {
+    if (ifRefereePage === true) {
+      await tournamentPageStore.checkTeamForReferee();
+    }
+  });
 
-const props = defineProps({
-  profileData: {
-    type: Object,
-    required: false,
-  },
-});
+  const props = defineProps({
+    profileData: {
+      type: Object,
+      required: false,
+    },
+  });
 </script>
 
 <style lang="scss">
-.modal-tournament-reg {
-  width: 100%;
-  max-width: 837px;
-}
-/* Your component's styles here */
+  .modal-tournament-reg {
+    width: 100%;
+    max-width: 837px;
+  }
+  /* Your component's styles here */
 </style>

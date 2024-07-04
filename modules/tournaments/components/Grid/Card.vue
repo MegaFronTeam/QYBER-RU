@@ -10,7 +10,7 @@
     <template v-if="item.a">
       <div class="sGridCardItem__order">
         {{ item.indexPlus }}
-        <div v-if="isAccessRole && item.id && item.b.command !== false">
+        <div v-if="isReferee && item.id && item.b.command !== false">
           <MatchModal :item="item" />
         </div>
       </div>
@@ -79,43 +79,44 @@
 </template>
 
 <script setup>
-import JoinGameModal from '../Match/JoinGameModal.vue';
-import MatchModal from './MatchModal.vue';
-import { useGlobalStore } from '~/store/globalStore';
+  import JoinGameModal from '../Match/JoinGameModal.vue';
+  import MatchModal from './MatchModal.vue';
+  import { useGlobalStore } from '~/store/globalStore';
 
-const props = defineProps({
-  item: {
-    type: Array,
-    required: true,
-  },
-  index: {
-    type: Number,
-    required: true,
-  },
-});
+  const props = defineProps({
+    item: {
+      type: Array,
+      required: true,
+    },
+    index: {
+      type: Number,
+      required: true,
+    },
+  });
 
-const { item } = props;
+  const { item } = props;
 
-const globalStore = useGlobalStore();
+  const globalStore = useGlobalStore();
+  const { isReferee, isUserAuth } = storeToRefs(globalStore);
 
-const isAccessRole = computed(() => {
-  if (globalStore.isUserAuth) {
-    if (globalStore.userData.roles.includes('administrator')) return true;
-    if (globalStore.userData.roles.includes('judge')) return true;
+  // const isAccessRole = computed(() => {
+  //   if (globalStore.isUserAuth) {
+  //     if (globalStore.userData.roles.includes('administrator')) return true;
+  //     if (globalStore.userData.roles.includes('judge')) return true;
+
+  //     return false;
+  //   }
+  //   return false;
+  // });
+
+  const isPlayerInMatch = computed(() => {
+    if (item.status.value === 'done') return false;
+
+    if (item.a.members && item.a.members.find((member) => member.id === globalStore.userData.ID))
+      return true;
+    if (item.b.members && item.b.members.find((member) => member.id === globalStore.userData.ID))
+      return true;
 
     return false;
-  }
-  return false;
-});
-
-const isPlayerInMatch = computed(() => {
-  if (item.status.value === 'done') return false;
-
-  if (item.a.members && item.a.members.find((member) => member.id === globalStore.userData.ID))
-    return true;
-  if (item.b.members && item.b.members.find((member) => member.id === globalStore.userData.ID))
-    return true;
-
-  return false;
-});
+  });
 </script>

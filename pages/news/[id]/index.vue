@@ -25,37 +25,38 @@
 
 <!-- TODO: move to store -->
 <script setup>
-import axios from 'axios';
-import { useRoute } from 'vue-router';
-import { useBreadcrumbsStore } from '@/store/BreadcrumbStore';
+  import axios from 'axios';
+  import { useRoute } from 'vue-router';
+  import { useBreadcrumbsStore } from '@/store/BreadcrumbStore';
 
-const breadcrumbsStore = useBreadcrumbsStore();
+  const breadcrumbsStore = useBreadcrumbsStore();
 
-const { id } = useRoute().params;
-const { data } = await axios.get(`https://api.qyber.ru/wp-json/wp/v2/posts/${id}`);
-// const router = useRoute();
+  const { id } = useRoute().params;
+  const { data } = await axios.get(`https://api.qyber.ru/wp-json/wp/v2/posts/${id}`);
 
-// console.log(data);
-// const title = ref('');
-// title.value = data.title.rendered;
-// definePageMeta({
-//   breadcrumbName: 'Статья',
-// });
+  // const router = useRoute();
 
-const subtitle = data.excerpt.rendered;
-// console.log(subtitle.split('<'));
-const date = new Date(data.date);
-const formattedDate = date
-  .toLocaleDateString('ru-RU', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  })
-  .slice(0, -3);
-const formattedTime = date.getHours() + ':' + date.getMinutes();
-// console.log(router);
+  // console.log(data);
+  // const title = ref('');
+  // title.value = data.title.rendered;
+  // definePageMeta({
+  //   breadcrumbName: 'Статья',
+  // });
 
-onMounted(() => {
-  breadcrumbsStore.setNameFromIds(data.title.rendered);
-});
+  const subtitle = data.excerpt.rendered;
+  // console.log(subtitle.split('<'));
+  const date = new Date(data.date);
+  const formattedDate = date
+    .toLocaleDateString('ru-RU', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    })
+    .slice(0, -3);
+  const formattedTime = date.getHours() + ':' + date.getMinutes();
+  // console.log(router);
+
+  onMounted(() => {
+    breadcrumbsStore.setNameFromIds(data.title.rendered);
+  });
 </script>

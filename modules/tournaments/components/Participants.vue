@@ -48,7 +48,13 @@
           <!-- TODO: Tournament need data -->
           <Column>
             <template #body="slotProps">
-              <span class="p-badge"> Зарегистрирована </span>
+              <span class="p-badge" v-if="slotProps.data.exit.length === 0">
+                Зарегистрирована
+              </span>
+              <!-- Выбыла в 1/32  -->
+              <span class="p-badge p-badge-gray" v-else>
+                Выбыла в раунде {{ slotProps.data.exit }}</span
+              >
             </template>
           </Column>
         </DataTable>
