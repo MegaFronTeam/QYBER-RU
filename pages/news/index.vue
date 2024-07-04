@@ -6,39 +6,14 @@
       bg="/img/headerBlock-bg-1.jpg"
     >
       <!-- TODO: добавить каттегории -->
-      <ul class="sHeaderBlock__filter" v-if="cat">
-        <li>
-          <Button class="active">Все лиги</Button>
-        </li>
-        <li>
-          <Button>Кибер Атланты</Button>
-        </li>
-        <li>
-          <Button>Кибер Таланты</Button>
-        </li>
-        <li>
-          <Button>Все дисциплины</Button>
-        </li>
-        <li>
-          <Button>
-            <svg-icon name="cs.svg" />
-            Counter Strike 2
-          </Button>
-        </li>
-        <li>
-          <Button>
-            <svg-icon name="dota.svg" />
-            Dota 2
-          </Button>
-        </li>
-      </ul>
+      <ShareFilterBlock />
     </HeaderBlock>
     <NewsList />
   </div>
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-  breadcrumbName: 'Новости',
-});
+  definePageMeta({
+    breadcrumbName: 'Новости',
+  });
 </script>

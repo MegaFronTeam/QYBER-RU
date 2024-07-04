@@ -12,6 +12,7 @@ export const useNewsStore = defineStore('newsStore', {
   },
   actions: {
     async fetchNews(params) {
+      this.data = [];
       this.data = await NewsServices.fetchNews(params);
       this.data = this.data.map((item) => {
         item.date = format(new Date(item.date), 'HH:mm, d MMMM yyyy', {
@@ -27,12 +28,12 @@ export const useNewsStore = defineStore('newsStore', {
       this.dataById.formattedDate = format(date, 'd MMMM yyyy, HH:mm', {
         locale: ru,
       });
+
       const leagues =
         this.dataById.leagues.length > 0 ? `&leagues=${this.dataById.leagues[0]}` : '';
       const discipline = this.dataById.discipline
         ? `&discipline=${this.dataById.discipline[0]}`
         : '';
-      this.data = [];
       await this.fetchNews(`?exclude=${id}&per_page=4${leagues}${discipline}`);
       // leagues=${leagues}&discipline=${discipline}&
     },

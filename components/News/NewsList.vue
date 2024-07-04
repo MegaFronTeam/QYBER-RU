@@ -38,7 +38,7 @@
 
   const totalRecords = ref(50);
 
-  newsStore.fetchNews(`?per_page=${totalRecords.value}`);
+  // newsStore.fetchNews(`?per_page=${totalRecords.value}`);
 
   const rowsPerPage = ref([5, 10, 50, 100]);
 </script>
