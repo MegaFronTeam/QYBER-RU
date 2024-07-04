@@ -46,14 +46,16 @@
                   </svg>
                 </template>
                 <template #body="slotProps">
-                  <div class="table-wrap">
-                    <img
-                      v-if="slotProps.data.avatar"
-                      :src="`${slotProps.data.avatar.url}`"
-                      alt="Avatar"
-                    />
-                    <span>{{ slotProps.data.user_nickname }}</span>
-                  </div>
+                  <NuxtLink :to="{ name: 'ratings-user', params: { id: slotProps.data.id } }">
+                    <div class="table-wrap">
+                      <img
+                        v-if="slotProps.data.avatar"
+                        :src="`${slotProps.data.avatar.url}`"
+                        alt="Avatar"
+                      />
+                      <span>{{ slotProps.data.user_nickname }}</span>
+                    </div>
+                  </NuxtLink>
                 </template>
               </Column>
               <Column

@@ -121,7 +121,9 @@
       </template>
       <template #body="slotProps">
         <div class="d-flex align-items-center">
-          <span class="small-text" style="margin-right: 1rem">Игрок</span>
+          <span class="small-text" style="margin-right: 1rem">{{
+            slotProps.data.author === +data.id ? 'Капитан' : 'Игрок'
+          }}</span>
           <NuxtLink
             :to="{ name: 'ratings-team', params: { id: slotProps.data.id } }"
             class="ms-auto"
@@ -136,8 +138,11 @@
 
 <script setup>
 import { useRaitingTeamStore } from '../store/RaitingTeamStore';
+import { useRaitingUserStore } from '../store/RaitingUserStore';
 
 const raitingTeamStore = useRaitingTeamStore();
+const raitingUserStore = useRaitingUserStore();
 
 const { userTeamData } = storeToRefs(raitingTeamStore);
+const { data } = storeToRefs(raitingUserStore);
 </script>

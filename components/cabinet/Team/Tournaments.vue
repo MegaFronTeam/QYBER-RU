@@ -1,5 +1,7 @@
 <template>
-  <DataTable :value="teamData.tournaments">
+  <DataTable
+    :value="teamData.tournaments ? teamData.tournaments : raitingTeamStore.teamData.tournaments"
+  >
     <Column :header-props="{ 'sort-icon': 'mdi-triangle-down' }" field="post_title" header="Турнир">
       <template #body="slotProps">
         <div class="table-wrap">
@@ -92,9 +94,13 @@
 </template>
 
 <script setup>
-  import { useTeamStore } from '~/store/TeamStore';
-  const teamStore = useTeamStore();
-  const { teamData } = storeToRefs(teamStore);
+import { useRaitingTeamStore } from '~/modules/ratings/store/RaitingTeamStore';
+import { useTeamStore } from '~/store/TeamStore';
+
+const teamStore = useTeamStore();
+const raitingTeamStore = useRaitingTeamStore();
+
+const { teamData } = storeToRefs(teamStore);
 </script>
 
 <style></style>
