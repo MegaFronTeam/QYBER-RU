@@ -110,7 +110,9 @@
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
-                <div class="secondary">Дисквалифицировать</div>
+                <div class="click-el secondary" @click="matchEditStore.updateMatch(true, 'a')">
+                  Дисквалифицировать
+                </div>
               </div>
             </div>
           </div>
@@ -122,6 +124,7 @@
             showButtons
             buttonLayout="horizontal"
             :step="1.0"
+            :disabled="editMatch.status.value === 'done'"
           >
             <template #incrementbuttonicon>
               <span>+</span>
@@ -147,7 +150,9 @@
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
-                <div class="secondary">Дисквалифицировать</div>
+                <div class="click-el secondary" @click="matchEditStore.updateMatch(true, 'b')">
+                  Дисквалифицировать
+                </div>
               </div>
             </div>
           </div>
@@ -159,6 +164,7 @@
             showButtons
             buttonLayout="horizontal"
             :step="1.0"
+            :disabled="editMatch.status.value === 'done'"
           >
             <template #incrementbuttonicon>
               <span>+</span>
@@ -190,37 +196,37 @@
 </template>
 
 <script setup>
-import { useMatchEditStore } from '@/modules/tournaments/store/MatchEditStore';
-const matchEditStore = useMatchEditStore();
-const { editMatch, isFinished } = storeToRefs(matchEditStore);
+  import { useMatchEditStore } from '@/modules/tournaments/store/MatchEditStore';
+  const matchEditStore = useMatchEditStore();
+  const { editMatch, isFinished } = storeToRefs(matchEditStore);
 
-import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-const tournamentPageStore = useTournamentPageStore();
-const settingsModalVisible = ref(false);
+  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  const tournamentPageStore = useTournamentPageStore();
+  const settingsModalVisible = ref(false);
 
-const props = defineProps({
-  item: {
-    type: Array,
-    required: true,
-  },
-  btnLabel: {
-    type: String,
-    default: '',
-    required: false,
-  },
-});
+  const props = defineProps({
+    item: {
+      type: Array,
+      required: true,
+    },
+    btnLabel: {
+      type: String,
+      default: '',
+      required: false,
+    },
+  });
 </script>
 
 <style lang="scss">
-.edit-match {
-  .p-checkbox {
-    margin-right: 10px;
-    margin-bottom: 0.625rem;
-    position: relative;
+  .edit-match {
+    .p-checkbox {
+      margin-right: 10px;
+      margin-bottom: 0.625rem;
+      position: relative;
+    }
   }
-}
-.flex {
-  display: flex;
-  align-items: center;
-}
+  .flex {
+    display: flex;
+    align-items: center;
+  }
 </style>

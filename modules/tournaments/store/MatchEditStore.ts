@@ -57,12 +57,18 @@ export const useMatchEditStore = defineStore('MatchEdit', {
       this.editMatch.date = formatDate(item.date, 'dd.MM.yyyy');
       this.editMatch.time = formatDate(item.date, 'HH:mm');
     },
-    async updateMatch(finish: boolean) {
-      const tournamentStore = useTournamentPageStore();
 
+    async updateMatch(finish: boolean, team: 'a' | 'b') {
+      const tournamentStore = useTournamentPageStore();
+      if (team) {
+        const winnerTeam = team === 'a' ? 'b' : 'a';
+        this.editMatch[team].counter = 0;
+        this.editMatch[winnerTeam].counter =
+          +this.editMatch[winnerTeam].counter === 0 ? 1 : +this.editMatch[winnerTeam].counter;
+      }
       const dataForm = {
-        counter_a: this.editMatch.a.counter,
-        counter_b: this.editMatch.b.counter,
+        counter_a: +this.editMatch.a.counter,
+        counter_b: +this.editMatch.b.counter,
         server: this.editMatch.server,
         discord: this.editMatch.discord,
         broadcast: this.editMatch.broadcast,

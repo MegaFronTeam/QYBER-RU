@@ -16,7 +16,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     comand_listLength: 0,
     indexGroupStore: 0,
     indexCoupleStore: 0,
-    ifReferee: false,
+    ifRefereePage: false,
     // matchesReferee: [],
     teamsForReg: [],
     formattedMatchesLength: 0,
@@ -128,7 +128,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       this.comand_listLength = 0;
       this.indexGroupStore = 0;
       this.indexCoupleStore = 0;
-      this.ifReferee = false;
+      this.ifRefereePage = false;
       // this.isNotStart = true;
       // this.matchesReferee = [];
       this.teamsForReg = [];
