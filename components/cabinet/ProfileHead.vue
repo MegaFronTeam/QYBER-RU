@@ -1,5 +1,5 @@
 <template>
-  <div class="container head-messages">
+  <div v-if="showInvites" class="container head-messages">
     <CabinetShowInvite />
     <CabinetAcredition />
   </div>
@@ -47,43 +47,48 @@
 </template>
 
 <script setup>
-  const props = defineProps({
-    img: {
-      type: String,
-      required: false,
-    },
-    profileData: {
-      type: Object,
-      required: '',
-    },
-    avatarText: {
-      type: String,
-      required: '',
-    },
-    isOnline: {
-      type: String,
-      required: '',
-    },
-  });
-  const { img, avatarText } = toRefs(props);
+const props = defineProps({
+  img: {
+    type: String,
+    required: false,
+  },
+  profileData: {
+    type: Object,
+    required: '',
+  },
+  avatarText: {
+    type: String,
+    required: '',
+  },
+  isOnline: {
+    type: String,
+    required: '',
+  },
+  showInvites: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
+});
+const { img, avatarText } = toRefs(props);
 
-  const home = ref({
-    label: 'Главная',
-    route: '/',
-  });
+const home = ref({
+  label: 'Главная',
+  route: '/',
+});
 
-  // const imgRef = ref(img);
-  // const avatarTextRef = ref(avatarText);
-  const allMaches = 678;
-  const winMaches = 479;
-  const looseMaches = 112;
-  const drawMaches = 87;
-  const progressBarStyle = computed(() => {
-    const winRate = (winMaches / allMaches) * 100;
-    const loseRate = (looseMaches / allMaches) * 100;
-    return {
-      '--winRate': `${winRate}`,
-      '--loseRate': `${loseRate}`,
-    };
-  });
+// const imgRef = ref(img);
+// const avatarTextRef = ref(avatarText);
+const allMaches = 678;
+const winMaches = 479;
+const looseMaches = 112;
+const drawMaches = 87;
+const progressBarStyle = computed(() => {
+  const winRate = (winMaches / allMaches) * 100;
+  const loseRate = (looseMaches / allMaches) * 100;
+  return {
+    '--winRate': `${winRate}`,
+    '--loseRate': `${loseRate}`,
+  };
+});
 </script>

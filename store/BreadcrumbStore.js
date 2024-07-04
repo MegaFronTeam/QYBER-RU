@@ -35,7 +35,7 @@ export const useBreadcrumbsStore = defineStore('breadcrumbs', {
       currPagePathArr.forEach((route, index) => {
         customPath += route;
         const result = routes.find((item) => item.path === customPath);
-        // console.log(result);
+        // console.log(this.lastBreadcrumb);
         if (result) {
           if (route.includes('/:id()')) {
             this.items.push(this.lastBreadcrumb);

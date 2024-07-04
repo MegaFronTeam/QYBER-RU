@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeaderBlock title="Рейтинги" bg="/img/headerBlock-bg-9.jpg" class="sHeaderBlock">
+    <HeaderBlock title="Рейтинги" bg="/img/headerBlock-bg-10.jpg" class="sHeaderBlock">
       <ul class="sHeaderBlock__filter" v-if="false">
         <li>
           <Button class="active">Все лиги</Button>
@@ -28,10 +28,12 @@
         </li>
       </ul>
     </HeaderBlock>
-    <h2 class="container">Рейтинги</h2>
+    <RaitingBlock />
   </div>
 </template>
 <script setup>
+import RaitingBlock from '@/modules/ratings/components/RaitingBlock';
+
 definePageMeta({
   breadcrumbName: 'Рейтинги',
 });

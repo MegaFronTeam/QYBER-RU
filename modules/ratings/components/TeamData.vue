@@ -1,18 +1,5 @@
 <template>
-  <Dialog v-model:visible="visibleShow" modal header="Вы уверены, что хотите удалить команду?">
-    <p>
-      В случае если вы удалите команду, вся информация о ней исчезнет без возможности восстановления
-    </p>
-    <div class="row">
-      <div class="col">
-        <Button severity="primary" @click="visibleShow = false" outlined>Да</Button>
-      </div>
-      <div class="col">
-        <Button @click="visibleShow = false">Нет</Button>
-      </div>
-    </div>
-  </Dialog>
-  <DataTable v-if="myTeams" :value="myTeams">
+  <DataTable v-if="userTeamData && userTeamData.length" :value="userTeamData">
     <Column :header-props="{ 'sort-icon': 'mdi-triangle-down' }" field="nickname" header="Название">
       <template #sorticon="slotProps">
         <svg
@@ -32,8 +19,8 @@
       <template #body="slotProps">
         <div class="table-wrap">
           <img
-            v-if="slotProps.data.thumbnail_url"
-            :src="`${slotProps.data.thumbnail_url}`"
+            v-if="slotProps.data.post_thumbnail"
+            :src="`${slotProps.data.post_thumbnail}`"
             alt="Avatar"
           />
           <span>{{ slotProps.data.post_title }}</span>
@@ -57,9 +44,12 @@
         </svg>
       </template>
       <template #body="slotProps">
-        <span v-if="slotProps.data.discipline" class="p-badge p-badge-gray">
-          <!-- <svg-icon :name="slotProps.data.game.icon" /> -->
-          {{ slotProps.data.discipline.name }}
+        <span
+          v-if="slotProps.data.discipline"
+          v-for="discipline in slotProps.data.discipline"
+          class="p-badge p-badge-gray"
+        >
+          {{ discipline.name }}
         </span>
       </template>
     </Column>
@@ -82,9 +72,10 @@
       <template #body="slotProps">
         <Badge
           v-if="slotProps.data.leagues"
-          :severity="slotProps.data.leagues.name == 'QYBER Атланты' ? 'secondary' : 'danger'"
+          v-for="league in slotProps.data.leagues"
+          :severity="league.name == 'QYBER Атланты' ? 'secondary' : 'danger'"
           class="p-badge-outline"
-          :value="slotProps.data.leagues.name"
+          :value="league.name"
         />
       </template>
     </Column>
@@ -109,7 +100,7 @@
         </svg>
       </template>
       <template #body="slotProps">
-        <span class="small-text">{{ slotProps.data.count_members }}</span>
+        <span class="small-text">{{ slotProps.data.members.length }}</span>
       </template>
     </Column>
     <Column :header-props="{ 'sort-icon': 'mdi-triangle-down' }" field="role" header="Роль">
@@ -130,21 +121,13 @@
       </template>
       <template #body="slotProps">
         <div class="d-flex align-items-center">
-          <span class="small-text" style="margin-right: 1rem">{{
-            slotProps.data.post_author === userData.ID ? 'Капитан' : 'Игрок'
-          }}</span>
-          <NuxtLink :to="`cabinet/team/${slotProps.data.ID}`" class="ms-auto">
-            <Button
-              v-if="slotProps.data.post_author === userData.ID"
-              label="Управлять"
-              class="btn-sm"
-            />
-            <Button v-else severity="gray" label="Перейти" class="btn-sm" />
+          <span class="small-text" style="margin-right: 1rem">Игрок</span>
+          <NuxtLink
+            :to="{ name: 'ratings-team', params: { id: slotProps.data.id } }"
+            class="ms-auto"
+          >
+            <Button severity="gray" label="Перейти" class="btn-sm" />
           </NuxtLink>
-          <CabinetTeamDelete
-            v-if="slotProps.data.post_author === userData.ID"
-            :id="slotProps.data.ID"
-          />
         </div>
       </template>
     </Column>
@@ -152,18 +135,9 @@
 </template>
 
 <script setup>
-import { useGlobalStore } from '@/store/globalStore';
-const globalStore = useGlobalStore();
-const { userData } = storeToRefs(globalStore);
+import { useRaitingTeamStore } from '../store/RaitingTeamStore';
 
-import { useTeamStore } from '@/store/TeamStore';
-const teamsStore = useTeamStore();
+const raitingTeamStore = useRaitingTeamStore();
 
-const { myTeams } = storeToRefs(teamsStore);
-const visibleShow = ref(false);
-
-// import { useUserStore } from '@/store/userStore';
-// const userStore = useUserStore();
-
-teamsStore.fetchMyTeams();
+const { userTeamData } = storeToRefs(raitingTeamStore);
 </script>
