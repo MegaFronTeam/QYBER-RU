@@ -5,7 +5,7 @@
     <TournamentsListLast />
 
     <MainContentBlock :sectionTitle="sectionTitleNewsProps" :footerLink="footerLinkNewsProps">
-      <NewsCard v-for="item of data" :newsData="item" :key="item.id" />
+      <NewsCard v-for="item of data" :data="item" :key="item.id" />
     </MainContentBlock>
   </div>
 </template>
@@ -14,7 +14,7 @@
   import { useNewsStore } from '@/store/NewsStore';
   const newsStore = useNewsStore();
   const { data } = storeToRefs(newsStore);
-  newsStore.fetchNews(4);
+  newsStore.fetchNews('?per_page=4');
 
   const sectionTitleNewsProps = {
     title: 'Последние новости',

@@ -26,7 +26,7 @@
         </div>
         <TabView v-model:activeIndex="active">
           <TabPanel>
-            <DataTable v-if="checked" :value="upcomingTournaments" removableSort>
+            <DataTable v-if="checked" :value="getLast" removableSort>
               <Column field="tournament" header="Турнир">
                 <template #body="slotProps">
                   <NuxtLink class="text-link" :to="'/tournaments/' + slotProps.data.id">
@@ -78,7 +78,7 @@
               </Column>
             </DataTable>
             <div v-else class="sMainContentBlock__row row">
-              <TournamentsCard v-for="item of upcomingTournaments" :newsData="item" />
+              <TournamentsCard v-for="item of getLast" :newsData="item" />
             </div>
           </TabPanel>
           <TabPanel>
@@ -189,35 +189,36 @@
   </section>
 </template>
 <script setup>
-import { useRoute, useRouter } from 'vue-router';
-import { useTournamentStore } from '@/store/TournamentStore';
+  import { useRoute, useRouter } from 'vue-router';
+  import { useTournamentStore } from '@/store/TournamentStore';
 
-const route = useRoute();
-const router = useRouter();
-const tournamentStore = useTournamentStore();
-const { upcomingTournaments, currentTournaments, endedTournaments } = storeToRefs(tournamentStore);
+  const route = useRoute();
+  const router = useRouter();
+  const tournamentStore = useTournamentStore();
+  const { getLast, currentTournaments, endedTournaments } = storeToRefs(tournamentStore);
 
-const querryList = ref({
-  tab: route.query.tab ? Number(route.query.tab) : 1,
-  grid: route.query.grid ? Boolean(route.query.grid) : false,
-});
-const active = ref(querryList.value.tab);
-const checked = ref(querryList.value.grid);
-
-const clickOnTab = (id) => {
-  active.value = id;
-  router.push({
-    query: { ...route.query, tab: id },
+  const querryList = ref({
+    tab: route.query.tab ? Number(route.query.tab) : 1,
+    grid: route.query.grid ? Boolean(route.query.grid) : false,
   });
-};
+  const active = ref(querryList.value.tab);
+  const checked = ref(querryList.value.grid);
 
-const clickOnStandings = (state) => {
-  router.push({
-    query: { ...route.query, grid: state },
+  const clickOnTab = (id) => {
+    active.value = id;
+    router.push({
+      query: { ...route.query, tab: id },
+    });
+  };
+
+  const clickOnStandings = (state) => {
+    router.push({
+      query: { ...route.query, grid: state },
+    });
+  };
+
+  tournamentStore.getAll().then(() => {
+    tournamentStore.getLastFetch();
+    tournamentStore.sortTournamnts();
   });
-};
-
-tournamentStore.getAll().then(() => {
-  tournamentStore.sortTournamnts();
-});
 </script>

@@ -3,11 +3,12 @@
     <div class="container">
       <div class="template">
         <div class="sNews__list">
-          <NewsCard v-if="pending" :skeleton="true" :newsData="{}" v-for="n in 6" />
-          <NewsCard v-for="item of data" v-else :newsData="item" :key="item.id" />
+          <NewsCard v-if="pending" :skeleton="true" :data="{}" v-for="n in 6" />
+          <NewsCard v-for="item of data" v-else :data="item" :key="item.id" />
         </div>
       </div>
       <!-- v-if="data.length > rowsPerPage[0]" -->
+      <!-- TODO: add paginator -->
       <div v-if="false" class="template template--footer">
         <Paginator
           :rows="rowsPerPage[0]"
@@ -31,11 +32,13 @@
 </template>
 
 <script setup>
-import { useNewsStore } from '@/store/NewsStore';
-const newsStore = useNewsStore();
-const { data } = storeToRefs(newsStore);
-newsStore.fetchNews(50);
+  import { useNewsStore } from '@/store/NewsStore';
+  const newsStore = useNewsStore();
+  const { data } = storeToRefs(newsStore);
 
-const totalRecords = ref(10);
-const rowsPerPage = ref([5, 10, 50, 100]);
+  const totalRecords = ref(50);
+
+  newsStore.fetchNews(`?per_page=${totalRecords.value}`);
+
+  const rowsPerPage = ref([5, 10, 50, 100]);
 </script>
