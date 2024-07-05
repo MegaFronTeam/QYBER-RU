@@ -50,6 +50,11 @@
         Еще нет аккаунта?
         <NuxtLink to="/auth/registration" class="text-primary">Регистрация</NuxtLink>
       </div>
+
+      <div class="mb-3 text-center" style="font-size: 14px">
+        Забыли пароль?
+        <NuxtLink to="/auth/reset-password" class="text-primary">Восстановить</NuxtLink>
+      </div>
     </form>
   </sFormPage>
 </template>
