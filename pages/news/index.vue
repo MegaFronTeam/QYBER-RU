@@ -6,13 +6,16 @@
       bg="/img/headerBlock-bg-1.jpg"
     >
       <!-- TODO: добавить каттегории -->
-      <ShareFilterBlock />
+      <ShareFilterBlock :fetchMethod="newsStore.fetchNews" />
     </HeaderBlock>
     <NewsList />
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
+  import { useNewsStore } from '~/store/NewsStore';
+  const newsStore = useNewsStore();
+
   definePageMeta({
     breadcrumbName: 'Новости',
   });

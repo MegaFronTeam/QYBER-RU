@@ -53,13 +53,20 @@
 </template>
 
 <script setup>
-  import { useNewsStore } from '~/store/NewsStore';
-  const newsStore = useNewsStore();
+  const props = defineProps({
+    fetchMethod: {
+      type: Function,
+      required: true,
+    },
+  });
+
+  const { fetchMethod } = props;
 
   const filter = ref({
     leagues: 0,
     discipline: 0,
   });
+
   const changeFilter = (key, value, notFetch) => {
     filter.value[key] = value;
     console.log(filter.value);
@@ -70,31 +77,34 @@
       }${discipline === 0 ? '' : `discipline=${discipline}`}`;
       // Set filter to browser path
       history.pushState(null, '', path);
-      newsStore.fetchNews(path);
+      fetchMethod(path);
     }
   };
 
   onMounted(() => {
-    if (history.state) {
+    if (history.state && history.state.current.length > 1) {
       const getArr = history.state.current.split('?');
       const path = getArr[1] ? `?${getArr[1]}` : '';
       const leagues = path.match(/leagues=(\d+)/);
       const discipline = path.match(/discipline=(\d+)/);
       // const { leagues, discipline } = history.state;
-      console.log(leagues, discipline);
+      // console.log(leagues, discipline);
       filter.value.leagues = leagues ? +leagues[1] : 0;
       filter.value.discipline = discipline ? +discipline[1] : 0;
       changeFilter('leagues', filter.value.leagues, true);
       changeFilter('discipline', filter.value.discipline, true);
-      newsStore.fetchNews(path);
+
+      fetchMethod(path);
     } else {
-      newsStore.fetchNews();
+      fetchMethod();
     }
   });
 </script>
 
 <style scoped>
   .flex {
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 3rem;
     flex-wrap: wrap;
     /* align-items: center; */
@@ -103,5 +113,8 @@
   }
   ul {
     margin-top: 0;
+  }
+  button.active {
+    pointer-events: none;
   }
 </style>
