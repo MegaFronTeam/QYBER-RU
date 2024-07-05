@@ -29,12 +29,11 @@ export const useNewsStore = defineStore('newsStore', {
         locale: ru,
       });
 
-      const leagues =
-        this.dataById.leagues.length > 0 ? `&leagues=${this.dataById.leagues[0]}` : '';
-      const discipline = this.dataById.discipline
-        ? `&discipline=${this.dataById.discipline[0]}`
-        : '';
-      await this.fetchNews(`?exclude=${id}&per_page=4${leagues}${discipline}`);
+      // const leagues =
+      //   this.dataById.leagues.length > 0 ? `&leagues=${this.dataById.leagues[0]}` : '';
+      // const discipline =
+      //   this.dataById.discipline.length > 0 ? `&discipline=${this.dataById.discipline[0]}` : '';
+      await this.fetchNews(`?exclude=${id}&per_page=4`);
       // leagues=${leagues}&discipline=${discipline}&
     },
   },
