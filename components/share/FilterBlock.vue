@@ -6,14 +6,11 @@
           >Все лиги</Button
         >
       </li>
-      <li>
-        <Button :class="{ active: filter.leagues === 9 }" @click="changeFilter('leagues', 9)"
-          >Кибер Атланты</Button
-        >
-      </li>
-      <li>
-        <Button :class="{ active: filter.leagues === 10 }" @click="changeFilter('leagues', 10)"
-          >Кибер Таланты</Button
+      <li v-for="item in leagues" :key="item.id">
+        <Button
+          :class="{ active: filter.leagues === item.id }"
+          @click="changeFilter('leagues', item.id)"
+          >{{ item.name }}</Button
         >
       </li>
     </ul>
@@ -23,44 +20,32 @@
           >Все дисциплины</Button
         >
       </li>
-      <li>
+      <li v-for="item in discipline" :key="item.id">
         <Button
-          :class="{ active: filter.discipline === 17 }"
-          @click="changeFilter('discipline', 17)"
+          :class="{ active: filter.discipline === item.id }"
+          @click="changeFilter('discipline', item.id)"
+          >{{ item.name }}</Button
         >
-          <svg-icon name="cs.svg" />
-          Counter Strike 2
-        </Button>
-      </li>
-      <li>
-        <Button :class="{ active: filter.discipline === 2 }" @click="changeFilter('discipline', 2)">
-          <svg-icon name="dota.svg" />
-          Dota 2
-        </Button>
-      </li>
-
-      <li>
-        <Button
-          :class="{ active: filter.discipline === 20 }"
-          @click="changeFilter('discipline', 20)"
-        >
-          <!-- <svg-icon name="dota.svg" /> -->
-          fifa
-        </Button>
       </li>
     </ul>
   </div>
 </template>
 
 <script setup>
+  import { useFilterStore } from '@/store/FilterStore';
+
   const props = defineProps({
     fetchMethod: {
       type: Function,
       required: true,
     },
   });
-
   const { fetchMethod } = props;
+
+  const filterStore = useFilterStore();
+  filterStore.fetchLeagues();
+  filterStore.fetchDiscipline();
+  const { leagues, discipline } = storeToRefs(filterStore);
 
   const filter = ref({
     leagues: 0,
