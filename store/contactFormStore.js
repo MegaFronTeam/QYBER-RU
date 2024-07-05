@@ -26,13 +26,24 @@ export const useContactStore = defineStore('contact', () => {
   });
 
   const submit = async () => {
-    console.log(dataForm.value);
+    if (dataForm.value.email == '' && dataForm.value.email) {
+      showToast('error', 'Ошибка', 'Заполните поле Email');
+      return;
+    } else if (
+      dataForm.value.email.match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      ) ||
+      dataForm.value.email.length < 5
+    ) {
+      showToast('error', 'Ошибка', 'Некорректный email');
+      return;
+    }
     try {
       const response = await axios.post(`${BASE_URL}/feedback/v1/contacts`, dataForm.value);
       const data = await response;
 
       console.log(data);
-      if (data == true) {
+      if (data.data == true) {
         showToast('success', 'Заявка отправлена', 'Мы свяжемся с вами в ближайшее время');
         dataForm.value = {
           email: '',
