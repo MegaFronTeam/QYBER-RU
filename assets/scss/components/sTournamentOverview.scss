@@ -1033,9 +1033,13 @@
     overflow: hidden;
     width: rem(96);
     margin-bottom: rem(12);
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(xxl) {
       width: rem(240);
       max-width: 18vw;
+    }
+    @include media-breakpoint-up(lg) {
+      width: rem(180);
+      max-width: 16vw;
       margin-bottom: rem(18);
     }
     .img {

@@ -31,6 +31,7 @@ enum MatchStatus {
 
 export interface commandInterface {
   command: {
+    ID: number;
     post_title: string;
     post_thumbnail: string;
   };

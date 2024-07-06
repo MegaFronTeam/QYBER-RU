@@ -1,12 +1,12 @@
 <template>
   <div class="sMatchHeader">
     <div class="sMatchHeader__item">
-      <div class="sMatchHeader__item-inner">
+      <RouterLink class="sMatchHeader__item-inner" :to="'/ratings/' + dataMatch.a?.command.ID">
         <div class="img-wrap">
           <img :src="dataMatch.a?.command.post_thumbnail" alt="Avatar" class="img" />
         </div>
         <div class="sMatchHeader__status">{{ dataMatch.a?.command.post_title }}</div>
-      </div>
+      </RouterLink>
     </div>
     <div class="sMatchHeader__item description">
       <p>VS</p>
@@ -20,34 +20,37 @@
       <p>{{ dataMatch.status?.label }}</p>
     </div>
     <div class="sMatchHeader__item">
-      <div class="sMatchHeader__item-inner">
+      <RouterLink class="sMatchHeader__item-inner" :to="'/ratings/' + dataMatch.b?.command.ID">
         <div class="img-wrap">
-          <img :src="dataMatch.b?.command.post_thumbnail" alt="Avatar" class="img" />
+          <img :src="dataMatch.b?.command.post_thumbnail" alt="" class="img" />
         </div>
         <div class="sMatchHeader__status">{{ dataMatch.b?.command.post_title }}</div>
-      </div>
+      </RouterLink>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-const tournamentPageStore = useTournamentPageStore();
-const { data } = storeToRefs(tournamentPageStore);
+  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  const tournamentPageStore = useTournamentPageStore();
+  const { data } = storeToRefs(tournamentPageStore);
 
-import { useMyMatchStore } from '@/modules/tournaments/store/MatchStore';
-const matchStore = useMyMatchStore();
-const { dataMatch } = storeToRefs(matchStore);
+  import { useMyMatchStore } from '@/modules/tournaments/store/MatchStore';
+  const matchStore = useMyMatchStore();
+  const { dataMatch } = storeToRefs(matchStore);
 </script>
 <style scoped lang="scss">
-.img-wrap {
-  aspect-ratio: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img {
-    max-width: 100%;
-    flex: 0 0 auto;
+  .img-wrap {
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      max-width: 100%;
+      flex: 0 0 auto;
+    }
   }
-}
+  .sMatchHeader__item-inner {
+    color: inherit;
+  }
 </style>
