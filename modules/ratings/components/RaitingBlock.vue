@@ -2,7 +2,7 @@
   <section class="sTournamentList">
     <div class="container">
       <div class="template">
-        <DataTable :value="data">
+        <DataTable :value="data" :rows="tableRows" paginator :rowsPerPageOptions="rowsPerPage">
           <Column field="place" header="Место">
             <!-- sortable
             <template #sorticon="slotProps">
@@ -97,6 +97,7 @@
             <template #body="slotProps">{{ slotProps.data.rating }}</template>
           </Column>
         </DataTable>
+        <!-- <SharePagination /> -->
       </div>
     </div>
   </section>
@@ -107,8 +108,10 @@
   const ratingStore = UseRatingStore();
   const { data } = storeToRefs(ratingStore);
 
-  ratingStore.fetchRatings();
-  onMounted(() => {});
+  const tableRows = ref(10);
+  // const parePage = ref(10);
+  const totalRecords = ref(100);
+  const rowsPerPage = ref([10, 50, 100]);
 </script>
 
 <style>

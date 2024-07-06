@@ -33,7 +33,7 @@
 
 <script setup>
   import { useFilterStore } from '@/store/FilterStore';
-
+  const router = useRouter();
   const props = defineProps({
     fetchMethod: {
       type: Function,
@@ -67,17 +67,15 @@
   };
 
   onMounted(() => {
-    if (history.state && history.state.current.length > 1) {
-      const getArr = history.state.current.split('?');
-      const path = getArr[1] ? `?${getArr[1]}` : '';
-      const leagues = path.match(/leagues=(\d+)/);
-      const discipline = path.match(/discipline=(\d+)/);
-      // const { leagues, discipline } = history.state;
-      // console.log(leagues, discipline);
-      filter.value.leagues = leagues ? +leagues[1] : 0;
-      filter.value.discipline = discipline ? +discipline[1] : 0;
+    if (router.currentRoute.value.query.leagues || router.currentRoute.value.query.discipline) {
+      filter.value.leagues = +router.currentRoute.value.query.leagues || 0;
+      filter.value.discipline = +router.currentRoute.value.query.discipline || 0;
       changeFilter('leagues', filter.value.leagues, true);
       changeFilter('discipline', filter.value.discipline, true);
+
+      const path = `?${filter.value.leagues === 0 ? '' : `leagues=${filter.value.leagues}`}${
+        filter.value.leagues && filter.value.discipline ? '&' : ''
+      }${filter.value.discipline === 0 ? '' : `discipline=${filter.value.discipline}`}`;
 
       fetchMethod(path);
     } else {
