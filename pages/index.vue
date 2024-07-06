@@ -12,6 +12,7 @@
 
 <script setup>
   import { useNewsStore } from '@/store/NewsStore';
+
   const newsStore = useNewsStore();
   const { data } = storeToRefs(newsStore);
   newsStore.fetchNews('?per_page=4');

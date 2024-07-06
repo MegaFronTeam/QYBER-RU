@@ -34,13 +34,18 @@
 <script setup>
   import { useFilterStore } from '@/store/FilterStore';
   const router = useRouter();
+  const route = useRoute();
   const props = defineProps({
     fetchMethod: {
       type: Function,
       required: true,
     },
+    firstAction: {
+      type: Boolean,
+      default: true,
+    },
   });
-  const { fetchMethod } = props;
+  const { fetchMethod, firstAction } = props;
 
   const filterStore = useFilterStore();
   filterStore.fetchLeagues();
@@ -61,25 +66,31 @@
         leagues && discipline ? '&' : ''
       }${discipline === 0 ? '' : `discipline=${discipline}`}`;
       // Set filter to browser path
-      history.pushState(null, '', path);
+      router.push({
+        query: { ...route.query, ...filter.value },
+      });
       fetchMethod(path);
     }
   };
 
   onMounted(() => {
-    if (router.currentRoute.value.query.leagues || router.currentRoute.value.query.discipline) {
-      filter.value.leagues = +router.currentRoute.value.query.leagues || 0;
-      filter.value.discipline = +router.currentRoute.value.query.discipline || 0;
-      changeFilter('leagues', filter.value.leagues, true);
-      changeFilter('discipline', filter.value.discipline, true);
+    if (firstAction === true) {
+      if (router.currentRoute.value.query.leagues || router.currentRoute.value.query.discipline) {
+        filter.value = {
+          leagues: Number(router.currentRoute.value.query.leagues) || 0,
+          discipline: Number(router.currentRoute.value.query.discipline) || 0,
+        };
+        changeFilter('leagues', filter.value.leagues, true);
+        changeFilter('discipline', filter.value.discipline, true);
 
-      const path = `?${filter.value.leagues === 0 ? '' : `leagues=${filter.value.leagues}`}${
-        filter.value.leagues && filter.value.discipline ? '&' : ''
-      }${filter.value.discipline === 0 ? '' : `discipline=${filter.value.discipline}`}`;
+        const path = `?${filter.value.leagues === 0 ? '' : `leagues=${filter.value.leagues}`}${
+          filter.value.leagues && filter.value.discipline ? '&' : ''
+        }${filter.value.discipline === 0 ? '' : `discipline=${filter.value.discipline}`}`;
 
-      fetchMethod(path);
-    } else {
-      fetchMethod();
+        fetchMethod(path);
+      } else {
+        fetchMethod();
+      }
     }
   });
 </script>

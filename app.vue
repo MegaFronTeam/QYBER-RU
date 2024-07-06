@@ -7,55 +7,49 @@
 </template>
 
 <script setup>
-import { useTournamentStore } from '@/store/TournamentStore';
-import { useGlobalStore } from '@/store/globalStore';
-import { useToast } from 'primevue/usetoast';
-// import { useBreadcrumbsStore } from '@/store/BreadcrumbStore';
-// const breadcrumbsStore = useBreadcrumbsStore();
+  import { useGlobalStore } from '@/store/globalStore';
+  import { useToast } from 'primevue/usetoast';
+  // import { useBreadcrumbsStore } from '@/store/BreadcrumbStore';
+  // const breadcrumbsStore = useBreadcrumbsStore();
 
-const tournamentStore = useTournamentStore();
-const globalStore = useGlobalStore();
-const lazyShow = ref(true);
+  const globalStore = useGlobalStore();
+  const lazyShow = ref(true);
 
-setTimeout(() => {
-  lazyShow.value = false;
-}, 100);
-onMounted(async () => {
-  tournamentStore.getAll();
-  // breadcrumbsStore.createBreadcrumb();
-});
-definePageMeta({
-  colorMode: 'light',
-});
+  setTimeout(() => {
+    lazyShow.value = false;
+  }, 100);
+  definePageMeta({
+    colorMode: 'light',
+  });
 </script>
 
 <style>
-@import './assets/scss/normalize.scss';
-@import './assets/scss/main.scss';
-.page-enter-active,
-.page-leave-active {
-  transition: all 0.1s;
-}
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
-  filter: blur(1rem);
-}
-.layout-enter-active,
-.layout-leave-active {
-  transition: all 0.1s;
-}
-.layout-enter-from,
-.layout-leave-to {
-  opacity: 0;
-  filter: blur(1rem);
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.1s;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+  @import './assets/scss/normalize.scss';
+  @import './assets/scss/main.scss';
+  .page-enter-active,
+  .page-leave-active {
+    transition: all 0.1s;
+  }
+  .page-enter-from,
+  .page-leave-to {
+    opacity: 0;
+    filter: blur(1rem);
+  }
+  .layout-enter-active,
+  .layout-leave-active {
+    transition: all 0.1s;
+  }
+  .layout-enter-from,
+  .layout-leave-to {
+    opacity: 0;
+    filter: blur(1rem);
+  }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.1s;
+  }
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
 </style>

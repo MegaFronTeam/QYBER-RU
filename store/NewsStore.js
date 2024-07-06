@@ -11,7 +11,7 @@ export const useNewsStore = defineStore('newsStore', {
     dataLast: (state) => state.data.slice(0, 3) || [],
   },
   actions: {
-    async fetchNews(params) {
+    async fetchNews(params = '') {
       this.data = [];
       this.data = await NewsServices.fetchNews(params);
       this.data = this.data.map((item) => {
