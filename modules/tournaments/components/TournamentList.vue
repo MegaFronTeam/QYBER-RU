@@ -3,15 +3,24 @@
     <div class="container">
       <div class="template template--header">
         <div class="btn-wrap template-wrap">
-          <Button @click="clickOnTab(0)" :class="active === 0 ? 'active' : ''">
+          <Button
+            @click="clickOnTab('nearest')"
+            :class="queryList.time === 'nearest' ? 'active' : ''"
+          >
             Предстоящие
           </Button>
           <!-- v-if="teamsStore.myTeamsCount > 0" -->
-          <Button @click="clickOnTab(1)" :class="active === 1 ? 'active' : ''">
+          <Button
+            @click="clickOnTab('current')"
+            :class="queryList.time === 'current' ? 'active' : ''"
+          >
             Текущие
             <!-- <Badge v-if="currentTournaments.length > 0" :value="currentTournaments.length" /> -->
           </Button>
-          <Button @click="clickOnTab(2)" :class="active === 2 ? 'active' : ''">
+          <Button
+            @click="clickOnTab('completed')"
+            :class="queryList.time === 'completed' ? 'active' : ''"
+          >
             Завершенные
           </Button>
         </div>
@@ -19,12 +28,12 @@
       <div class="template">
         <div class="sTournamentList__info">
           <InputSwitch
-            v-model="checked"
-            @click="clickOnStandings(checked)"
+            v-model="queryList.grid"
+            @click="clickOnStandings(queryList.grid)"
             class="sTournamentList__changeVision ms-auto"
           />
         </div>
-        <TournamentListTabPanel :checked="checked" :tournamentsList="tournamentsList" />
+        <TournamentListTabPanel :checked="queryList.grid" :tournamentsList="tournamentsList" />
       </div>
     </div>
   </section>
@@ -39,21 +48,35 @@
   const tournamentStore = useTournamentStore();
   const { tournamentsList } = storeToRefs(tournamentStore);
 
-  const querryList = ref({
-    tab: route.query.tab ? Number(route.query.tab) : 1,
-    grid: route.query.grid ? Boolean(route.query.grid) : false,
+  const queryList = ref({
+    time: route.query.time ? route.query.time : 'current',
+    grid: route.query.grid ? Boolean(route.query.grid) : true,
   });
-  const active = ref(querryList.value.tab);
-  const checked = ref(querryList.value.grid);
+
+  fetchTournamentTime();
+
+  function fetchTournamentTime(id) {
+    router.push({
+      query: { ...route.query, ...queryList.value },
+    });
+    let path = route.query;
+    path.time = id ? id : queryList.value.time;
+    path.grid;
+    path = Object.keys(path)
+      .map((key) => key + '=' + path[key])
+      .join('&');
+    tournamentStore.fetchTournaments('?' + path);
+  }
 
   const clickOnTab = (id) => {
-    active.value = id;
-    router.push({
-      query: { ...route.query, tab: id },
-    });
+    queryList.value.time = id;
+
+    fetchTournamentTime(id);
+    // fetchTournamentTime();
   };
 
   const clickOnStandings = (state) => {
+    queryList.value.grid = state;
     router.push({
       query: { ...route.query, grid: state },
     });
