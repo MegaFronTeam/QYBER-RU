@@ -84,7 +84,7 @@
   };
 
   onMounted(() => {
-    if (firstAction !== true) {
+    if (firstAction === true) {
       if (route.query.leagues || route.query.discipline) {
         changeFilter('leagues', filter.value.leagues, true);
         changeFilter('discipline', filter.value.discipline, true);

@@ -56,7 +56,7 @@
 
   const queryList = ref({});
   queryList.value = {
-    time: query.value.time || 'nearest',
+    time: query.value.time ? query.value.time : 'nearest',
     table: route.query.table === 'true' ? true : false,
   };
 
@@ -64,6 +64,8 @@
     let path = route.query;
     if (state) {
       path.time = state;
+    } else {
+      path.time = queryList.value.time;
     }
     path = new URLSearchParams(route.query).toString();
 
