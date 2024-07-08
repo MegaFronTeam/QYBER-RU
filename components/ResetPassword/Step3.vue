@@ -7,7 +7,7 @@
           id="password"
           v-model="dataFormNewPassword.password"
           aria-describedby="password-help"
-          placeholder="Введите новый парол"
+          placeholder="Введите новый пароль"
           :feedback="false"
           toggleMask
         />
