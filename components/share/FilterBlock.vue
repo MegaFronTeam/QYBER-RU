@@ -44,7 +44,7 @@
     },
     firstAction: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   });
   const { fetchMethod, firstAction } = props;
@@ -84,7 +84,7 @@
   };
 
   onMounted(() => {
-    if (firstAction === true) {
+    if (firstAction !== false) {
       if (route.query.leagues || route.query.discipline) {
         changeFilter('leagues', filter.value.leagues, true);
         changeFilter('discipline', filter.value.discipline, true);
