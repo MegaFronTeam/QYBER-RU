@@ -47,20 +47,20 @@
 </template>
 
 <script setup>
-import ProfileHead from '~/components/cabinet/ProfileHead.vue';
-import { useRaitingTeamStore } from '~/modules/ratings/store/RaitingTeamStore';
-import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
+  import ProfileHead from '~/components/cabinet/ProfileHead.vue';
+  import { useRaitingTeamStore } from '~/modules/ratings/store/RaitingTeamStore';
+  import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
 
-const route = useRoute();
+  const route = useRoute();
 
-const breadcrumbsStore = useBreadcrumbsStore();
-const raitingTeamStore = useRaitingTeamStore();
+  const breadcrumbsStore = useBreadcrumbsStore();
+  const raitingTeamStore = useRaitingTeamStore();
 
-const { teamData } = storeToRefs(raitingTeamStore);
+  const { teamData } = storeToRefs(raitingTeamStore);
 
-await raitingTeamStore.fetchTeam(`/wp/v2/teams/${route.params.id}`);
+  await raitingTeamStore.fetchTeam(`/wp/v2/teams/${route.params.id}`);
 
-onMounted(() => {
-  breadcrumbsStore.setNameFromIds('Команда');
-});
+  onMounted(() => {
+    breadcrumbsStore.setNameFromIds(raitingTeamStore.teamData.post_title);
+  });
 </script>

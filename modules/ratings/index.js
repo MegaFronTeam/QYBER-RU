@@ -52,7 +52,7 @@ export default defineNuxtModule({
 
       pages.push({
         name: `ratings-user`,
-        path: `/ratings/:id()/:id()`,
+        path: `/ratings/:id()`,
         file: resolve(__dirname, `pages/[id]/team/[id].vue`),
       });
     });

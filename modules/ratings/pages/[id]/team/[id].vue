@@ -23,23 +23,23 @@
 </template>
 
 <script setup>
-import TeamBlock from '../modules/ratings/components/TeamBlock';
-import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
-import { useRaitingUserStore } from '../modules/ratings/store/RaitingUserStore';
-import { useRaitingTeamStore } from '../modules/ratings/store/RaitingTeamStore';
+  import TeamBlock from '../modules/ratings/components/TeamBlock';
+  import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
+  import { useRaitingUserStore } from '../modules/ratings/store/RaitingUserStore';
+  import { useRaitingTeamStore } from '../modules/ratings/store/RaitingTeamStore';
 
-const route = useRoute();
+  const route = useRoute();
 
-const breadcrumbsStore = useBreadcrumbsStore();
-const raitingUserStore = useRaitingUserStore();
-const raitingTeamStore = useRaitingTeamStore();
+  const breadcrumbsStore = useBreadcrumbsStore();
+  const raitingUserStore = useRaitingUserStore();
+  const raitingTeamStore = useRaitingTeamStore();
 
-const { data } = storeToRefs(raitingUserStore);
+  const { data } = storeToRefs(raitingUserStore);
 
-await raitingUserStore.fetchUser(`/wp/v2/users/${route.params.id}`);
-await raitingTeamStore.fetchUserTeams(`/wp/v2/teams?member=${route.params.id}`);
+  await raitingUserStore.fetchUser(`/wp/v2/users/${route.params.id}`);
+  await raitingTeamStore.fetchUserTeams(`/wp/v2/teams?member=${route.params.id}`);
 
-onMounted(() => {
-  breadcrumbsStore.setNameFromIds('Пользователь');
-});
+  onMounted(() => {
+    breadcrumbsStore.setNameFromIds(raitingUserStore.data.display_name);
+  });
 </script>
