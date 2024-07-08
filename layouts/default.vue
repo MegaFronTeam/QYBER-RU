@@ -19,7 +19,7 @@
     menubar.push({
       label: item.title,
       href: item.url,
-      icon: '',
+      icon: item.icon,
     });
   }
 </script>
