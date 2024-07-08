@@ -32,9 +32,11 @@
 </template>
 
 <script setup>
+  import { ref, onMounted, defineProps } from 'vue';
   import { useFilterStore } from '@/store/FilterStore';
   const router = useRouter();
   const route = useRoute();
+
   const props = defineProps({
     fetchMethod: {
       type: Function,
@@ -42,7 +44,7 @@
     },
     firstAction: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   });
   const { fetchMethod, firstAction } = props;
@@ -50,6 +52,7 @@
   const filterStore = useFilterStore();
   filterStore.fetchLeagues();
   filterStore.fetchDiscipline();
+
   const { leagues, discipline } = storeToRefs(filterStore);
 
   const filter = ref({
@@ -59,35 +62,40 @@
 
   const changeFilter = (key, value, notFetch) => {
     filter.value[key] = value;
-    console.log(filter.value);
     const { leagues, discipline } = filter.value;
     if (!notFetch) {
-      const path = `?${leagues === 0 ? '' : `leagues=${leagues}`}${
-        leagues && discipline ? '&' : ''
-      }${discipline === 0 ? '' : `discipline=${discipline}`}`;
+      let path = route.query;
+
+      path.leagues = leagues;
+      path.discipline = discipline;
+
+      if (leagues === 0) delete path.leagues;
+      if (discipline === 0) delete path.discipline;
+
       // Set filter to browser path
       router.push({
-        query: { ...route.query, ...filter.value },
+        query: { ...route.query, ...path },
       });
-      fetchMethod(path);
+
+      path = new URLSearchParams(path).toString();
+
+      fetchMethod('?' + path);
     }
   };
 
   onMounted(() => {
-    if (firstAction === true) {
-      if (router.currentRoute.value.query.leagues || router.currentRoute.value.query.discipline) {
-        filter.value = {
-          leagues: Number(router.currentRoute.value.query.leagues) || 0,
-          discipline: Number(router.currentRoute.value.query.discipline) || 0,
-        };
+    if (firstAction !== true) {
+      if (route.query.leagues || route.query.discipline) {
         changeFilter('leagues', filter.value.leagues, true);
         changeFilter('discipline', filter.value.discipline, true);
+        console.log(route.query.leagues, route.query.discipline);
 
-        const path = `?${filter.value.leagues === 0 ? '' : `leagues=${filter.value.leagues}`}${
-          filter.value.leagues && filter.value.discipline ? '&' : ''
-        }${filter.value.discipline === 0 ? '' : `discipline=${filter.value.discipline}`}`;
+        filter.value.leagues = +route.query.leagues || 0;
+        filter.value.discipline = +route.query.discipline || 0;
 
-        fetchMethod(path);
+        const path = new URLSearchParams(route.query).toString();
+
+        fetchMethod('?' + path);
       } else {
         fetchMethod();
       }

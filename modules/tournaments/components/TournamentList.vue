@@ -28,62 +28,65 @@
       <div class="template">
         <div class="sTournamentList__info">
           <InputSwitch
-            v-model="queryList.grid"
-            @click="clickOnStandings(queryList.grid)"
+            v-model="queryList.table"
+            @change="clickOnStandings(queryList.table)"
             class="sTournamentList__changeVision ms-auto"
           />
         </div>
-        <TournamentListTabPanel :checked="queryList.grid" :tournamentsList="tournamentsList" />
+        <!-- v-if="tournamentsList.length" -->
+        <TournamentListTabPanel :checked="queryList.table" :tournamentsList="tournamentsList" />
+        <!-- <template v-else> ничего не найдено </template> -->
       </div>
     </div>
   </section>
 </template>
 <script setup>
-  import { useRoute, useRouter } from 'vue-router';
+  import { ref, onMounted } from 'vue';
   import { useTournamentStore } from '@/store/TournamentStore';
   import TournamentListTabPanel from './TournamentListTabPanel.vue';
+  import { useRoute, useRouter } from 'vue-router';
 
   const route = useRoute();
   const router = useRouter();
   const tournamentStore = useTournamentStore();
   const { tournamentsList } = storeToRefs(tournamentStore);
 
-  const queryList = ref({
-    time: route.query.time ? route.query.time : 'current',
-    grid: route.query.grid ? Boolean(route.query.grid) : true,
+  const query = ref(route.query);
+  console.log(query.value);
+
+  const queryList = ref({});
+  queryList.value = {
+    time: query.value.time || 'nearest',
+    table: route.query.table === 'true' ? true : false,
+  };
+
+  function fetchTournaments(state) {
+    let path = route.query;
+    if (state) {
+      path.time = state;
+    }
+    path = new URLSearchParams(route.query).toString();
+
+    tournamentStore.fetchTournaments(`?${path}`);
+  }
+  onMounted(() => {
+    fetchTournaments();
   });
 
-  fetchTournamentTime();
+  const clickOnTab = (state) => {
+    queryList.value.time = state;
 
-  function fetchTournamentTime(id) {
     router.push({
-      query: { ...route.query, ...queryList.value },
+      query: { ...route.query, time: state },
     });
-    let path = route.query;
-    path.time = id ? id : queryList.value.time;
-    path.grid;
-    path = Object.keys(path)
-      .map((key) => key + '=' + path[key])
-      .join('&');
-    tournamentStore.fetchTournaments('?' + path);
-  }
-
-  const clickOnTab = (id) => {
-    queryList.value.time = id;
-
-    fetchTournamentTime(id);
-    // fetchTournamentTime();
+    fetchTournaments(state);
   };
 
   const clickOnStandings = (state) => {
-    queryList.value.grid = state;
+    queryList.value.table = state;
+    console.log(queryList.value.table, state);
     router.push({
-      query: { ...route.query, grid: state },
+      query: { ...route.query, table: state },
     });
   };
-
-  // tournamentStore.getAll().then(() => {
-  //   tournamentStore.getLastFetch();
-  //   tournamentStore.sortTournamnts();
-  // });
 </script>

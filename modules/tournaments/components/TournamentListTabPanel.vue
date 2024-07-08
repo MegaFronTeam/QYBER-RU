@@ -1,5 +1,5 @@
 <template>
-  <DataTable v-if="!checked" :value="tournamentsList" removableSort>
+  <DataTable v-if="checked" :value="tournamentsList" removableSort>
     <Column field="tournament" header="Турнир">
       <template #body="slotProps">
         <NuxtLink class="text-link" :to="'/tournaments/' + slotProps.data.id">
@@ -57,7 +57,10 @@
 
 <script setup lang="ts">
   defineProps<{
-    checked: boolean;
+    checked: {
+      type: Boolean;
+      required: true;
+    };
     tournamentsList: [];
   }>();
 </script>
