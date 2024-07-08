@@ -73,9 +73,8 @@
       if (discipline === 0) delete path.discipline;
 
       // Set filter to browser path
-      router.push({
-        query: { ...route.query, ...path },
-      });
+
+      window.history.replaceState(null, '', '?' + new URLSearchParams(path).toString());
 
       path = new URLSearchParams(path).toString();
 
