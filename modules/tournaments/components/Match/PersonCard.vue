@@ -1,5 +1,5 @@
 <template>
-  <div class="sPersonCard">
+  <RouterLink :to="'/ratings/' + item.id" class="sPersonCard">
     <img v-if="item.avatar !== false" :src="item.avatar?.sizes.thumbnail" alt="" class="img" />
     <div class="sPersonCard__wrap">
       <div class="sPersonCard__name h6">
@@ -7,7 +7,7 @@
       </div>
       <div class="sPersonCard__status">{{ item.role.value }}</div>
     </div>
-  </div>
+  </RouterLink>
 </template>
 
 <script setup lang="ts">
