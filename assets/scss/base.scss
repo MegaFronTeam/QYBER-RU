@@ -73,6 +73,9 @@ body {
 .align-items-center {
   align-items: center !important;
 }
+.mx-max-contnet {
+  max-width: max-content;
+}
 
 @each $key, $val in $grid-breakpoints {
   .d-#{$key}-none {
