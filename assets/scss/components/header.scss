@@ -15,29 +15,28 @@
     flex: 0 0 auto;
   }
   &__btn {
-    @include media-breakpoint-down(lg){
+    @include media-breakpoint-down(lg) {
       width: rem(40);
-    height: rem(40);
-    padding: 0;
-    align-items: center;
-    justify-content: center;
-    .icons {
-      flex: 0 0 auto;
-      font-size: rem(16);
-    }
-    }
-    @include media-breakpoint-up(lg){
+      height: rem(40);
+      padding: 0;
+      align-items: center;
+      justify-content: center;
       .icons {
-        
+        flex: 0 0 auto;
+        font-size: rem(16);
+      }
+    }
+    @include media-breakpoint-up(lg) {
+      .icons {
         margin-right: rem(10);
       }
-      &--logout{
+      &--logout {
         height: rem(44);
         width: rem(44);
         padding: 0;
         align-items: center;
         justify-content: center;
-        .icons{
+        .icons {
           margin: 0;
         }
       }
@@ -99,7 +98,7 @@
     }
     .p-menubar-root-list {
       @include roww('6px');
-      @include media-breakpoint-up(xl) {
+      @include media-breakpoint-up(xxl) {
         --gutter-x: 12px;
       }
     }
