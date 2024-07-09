@@ -61,23 +61,28 @@
               </Column>
               <Column field="team1" header="">
                 <template #body="slotProps">
-                  <div class="table-wrap">
-                    <span style="text-align: right"
-                      >{{ slotProps.data.a.command.post_title }}
-                      <br />
-                      <small>
-                        {{
-                          slotProps.data.a.command.company ||
-                          slotProps.data.a.command.educational_institution.abbreviation
-                        }}
-                      </small>
-                    </span>
-                    <img
-                      v-if="slotProps.data.a.command.post_thumbnail !== false"
-                      :src="slotProps.data.a.command.post_thumbnail"
-                      alt="Avatar"
-                    />
-                  </div>
+                  <NuxtLink
+                    class="mx-max-contnet d-block ms-auto"
+                    :to="`/ratings/${slotProps.data.a.command.ID}`"
+                  >
+                    <div class="table-wrap">
+                      <span style="text-align: right">
+                        {{ slotProps.data.a.command.post_title }}
+                        <br />
+                        <small>
+                          {{
+                            slotProps.data.a.command.company ||
+                            slotProps.data.a.command.educational_institution.abbreviation
+                          }}
+                        </small>
+                      </span>
+                      <img
+                        v-if="slotProps.data.a.command.post_thumbnail !== false"
+                        :src="slotProps.data.a.command.post_thumbnail"
+                        alt="Avatar"
+                      />
+                    </div>
+                  </NuxtLink>
                 </template>
               </Column>
               <Column field="score" header="Матч">
@@ -91,23 +96,29 @@
               </Column>
               <Column field="team2" header="">
                 <template #body="slotProps">
-                  <div class="table-wrap" v-if="slotProps.data.b.command !== false">
-                    <img
-                      v-if="slotProps.data.b.command.post_thumbnail !== false"
-                      :src="slotProps.data.b.command.post_thumbnail"
-                      alt="Avatar"
-                    />
-                    <span
-                      >{{ slotProps.data.b.command.post_title }}
-                      <br />
-                      <small>
-                        {{
-                          slotProps.data.b.command.post_title ||
-                          slotProps.data.b.command.educational_institution.abbreviation
-                        }}
-                      </small>
-                    </span>
-                  </div>
+                  <NuxtLink
+                    class="mx-max-contnet d-block"
+                    :to="`/ratings/${slotProps.data.b.command.ID}`"
+                    v-if="slotProps.data.b.command !== false"
+                  >
+                    <div class="table-wrap">
+                      <img
+                        v-if="slotProps.data.b.command.post_thumbnail !== false"
+                        :src="slotProps.data.b.command.post_thumbnail"
+                        alt="Avatar"
+                      />
+                      <span
+                        >{{ slotProps.data.b.command.post_title }}
+                        <br />
+                        <small>
+                          {{
+                            slotProps.data.b.command.post_title ||
+                            slotProps.data.b.command.educational_institution.abbreviation
+                          }}
+                        </small>
+                      </span>
+                    </div>
+                  </NuxtLink>
                 </template>
               </Column>
               <Column>
@@ -147,19 +158,19 @@
 </template>
 
 <script setup>
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-  const tournamentPageStore = useTournamentPageStore();
-  const { data, stages_labels, stages_labelsLength, formattedMatches, formattedMatchesLength } =
-    storeToRefs(tournamentPageStore);
+import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+const tournamentPageStore = useTournamentPageStore();
+const { data, stages_labels, stages_labelsLength, formattedMatches, formattedMatchesLength } =
+  storeToRefs(tournamentPageStore);
 
-  import { useGlobalStore } from '~/store/globalStore';
-  const globalStore = useGlobalStore();
-  const { tableRows } = storeToRefs(globalStore);
-  const router = useRouter();
-  const path = router.currentRoute.value.path;
+import { useGlobalStore } from '~/store/globalStore';
+const globalStore = useGlobalStore();
+const { tableRows } = storeToRefs(globalStore);
+const router = useRouter();
+const path = router.currentRoute.value.path;
 
-  const totalRecords = ref(10);
-  const rowsPerPage = ref([5, 10, 50, 100]);
+const totalRecords = ref(10);
+const rowsPerPage = ref([5, 10, 50, 100]);
 
-  const active = ref(formattedMatchesLength);
+const active = ref(formattedMatchesLength);
 </script>

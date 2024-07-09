@@ -70,10 +70,7 @@
                   завоевать славу среди лучших игроков любительского уровня, студентов и
                   корпоративных сотрудников? Тогда этот кибертурнир создан специально для вас!npm
                 </p>
-                <!--
-                  TODO: сделать страницу со всеми турнирами
-                -->
-                <NuxtLink to="/tournaments">
+                <NuxtLink to="/tournaments?time=nearest&leagues=9">
                   <Button severity="secondary" class="btn-lg">
                     Смотреть турниры
                     <svg-icon name="chevron-right.svg" />
@@ -91,10 +88,7 @@
                   профессиональных и образовательных сфер, чтобы они могли помериться силами в
                   виртуальном мире разнообразных игровых дисциплин.
                 </p>
-                <!--
-                  TODO: сделать страницу со всеми турнирами
-                -->
-                <NuxtLink to="/tournaments">
+                <NuxtLink to="/tournaments?time=nearest&leagues=10">
                   <Button severity="danger" class="btn-lg">
                     Смотреть турниры
                     <svg-icon name="chevron-right.svg" />
