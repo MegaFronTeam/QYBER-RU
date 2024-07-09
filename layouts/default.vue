@@ -22,5 +22,4 @@ for (const item of data) {
     icon: item.icon,
   });
 }
-console.log(menubar);
 </script>
