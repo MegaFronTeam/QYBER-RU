@@ -6,6 +6,7 @@
       class="sHeaderBlock sHeaderBlock--detailed sHeaderBlock--match"
       bg="/img/schedule-bg.jpg"
     >
+      <span class="sHeaderBlock__date">{{ dataMatch.date }}</span>
       <div class="header-item sTournamentOverview--match">
         <template v-if="isMobile">
           <MatchHeader />
