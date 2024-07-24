@@ -15,8 +15,8 @@
                     >
                       <div class="sGridCard__score">{{ index + 1 }}</div>
                       <div class="sGridCard__wrap">
-                        <img v-if="data.avatar" :src="data.avatar" alt="Avatar" class="img" />
-                        <span>{{ item.team.post_name }}</span>
+                        <img v-if="item.avatar" :src="item.avatar" alt="Avatar" class="img" />
+                        <span>{{ item.team.post_title }}</span>
                       </div>
                     </div>
                     <div class="sGridCard__price">Приз: {{ item.amount }}</div>
@@ -147,9 +147,9 @@
 </template>
 
 <script setup>
-  import Card from './Card.vue';
-  import { useTournamentPageStore } from '~/modules/tournaments/store/TournamentPageStore';
-  const tournamentPageStore = useTournamentPageStore();
-  const { data, matchesGrid } = storeToRefs(tournamentPageStore);
-  console.log(matchesGrid.value);
+import Card from './Card.vue';
+import { useTournamentPageStore } from '~/modules/tournaments/store/TournamentPageStore';
+const tournamentPageStore = useTournamentPageStore();
+const { data, matchesGrid } = storeToRefs(tournamentPageStore);
+console.log(matchesGrid.value);
 </script>
