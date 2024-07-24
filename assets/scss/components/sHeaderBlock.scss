@@ -171,7 +171,7 @@
       margin-bottom: rem(12);
       span {
         font-size: rem(14);
-        opacity: .64;
+        opacity: 0.64;
         color: var(--primary-color-text);
       }
     }
@@ -201,17 +201,16 @@
         border-color: var(--primary-300);
       }
       p {
-        color: #FFF;
+        color: #fff;
         &:first-child {
           margin-bottom: rem(6);
         }
       }
       span {
         font-size: rem(14);
-        opacity: .64;
+        opacity: 0.64;
         color: var(--primary-color-text);
       }
-
     }
     .timer {
       display: flex;
@@ -223,7 +222,7 @@
       flex-direction: column;
       p {
         font-size: rem(14);
-        opacity: .64;
+        opacity: 0.64;
         color: var(--primary-color-text);
         font-weight: 600;
       }
@@ -246,16 +245,16 @@
           background: var(--transparent-black-main);
           backdrop-filter: blur(12px);
           z-index: -1;
-          opacity: .5;
+          opacity: 0.5;
         }
       }
     }
   }
-  &--match {
-    .picture-bg {
-      @include media-breakpoint-up(lg) {
-        opacity: 0;
-      }
-    }
-  }
+  // &--match {
+  //   .picture-bg {
+  //     @include media-breakpoint-up(lg) {
+  //       opacity: 0;
+  //     }
+  //   }
+  // }
 }
