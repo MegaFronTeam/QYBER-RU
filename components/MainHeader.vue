@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="sMainHeader__col col">
-          <div class="sMainHeader__tournament bg-wrap">
+          <div class="sMainHeader__tournament bg-wrap" v-if="lastOne.id">
             <img :src="lastOne.post_thumbnail" class="picture-bg" alt="bg" />
 
             <div class="sMainHeader__head">

@@ -47,6 +47,10 @@
       height: 0.3em;
       font-size: rem(133);
       @include media-breakpoint-up(lg) {
+        font-size: rem(140);
+      }
+
+      @include media-breakpoint-up(xxl) {
         font-size: rem(160);
       }
     }
