@@ -2,6 +2,8 @@ import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useGlobalStore } from './globalStore';
 import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+import broadCast from '@/services/broadCastServise';
+
 export const useTournamentStore = defineStore('tournament', () => {
   const globalStore = useGlobalStore();
   const TournamentPageStore = useTournamentPageStore();
@@ -100,9 +102,9 @@ export const useTournamentStore = defineStore('tournament', () => {
       const data = response.data;
       // BroadCast.value = data;
       if (data) {
-        BroadCast.value = data.split('=')[1];
-        BroadCast.value =
-          'https://www.youtube.com/embed/' + BroadCast.value + '?autoplay=1&mute=1&controls=0';
+        console.log(data);
+        BroadCast.value = broadCast(data);
+        // 'https://www.youtube.com/embed/' + BroadCast.value + '?autoplay=1&mute=1&controls=0';
       }
     } catch (error) {
       console.error(error);
