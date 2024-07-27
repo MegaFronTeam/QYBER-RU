@@ -5,7 +5,7 @@
       <div class="sPersonCard__name h6">
         {{ item.nickname }}
       </div>
-      <div class="sPersonCard__status">{{ item.role.value }}</div>
+      <div class="sPersonCard__status">{{ item.role.label }}</div>
     </div>
   </RouterLink>
 </template>
