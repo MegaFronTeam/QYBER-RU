@@ -213,13 +213,16 @@
         </template>
       </div>
     </div>
+    <a href="https://api.qyber.ru/wp-admin/index.php" class="btnToAdmin" v-if="isAdmin">
+      В админку
+    </a>
   </header>
 </template>
 
 <script setup>
   import { useGlobalStore } from '~/store/globalStore';
   const globalStore = useGlobalStore();
-  const { isUserAuth } = storeToRefs(globalStore);
+  const { isUserAuth, isAdmin } = storeToRefs(globalStore);
 
   const colorMode = useColorMode();
   // console.log($ifAuthenticated);

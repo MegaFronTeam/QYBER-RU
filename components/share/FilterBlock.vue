@@ -2,7 +2,10 @@
   <div class="flex">
     <ul class="sHeaderBlock__filter">
       <li>
-        <Button :class="{ active: filter.leagues === 0 }" @click="changeFilter('leagues', 0)"
+        <Button
+          v-if="!hideShowAll"
+          :class="{ active: filter.leagues === 0 }"
+          @click="changeFilter('leagues', 0)"
           >Все лиги</Button
         >
       </li>
@@ -16,7 +19,10 @@
     </ul>
     <ul class="sHeaderBlock__filter">
       <li>
-        <Button :class="{ active: filter.discipline === 0 }" @click="changeFilter('discipline', 0)"
+        <Button
+          v-if="!hideShowAll"
+          :class="{ active: filter.discipline === 0 }"
+          @click="changeFilter('discipline', 0)"
           >Все дисциплины</Button
         >
       </li>
@@ -45,6 +51,10 @@
       type: Boolean,
       default: true,
     },
+    hideShowAll: {
+      type: Boolean,
+      default: false,
+    },
   });
   const { fetchMethod, firstAction } = props;
 
@@ -56,8 +66,8 @@
   const { leagues, discipline } = storeToRefs(filterStore);
 
   const filter = ref({
-    leagues: 0,
-    discipline: 0,
+    leagues: props.hideShowAll ? 9 : 0,
+    discipline: props.hideShowAll ? 17 : 0,
   });
 
   const changeFilter = (key, value, notFetch) => {
@@ -82,11 +92,15 @@
   };
 
   onMounted(() => {
-    changeFilter('leagues', route.query.leagues || 0, true);
-    changeFilter('discipline', route.query.discipline || 0, true);
+    changeFilter('leagues', route.query.leagues || filter.value.leagues, true);
+    changeFilter('discipline', route.query.discipline || filter.value.discipline, true);
 
     if (firstAction !== false) {
-      fetchMethod('?' + new URLSearchParams(route.query).toString());
+      if (props.hideShowAll) {
+        fetchMethod(`?leagues=${filter.value.leagues}&discipline=${filter.value.discipline}`);
+      } else {
+        fetchMethod('?' + new URLSearchParams(route.query).toString());
+      }
     }
   });
 </script>

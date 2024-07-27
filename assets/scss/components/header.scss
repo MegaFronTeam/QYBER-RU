@@ -236,3 +236,13 @@
     }
   }
 }
+
+.btnToAdmin {
+  position: fixed;
+  right: 0;
+  background-color: #fff;
+  padding: 1rem;
+  transform: rotate(-90deg);
+  top: 5vh;
+  transform-origin: bottom right;
+}

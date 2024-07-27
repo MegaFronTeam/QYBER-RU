@@ -30,6 +30,7 @@
                 iconDisplay="input"
                 placeholder="__.__.____"
                 date-format="dd.mm.yy"
+                showButtonBar
               >
                 <template #inputicon="{ clickCallback }">
                   <div @click="clickCallback" class="icon-wrap">
@@ -43,6 +44,7 @@
                 time-format="HH:mm"
                 timeOnly
                 placeholder="00:00"
+                showButtonBar
               />
             </div>
           </InputGroup>

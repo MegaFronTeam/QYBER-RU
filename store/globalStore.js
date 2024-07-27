@@ -33,6 +33,9 @@ export const useGlobalStore = defineStore(
     const DiscordServer = ref('');
     const tableRows = ref(10);
 
+    const isAdmin = computed(() => {
+      return userData.value.roles && userData.value.roles.includes('administrator');
+    });
     const setAPI_KEY = (key) => {
       API_KEY.value = key;
     };
@@ -169,6 +172,7 @@ export const useGlobalStore = defineStore(
       tableRows,
       isReferee,
       showToast,
+      isAdmin,
     };
   },
   { persist: { storage: persistedState.localStorage } },
