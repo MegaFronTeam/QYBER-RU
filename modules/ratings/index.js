@@ -38,7 +38,7 @@ export default defineNuxtModule({
         if (pagePath === 'team') {
           pages.push({
             name: `ratings-${pagePath}`,
-            path: `/ratings/:id()`,
+            path: `/ratings/team-:id()`,
             file: resolve(__dirname, `pages/[id]/team/index.vue`),
           });
           return;
@@ -52,7 +52,7 @@ export default defineNuxtModule({
 
       pages.push({
         name: `ratings-user`,
-        path: `/ratings/:id()`,
+        path: `/ratings/user-:id()`,
         file: resolve(__dirname, `pages/[id]/team/[id].vue`),
       });
     });

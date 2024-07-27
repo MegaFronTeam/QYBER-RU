@@ -42,7 +42,7 @@
               <div class="table-wrap">
                 <RouterLink
                   v-if="slotProps.data.post_title"
-                  :to="`/ratings/${slotProps.data.id}`"
+                  :to="`/ratings/team-${slotProps.data.id}`"
                   class="table-wrap__link"
                 >
                   <img

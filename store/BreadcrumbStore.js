@@ -32,28 +32,28 @@ export const useBreadcrumbsStore = defineStore('breadcrumbs', {
       // console.log('Current Route: ', currPagePathArr);
       // console.log('All routes: ', routes);
       let customPath = '';
-      currPagePathArr.forEach((route, index) => {
-        customPath += route;
-        const result = routes.find((item) => item.path === customPath);
-        // console.log(this.lastBreadcrumb);
-        if (result) {
-          if (route.includes('/:id()')) {
-            this.items.push(this.lastBreadcrumb);
-          } else if (currPagePathArr.length - 1 === index) {
-            this.items.push({
-              label: result.meta.breadcrumbName,
-              // route: result.path,
-            });
-          } else {
-            if (result.meta.breadcrumbName) {
-              this.items.push({
-                label: result.meta.breadcrumbName,
-                route: result.path,
-              });
-            }
-          }
-        }
-      });
+      // currPagePathArr.forEach((route, index) => {
+      //   customPath += route;
+      //   const result = routes.find((item) => item.path === customPath);
+      //   // console.log(this.lastBreadcrumb);
+      //   if (result) {
+      //     if (route.includes('/:id()')) {
+      //       this.items.push(this.lastBreadcrumb);
+      //     } else if (currPagePathArr.length - 1 === index) {
+      //       this.items.push({
+      //         label: result.meta.breadcrumbName,
+      //         // route: result.path,
+      //       });
+      //     } else {
+      //       if (result.meta.breadcrumbName) {
+      //         this.items.push({
+      //           label: result.meta.breadcrumbName,
+      //           route: result.path,
+      //         });
+      //       }
+      //     }
+      //   }
+      // });
       // console.log('Results: ', this.items);
     },
   },

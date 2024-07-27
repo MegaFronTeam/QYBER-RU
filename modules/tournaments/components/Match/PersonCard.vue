@@ -1,5 +1,5 @@
 <template>
-  <RouterLink :to="'/ratings/' + item.id" class="sPersonCard">
+  <RouterLink :to="'/ratings/user-' + item.id" class="sPersonCard">
     <img v-if="item.avatar !== false" :src="item.avatar?.sizes.thumbnail" alt="" class="img" />
     <div class="sPersonCard__wrap">
       <div class="sPersonCard__name h6">

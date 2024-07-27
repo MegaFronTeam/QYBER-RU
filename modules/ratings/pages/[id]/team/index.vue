@@ -1,5 +1,6 @@
 <template>
-  <div v-if="!raitingTeamStore.error">
+  <!-- <div v-if="!raitingTeamStore.error"> -->
+  <div>
     <ProfileHead :img="teamData.post_thumbnail" :showInvites="false">
       <h1 class="mb-12">{{ teamData.post_title }}</h1>
       <div class="row mb-12">
@@ -14,8 +15,8 @@
           <span class="p-badge p-badge-gray"> {{ discipline.name }} </span>
         </div>
       </div>
-      <span class="sProfileHead__name mb-12">Latvia</span>
-      <div class="sProfileHead__time mb-0">ИНН 777777777777</div>
+      <span class="sProfileHead__name mb-12">{{ region }}</span>
+      <div class="sProfileHead__time mb-0" v-if="captainData.inn">ИНН {{ captainData.inn }}</div>
     </ProfileHead>
     <div v-if="false" class="container table-skeleton" style="margin-bottom: 0.8rem">
       <Skeleton height="3rem" borderRadius="12px" style="margin-bottom: 0.8rem" />
@@ -41,9 +42,10 @@
         <Skeleton height="2rem" />
       </div>
     </div>
+
     <CabinetTeamBlock v-else :teamData="teamData" />
   </div>
-  <h1 class="container" v-else>{{ raitingTeamStore.error }}</h1>
+  <!-- <h1 class="container" v-else>{{ raitingTeamStore.error }}</h1> -->
 </template>
 
 <script setup>
@@ -56,11 +58,11 @@
   const breadcrumbsStore = useBreadcrumbsStore();
   const raitingTeamStore = useRaitingTeamStore();
 
-  const { teamData } = storeToRefs(raitingTeamStore);
+  const { teamData, captainData, region } = storeToRefs(raitingTeamStore);
 
   await raitingTeamStore.fetchTeam(`/wp/v2/teams/${route.params.id}`);
 
   onMounted(() => {
-    breadcrumbsStore.setNameFromIds(raitingTeamStore.teamData.post_title);
+    // breadcrumbsStore.setNameFromIds(raitingTeamStore.teamData.post_title);
   });
 </script>

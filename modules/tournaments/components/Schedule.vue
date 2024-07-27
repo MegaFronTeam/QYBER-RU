@@ -63,7 +63,7 @@
                 <template #body="slotProps">
                   <NuxtLink
                     class="mx-max-contnet d-block ms-auto"
-                    :to="`/ratings/${slotProps.data.a.command.ID}`"
+                    :to="`/ratings/team-${slotProps.data.a.command.ID}`"
                   >
                     <div class="table-wrap">
                       <span style="text-align: right">
@@ -98,7 +98,7 @@
                 <template #body="slotProps">
                   <NuxtLink
                     class="mx-max-contnet d-block"
-                    :to="`/ratings/${slotProps.data.b.command.ID}`"
+                    :to="`/ratings/team-${slotProps.data.b.command.ID}`"
                     v-if="slotProps.data.b.command !== false"
                   >
                     <div class="table-wrap">
@@ -158,19 +158,19 @@
 </template>
 
 <script setup>
-import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-const tournamentPageStore = useTournamentPageStore();
-const { data, stages_labels, stages_labelsLength, formattedMatches, formattedMatchesLength } =
-  storeToRefs(tournamentPageStore);
+  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  const tournamentPageStore = useTournamentPageStore();
+  const { data, stages_labels, stages_labelsLength, formattedMatches, formattedMatchesLength } =
+    storeToRefs(tournamentPageStore);
 
-import { useGlobalStore } from '~/store/globalStore';
-const globalStore = useGlobalStore();
-const { tableRows } = storeToRefs(globalStore);
-const router = useRouter();
-const path = router.currentRoute.value.path;
+  import { useGlobalStore } from '~/store/globalStore';
+  const globalStore = useGlobalStore();
+  const { tableRows } = storeToRefs(globalStore);
+  const router = useRouter();
+  const path = router.currentRoute.value.path;
 
-const totalRecords = ref(10);
-const rowsPerPage = ref([5, 10, 50, 100]);
+  const totalRecords = ref(10);
+  const rowsPerPage = ref([5, 10, 50, 100]);
 
-const active = ref(formattedMatchesLength);
+  const active = ref(formattedMatchesLength);
 </script>

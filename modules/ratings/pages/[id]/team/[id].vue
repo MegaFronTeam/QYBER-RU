@@ -40,6 +40,6 @@
   await raitingTeamStore.fetchUserTeams(`/wp/v2/teams?member=${route.params.id}`);
 
   onMounted(() => {
-    breadcrumbsStore.setNameFromIds(raitingUserStore.data.display_name);
+    // breadcrumbsStore.setNameFromIds(raitingUserStore.data.display_name);
   });
 </script>
