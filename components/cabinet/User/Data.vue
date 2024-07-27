@@ -57,6 +57,15 @@
               placeholder="Введите имя "
             />
           </InputGroup>
+          <InputGroup>
+            <label for="name">Отчество </label>
+            <InputText
+              id="text"
+              type="text"
+              v-model="userData.user_first_name"
+              placeholder="Введите отчество "
+            />
+          </InputGroup>
 
           <InputGroup>
             <label for="name">Фамилия</label>

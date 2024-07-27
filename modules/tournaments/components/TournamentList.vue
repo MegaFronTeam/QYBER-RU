@@ -52,15 +52,14 @@
   const { tournamentsList } = storeToRefs(tournamentStore);
 
   const query = ref(route.query);
-  console.log(query.value);
 
   const queryList = ref({});
   queryList.value = {
-    time: query.value.time ? query.value.time : 'nearest',
+    time: query.value.time ? query.value.time : 'current',
     table: route.query.table === 'true' ? true : false,
   };
 
-  function fetchTournaments(state) {
+  async function fetchTournaments(state) {
     let path = route.query;
     if (state) {
       path.time = state;
@@ -69,10 +68,23 @@
     }
     path = new URLSearchParams(route.query).toString();
 
-    tournamentStore.fetchTournaments(`?${path}`);
+    await tournamentStore.fetchTournaments(`?${path}`);
   }
   onMounted(() => {
-    fetchTournaments();
+    fetchTournaments().then(() => {
+      if (tournamentsList.value.length === 0) {
+        // nearest
+
+        // current
+        fetchTournaments('nearest').then(() => {
+          queryList.value.time = 'nearest';
+          if (tournamentsList.value.length === 0) {
+            queryList.value.time = 'completed';
+            fetchTournaments('completed');
+          }
+        });
+      }
+    });
   });
 
   const clickOnTab = (state) => {
