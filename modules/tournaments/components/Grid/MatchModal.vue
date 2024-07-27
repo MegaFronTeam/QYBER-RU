@@ -11,7 +11,7 @@
     class="edit-match"
     v-model:visible="settingsModalVisible"
     modal
-    :header="'Игра ' + item?.indexPlus"
+    :header="item.indexPlus !== underfind ? 'Игра ' + item.indexPlus : 'Игра'"
   >
     <div class="d-flex switch-wrap">
       <InputSwitch v-model="editMatch.checked" />
@@ -67,7 +67,7 @@
             <InputText id="IP" type="text" v-model="editMatch.server" placeholder="Лобби" />
           </InputGroup>
 
-          <InputGroup>
+          <InputGroup v-if="false">
             <label for="steam">Steam ID</label>
             <InputText id="steam" type="text" v-model="editMatch.steam_id" placeholder="Steam ID" />
           </InputGroup>

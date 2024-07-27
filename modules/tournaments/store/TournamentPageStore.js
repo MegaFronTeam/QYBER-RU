@@ -121,6 +121,13 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         { name: 'LAN', items: subnameLAN, stageLength: subnameLAN.length },
       ];
     },
+    disciplineIcon: (state) => {
+      if (!state.data.discipline) return '';
+      const globalStore = useGlobalStore();
+      const disciplineList = globalStore.disciplineList;
+
+      return globalStore.disciplineList.find((item) => item.slug === state.data.discipline[0].slug);
+    },
   },
   actions: {
     reset() {
