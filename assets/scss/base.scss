@@ -1053,3 +1053,7 @@ body {
 .click-el {
   cursor: pointer;
 }
+
+a {
+  @include mt;
+}

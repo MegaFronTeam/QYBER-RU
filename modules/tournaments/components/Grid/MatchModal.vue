@@ -21,7 +21,7 @@
       <TabPanel header="Настройки">
         <div class="form-wrap">
           <InputGroup>
-            <label for="calendar">Начало игры (мск)</label>
+            <label for="calendar">Начало игры </label>
             <div class="d-flex date-flex">
               <Calendar
                 id="calendar"

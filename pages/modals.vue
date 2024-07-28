@@ -5,7 +5,10 @@
       <Button label="Спасибо за обращение" @click="visible = true" />
       <Button label="Выбрать команду" @click="visibleTeam = true" />
       <Button label="Игра 6" @click="visibleGame = true" />
-      <Button label="Подтвердите действие(дисквалификация)" @click="visibleDisqualification = true" />
+      <Button
+        label="Подтвердите действие(дисквалификация)"
+        @click="visibleDisqualification = true"
+      />
     </div>
   </div>
   <Dialog v-model:visible="visibleShow" modal header="Оставить заявку">
@@ -71,10 +74,10 @@
           </div>
           <div class="table-wrap">
             <div class="game-item__list">
-              <div class="" >678 матчей</div>
-              <div class="success" >479 (72%)</div>
-              <div class="secondary" >0</div>
-              <div class="danger" >112 (28%)</div>
+              <div class="">678 матчей</div>
+              <div class="success">479 (72%)</div>
+              <div class="secondary">0</div>
+              <div class="danger">112 (28%)</div>
             </div>
           </div>
         </div>
@@ -90,10 +93,10 @@
           </div>
           <div class="table-wrap">
             <div class="game-item__list">
-              <div class="" >678 матчей</div>
-              <div class="success" >479 (72%)</div>
-              <div class="secondary" >0</div>
-              <div class="danger" >112 (28%)</div>
+              <div class="">678 матчей</div>
+              <div class="success">479 (72%)</div>
+              <div class="secondary">0</div>
+              <div class="danger">112 (28%)</div>
             </div>
           </div>
         </div>
@@ -109,10 +112,10 @@
           </div>
           <div class="table-wrap">
             <div class="game-item__list">
-              <div class="" >678 матчей</div>
-              <div class="success" >479 (72%)</div>
-              <div class="secondary" >0</div>
-              <div class="danger" >112 (28%)</div>
+              <div class="">678 матчей</div>
+              <div class="success">479 (72%)</div>
+              <div class="secondary">0</div>
+              <div class="danger">112 (28%)</div>
             </div>
           </div>
         </div>
@@ -128,10 +131,10 @@
           </div>
           <div class="table-wrap">
             <div class="game-item__list">
-              <div class="" >678 матчей</div>
-              <div class="success" >479 (72%)</div>
-              <div class="secondary" >0</div>
-              <div class="danger" >112 (28%)</div>
+              <div class="">678 матчей</div>
+              <div class="success">479 (72%)</div>
+              <div class="secondary">0</div>
+              <div class="danger">112 (28%)</div>
             </div>
           </div>
         </div>
@@ -147,10 +150,10 @@
           </div>
           <div class="table-wrap">
             <div class="game-item__list">
-              <div class="" >678 матчей</div>
-              <div class="success" >479 (72%)</div>
-              <div class="secondary" >0</div>
-              <div class="danger" >112 (28%)</div>
+              <div class="">678 матчей</div>
+              <div class="success">479 (72%)</div>
+              <div class="secondary">0</div>
+              <div class="danger">112 (28%)</div>
             </div>
           </div>
         </div>
@@ -166,10 +169,10 @@
           </div>
           <div class="table-wrap">
             <div class="game-item__list">
-              <div class="" >678 матчей</div>
-              <div class="success" >479 (72%)</div>
-              <div class="secondary" >0</div>
-              <div class="danger" >112 (28%)</div>
+              <div class="">678 матчей</div>
+              <div class="success">479 (72%)</div>
+              <div class="secondary">0</div>
+              <div class="danger">112 (28%)</div>
             </div>
           </div>
         </div>
@@ -183,23 +186,31 @@
     <p>Вы уверены, что хотите дисквалифицировать команду?</p>
     <div class="d-flex btn-flex">
       <Button class="btn-lg" @click="visibleDisqualification = false">Подтвердить</Button>
-      <Button class="btn-lg" severity='contrast' @click="visibleDisqualification = false">Отмена</Button>
+      <Button class="btn-lg" severity="contrast" @click="visibleDisqualification = false"
+        >Отмена</Button
+      >
     </div>
   </Dialog>
   <Dialog v-model:visible="visibleGame" modal header="Игра 6">
     <div class="d-flex switch-wrap">
-        <InputSwitch v-model="checked" />
-        <span class="">В процессе</span>
+      <InputSwitch v-model="checked" />
+      <span class="">В процессе</span>
     </div>
     <TabView>
       <TabPanel header="Настройки">
         <div class="form-wrap">
           <InputGroup>
             <label for="name">Формат</label>
-            <Dropdown v-model="selectedFormat" :options="formats" optionLabel="name" placeholder="5x5" class="w-full md:w-14rem" />
+            <Dropdown
+              v-model="selectedFormat"
+              :options="formats"
+              optionLabel="name"
+              placeholder="5x5"
+              class="w-full md:w-14rem"
+            />
           </InputGroup>
           <InputGroup>
-            <label for="calendar">Начало игры (мск)</label>
+            <label for="calendar">Начало игры </label>
             <div class="d-flex date-flex">
               <Calendar
                 id="calendar"
@@ -207,20 +218,18 @@
                 showIcon
                 iconDisplay="input"
                 dateFormat="dd.mm.yy"
-                placeholder="__.__.____">
-                  <template #inputicon="{ clickCallback }">
-                    <div @click="clickCallback" class='icon-wrap' >
-                      <svg-icon name="calendar.svg" />
-                    </div>
-                  </template>
-                </Calendar>
-              <Calendar id="calendar-timeonly"
-              v-model="time"
-              timeOnly
-              placeholder="00:00"/>
+                placeholder="__.__.____"
+              >
+                <template #inputicon="{ clickCallback }">
+                  <div @click="clickCallback" class="icon-wrap">
+                    <svg-icon name="calendar.svg" />
+                  </div>
+                </template>
+              </Calendar>
+              <Calendar id="calendar-timeonly" v-model="time" timeOnly placeholder="00:00" />
             </div>
           </InputGroup>
-            <label for="discord">Сервер Discord</label>
+          <label for="discord">Сервер Discord</label>
           <InputGroup>
             <div class="input-icon-wrap">
               <InputGroupAddon>
@@ -230,7 +239,8 @@
                 id="discord"
                 type="text"
                 v-model="discord"
-                placeholder="Ссылка с https://" />
+                placeholder="Ссылка с https://"
+              />
             </div>
           </InputGroup>
           <InputGroup>
@@ -250,11 +260,19 @@
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
-                <div class="secondary" >Дисквалифицировать</div>
+                <div class="secondary">Дисквалифицировать</div>
               </div>
             </div>
           </div>
-          <InputNumber v-model="valueTeam1" :min="0" :max="100" inputId="horizontal-buttons" showButtons buttonLayout="horizontal" :step="1.00">
+          <InputNumber
+            v-model="valueTeam1"
+            :min="0"
+            :max="100"
+            inputId="horizontal-buttons"
+            showButtons
+            buttonLayout="horizontal"
+            :step="1.0"
+          >
             <template #incrementbuttonicon>
               <span>+</span>
             </template>
@@ -271,11 +289,19 @@
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
-                <div class="secondary" >Дисквалифицировать</div>
+                <div class="secondary">Дисквалифицировать</div>
               </div>
             </div>
           </div>
-          <InputNumber v-model="valueTeam2" :min="0" :max="100" inputId="horizontal-buttons" showButtons buttonLayout="horizontal" :step="1.00">
+          <InputNumber
+            v-model="valueTeam2"
+            :min="0"
+            :max="100"
+            inputId="horizontal-buttons"
+            showButtons
+            buttonLayout="horizontal"
+            :step="1.0"
+          >
             <template #incrementbuttonicon>
               <span>+</span>
             </template>
@@ -296,31 +322,31 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import InputNumber from 'primevue/inputnumber';
+  import { ref } from 'vue';
+  import InputNumber from 'primevue/inputnumber';
 
-const visibleShow = ref(false);
-const visible = ref(false);
-const visibleTeam = ref(false);
-const visibleGame = ref(false);
-const visibleDisqualification = ref(false);
-const checked = ref(false);
-const valueTeam1 = ref(0);
-const valueTeam2 = ref(0);
+  const visibleShow = ref(false);
+  const visible = ref(false);
+  const visibleTeam = ref(false);
+  const visibleGame = ref(false);
+  const visibleDisqualification = ref(false);
+  const checked = ref(false);
+  const valueTeam1 = ref(0);
+  const valueTeam2 = ref(0);
 
-const textValue = ref(null);
-const orgValue = ref(null);
-const statusValue = ref(null);
-const telValue = ref(null);
-const emailValue = ref(null);
-const textAreaValue = ref(null);
-const agreement = ref('');
-const selectedFormat = ref();
-const formats = ref([
-    { name: '5x5'},
+  const textValue = ref(null);
+  const orgValue = ref(null);
+  const statusValue = ref(null);
+  const telValue = ref(null);
+  const emailValue = ref(null);
+  const textAreaValue = ref(null);
+  const agreement = ref('');
+  const selectedFormat = ref();
+  const formats = ref([
     { name: '5x5' },
     { name: '5x5' },
     { name: '5x5' },
-    { name: '5x5' }
-]);
+    { name: '5x5' },
+    { name: '5x5' },
+  ]);
 </script>

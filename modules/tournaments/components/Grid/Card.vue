@@ -22,24 +22,10 @@
           "
         >
           <!-- :class="{ 'team-success': product.team.success }" -->
-          <div class="sGridCard__wrap">
-            <img
-              v-if="item.a.command.post_thumbnail && item.a.command.post_thumbnail !== false"
-              :src="item.a.command.post_thumbnail"
-              alt="Avatar"
-              class="img"
-            />
-            <span>
-              {{ item.a.prevText || item.a.command.post_title }}
-              <small v-if="item.a.command.company || item.a.command.educational_institution">
-                <br />
-                {{ item.a.command.company || item.a.command.educational_institution.abbreviation }}
-              </small>
-            </span>
-          </div>
+          <CardITeam :item="item.a" />
           <div class="sGridCard__score">
-            <!-- {{ product.b.team.success ? 1 : 0 }} -->
             {{ item.a.counter }}
+            <!-- {{ product.b.team.success ? 1 : 0 }} -->
           </div>
         </div>
 
@@ -50,24 +36,10 @@
           "
         >
           <!-- :class="{ 'team-success': product.team.success }" -->
-          <div class="sGridCard__wrap">
-            <img
-              v-if="item.b.command.post_thumbnail && item.b.command.post_thumbnail !== false"
-              :src="item.b.command.post_thumbnail"
-              alt="Avatar"
-              class="img"
-            />
-            <span
-              >{{ item.b.prevText || item.b.command.post_title }}
-
-              <small v-if="item.b.command.company || item.b.command.educational_institution">
-                <br />
-                {{ item.b.command.company || item.b.command.educational_institution.abbreviation }}
-              </small>
-            </span>
-          </div>
+          <CardITeam :item="item.b" />
           <div class="sGridCard__score">
             <!-- {{ product.b.team.success ? 1 : 0 }} -->
+
             {{ item.b.counter }}
           </div>
         </div>
@@ -82,6 +54,7 @@
   import JoinGameModal from '../Match/JoinGameModal.vue';
   import MatchModal from './MatchModal.vue';
   import { useGlobalStore } from '~/store/globalStore';
+  import CardITeam from './CardITeam.vue';
 
   const props = defineProps({
     item: {
