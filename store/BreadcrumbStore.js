@@ -54,6 +54,7 @@ export const useBreadcrumbsStore = defineStore('breadcrumbs', {
       if (this.lastBreadcrumb[0]) {
         this.lastBreadcrumb = [];
       }
+      console.log('Bread: ', bread);
 
       if (!bread) return;
       if (typeof bread === 'string') {

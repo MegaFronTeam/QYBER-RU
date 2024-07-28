@@ -17,10 +17,12 @@
   const { currentID } = storeToRefs(tournamentStorePage);
   const breadcrumbsStore = useBreadcrumbsStore();
 
+  if (id !== currentID.value) {
+    tournamentStorePage.fetchData(id).then(() => {
+      breadcrumbsStore.setNameFromIds(tournamentStorePage.data.title);
+    });
+  }
   onMounted(() => {
-    if (id !== currentID.value) {
-      tournamentStorePage.fetchData(id).then(() => {});
-    }
     breadcrumbsStore.setNameFromIds(tournamentStorePage.data.title);
   });
 </script>
