@@ -4,17 +4,15 @@ import { useRouter } from 'vue-router';
 export const useBreadcrumbsStore = defineStore('breadcrumbs', {
   state: () => ({
     items: [],
-    lastBreadcrumb: {
-      label: '',
-    },
+    lastBreadcrumb: [],
   }),
-  actions: {
-    setNameFromIds(label) {
-      // console.log(label);
-      this.lastBreadcrumb.label = label;
-      return label;
+  getters: {
+    itemsWithChildren(state) {
+      if (!state.lastBreadcrumb.length) return state.items;
+      return [...state.items, ...state.lastBreadcrumb];
     },
-
+  },
+  actions: {
     // setName(label) {
     //   // console.log(label);
     //   this.lastBreadcrumb.label = label;
@@ -24,6 +22,7 @@ export const useBreadcrumbsStore = defineStore('breadcrumbs', {
     createBreadcrumb() {
       const router = useRouter();
       this.items = [];
+
       const routes = router.options.routes || [];
       const currPagePathArr = router.currentRoute.value.matched[0].path
         .split('/')
@@ -32,29 +31,37 @@ export const useBreadcrumbsStore = defineStore('breadcrumbs', {
       // console.log('Current Route: ', currPagePathArr);
       // console.log('All routes: ', routes);
       let customPath = '';
-      // currPagePathArr.forEach((route, index) => {
-      //   customPath += route;
-      //   const result = routes.find((item) => item.path === customPath);
-      //   // console.log(this.lastBreadcrumb);
-      //   if (result) {
-      //     if (route.includes('/:id()')) {
-      //       this.items.push(this.lastBreadcrumb);
-      //     } else if (currPagePathArr.length - 1 === index) {
-      //       this.items.push({
-      //         label: result.meta.breadcrumbName,
-      //         // route: result.path,
-      //       });
-      //     } else {
-      //       if (result.meta.breadcrumbName) {
-      //         this.items.push({
-      //           label: result.meta.breadcrumbName,
-      //           route: result.path,
-      //         });
-      //       }
-      //     }
-      //   }
-      // });
-      // console.log('Results: ', this.items);
+      currPagePathArr.forEach((route, index) => {
+        customPath += route;
+        const result = routes.find((item) => item.path === customPath);
+        if (result && result.meta && result.meta.breadcrumbName) {
+          if (result.path) {
+            this.items.push({
+              label: result.meta.breadcrumbName,
+              route: result.path,
+            });
+          } else {
+            console.log(2);
+            this.items.push({
+              label: result.meta.breadcrumbName,
+            });
+          }
+        }
+      });
+    },
+
+    setNameFromIds(bread) {
+      if (this.lastBreadcrumb[0]) {
+        this.lastBreadcrumb = [];
+      }
+
+      if (!bread) return;
+      if (typeof bread === 'string') {
+        this.lastBreadcrumb.push({ label: bread });
+      } else {
+        console.log('Bread: ', bread);
+        this.lastBreadcrumb = bread;
+      }
     },
   },
 });

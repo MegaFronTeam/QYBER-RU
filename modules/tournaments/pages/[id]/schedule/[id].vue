@@ -132,17 +132,25 @@
 
   updateIsMobile();
   onMounted(() => {
+    // if (tournamentID !== currentID.value || tournamentPageStore.currentID === '') {
+    tournamentPageStore.fetchData(tournamentID).then(() => {
+      // console.log(tournamentPageStore.data.title);
+      // matchStore.dataTournament = tournamentPageStore.data;
+      breadcrumbsStore.setNameFromIds([
+        {
+          label: tournamentPageStore.data?.title,
+          route: '/tournaments/' + tournamentPageStore.data?.id,
+        },
+        {
+          label: matchStore.dataMatch.title?.rendered,
+        },
+      ]);
+    });
+    // }
     updateIsMobile();
     window.addEventListener('resize', updateIsMobile);
-
-    if (tournamentID !== currentID.value || tournamentPageStore.currentID === '') {
-      tournamentPageStore.fetchData(tournamentID).then(() => {
-        // console.log(tournamentPageStore.data.title);
-        // matchStore.dataTournament = tournamentPageStore.data;
-        breadcrumbsStore.setNameFromIds(tournamentPageStore.data?.title);
-      });
-    }
   });
+
   onUnmounted(() => {
     updateIsMobile();
     window.removeEventListener('resize', updateIsMobile);

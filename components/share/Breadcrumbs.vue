@@ -1,12 +1,12 @@
 <template>
-  <Breadcrumb :home="home" :model="breadcrumbsStore.items">
+  <Breadcrumb :home="home" :model="itemsWithChildren">
     <template #item="{ item, props }">
       <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
         <a :href="href" v-bind="props.action" @click="navigate">
-          <span class="">{{ item.label }}</span>
+          <span class="" v-html="item.label"> </span>
         </a>
       </router-link>
-      <span v-else> {{ item.label }} </span>
+      <span v-else v-html="item.label"> </span>
     </template>
     <template #separator="">
       <svg
@@ -25,17 +25,18 @@
   </Breadcrumb>
 </template>
 <script setup>
-import { ref } from 'vue';
-import { useBreadcrumbsStore } from '@/store/BreadcrumbStore';
+  import { ref } from 'vue';
+  import { useBreadcrumbsStore } from '@/store/BreadcrumbStore';
 
-const home = ref({
-  label: 'Главная',
-  route: '/',
-});
+  const home = ref({
+    label: 'Главная',
+    route: '/',
+  });
 
-const breadcrumbsStore = useBreadcrumbsStore();
+  const breadcrumbsStore = useBreadcrumbsStore();
+  const { itemsWithChildren } = storeToRefs(breadcrumbsStore);
 
-onMounted(() => {
-  breadcrumbsStore.createBreadcrumb();
-});
+  onMounted(() => {
+    breadcrumbsStore.createBreadcrumb();
+  });
 </script>

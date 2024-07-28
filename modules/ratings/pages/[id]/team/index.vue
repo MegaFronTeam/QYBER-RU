@@ -63,6 +63,6 @@
   await raitingTeamStore.fetchTeam(`/wp/v2/teams/${route.params.id}`);
 
   onMounted(() => {
-    // breadcrumbsStore.setNameFromIds(raitingTeamStore.teamData.post_title);
+    breadcrumbsStore.setNameFromIds(raitingTeamStore.teamData.post_title);
   });
 </script>

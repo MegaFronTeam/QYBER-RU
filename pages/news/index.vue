@@ -14,9 +14,14 @@
 
 <script setup>
   import { useNewsStore } from '~/store/NewsStore';
+  import { useBreadcrumbsStore } from '@/store/BreadcrumbStore';
+
   const newsStore = useNewsStore();
 
+  const breadcrumbsStore = useBreadcrumbsStore();
   definePageMeta({
     breadcrumbName: 'Новости',
   });
+
+  breadcrumbsStore.setNameFromIds();
 </script>

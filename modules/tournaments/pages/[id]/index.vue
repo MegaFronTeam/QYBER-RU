@@ -19,10 +19,8 @@
 
   onMounted(() => {
     if (id !== currentID.value) {
-      tournamentStorePage.fetchData(id).then(() => {
-        console.log(tournamentStorePage.data.title);
-        breadcrumbsStore.setNameFromIds(tournamentStorePage.data.title);
-      });
+      tournamentStorePage.fetchData(id).then(() => {});
     }
+    breadcrumbsStore.setNameFromIds(tournamentStorePage.data.title);
   });
 </script>
