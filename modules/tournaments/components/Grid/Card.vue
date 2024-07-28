@@ -38,14 +38,12 @@
           <!-- :class="{ 'team-success': product.team.success }" -->
           <CardITeam :item="item.b" />
           <div class="sGridCard__score">
-            <!-- {{ product.b.team.success ? 1 : 0 }} -->
-
             {{ item.b.counter }}
           </div>
         </div>
         <!-- <Button v-if="isPlayerInMatch">Присоединиться</Button> -->
-        <JoinGameModal v-if="isPlayerInMatch" btnLabel="Присоединиться" :id="item.id" />
       </div>
+      <JoinGameModal :isPlayerInMatch="isPlayerInMatch" btnLabel="Информация" :id="item.id" />
     </template>
   </div>
 </template>

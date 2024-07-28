@@ -1,20 +1,18 @@
 <template>
-  <NuxtLink to="/auth/login" v-if="!globalStore.isUserAuth">
+  <!-- <NuxtLink to="/auth/login" v-if="!globalStore.isUserAuth">
     <Button :label="btnLabel" class="w-full" />
-  </NuxtLink>
-  <Button
-    @click="show = true"
-    v-on:click="fetchMatch(id)"
-    :label="btnLabel"
-    class="w-full"
-    v-else
-  />
+  </NuxtLink> -->
+  <Button @click="show = true" v-on:click="fetchMatch(id)" :label="btnLabel" class="w-full" />
 
   <Dialog class="join-modal" v-model:visible="show" modal header="Подключение к игре">
     <CopyButton title="Формат" :data="data.format" />
     <CopyButton title="Начало игры" :data="dataMatch.date" />
     <CopyButton title="Сервер Discord" :data="dataMatch.discord" />
-    <CopyButton title="Информация для подключения" :data="dataMatch.server" />
+    <CopyButton
+      v-if="isPlayerInMatch"
+      title="Информация для подключения"
+      :data="dataMatch.server"
+    />
 
     <Button @click="show = false" class="btn-lg">Закрыть</Button>
   </Dialog>
@@ -33,6 +31,10 @@
     id: {
       type: String,
       required: false,
+    },
+    isPlayerInMatch: {
+      type: Boolean,
+      default: false,
     },
   });
 
