@@ -50,7 +50,7 @@
     <div class="sTournamentOverview__head">
       <div class="head-item">
         <p><span>Дисциплина</span></p>
-        <p v-for="item in data.discipline" :key="item.slug" v-html="item.name"></p>
+        <p v-for="item in data.discipline" :key="item.slug">{{ item.name }}</p>
       </div>
       <div class="head-item">
         <p><span>Лига</span></p>
@@ -72,11 +72,11 @@
   </div>
 </template>
 <script setup>
-import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-import { useGlobalStore } from '~/store/globalStore';
+  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  import { useGlobalStore } from '~/store/globalStore';
 
-const tournamentStorePage = useTournamentPageStore();
-const globalStore = useGlobalStore();
+  const tournamentStorePage = useTournamentPageStore();
+  const globalStore = useGlobalStore();
 
-const { data } = storeToRefs(tournamentStorePage);
+  const { data } = storeToRefs(tournamentStorePage);
 </script>

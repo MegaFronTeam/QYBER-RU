@@ -711,6 +711,7 @@
         .sPersonCard {
           @include media-breakpoint-up(lg) {
             flex-direction: row-reverse;
+            text-align: right;
             &__status {
               text-align: end;
             }

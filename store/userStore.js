@@ -116,7 +116,6 @@ export const useUserStore = defineStore('user', () => {
       //     locale: ru,
       //   },
       // );
-      console.log(globalStore.userData.user_birthday);
       Object.keys(globalStore.userData).forEach((key) => {
         if (key === 'user_birthday') {
           if (globalStore.userData[key] === '') {
@@ -128,7 +127,12 @@ export const useUserStore = defineStore('user', () => {
             });
             return;
           } else {
-            formData.append(key, format(new Date(globalStore.userData[key]), 'Y-MM-dd'));
+            let birthDate = globalStore.userData[key];
+            if (birthDate.length < 13) {
+              birthDate = birthDate.split('.').reverse().join('-');
+            }
+            console.log(birthDate, new Date(birthDate));
+            formData.append(key, format(new Date(birthDate), 'Y-MM-dd'));
           }
         } else {
           formData.append(key, globalStore.userData[key]);

@@ -4,7 +4,7 @@
       :title="dataMatch.title?.rendered"
       :breadcrumbArr="breadcrumb"
       class="sHeaderBlock sHeaderBlock--detailed sHeaderBlock--match"
-      bg="/img/schedule-bg.jpg"
+      :bg="data.post_thumbnail"
     >
       <span class="sHeaderBlock__date">{{ dataMatch.date }}</span>
       <div class="header-item sTournamentOverview--match">

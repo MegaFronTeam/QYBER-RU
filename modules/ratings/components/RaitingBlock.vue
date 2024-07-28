@@ -94,7 +94,7 @@
                 />
               </svg>
             </template> -->
-            <template #body="slotProps">{{ slotProps.data.rating }}</template>
+            <template #body="slotProps">{{ slotProps.data.rating || 'Калибровка ' }}</template>
           </Column>
         </DataTable>
         <!-- <SharePagination /> -->
