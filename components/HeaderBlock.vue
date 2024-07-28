@@ -4,7 +4,7 @@
       <div class="sHeaderBlock__wrap bg-wrap">
         <img v-if="bg" :src="`${bg}`" alt="bg" class="picture-bg" />
         <Breadcrumbs />
-        <h1>{{ title }}</h1>
+        <h1 v-html="title"></h1>
         <slot></slot>
       </div>
     </div>
