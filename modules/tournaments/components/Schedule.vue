@@ -112,7 +112,7 @@
                         <br />
                         <small>
                           {{
-                            slotProps.data.b.command.post_title ||
+                            slotProps.data.b.command.company ||
                             slotProps.data.b.command.educational_institution.abbreviation
                           }}
                         </small>
