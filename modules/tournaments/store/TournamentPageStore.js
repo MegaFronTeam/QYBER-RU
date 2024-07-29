@@ -127,7 +127,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       const disciplineList = globalStore.disciplineList;
 
       return globalStore.disciplineList.find((item) => item.slug === state.data.discipline[0].slug)
-        .icon.icon;
+        .icon.sizes.thumbnail;
     },
   },
   actions: {

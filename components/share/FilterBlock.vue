@@ -14,7 +14,7 @@
           :class="{ active: filter.leagues === item.id }"
           @click="changeFilter('leagues', item.id)"
         >
-          <img :src="item.icon.icon" alt="" />
+          <img :src="item.icon.sizes.thumbnail" alt="" />
           {{ item.name }}</Button
         >
       </li>
@@ -32,7 +32,7 @@
         <Button
           :class="{ active: filter.discipline === item.id }"
           @click="changeFilter('discipline', item.id)"
-          ><img :src="item.icon.icon" alt="" /> {{ item.name }}</Button
+          ><img :src="item.icon.sizes.thumbnail" alt="" /> {{ item.name }}</Button
         >
       </li>
     </ul>
