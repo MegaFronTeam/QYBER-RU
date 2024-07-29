@@ -14,7 +14,10 @@
             header="Команда"
           >
             <template #body="slotProps">
-              <NuxtLink class="mx-max-contnet d-block" :to="`/ratings/${slotProps.data.team.ID}`">
+              <NuxtLink
+                class="mx-max-contnet d-block"
+                :to="`/ratings/team-${slotProps.data.team.ID}`"
+              >
                 <div class="table-wrap">
                   <img
                     v-if="slotProps.data.post_thumbnail"
@@ -85,16 +88,16 @@
 </template>
 
 <script setup>
-import { useGlobalStore } from '~/store/globalStore';
-const globalStore = useGlobalStore();
-const { tableRows } = storeToRefs(globalStore);
+  import { useGlobalStore } from '~/store/globalStore';
+  const globalStore = useGlobalStore();
+  const { tableRows } = storeToRefs(globalStore);
 
-import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-const tournamentPageStore = useTournamentPageStore();
-const { data } = storeToRefs(tournamentPageStore);
+  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+  const tournamentPageStore = useTournamentPageStore();
+  const { data } = storeToRefs(tournamentPageStore);
 
-const active = ref(1);
+  const active = ref(1);
 
-const totalRecords = ref(10);
-const rowsPerPage = ref([5, 10, 50, 100]);
+  const totalRecords = ref(10);
+  const rowsPerPage = ref([5, 10, 50, 100]);
 </script>
