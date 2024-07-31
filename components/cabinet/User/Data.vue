@@ -195,8 +195,6 @@ const { userData, regions, user_genderArr } = storeToRefs(globalStore);
 import { useUserStore } from '@/store/userStore';
 const userStore = useUserStore();
 
-console.log(userData.value);
-
 const { educational_institutions } = storeToRefs(userStore);
 
 const customBase64Uploader = async (event) => {

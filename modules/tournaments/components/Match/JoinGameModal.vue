@@ -11,8 +11,8 @@
 
   <Dialog class="join-modal" v-model:visible="show" modal header="Подключение к игре">
     <CopyButton title="Формат" :data="data.format" />
-    <CopyButton title="Начало игры" :data="dataMatch.date" />
-    <CopyButton title="Сервер Discord" :data="dataMatch.discord" />
+    <CopyButton v-if="dataMatch.date" title="Начало игры" :data="dataMatch.date" />
+    <CopyButton v-if="dataMatch.discord" title="Сервер Discord" :data="dataMatch.discord" />
     <CopyButton
       v-if="isPlayerInMatch"
       title="Информация для подключения"
