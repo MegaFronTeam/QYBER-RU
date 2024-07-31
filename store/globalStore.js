@@ -33,6 +33,8 @@ export const useGlobalStore = defineStore(
     const DiscordServer = ref('');
     const tableRows = ref(10);
 
+    const mainBannerContent = ref({});
+
     const isAdmin = computed(() => {
       return userData.value.roles && userData.value.roles.includes('administrator');
     });
@@ -149,6 +151,20 @@ export const useGlobalStore = defineStore(
       in_verifications.value = true;
     };
 
+    const getMainBanner = async () => {
+      try {
+        await axios
+          .get(`${BASE_URL}/wp/v2/pages`)
+          .then((response) => {
+            mainBannerContent.value = response.data[0].services;
+          })
+          .catch((error) => console.log('Fetch Main Banner Error: ', error));
+      } catch (error) {
+        console.error(error);
+        return Promise.reject(error);
+      }
+    };
+
     getRegions();
     return {
       API_KEY,
@@ -173,6 +189,8 @@ export const useGlobalStore = defineStore(
       isReferee,
       showToast,
       isAdmin,
+      mainBannerContent,
+      getMainBanner,
     };
   },
   { persist: { storage: persistedState.localStorage } },

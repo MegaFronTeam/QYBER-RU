@@ -19,10 +19,9 @@
             </div>
             <img v-else src="/img/mainHeader-bg-1.jpg" class="picture-bg" alt="Bg" />
 
-            <h1>Корпоративный и студенческий турнир <span>по киберспорту</span></h1>
+            <h1 v-html="mainBannerContent.title_banner"></h1>
             <p>
-              Киберспортивные турниры в дисциплинах Counter Strike 2, Dota 2 и Спортивное
-              программирование
+              {{ mainBannerContent.subtitle_banner }}
             </p>
             <!-- TODO: узнать что здесь выводить сейчас  Т к турнир сразу на несколько игр- у нас это не предусмотрено -->
             <!-- <Button severity="primary" label="Кнопка если нужна" outlined /> -->
@@ -108,54 +107,61 @@
 </template>
 
 <script setup>
-  import { useNewsStore } from '@/store/NewsStore';
-  const newsStore = useNewsStore();
-  const { dataLast } = storeToRefs(newsStore);
+import { useNewsStore } from '@/store/NewsStore';
+import { useTournamentStore } from '@/store/TournamentStore';
+import { useGlobalStore } from '~/store/globalStore';
 
-  import { useTournamentStore } from '@/store/TournamentStore';
-  const tournamentStore = useTournamentStore();
-  const { lastOne, BroadCast } = storeToRefs(tournamentStore);
+const newsStore = useNewsStore();
+const { dataLast } = storeToRefs(newsStore);
 
-  tournamentStore.getBroadCast();
+const tournamentStore = useTournamentStore();
+const { lastOne, BroadCast } = storeToRefs(tournamentStore);
 
-  const youtubeIframe = ref(null);
+const globalStore = useGlobalStore();
+const { mainBannerContent } = storeToRefs(globalStore);
 
-  const goFullscreen = () => {
+tournamentStore.getBroadCast();
+
+const youtubeIframe = ref(null);
+
+const goFullscreen = () => {
+  tournamentStore.BroadCast = tournamentStore.BroadCast.replace(
+    'mute=1&controls=0',
+    'mute=0&controls=1',
+  );
+  const iframe = youtubeIframe.value;
+  if (iframe.requestFullscreen) {
+    iframe.requestFullscreen();
+  } else if (iframe.mozRequestFullScreen) {
+    /* Firefox */
+    iframe.mozRequestFullScreen();
+  } else if (iframe.webkitRequestFullscreen) {
+    /* Chrome, Safari and Opera */
+    iframe.webkitRequestFullscreen();
+  } else if (iframe.msRequestFullscreen) {
+    /* IE/Edge */
+    iframe.msRequestFullscreen();
+  }
+};
+
+const onFullscreenChange = () => {
+  if (!document.fullscreenElement) {
+    // Вышли из полноэкранного режима
+    // Верните URL ифрейма к исходному состоянию
     tournamentStore.BroadCast = tournamentStore.BroadCast.replace(
-      'mute=1&controls=0',
       'mute=0&controls=1',
+      'mute=1&controls=0',
     );
-    const iframe = youtubeIframe.value;
-    if (iframe.requestFullscreen) {
-      iframe.requestFullscreen();
-    } else if (iframe.mozRequestFullScreen) {
-      /* Firefox */
-      iframe.mozRequestFullScreen();
-    } else if (iframe.webkitRequestFullscreen) {
-      /* Chrome, Safari and Opera */
-      iframe.webkitRequestFullscreen();
-    } else if (iframe.msRequestFullscreen) {
-      /* IE/Edge */
-      iframe.msRequestFullscreen();
-    }
-  };
+  }
+};
 
-  const onFullscreenChange = () => {
-    if (!document.fullscreenElement) {
-      // Вышли из полноэкранного режима
-      // Верните URL ифрейма к исходному состоянию
-      tournamentStore.BroadCast = tournamentStore.BroadCast.replace(
-        'mute=0&controls=1',
-        'mute=1&controls=0',
-      );
-    }
-  };
+await globalStore.getMainBanner();
 
-  onMounted(() => {
-    document.addEventListener('fullscreenchange', onFullscreenChange);
-  });
+onMounted(() => {
+  document.addEventListener('fullscreenchange', onFullscreenChange);
+});
 
-  onUnmounted(() => {
-    document.removeEventListener('fullscreenchange', onFullscreenChange);
-  });
+onUnmounted(() => {
+  document.removeEventListener('fullscreenchange', onFullscreenChange);
+});
 </script>
