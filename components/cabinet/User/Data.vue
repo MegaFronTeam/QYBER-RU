@@ -62,7 +62,7 @@
             <InputText
               id="text"
               type="text"
-              v-model="userData.user_first_name"
+              v-model="userData.user_second_name"
               placeholder="Введите отчество "
             />
           </InputGroup>
@@ -194,6 +194,8 @@ const { userData, regions, user_genderArr } = storeToRefs(globalStore);
 
 import { useUserStore } from '@/store/userStore';
 const userStore = useUserStore();
+
+console.log(userData.value);
 
 const { educational_institutions } = storeToRefs(userStore);
 
