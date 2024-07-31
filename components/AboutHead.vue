@@ -5,7 +5,7 @@
         <div class="col">
           <div class="sAboutHead__item">
             <svg-icon name="users-medical.svg" />
-            <h4>10 000 зрителей</h4>
+            <h4>{{ aboutStore.views }} зрителей</h4>
             <p>Набирают трансляции наших киберспортивных событий</p>
           </div>
         </div>
@@ -271,6 +271,4 @@
 import { useAboutStore } from '~/store/AboutStore';
 
 const aboutStore = useAboutStore();
-
-console.log(aboutStore.data);
 </script>
