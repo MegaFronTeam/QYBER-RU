@@ -31,6 +31,45 @@
                 placeholder="__.__.____"
                 date-format="dd.mm.yy"
                 showButtonBar
+                showTime
+                hourFormat="24"
+                @today-click="
+                  (value) => {
+                    const currDate = new Date(value);
+
+                    currDate.setHours(0, 0, 0, 0);
+
+                    editMatch.date = currDate;
+                  }
+                "
+                @date-select="
+                  (value) => {
+                    const prevDateYear = prevDate.getYear();
+                    const prevDateMonth = prevDate.getMonth();
+                    const prevDateDay = prevDate.getDay();
+
+                    const currDateYear = value.getYear();
+                    const currDateMonth = value.getMonth();
+                    const currDateDay = value.getDay();
+
+                    if (
+                      prevDateYear === currDateYear &&
+                      prevDateMonth === currDateMonth &&
+                      prevDateDay === currDateDay
+                    ) {
+                      // console.log('Same day');
+
+                      editMatch.date = value;
+                    } else {
+                      // console.log('Different day');
+
+                      value.setHours(0, 0, 0, 0);
+                      editMatch.date = value;
+                    }
+
+                    prevDate = value;
+                  }
+                "
               >
                 <template #inputicon="{ clickCallback }">
                   <div @click="clickCallback" class="icon-wrap">
@@ -38,14 +77,14 @@
                   </div>
                 </template>
               </Calendar>
-              <Calendar
+              <!-- <Calendar
                 id="calendar-timeonly"
                 v-model="editMatch.time"
                 time-format="HH:mm"
                 timeOnly
                 placeholder="00:00"
                 showButtonBar
-              />
+              /> -->
             </div>
           </InputGroup>
           <label for="discord">Сервер Discord</label>
@@ -198,37 +237,39 @@
 </template>
 
 <script setup>
-  import { useMatchEditStore } from '@/modules/tournaments/store/MatchEditStore';
-  const matchEditStore = useMatchEditStore();
-  const { editMatch, isFinished } = storeToRefs(matchEditStore);
+import { useMatchEditStore } from '@/modules/tournaments/store/MatchEditStore';
+const matchEditStore = useMatchEditStore();
+const { editMatch, isFinished } = storeToRefs(matchEditStore);
 
-  import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
-  const tournamentPageStore = useTournamentPageStore();
-  const settingsModalVisible = ref(false);
+import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
+const tournamentPageStore = useTournamentPageStore();
+const settingsModalVisible = ref(false);
 
-  const props = defineProps({
-    item: {
-      type: Array,
-      required: true,
-    },
-    btnLabel: {
-      type: String,
-      default: '',
-      required: false,
-    },
-  });
+const props = defineProps({
+  item: {
+    type: Array,
+    required: true,
+  },
+  btnLabel: {
+    type: String,
+    default: '',
+    required: false,
+  },
+});
+
+const prevDate = ref(new Date());
 </script>
 
 <style lang="scss">
-  .edit-match {
-    .p-checkbox {
-      margin-right: 10px;
-      margin-bottom: 0.625rem;
-      position: relative;
-    }
+.edit-match {
+  .p-checkbox {
+    margin-right: 10px;
+    margin-bottom: 0.625rem;
+    position: relative;
   }
-  .flex {
-    display: flex;
-    align-items: center;
-  }
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
 </style>

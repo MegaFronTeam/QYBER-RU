@@ -7,7 +7,10 @@ import { formatDate } from '@/utils/formatData';
 import { useToast } from 'primevue/usetoast';
 
 export const useMatchEditStore = defineStore('MatchEdit', {
-  state: () => ({ editMatch: {} as MatchInterface, toast: useToast() }),
+  state: () => ({
+    editMatch: {} as MatchInterface,
+    toast: useToast(),
+  }),
   getters: {
     // MatchDate(): string {
     //   return this.editMatch.date;
@@ -15,17 +18,18 @@ export const useMatchEditStore = defineStore('MatchEdit', {
 
     getMatchDate: (state) => {
       if (!state.editMatch.date || !state.editMatch.time) return '';
-      console.log(state.editMatch.date, state.editMatch.time);
+      console.log(state.editMatch);
 
       const date =
         state.editMatch.date && state.editMatch.date.length < 11
           ? state.editMatch.date.split('.').reverse().join('-')
-          : formatDate(state.editMatch.date, 'y-MM-dd');
-      const time =
-        state.editMatch.time && state.editMatch.time.length < 6
-          ? `${state.editMatch.time}:00`
-          : formatDate(state.editMatch.time, 'HH:mm:ss');
-      return `${date} ${time}`;
+          : formatDate(state.editMatch.date, 'y-MM-dd HH:mm');
+      // const time =
+      //   state.editMatch.time && state.editMatch.time.length < 6
+      //     ? `${state.editMatch.time}:00`
+      //     : formatDate(state.editMatch.time, 'HH:mm:ss');
+      return `${date}`;
+      // return `${date} ${time}`;
     },
 
     getStatus: (state) => {
@@ -53,8 +57,9 @@ export const useMatchEditStore = defineStore('MatchEdit', {
         ...item,
         checked: item.status?.valueOf() === 'play',
       };
-      this.editMatch.oldDate = this.editMatch.date;
-      this.editMatch.date = formatDate(item.date, 'dd.MM.yyyy');
+      this.editMatch.oldDate =
+        formatDate(this.editMatch.date, 'dd.MM.yyyy') + formatDate(this.editMatch.time, 'HH:mm');
+      this.editMatch.date = formatDate(item.date, 'dd.MM.yyyy HH:mm');
       this.editMatch.time = formatDate(item.date, 'HH:mm');
     },
 
