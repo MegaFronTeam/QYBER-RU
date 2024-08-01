@@ -11,19 +11,19 @@
 </template>
 
 <script setup lang="ts">
-  import type { commandInterface } from '@/modules/tournaments/interfaces/interface';
-  const props = defineProps<{
-    item: commandInterface;
-  }>();
+import type { commandInterface } from '@/modules/tournaments/interfaces/interface';
+const props = defineProps<{
+  item: commandInterface;
+}>();
 </script>
 <style scoped lang="scss">
-  img {
-    aspect-ratio: 1;
-    object-fit: cover;
-  }
-  .team-inner {
-    width: 100%;
-  }
-  .sMatchHeader {
-  }
+img {
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.team-inner {
+  width: 100%;
+}
+.sMatchHeader {
+}
 </style>

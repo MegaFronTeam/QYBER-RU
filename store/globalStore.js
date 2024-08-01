@@ -34,6 +34,7 @@ export const useGlobalStore = defineStore(
     const tableRows = ref(10);
 
     const mainBannerContent = ref({});
+    const welcomeBannerContent = ref({});
 
     const isAdmin = computed(() => {
       return userData.value.roles && userData.value.roles.includes('administrator');
@@ -157,6 +158,8 @@ export const useGlobalStore = defineStore(
           .get(`${BASE_URL}/wp/v2/pages`)
           .then((response) => {
             mainBannerContent.value = response.data[0].services;
+            welcomeBannerContent.value = response.data[0].content.rendered;
+            console.log(welcomeBannerContent.value);
           })
           .catch((error) => console.log('Fetch Main Banner Error: ', error));
       } catch (error) {
@@ -190,6 +193,7 @@ export const useGlobalStore = defineStore(
       showToast,
       isAdmin,
       mainBannerContent,
+      welcomeBannerContent,
       getMainBanner,
     };
   },

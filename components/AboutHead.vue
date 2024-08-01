@@ -5,7 +5,7 @@
         <div class="col">
           <div class="sAboutHead__item">
             <svg-icon name="users-medical.svg" />
-            <h4>{{ aboutStore.views }} зрителей</h4>
+            <h4>{{ aboutStore.services.views }} зрителей</h4>
             <p>Набирают трансляции наших киберспортивных событий</p>
           </div>
         </div>

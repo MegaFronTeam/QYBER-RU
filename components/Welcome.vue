@@ -9,16 +9,7 @@
         </div>
         <div>
           <h2 class="h1">Добро пожаловать на турнир QYBER.ru</h2>
-          <p>
-            Вы готовы испытать свои навыки, погрузиться в мир виртуального соперничества и завоевать
-            славу среди лучших игроков любительского уровня, студентов и корпоративных сотрудников?
-            Тогда этот кибертурнир создан специально для вас!
-          </p>
-          <p>
-            Турнир Qyber.ru - это уникальное соревнование, объединяющее игроков различных
-            профессиональных и образовательных сфер, чтобы они могли помериться силами в виртуальном
-            мире разнообразных игровых дисциплин.
-          </p>
+          <div v-html="welcomeBannerContent"></div>
           <!-- <Button label="Подробнее о турнире" class="btn-lg" /> -->
         </div>
       </div>
@@ -26,4 +17,9 @@
   </section>
 </template>
 
-<script setup></script>
+<script setup>
+import { useGlobalStore } from '~/store/globalStore';
+
+const globalStore = useGlobalStore();
+const { welcomeBannerContent } = storeToRefs(globalStore);
+</script>

@@ -5,54 +5,10 @@
         <div class="sAboutBody__members">
           <h2 class="h1">Наши участники</h2>
           <div class="row">
-            <div class="col">
+            <div class="col" v-for="member of aboutStore.services.members">
               <div class="sAboutBody__img-wrap">
                 <div class="img-wrap-center">
-                  <img alt="logo" loading="lazy" src="/img/logo-1.svg" />
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="sAboutBody__img-wrap">
-                <div class="img-wrap-center">
-                  <img alt="logo" loading="lazy" src="/img/logo-3.png" />
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="sAboutBody__img-wrap">
-                <div class="img-wrap-center">
-                  <img alt="logo" loading="lazy" src="/img/logo-4.svg" />
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="sAboutBody__img-wrap">
-                <div class="img-wrap-center">
-                  <img alt="logo" loading="lazy" src="/img/logo-5.png" />
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="sAboutBody__img-wrap">
-                <div class="img-wrap-center">
-                  <img alt="logo" loading="lazy" src="/img/logo-6.png" />
-                </div>
-              </div>
-            </div>
-            <!-- <d> -->
-
-            <div class="col">
-              <div class="sAboutBody__img-wrap">
-                <div class="img-wrap-center">
-                  <img alt="logo" loading="lazy" src="/img/logo-8.png" />
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="sAboutBody__img-wrap">
-                <div class="img-wrap-center">
-                  <img alt="logo" loading="lazy" src="/img/logo-9.png" />
+                  <img :alt="member.title" loading="lazy" :src="member.url" />
                 </div>
               </div>
             </div>
@@ -65,11 +21,7 @@
                 <img src="/img/sAboutBody-bg-1.jpg" class="picture-bg" alt="bg" />
                 <img src="/img/atlants.svg" class="sAboutBody__logo" alt="logo" />
                 <h2 class="h1">Кибер Атланты</h2>
-                <p>
-                  Вы готовы испытать свои навыки, погрузиться в мир виртуального соперничества и
-                  завоевать славу среди лучших игроков любительского уровня, студентов и
-                  корпоративных сотрудников? Тогда этот кибертурнир создан специально для вас!npm
-                </p>
+                <div v-html="aboutStore.content.rendered"></div>
                 <NuxtLink to="/tournaments?time=nearest&leagues=9">
                   <Button severity="secondary" class="btn-lg">
                     Смотреть турниры
@@ -102,3 +54,9 @@
     </div>
   </section>
 </template>
+
+<script setup>
+import { useAboutStore } from '~/store/AboutStore';
+
+const aboutStore = useAboutStore();
+</script>

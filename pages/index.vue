@@ -11,18 +11,22 @@
 </template>
 
 <script setup>
-  import { useNewsStore } from '@/store/NewsStore';
+import { useNewsStore } from '@/store/NewsStore';
+import { useGlobalStore } from '~/store/globalStore';
 
-  const newsStore = useNewsStore();
-  const { data } = storeToRefs(newsStore);
-  newsStore.fetchNews('?per_page=4');
+const globalStore = useGlobalStore();
+const newsStore = useNewsStore();
+const { data } = storeToRefs(newsStore);
+newsStore.fetchNews('?per_page=4');
 
-  const sectionTitleNewsProps = {
-    title: 'Последние новости',
-    text: 'Актуальные новости киберспортивных турниров от QYBER.RU',
-  };
-  const footerLinkNewsProps = {
-    text: 'Смотреть все новости',
-    href: '/news',
-  };
+await globalStore.getMainBanner();
+
+const sectionTitleNewsProps = {
+  title: 'Последние новости',
+  text: 'Актуальные новости киберспортивных турниров от QYBER.RU',
+};
+const footerLinkNewsProps = {
+  text: 'Смотреть все новости',
+  href: '/news',
+};
 </script>

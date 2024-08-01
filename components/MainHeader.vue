@@ -155,8 +155,6 @@ const onFullscreenChange = () => {
   }
 };
 
-await globalStore.getMainBanner();
-
 onMounted(() => {
   document.addEventListener('fullscreenchange', onFullscreenChange);
 });
