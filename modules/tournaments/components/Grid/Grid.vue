@@ -39,10 +39,9 @@
                   <p>{{ item.name }} ({{ item.subname.label }})</p>
                 </div>
               </div>
-              <div class="tournament-table__row row">
+              <div class="tournament-table__row row" v-if="matchesGrid && matchesGrid.length > 0">
                 <div
                   class="tournament-table__col col-auto"
-                  v-if="matchesGrid && matchesGrid.length > 0"
                   v-for="(match, index) in matchesGrid"
                   :key="index"
                 >
