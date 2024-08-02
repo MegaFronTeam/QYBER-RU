@@ -21,7 +21,11 @@
                 <img src="/img/sAboutBody-bg-1.jpg" class="picture-bg" alt="bg" />
                 <img src="/img/atlants.svg" class="sAboutBody__logo" alt="logo" />
                 <h2 class="h1">Кибер Атланты</h2>
-                <div v-html="aboutStore.content.rendered"></div>
+                <p>
+                  Вы готовы испытать свои навыки, погрузиться в мир виртуального соперничества и
+                  завоевать славу среди лучших игроков любительского уровня, студентов и
+                  корпоративных сотрудников? Тогда этот кибертурнир создан специально для вас!
+                </p>
                 <NuxtLink to="/tournaments?time=nearest&leagues=9">
                   <Button severity="secondary" class="btn-lg">
                     Смотреть турниры
