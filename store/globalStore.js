@@ -159,7 +159,7 @@ export const useGlobalStore = defineStore(
           .then((response) => {
             mainBannerContent.value = response.data[0].services;
             welcomeBannerContent.value = response.data[0].content.rendered;
-            console.log(welcomeBannerContent.value);
+            // console.log(welcomeBannerContent.value);
           })
           .catch((error) => console.log('Fetch Main Banner Error: ', error));
       } catch (error) {

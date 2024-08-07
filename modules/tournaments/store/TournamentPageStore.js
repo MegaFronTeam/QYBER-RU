@@ -126,8 +126,10 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       const globalStore = useGlobalStore();
       const disciplineList = globalStore.disciplineList;
 
-      return globalStore.disciplineList.find((item) => item.slug === state.data.discipline[0].slug)
-        .icon.sizes.thumbnail;
+      const current = globalStore.disciplineList.find(
+        (item) => item.slug === state.data.discipline[0].slug,
+      );
+      return current && current.icon ? current.icon.sizes.thumbnail : '';
     },
   },
   actions: {

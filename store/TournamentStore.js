@@ -17,6 +17,7 @@ export const useTournamentStore = defineStore('tournament', () => {
   const BroadCast = ref('');
 
   const tournamentsList = ref([]);
+  const SecondtournamentsList = ref([]);
 
   const lastOne = computed(() => {
     return tournamentsList.value[0] || {};
@@ -61,6 +62,41 @@ export const useTournamentStore = defineStore('tournament', () => {
       // console.log(data);
 
       tournamentsList.value = data;
+      // getLast.value = data.slice(0, 7);
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  };
+  const fetchTournamentsSecond = async (params = '') => {
+    tournamentsList.value = [];
+    try {
+      const response = await axios.get(`${BASE_URL}/wp/v2/tournaments${params}`);
+      const data = await response.data;
+
+      // console.log(data);
+
+      data.map((item) => {
+        item['prize_fund'] = new Intl.NumberFormat('ru-RU', {
+          style: 'currency',
+          currency: 'RUB',
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2,
+        })
+          .format(+item.prize_fund)
+          .replace(/\.00$/, '');
+        item.teamCount = item.comand_list.length > 0 ? item.comand_list.length : 0;
+        // item.date = new Date(item.date).toLocaleDateString();
+        item.title = item.title.rendered;
+        item.teamLength = item.comand_list.length;
+        delete item.short_description;
+        delete item.full_description;
+        delete item.regulations;
+      });
+
+      // console.log(data);
+
+      SecondtournamentsList.value = data;
       // getLast.value = data.slice(0, 7);
     } catch (error) {
       console.error(error);
@@ -134,6 +170,8 @@ export const useTournamentStore = defineStore('tournament', () => {
     lastOne,
     getBroadCast,
     BroadCast,
+    SecondtournamentsList,
+    fetchTournamentsSecond,
   };
 });
 

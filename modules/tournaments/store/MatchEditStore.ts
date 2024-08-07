@@ -17,12 +17,12 @@ export const useMatchEditStore = defineStore('MatchEdit', {
     // }
 
     getMatchDate: (state) => {
-      if (!state.editMatch.date || !state.editMatch.time) return '';
-      console.log(state.editMatch);
+      if (!state.editMatch.date) return '';
+      console.log(state.editMatch.date.length);
 
       const date =
-        state.editMatch.date && state.editMatch.date.length < 11
-          ? state.editMatch.date.split('.').reverse().join('-')
+        state.editMatch.date.length > 2 && state.editMatch.date.length < 30
+          ? state.editMatch.date
           : formatDate(state.editMatch.date, 'y-MM-dd HH:mm');
       // const time =
       //   state.editMatch.time && state.editMatch.time.length < 6
@@ -57,10 +57,10 @@ export const useMatchEditStore = defineStore('MatchEdit', {
         ...item,
         checked: item.status?.valueOf() === 'play',
       };
-      this.editMatch.oldDate =
-        formatDate(this.editMatch.date, 'dd.MM.yyyy') + formatDate(this.editMatch.time, 'HH:mm');
-      this.editMatch.date = formatDate(item.date, 'dd.MM.yyyy HH:mm');
-      this.editMatch.time = formatDate(item.date, 'HH:mm');
+      // console.log(new Date(this.editMatch.date));
+
+      // this.editMatch.oldDate = this.editMatch.date;
+      // this.editMatch.date = formatDate(item.date, 'dd.MM.yyyy HH:mm');
     },
 
     async updateMatch(finish: boolean, team: 'a' | 'b') {

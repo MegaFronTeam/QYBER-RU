@@ -4,7 +4,10 @@
     :sectionTitle="sectionTitleTournamentsProps"
     :footerLink="footerLinkTournamentsProps"
   >
-    <TournamentsCard v-for="item of tournamentsList" :newsData="item" />
+    <TournamentsCard
+      v-for="item of [...tournamentsList, ...SecondtournamentsList]"
+      :newsData="item"
+    />
   </MainContentBlock>
 </template>
 
@@ -12,8 +15,9 @@
   import { useTournamentStore } from '@/store/TournamentStore';
 
   const tournamentStore = useTournamentStore();
-  const { tournamentsList } = storeToRefs(tournamentStore);
+  const { tournamentsList, SecondtournamentsList } = storeToRefs(tournamentStore);
   tournamentStore.fetchTournaments('?time=nearest&per_page=8');
+  tournamentStore.fetchTournamentsSecond('?time=current&per_page=8');
 
   const sectionTitleTournamentsProps = {
     title: 'Предстоящие',

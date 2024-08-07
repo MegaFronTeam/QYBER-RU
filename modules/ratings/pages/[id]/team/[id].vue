@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!raitingUserStore.error">
+  <div>
     <CabinetProfileHead :img="data.user_avatar.url" :showInvites="false">
       <h1 :class="data.in_verifications === true ? 'verifired' : ''">{{ data.user_nickname }}</h1>
       <span class="sProfileHead__name">{{ data.display_name }}</span>
@@ -19,7 +19,7 @@
     </CabinetProfileHead>
     <TeamBlock />
   </div>
-  <h1 class="container" v-else>{{ raitingUserStore.error }}</h1>
+  <!-- <h1 class="container" v-else>{{ raitingUserStore.error }}</h1> -->
 </template>
 
 <script setup>
@@ -35,6 +35,8 @@
   const raitingTeamStore = useRaitingTeamStore();
 
   const { data } = storeToRefs(raitingUserStore);
+
+  console.log(route.params.id);
 
   await raitingUserStore.fetchUser(`/wp/v2/users/${route.params.id}`);
   await raitingTeamStore.fetchUserTeams(`/wp/v2/teams?member=${route.params.id}`);
