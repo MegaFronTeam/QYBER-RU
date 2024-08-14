@@ -45,15 +45,29 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     },
 
     matchesGrid: (state) => {
-      if (!state.data.matches) return [];
       const grid = Object.values(JSON.parse(JSON.stringify(state.data.matches || [])));
       // let mathLength = grid[grid.length - 1].length;
-      // const newGroup = {
-      //   command: {},
-      //   counter: '0',
-      //   members: false,
-      //   prevText: 'Будет определен',
-      // };
+      const newGroup = {
+        command: {},
+        counter: '0',
+        members: false,
+        prevText: 'Будет определен',
+      };
+      grid.map((item) => {
+        item.map((subItem) => {
+          if (subItem.a === null) {
+            subItem.a = newGroup;
+          }
+          if (subItem.b === null) {
+            subItem.b = newGroup;
+          }
+
+          return subItem;
+        });
+        item.indexPlus = item[0].stage;
+        return item;
+      });
+
       // const obj = (indexPlus) => {
       //   return {
       //     a: newGroup,
@@ -102,6 +116,80 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
 
       return grid;
     },
+
+    matchesDoubleGrid: (state) => {
+      const grid = Object.values(JSON.parse(JSON.stringify(state.data.matches_double || [])));
+      // let mathLength = grid[grid.length - 1].length;
+      const newGroup = {
+        command: {},
+        counter: '0',
+        members: false,
+        prevText: 'Будет определен',
+      };
+      grid.map((item) => {
+        item.map((subItem) => {
+          if (subItem.a === null) {
+            subItem.a = newGroup;
+          }
+          if (subItem.b === null) {
+            subItem.b = newGroup;
+          }
+
+          return subItem;
+        });
+        item.indexPlus = item[0].stage;
+        return item;
+      });
+
+      // const obj = (indexPlus) => {
+      //   return {
+      //     a: newGroup,
+      //     b: newGroup,
+      //     status: { value: 'pending' },
+      //     indexPlus,
+      //   };
+      // };
+      // if (grid.length === state.data.stages_labels.length) return grid;
+
+      // while (mathLength > 1) {
+      //   let mathLengthPrev = mathLength;
+      //   mathLength = mathLength / 2;
+      //   grid.push(Array.from({ length: mathLength }, (index) => obj(mathLengthPrev + index)));
+      //   mathLengthPrev = mathLength;
+      // }
+      // let indexMatch = 1;
+      // for (let i = 0; i < grid.length; i++) {
+      //   const element = grid[i];
+      //   for (let j = 0; j < element.length; j++) {
+      //     const subElement = element[j];
+      //     // console.log('subElement', subElement);
+      //     if (!subElement.indexPlus) subElement.indexPlus = indexMatch;
+      //     indexMatch++;
+      //     if (subElement.a.command && subElement.b.command === false) {
+      //       subElement.a.counter = 1;
+      //       subElement.status.value = 'done';
+      //     }
+      //     if (subElement.status.value === 'done') {
+      //       const winnerEl =
+      //         +subElement.a.counter > +subElement.b.counter ? subElement.a : subElement.b;
+      //       // console.log('winnerEl', winnerEl);
+      //       const winner = JSON.parse(JSON.stringify(winnerEl));
+      //       const winnerIndex = Math.floor(j / 2);
+      //       const MatchIndex = j % 2 === 0 ? 'a' : 'b';
+      //       if (
+      //         grid[i + 1] &&
+      //         grid[i + 1][winnerIndex][MatchIndex].prevText === 'Будет определен'
+      //       ) {
+      //         winner.counter = 0;
+      //         grid[i + 1][winnerIndex][MatchIndex] = winner;
+      //       }
+      //     }
+      //   }
+      // }
+
+      return grid;
+    },
+
     matchesReferee: (state) => {
       if (!state.data) return [];
       return Object.values(JSON.parse(JSON.stringify(state.data.matches || [])));
