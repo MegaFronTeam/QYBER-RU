@@ -120,6 +120,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     matchesDoubleGrid: (state) => {
       const grid = Object.values(JSON.parse(JSON.stringify(state.data.matches_double || [])));
       // let mathLength = grid[grid.length - 1].length;
+      if (grid.length === 0) return [];
       const newGroup = {
         command: {},
         counter: '0',

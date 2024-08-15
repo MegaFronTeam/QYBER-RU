@@ -68,10 +68,13 @@
           </div>
         </div>
 
-        <div class="tournament-table bg-block-panel">
+        <div
+          class="tournament-table bg-block-panel"
+          v-if="matchesDoubleGrid && matchesDoubleGrid.length > 0"
+        >
           <div>
             <div class="tournament-table__item">
-              <!-- <div class="tournament-table__item-title">Верхняя сетка</div> -->
+              <div class="tournament-table__item-title">Нижняя сетка</div>
               <!-- <div class="tournament-table__title-row row">
                 <div
                   class="tournament-table__title-col col-auto"
@@ -112,80 +115,6 @@
             </div>
           </div>
         </div>
-
-        <div class="tournament-table__item">
-          <div class="tournament-table__item-title">Нижняя сетка</div>
-          <div class="tournament-table__title-row row">
-            <div class="tournament-table__title-col col-auto">
-              <p>Раунд 1 (Online)</p>
-            </div>
-            <div class="tournament-table__title-col col-auto">
-              <p>Раунд 2 (Online)</p>
-            </div>
-            <div class="tournament-table__title-col col-auto">
-              <p>Раунд 3 (LAN)</p>
-            </div>
-            <div class="tournament-table__title-col col-auto">
-              <p>Раунд 4 (LAN)</p>
-            </div>
-            <div class="tournament-table__title-col col-auto">
-              <p>Раунд 5 (LAN)</p>
-            </div>
-            <div class="tournament-table__title-col col-auto">
-              <p>Раунд 6 (LAN)</p>
-            </div>
-          </div>
-          <div class="tournament-table__row row row-low">
-            <div class="tournament-table__col col-auto">
-              <div class="tournament-table__group tournament-table__group--single">
-                <Card />
-              </div>
-              <div class="tournament-table__group tournament-table__group--single">
-                <Card />
-              </div>
-              <div class="tournament-table__group tournament-table__group--single">
-                <Card />
-              </div>
-              <div class="tournament-table__group tournament-table__group--single">
-                <Card />
-              </div>
-            </div>
-            <div class="tournament-table__col col-auto">
-              <div class="tournament-table__group">
-                <Card />
-                <Card />
-              </div>
-              <div class="tournament-table__group">
-                <Card />
-                <Card />
-              </div>
-            </div>
-            <div class="tournament-table__col col-auto">
-              <div class="tournament-table__group tournament-table__group--small">
-                <Card />
-              </div>
-              <div class="tournament-table__group tournament-table__group--small">
-                <Card />
-              </div>
-            </div>
-            <div class="tournament-table__col col-auto">
-              <div class="tournament-table__group">
-                <Card />
-                <Card />
-              </div>
-            </div>
-            <div class="tournament-table__col col-auto">
-              <div class="tournament-table__group tournament-table__group--small">
-                <Card />
-              </div>
-            </div>
-            <div class="tournament-table__col col-auto">
-              <div class="tournament-table__group">
-                <Card />
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -195,6 +124,6 @@
   import Card from './Card.vue';
   import { useTournamentPageStore } from '~/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
-  const { data, matchesGrid } = storeToRefs(tournamentPageStore);
+  const { data, matchesGrid, matchesDoubleGrid } = storeToRefs(tournamentPageStore);
   console.log(matchesGrid.value);
 </script>
