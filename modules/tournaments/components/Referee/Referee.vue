@@ -8,10 +8,9 @@
           outlined
           class="w-full active-btn text-center"
         >
-          <template v-if="!refereeStore.isRunning"> Запустить рандомную жеребьевку </template>
+          <template v-if="!refereeStore.isRunning"> Запустить жеребьевку </template>
           <template v-else
-            ><i class="pi pi-spin pi-spinner" style="font-size: 1.2rem"></i> Применить рандомную
-            жеребьевку
+            ><i class="pi pi-spin pi-spinner" style="font-size: 1.2rem"></i> Применить жеребьевку
           </template>
         </Button>
       </div>
