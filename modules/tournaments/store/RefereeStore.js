@@ -3,6 +3,7 @@ import { useTournamentPageStore } from './TournamentPageStore';
 import { useGlobalStore } from '~/store/globalStore';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useUserStore } from '~/store/userStore';
+import { set } from 'date-fns';
 
 export const useRefereeStore = defineStore('referee', {
   state: () => ({
@@ -69,7 +70,7 @@ export const useRefereeStore = defineStore('referee', {
         this.setRandomGames();
         this.timerId = setInterval(() => {
           this.setRandomGames();
-        }, 100);
+        }, 200);
       }
     },
     stopRandomGames() {
@@ -87,9 +88,11 @@ export const useRefereeStore = defineStore('referee', {
       }
     },
     async setRandomGames() {
+      this.dataGames = this.dataGames.map((item) => (item = [null, null]));
       const tournamentPageStore = useTournamentPageStore();
       const comand_list = tournamentPageStore.data.comand_list;
       const randomTeams = JSON.parse(JSON.stringify(comand_list)).sort(() => Math.random() - 0.5);
+
       // .map((value, index, array) => {
       //     if (index % 2 === 0) {
       //       return [value, array[index + 1]];
