@@ -16,8 +16,8 @@
 
   const tournamentStore = useTournamentStore();
   const { tournamentsList, SecondtournamentsList } = storeToRefs(tournamentStore);
-  tournamentStore.fetchTournaments('?time=nearest&per_page=8');
-  tournamentStore.fetchTournamentsSecond('?time=current&per_page=8');
+  tournamentStore.fetchTournaments('?time=current&per_page=8');
+  tournamentStore.fetchTournamentsSecond('?time=nearest&per_page=8');
 
   const sectionTitleTournamentsProps = {
     title: 'Предстоящие',
