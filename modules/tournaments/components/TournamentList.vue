@@ -4,10 +4,10 @@
       <div class="template template--header">
         <div class="btn-wrap template-wrap">
           <Button
-            @click="clickOnTab('nearest')"
-            :class="queryList.time === 'nearest' ? 'active' : ''"
+            @click="clickOnTab('completed')"
+            :class="queryList.time === 'completed' ? 'active' : ''"
           >
-            Предстоящие
+            Завершенные
           </Button>
           <!-- v-if="teamsStore.myTeamsCount > 0" -->
           <Button
@@ -18,10 +18,10 @@
             <!-- <Badge v-if="currentTournaments.length > 0" :value="currentTournaments.length" /> -->
           </Button>
           <Button
-            @click="clickOnTab('completed')"
-            :class="queryList.time === 'completed' ? 'active' : ''"
+            @click="clickOnTab('nearest')"
+            :class="queryList.time === 'nearest' ? 'active' : ''"
           >
-            Завершенные
+            Предстоящие
           </Button>
         </div>
       </div>

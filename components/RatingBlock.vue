@@ -443,49 +443,49 @@
 </template>
 
 <script setup>
-import Badge from 'primevue/badge';
-import { ref } from 'vue';
+  import Badge from 'primevue/badge';
+  import { ref } from 'vue';
 
-const active = ref(1);
-const products = ref([
-  {
-    place: 1,
-    team: {
-      avatar: 'avatar-img-1.jpg',
-      text: 'Team Rogue',
+  const active = ref(1);
+  const products = ref([
+    {
+      place: 1,
+      team: {
+        avatar: 'avatar-img-1.jpg',
+        text: 'Team Rogue',
+      },
+      game: {
+        label: 'Dota 2',
+      },
+      league: 'Кибер Атланты',
+      rating: '10 000',
     },
-    game: {
-      label: 'Dota 2',
+    {
+      place: 1,
+      team: {
+        avatar: 'avatar-img-1.jpg',
+        text: 'Team Rogue',
+      },
+      game: {
+        label: 'Dota 2',
+      },
+      league: 'Кибер Атланты',
+      rating: '10 000',
     },
-    league: 'Кибер Атланты',
-    rating: '10 000',
-  },
-  {
-    place: 1,
-    team: {
-      avatar: 'avatar-img-1.jpg',
-      text: 'Team Rogue',
+    {
+      place: 1,
+      team: {
+        avatar: 'avatar-img-1.jpg',
+        text: 'Team Rogue',
+      },
+      game: {
+        label: 'Dota 2',
+      },
+      league: 'Кибер Атланты',
+      rating: '10 000',
     },
-    game: {
-      label: 'Dota 2',
-    },
-    league: 'Кибер Атланты',
-    rating: '10 000',
-  },
-  {
-    place: 1,
-    team: {
-      avatar: 'avatar-img-1.jpg',
-      text: 'Team Rogue',
-    },
-    game: {
-      label: 'Dota 2',
-    },
-    league: 'Кибер Атланты',
-    rating: '10 000',
-  },
-]);
+  ]);
 
-const totalRecords = ref(10);
-const rowsPerPage = ref([5, 10, 50, 100]);
+  const totalRecords = ref(10);
+  const rowsPerPage = ref([5, 10, 50, 100]);
 </script>
