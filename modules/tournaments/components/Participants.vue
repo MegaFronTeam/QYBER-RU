@@ -36,7 +36,9 @@
           >
             <template #body="slotProps">
               <span class="rating">
-                {{ slotProps.data.company_name }}
+                {{
+                  slotProps.data.company_name || slotProps.data.educational_institution_abbreviation
+                }}
               </span>
             </template>
           </Column>
