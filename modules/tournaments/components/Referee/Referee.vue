@@ -4,11 +4,16 @@
       <div class="wrap-body__item">
         <Button
           v-if="matchesReferee.length <= 0"
-          @click="refereeStore.setRandomGames"
+          @click="refereeStore.toggleRandomGames"
           outlined
-          label="Провести жеребьевку"
-          class="w-full active-btn"
-        />
+          class="w-full active-btn text-center"
+        >
+          <template v-if="!refereeStore.isRunning"> Запустить рандомную жеребьевку </template>
+          <template v-else
+            ><i class="pi pi-spin pi-spinner" style="font-size: 1.2rem"></i> Применить рандомную
+            жеребьевку
+          </template>
+        </Button>
       </div>
       <div class="wrap-body__item">
         <div class="sTournamentOverview__head sTournamentOverview__head--small">
@@ -58,6 +63,15 @@
 
   import { useRefereeStore } from '@/modules/tournaments/store/RefereeStore';
   const refereeStore = useRefereeStore();
-  const { comand_listLength, gamesLength, teamsForefereeLength, dataGames } =
+  const { comand_listLength, gamesLength, teamsForefereeLength, dataGames, isRunning } =
     storeToRefs(refereeStore);
 </script>
+
+<style>
+  .active-btn {
+    justify-content: center;
+    i {
+      margin-right: 10px;
+    }
+  }
+</style>

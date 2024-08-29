@@ -13,6 +13,8 @@ export const useRefereeStore = defineStore('referee', {
     gamesLength: null,
     couples: [],
     comand_listLength: null,
+    timerId: null,
+    isRunning: false,
   }),
   getters: {},
   actions: {
@@ -60,6 +62,29 @@ export const useRefereeStore = defineStore('referee', {
       ]);
 
       this.gamesLength = secondRoundCount(this.comand_listLength);
+    },
+    async startRandomGames() {
+      if (!this.isRunning) {
+        this.isRunning = true;
+        this.setRandomGames();
+        this.timerId = setInterval(() => {
+          this.setRandomGames();
+        }, 100);
+      }
+    },
+    stopRandomGames() {
+      if (this.isRunning) {
+        this.isRunning = false;
+        clearInterval(this.timerId);
+        this.timerId = null;
+      }
+    },
+    toggleRandomGames() {
+      if (this.isRunning) {
+        this.stopRandomGames();
+      } else {
+        this.startRandomGames();
+      }
     },
     async setRandomGames() {
       const tournamentPageStore = useTournamentPageStore();

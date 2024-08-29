@@ -28,7 +28,7 @@
     </div>
     <div class="header-item">
       <div class="steps-wrap">
-        <div class="step step_active">
+        <div class="step">
           <p><span>Анонсирован</span></p>
           <p>{{ formatDate(data.announcement) }}</p>
         </div>

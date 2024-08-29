@@ -21,6 +21,7 @@
     "nuxt": "^3.12.2",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
+    "primeicons": "^7.0.0",
     "primevue": "^3.52.0",
     "vue": "^3.4.30",
     "vue-router": "^4.4.0"

@@ -26,7 +26,7 @@
 <style>
   @import './assets/scss/normalize.scss';
   @import './assets/scss/main.scss';
-  .page-enter-active,
+  @import 'primeicons/primeicons.css';
   .page-leave-active {
     transition: all 0.1s;
   }
