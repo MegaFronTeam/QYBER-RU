@@ -20,7 +20,7 @@ export const UseRatingStore = defineStore({
         const setPage = `${params ? '&' : '?'}${'page=' + this.pages.current}${
           this.pages.per_page != 10 ? '&' : ''
         }${setPer_page}`;
-        const ratings = await fetcher(`/wp/v2/teams${params}${setPage}`);
+        const ratings = await fetcher(`/wp/v2/teams${params}${setPage}&sort=-rating`);
         console.log(ratings);
 
         this.data = ratings.data;

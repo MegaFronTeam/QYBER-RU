@@ -69,21 +69,26 @@
 </template>
 
 <script setup>
-import ProfileHead from '@/components/cabinet/ProfileHead.vue';
-import { useTeamStore } from '@/store/TeamStore';
-const teamsStore = useTeamStore();
-const { id } = useRoute().params;
+  import ProfileHead from '@/components/cabinet/ProfileHead.vue';
+  import { useTeamStore } from '@/store/TeamStore';
+  const teamsStore = useTeamStore();
+  const { id } = useRoute().params;
 
-// import { useTournamentStore } from '@/store/TournamentStore';
-// const tournamentStore = useTournamentStore();
+  // import { useTournamentStore } from '@/store/TournamentStore';
+  // const tournamentStore = useTournamentStore();
 
-const { teamData, isCaptain } = storeToRefs(teamsStore);
+  const { teamData, isCaptain } = storeToRefs(teamsStore);
 
-console.log(teamData.value);
+  console.log(teamData.value);
 
-import { useGlobalStore } from '@/store/globalStore';
-import EditTeam from '~/components/cabinet/Team/EditTeam.vue';
-const globalStore = useGlobalStore();
+  import { useGlobalStore } from '@/store/globalStore';
+  import EditTeam from '~/components/cabinet/Team/EditTeam.vue';
+  const globalStore = useGlobalStore();
 
-await teamsStore.fetchTeam(id);
+  await teamsStore.fetchTeam(id);
+
+  useSeoMeta({
+    title: 'Команда',
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
 </script>

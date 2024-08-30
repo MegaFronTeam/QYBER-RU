@@ -33,8 +33,16 @@
   </div>
 </template>
 
-<script setup>
-definePageMeta({
-  breadcrumbName: 'Рейтинги',
-});
+<script setup lang="ts">
+  const title = 'Рейтинги';
+
+  definePageMeta({
+    title: 'Рейтинги',
+    breadcrumbName: 'Рейтинги',
+  });
+
+  useHead({
+    title: 'Рейтинги',
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
 </script>

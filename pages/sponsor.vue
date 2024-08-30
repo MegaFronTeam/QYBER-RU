@@ -21,6 +21,10 @@
     breadcrumbName: 'Спонсоры',
   });
 
+  useSeoMeta({
+    title: 'Спонсоры',
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
   const sponsorsStore = useSponsorsStore();
   sponsorsStore.getSponsorsPage();
 </script>

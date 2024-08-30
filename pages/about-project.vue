@@ -18,6 +18,10 @@
     breadcrumbName: 'О QYBER',
   });
 
+  useHead({
+    title: 'О QYBER',
+  });
+
   const aboutStore = useAboutStore();
   await aboutStore.fetchData();
 </script>

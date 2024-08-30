@@ -27,4 +27,9 @@
       });
     }
   });
+
+  useSeoMeta({
+    title: 'Расписание - ' + tournamentStorePage.data.title,
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
 </script>

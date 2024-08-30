@@ -41,5 +41,9 @@
 
   breadcrumbsStore.setNameFromIds(dataById.value.title.rendered);
 
+  useSeoMeta({
+    title: dataById.value.title.rendered,
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
   //
 </script>

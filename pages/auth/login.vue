@@ -95,4 +95,9 @@
     bgImage: '/img/reg-bg-2.jpg',
     btnName: 'Войти',
   };
+
+  useSeoMeta({
+    title: 'Авторизация',
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
 </script>

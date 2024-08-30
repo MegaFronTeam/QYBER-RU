@@ -13,4 +13,8 @@
   definePageMeta({
     breadcrumbName: 'Контакты',
   });
+
+  useHead({
+    title: 'Контакты',
+  });
 </script>

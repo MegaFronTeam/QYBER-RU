@@ -92,4 +92,9 @@
     bgImage: '/img/reg-bg-1.jpg',
     btnName: 'Зарегистрироваться',
   };
+
+  useSeoMeta({
+    title: 'Регистрация',
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
 </script>

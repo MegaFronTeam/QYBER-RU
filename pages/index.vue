@@ -11,22 +11,27 @@
 </template>
 
 <script setup>
-import { useNewsStore } from '@/store/NewsStore';
-import { useGlobalStore } from '~/store/globalStore';
+  import { useNewsStore } from '@/store/NewsStore';
+  import { useGlobalStore } from '~/store/globalStore';
 
-const globalStore = useGlobalStore();
-const newsStore = useNewsStore();
-const { data } = storeToRefs(newsStore);
-newsStore.fetchNews('?per_page=4');
+  const globalStore = useGlobalStore();
+  const newsStore = useNewsStore();
+  const { data } = storeToRefs(newsStore);
+  newsStore.fetchNews('?per_page=4');
 
-await globalStore.getMainBanner();
+  await globalStore.getMainBanner();
 
-const sectionTitleNewsProps = {
-  title: 'Последние новости',
-  text: 'Актуальные новости киберспортивных турниров от QYBER.RU',
-};
-const footerLinkNewsProps = {
-  text: 'Смотреть все новости',
-  href: '/news',
-};
+  const sectionTitleNewsProps = {
+    title: 'Последние новости',
+    text: 'Актуальные новости киберспортивных турниров от QYBER.RU',
+  };
+  const footerLinkNewsProps = {
+    text: 'Смотреть все новости',
+    href: '/news',
+  };
+
+  useSeoMeta({
+    title: 'Qyber',
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
 </script>

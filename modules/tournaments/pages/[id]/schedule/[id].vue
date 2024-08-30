@@ -151,6 +151,10 @@
     window.addEventListener('resize', updateIsMobile);
   });
 
+  useSeoMeta({
+    title: matchStore.dataMatch.title?.rendered,
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
   onUnmounted(() => {
     updateIsMobile();
     window.removeEventListener('resize', updateIsMobile);

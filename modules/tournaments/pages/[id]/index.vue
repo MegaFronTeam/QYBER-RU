@@ -25,4 +25,9 @@
   onMounted(() => {
     breadcrumbsStore.setNameFromIds(tournamentStorePage.data.title);
   });
+
+  useSeoMeta({
+    title: tournamentStorePage.data.title,
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
 </script>

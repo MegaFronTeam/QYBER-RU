@@ -45,4 +45,9 @@
     breadcrumbsStore.setNameFromIds(raitingUserStore.data.display_name);
     // breadcrumbsStore.setNameFromIds('sdasdsa');
   });
+
+  useSeoMeta({
+    title: raitingUserStore.data.user_nickname,
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
 </script>

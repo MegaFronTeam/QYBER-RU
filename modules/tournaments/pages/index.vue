@@ -20,5 +20,10 @@
     breadcrumbName: 'Турниры',
   });
 
+  useSeoMeta({
+    title: 'Турниры',
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
+
   breadcrumbsStore.setNameFromIds();
 </script>

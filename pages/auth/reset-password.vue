@@ -26,4 +26,9 @@
       authStore.dataFormNewPassword.email = email || '';
     }
   });
+
+  useSeoMeta({
+    title: 'Восстановление пароля',
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
 </script>

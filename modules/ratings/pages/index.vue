@@ -11,7 +11,12 @@
   import { UseRatingStore } from '../store/RatingStore';
 
   definePageMeta({
+    title: 'Рейтинги',
     breadcrumbName: 'Рейтинги',
+  });
+
+  useHead({
+    title: 'Рейтинги',
   });
 
   const ratingStore = UseRatingStore();

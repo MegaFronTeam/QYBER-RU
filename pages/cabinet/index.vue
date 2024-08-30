@@ -41,19 +41,24 @@
 </template>
 
 <script setup>
-import { useGlobalStore } from '@/store/globalStore';
-import { useUserStore } from '@/store/userStore';
+  import { useGlobalStore } from '@/store/globalStore';
+  import { useUserStore } from '@/store/userStore';
 
-const userStore = useUserStore();
+  const userStore = useUserStore();
 
-const globalStore = useGlobalStore();
+  const globalStore = useGlobalStore();
 
-const { userData, user_first_letter, user_avatar } = storeToRefs(globalStore);
-definePageMeta({
-  breadcrumbName: 'Личный кабинет',
-});
+  const { userData, user_first_letter, user_avatar } = storeToRefs(globalStore);
+  definePageMeta({
+    breadcrumbName: 'Личный кабинет',
+  });
 
-await userStore.getUserData();
-await userStore.showInvite();
+  await userStore.getUserData();
+  await userStore.showInvite();
+
+  useSeoMeta({
+    title: 'Личный кабинет',
+    // meta: [{ name: 'description', content: 'My amazing site.' }],
+  });
 </script>
 <style lang="scss"></style>
