@@ -8,21 +8,23 @@
           :key="stages_label.name"
           :style="{ '--countStage': stages_label.stageLength }"
         >
-          <div class="title-span title-span_border">{{ stages_label.name }}</div>
-          <div class="buttons">
-            <!-- TODO: условие для блокировки кнопок -->
-            <Button
-              v-for="(item, index) in stages_label.items"
-              :key="item.index"
-              :class="active !== item.index ? 'secondary' : ''"
-              @click="active = item.index"
-              rounded
-              :label="item.index"
-              :outlined="active !== item.index"
-              :disabled="!formattedMatches[item.index]"
-              >{{ item.name }}<br />{{ item.date }}</Button
-            >
-          </div>
+          <template v-if="stages_label.items.length">
+            <div class="title-span title-span_border">{{ stages_label.name }}</div>
+            <div class="buttons">
+              <!-- TODO: условие для блокировки кнопок -->
+              <Button
+                v-for="(item, index) in stages_label.items"
+                :key="item.index"
+                :class="active !== item.index ? 'secondary' : ''"
+                @click="active = item.index"
+                rounded
+                :label="item.index"
+                :outlined="active !== item.index"
+                :disabled="lastPendingMatch < item.index"
+                >{{ item.name }}<br />{{ item.date }}</Button
+              >
+            </div>
+          </template>
         </div>
       </div>
       <div class="template table--schedule">
@@ -71,8 +73,8 @@
                         <br />
                         <small>
                           {{
-                            slotProps.data.a.command.company ||
-                            slotProps.data.a.command.educational_institution.abbreviation
+                            slotProps.data.a.command.educational_institution.abbreviation ||
+                            slotProps.data.a.command.company
                           }}
                         </small>
                       </span>
@@ -160,7 +162,7 @@
 <script setup>
   import { useTournamentPageStore } from '@/modules/tournaments/store/TournamentPageStore';
   const tournamentPageStore = useTournamentPageStore();
-  const { data, stages_labels, stages_labelsLength, formattedMatches, formattedMatchesLength } =
+  const { data, stages_labels, stages_labelsLength, formattedMatches, lastPendingMatch } =
     storeToRefs(tournamentPageStore);
 
   import { useGlobalStore } from '~/store/globalStore';
@@ -172,5 +174,5 @@
   const totalRecords = ref(10);
   const rowsPerPage = ref([5, 10, 50, 100]);
 
-  const active = ref(formattedMatchesLength);
+  const active = ref(lastPendingMatch);
 </script>

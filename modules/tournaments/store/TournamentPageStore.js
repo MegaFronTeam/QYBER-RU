@@ -19,7 +19,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
     ifRefereePage: false,
     // matchesReferee: [],
     teamsForReg: [],
-    formattedMatchesLength: 0,
+    lastPendingMatch: 0,
   }),
   getters: {
     isNotStart: (state) => {
@@ -41,7 +41,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
           });
           return item;
         })
-        .map((item) => item.filter((subItem) => subItem.b !== null));
+        .map((item) => item.filter((subItem) => subItem.b.command !== false));
     },
 
     matchesGrid: (state) => {
@@ -323,7 +323,17 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
 
         this.data = data;
         this.currentID = id;
-        this.formattedMatchesLength = Object.values(data.matches).length - 1;
+
+        function findLastPendingMatch(matches) {
+          for (let i = matches.length - 1; i >= 0; i--) {
+            const match = matches[i];
+            if (match.some((group) => group.some((item) => item.status.value === 'pending'))) {
+              return match;
+            }
+          }
+        }
+
+        this.lastPendingMatch = findLastPendingMatch(Object.values(data.matches)) || 0;
 
         if (refereeStore.couples.length === 0 || this.currentID !== refereeStore.savedId) {
           refereeStore.savedId = this.currentID;
