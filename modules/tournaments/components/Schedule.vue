@@ -20,7 +20,7 @@
                 rounded
                 :label="item.index"
                 :outlined="active !== item.index"
-                :disabled="lastPendingMatch < item.index"
+                :disabled="lastPendingMatch < index"
                 >{{ item.name }}<br />{{ item.date }}</Button
               >
             </div>
