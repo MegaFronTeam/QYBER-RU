@@ -160,9 +160,9 @@ export const useRefereeStore = defineStore('referee', {
               },
             },
           );
-          const data = await response.data;
-          // console.log(data);
-          if (data === true) {
+          const data = await response;
+          console.log('data', data);
+          if (data.statusText === 'OK') {
             userStore.showToast('success', 'Игры успешно сохранены');
             tournamentPageStore.fetchData(tournamentPageStore.currentID);
           }
