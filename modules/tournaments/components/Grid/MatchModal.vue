@@ -87,7 +87,7 @@
               /> -->
             </div>
           </InputGroup>
-          <label for="discord">Сервер Discord</label>
+          <!-- <label for="discord">Сервер Discord</label>
           <InputGroup>
             <div class="input-icon-wrap">
               <InputGroupAddon>
@@ -100,7 +100,7 @@
                 placeholder="Ссылка с https://"
               />
             </div>
-          </InputGroup>
+          </InputGroup> -->
           <InputGroup>
             <label for="IP">Информация для подключения</label>
             <InputText id="IP" type="text" v-model="editMatch.server" placeholder="Лобби" />
@@ -151,7 +151,10 @@
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
-                <div class="click-el secondary" @click="matchEditStore.updateMatch(true, 'a')">
+                <div
+                  class="click-el secondary"
+                  @click="matchEditStore.updateMatch(true, 'a', true)"
+                >
                   Дисквалифицировать
                 </div>
               </div>
@@ -191,7 +194,10 @@
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
-                <div class="click-el secondary" @click="matchEditStore.updateMatch(true, 'b')">
+                <div
+                  class="click-el secondary"
+                  @click="matchEditStore.updateMatch(true, 'b', false, true)"
+                >
                   Дисквалифицировать
                 </div>
               </div>
