@@ -38,6 +38,7 @@ export interface commandInterface {
 
   counter: number;
   members: MembersInterface;
+  disqualification: boolean;
 }
 
 export interface MembersInterface {

@@ -151,12 +151,8 @@
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
-                <div
-                  class="click-el secondary"
-                  @click="matchEditStore.updateMatch(true, 'a', true)"
-                >
-                  Дисквалифицировать
-                </div>
+                <InputSwitch v-model="editMatch.a.disqualification" />
+                <div class="secondary">Дисквалифицировать</div>
               </div>
             </div>
           </div>
@@ -194,12 +190,8 @@
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
-                <div
-                  class="click-el secondary"
-                  @click="matchEditStore.updateMatch(true, 'b', false, true)"
-                >
-                  Дисквалифицировать
-                </div>
+                <InputSwitch v-model="editMatch.b.disqualification" />
+                <div class="secondary">Дисквалифицировать</div>
               </div>
             </div>
           </div>

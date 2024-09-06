@@ -63,12 +63,7 @@ export const useMatchEditStore = defineStore('MatchEdit', {
       // this.editMatch.date = formatDate(item.date, 'dd.MM.yyyy HH:mm');
     },
 
-    async updateMatch(
-      finish: boolean,
-      team: 'a' | 'b',
-      disqualification_a: boolean = false,
-      disqualification_b: boolean = false,
-    ) {
+    async updateMatch(finish: boolean, team: 'a' | 'b') {
       const tournamentStore = useTournamentPageStore();
       if (team) {
         const winnerTeam = team === 'a' ? 'b' : 'a';
@@ -85,8 +80,8 @@ export const useMatchEditStore = defineStore('MatchEdit', {
         show_in_main: this.editMatch.show_in_main,
         date: this.getMatchDate,
         status: this.getStatus,
-        disqualification_a,
-        disqualification_b,
+        disqualification_a: this.editMatch.a.disqualification,
+        disqualification_b: this.editMatch.b.disqualification,
       };
       if (finish === true) {
         dataForm.status = 'done';
