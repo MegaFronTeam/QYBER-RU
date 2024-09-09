@@ -32,8 +32,15 @@
           </InputGroup>
           <InputGroup>
             <label for="name">SteamID</label>
-            <Button label="Подключить SteamID" type="button" @click="sendSteamID" />
+            <Button
+              label="Подключить SteamID"
+              type="button"
+              @click="sendSteamID"
+              v-if="!userData.user_steam"
+            />
             <InputText
+              v-else
+              readonly=""
               id="name"
               type="text"
               v-model="userData.user_steam"
