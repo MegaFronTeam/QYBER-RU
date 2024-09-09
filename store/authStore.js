@@ -6,6 +6,7 @@ import { useGlobalStore } from './globalStore';
 import { useUserStore } from './userStore';
 import { getEmailErrorsList, getPasswordErrorsList } from '~/utils/errorMessages';
 import { is } from 'date-fns/locale';
+import Cookies from 'js-cookie';
 
 export const useAuthStore = defineStore('auth', () => {
   const router = useRouter();
@@ -41,6 +42,12 @@ export const useAuthStore = defineStore('auth', () => {
       globalStore.API_KEY = data[0];
       globalStore.email = dataFormLogin.value.email;
       globalStore.isUserAuth = true;
+
+      console.log('API_KEY', data[0]);
+      console.log('email', dataFormLogin.value.email);
+
+      Cookies.set('API_KEY', data[0], { domain: 'api.qyber.ru' });
+      Cookies.set('email', dataFormLogin.value.email, { domain: 'api.qyber.ru' });
       userStore.getUserData();
       router.back();
     }

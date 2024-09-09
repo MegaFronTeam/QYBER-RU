@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { useTeamStore } from './TeamStore';
 import { useToast } from 'primevue/usetoast';
+import Cookies from 'js-cookie';
 
 export const useGlobalStore = defineStore(
   'global',

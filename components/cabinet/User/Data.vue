@@ -32,6 +32,7 @@
           </InputGroup>
           <InputGroup>
             <label for="name">SteamID</label>
+            <Button label="Подключить SteamID" type="button" @click="sendSteamID" />
             <InputText
               id="name"
               type="text"
@@ -187,34 +188,45 @@
 </template>
 
 <script setup>
-import { useGlobalStore } from '@/store/globalStore';
-const globalStore = useGlobalStore();
+  import { useGlobalStore } from '@/store/globalStore';
+  const globalStore = useGlobalStore();
+  import { useRouter } from 'vue-router';
+  const router = useRouter();
 
-const { userData, regions, user_genderArr } = storeToRefs(globalStore);
+  const { userData, regions, user_genderArr } = storeToRefs(globalStore);
 
-import { useUserStore } from '@/store/userStore';
-const userStore = useUserStore();
+  import { useUserStore } from '@/store/userStore';
+  import axios from 'axios';
+  const userStore = useUserStore();
 
-const { educational_institutions } = storeToRefs(userStore);
+  const { educational_institutions } = storeToRefs(userStore);
 
-const customBase64Uploader = async (event) => {
-  // const file = event.files[0];
-  // userData.user_avatar = file;
+  const customBase64Uploader = async (event) => {
+    // const file = event.files[0];
+    // userData.user_avatar = file;
 
-  // const reader = new FileReader();
-  // let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
+    // const reader = new FileReader();
+    // let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
 
-  // reader.readAsDataURL(blob);
+    // reader.readAsDataURL(blob);
 
-  // reader.onloadend = function () {
-  //   const base64data = reader.result;
-  //   accreditation.setFile(file);
-  // };
-  // console.log(event.files[0]);
-  globalStore.user_avatar = event.files[0].objectURL;
-  globalStore.userData.user_avatar = event.files[0];
+    // reader.onloadend = function () {
+    //   const base64data = reader.result;
+    //   accreditation.setFile(file);
+    // };
+    // console.log(event.files[0]);
+    globalStore.user_avatar = event.files[0].objectURL;
+    globalStore.userData.user_avatar = event.files[0];
 
-  return event.files[0];
-};
-// const in_verifications = globalStore.userData.user_verification == false;
+    return event.files[0];
+  };
+
+  const sendSteamID = async () => {
+    const response = await axios.get('https://api.qyber.ru/wp-json/steam/v1/auth');
+    const redirectUrl = response.data;
+    if (redirectUrl) {
+      window.location.href = redirectUrl;
+    }
+  };
+  // const in_verifications = globalStore.userData.user_verification == false;
 </script>
