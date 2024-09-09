@@ -46,8 +46,8 @@ export const useAuthStore = defineStore('auth', () => {
       console.log('API_KEY', data[0]);
       console.log('email', dataFormLogin.value.email);
 
-      Cookies.set('API_KEY', data[0], { domain: 'api.qyber.ru' });
-      Cookies.set('email', dataFormLogin.value.email, { domain: 'api.qyber.ru' });
+      Cookies.set('API_KEY', data[0], { path: '/' });
+      Cookies.set('email', dataFormLogin.value.email, { path: '/' });
       userStore.getUserData();
       router.back();
     }
