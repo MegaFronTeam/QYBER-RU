@@ -6,7 +6,9 @@
         <form @submit.prevent="userStore.updateMyProfileData">
           <!-- TODO: доделать отпарвку аватара кабинета -->
           <InputGroup>
-            <label for="textarea">Загрузить аватар </label>
+            <label for="textarea"
+              >Загрузить аватар <span style="color: var(--red-500)">*</span></label
+            >
             <div>
               <FileUpload
                 mode="basic"
@@ -22,18 +24,20 @@
             </div>
           </InputGroup>
           <InputGroup>
-            <label for="name">Никнейм</label>
+            <label for="nickname">Никнейм <span style="color: var(--red-500)">*</span></label>
             <InputText
-              id="name"
+              id="nickname"
               type="text"
               v-model="userData.user_nickname"
               placeholder="Введите никнейм"
+              required
+              :disabled="userData.user_verification"
             />
           </InputGroup>
           <InputGroup>
-            <label for="name">SteamID</label>
+            <label for="steam">Steam <span style="color: var(--red-500)">*</span></label>
             <Button
-              label="Подключить SteamID"
+              label="Подключить Steam"
               type="button"
               @click="sendSteamID"
               v-if="!userData.user_steam"
@@ -41,70 +45,86 @@
             <InputText
               v-else
               readonly=""
-              id="name"
+              id="steam"
               type="text"
               v-model="userData.user_steam"
-              placeholder="Введите SteamID"
+              placeholder="Введите Steam"
             />
           </InputGroup>
+
+          <br />
+          <br />
+          <div class="sMyProfileBlock__head">Данные для аккредитации</div>
+
           <InputGroup>
-            <label for="name">Email</label>
+            <label for="name">Email <span style="color: var(--red-500)">*</span></label>
             <InputText
               id="email"
               type="email"
               v-model="userData.user_email"
               placeholder="Введите почту"
+              required
             />
           </InputGroup>
           <InputGroup>
-            <label for="name">Имя</label>
+            <label for="name">Имя <span style="color: var(--red-500)">*</span></label>
             <InputText
               id="text"
               type="text"
               v-model="userData.user_first_name"
               placeholder="Введите имя "
+              required
+              :disabled="userData.user_verification"
             />
           </InputGroup>
           <InputGroup>
-            <label for="name">Отчество </label>
+            <label for="name">Отчество <span style="color: var(--red-500)">*</span></label>
             <InputText
               id="text"
               type="text"
               v-model="userData.user_second_name"
               placeholder="Введите отчество "
+              required
+              :disabled="userData.user_verification"
             />
           </InputGroup>
 
           <InputGroup>
-            <label for="name">Фамилия</label>
+            <label for="name">Фамилия <span style="color: var(--red-500)">*</span></label>
             <InputText
               id="text"
               type="text"
               v-model="userData.user_last_name"
               placeholder="Введите фамилию"
+              required
+              :disabled="userData.user_verification"
             />
           </InputGroup>
 
           <InputGroup>
-            <label for="name">Телефон</label>
+            <label for="name">Телефон <span style="color: var(--red-500)">*</span></label>
             <InputText
               id="tel"
               type="tel"
               v-model="userData.user_phone"
               placeholder="Введите телефон"
+              required
+              :disabled="userData.user_verification"
             />
             <!-- mask="+7 (999) 999-99-99" -->
           </InputGroup>
           <InputGroup>
-            <label>Дата рождения</label>
+            <label>Дата рождения <span style="color: var(--red-500)">*</span></label>
             <Calendar
               v-model="userData.user_birthday"
               dateFormat="dd.mm.yy"
               placeholder="__.__.____"
+              required
+              :disabled="userData.user_verification"
             />
           </InputGroup>
           <InputGroup>
-            <label>Пол</label>
+            <label>Пол <span style="color: var(--red-500)">*</span></label>
             <Dropdown
               v-model="userData.user_gender"
               :options="user_genderArr"
@@ -112,19 +132,23 @@
               optionLabel="name"
               minDate="2020-01-01"
               :placeholder="userData.user_gender"
+              required
+              :disabled="userData.user_verification"
             />
           </InputGroup>
           <InputGroup>
-            <label>Telegram</label>
+            <label>Telegram <span style="color: var(--red-500)">*</span></label>
             <InputText
               type="text"
               v-model="userData.user_telegram"
               placeholder="Введите свой Telegram"
+              required
+              :disabled="userData.user_verification"
             />
           </InputGroup>
 
           <InputGroup>
-            <label>Регион</label>
+            <label>Регион <span style="color: var(--red-500)">*</span></label>
 
             <Dropdown
               v-model="userData.user_region"
@@ -136,15 +160,23 @@
               filter
               filterPlaceholder="Поиск"
               emptyFilterMessage="Нет данных"
+              required
+              :disabled="userData.user_verification"
             />
           </InputGroup>
 
           <InputGroup>
-            <label>Город</label>
-            <InputText type="text" v-model="userData.user_city" placeholder="Введите город" />
+            <label>Город <span style="color: var(--red-500)">*</span></label>
+            <InputText
+              type="text"
+              v-model="userData.user_city"
+              required
+              :disabled="userData.user_verification"
+              placeholder="Введите город"
+            />
           </InputGroup>
           <InputGroup v-if="userData.user_educational_institution || globalStore.isTalants">
-            <label>Учебное заведение</label>
+            <label>Учебное заведение <span style="color: var(--red-500)">*</span></label>
             <Dropdown
               v-model="userData.user_educational_institution"
               :options="educational_institutions"
@@ -155,6 +187,8 @@
               filter
               filterPlaceholder="Поиск"
               emptyFilterMessage="Нет данных"
+              required
+              :disabled="userData.user_verification"
             >
               <template #option="slotProps">
                 <div v-html="slotProps.option.title.rendered"></div>
@@ -164,23 +198,47 @@
           </InputGroup>
 
           <InputGroup v-if="userData.user_company || globalStore.isAtlants">
-            <label>Компания</label>
-            <InputText type="text" v-model="userData.user_company" placeholder="Введите компанию" />
+            <label>Компания <span style="color: var(--red-500)">*</span></label>
+            <InputText
+              type="text"
+              v-model="userData.user_company"
+              required
+              placeholder="Введите компанию"
+              :disabled="userData.user_verification"
+            />
           </InputGroup>
 
           <InputGroup v-if="user_verification || in_verifications">
-            <label>ИНН </label>
-            <InputText type="text" v-model="userData.user_inn" placeholder="Введите ИНН " />
+            <label>ИНН <span style="color: var(--red-500)">*</span></label>
+            <InputText
+              type="text"
+              v-model="userData.user_inn"
+              required
+              placeholder="Введите ИНН "
+              :disabled="userData.user_verification"
+            />
           </InputGroup>
 
           <InputGroup>
-            <label>VK ID</label>
-            <InputText type="text" v-model="userData.user_vk_id" placeholder="Введите VK ID" />
+            <label>VK ID <span style="color: var(--red-500)">*</span></label>
+            <InputText
+              type="text"
+              v-model="userData.user_vk_id"
+              required
+              placeholder="Введите VK ID"
+              :disabled="userData.user_verification"
+            />
           </InputGroup>
 
           <InputGroup>
-            <label>ГТО</label>
-            <InputText type="text" v-model="userData.user_gto" placeholder="Введите ГТО" />
+            <label>ГТО <span style="color: var(--red-500)">*</span></label>
+            <InputText
+              type="text"
+              v-model="userData.user_gto"
+              required
+              :disabled="userData.user_verification"
+              placeholder="Введите ГТО"
+            />
           </InputGroup>
 
           <Button label="Сохранить изменения" type="submit" />

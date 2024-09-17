@@ -43,7 +43,18 @@
         </div>
         <!-- <Button v-if="isPlayerInMatch">Присоединиться</Button> -->
       </div>
-      <JoinGameModal :isPlayerInMatch="isPlayerInMatch" btnLabel="Информация" :id="item.id" />
+      <NuxtLink
+        v-if="item.a.command && item.b.command"
+        :to="'/tournaments/' + currentID + '/schedule/' + item.id"
+      >
+        <Button class="sGridCardItem__info-btn" variant="primary"> Информация </Button>
+      </NuxtLink>
+      <JoinGameModal
+        v-else
+        :isPlayerInMatch="isPlayerInMatch"
+        btnLabel="Информация"
+        :id="item.id"
+      />
     </template>
   </div>
 </template>
@@ -52,6 +63,8 @@
   import JoinGameModal from '../Match/JoinGameModal.vue';
   import MatchModal from './MatchModal.vue';
   import { useGlobalStore } from '~/store/globalStore';
+  import { useTournamentPageStore } from '../../store/TournamentPageStore';
+
   import CardITeam from './CardITeam.vue';
 
   const props = defineProps({
@@ -80,6 +93,8 @@
   //   return false;
   // });
 
+  const tournamentPageStore = useTournamentPageStore();
+  const { currentID } = storeToRefs(tournamentPageStore);
   const isPlayerInMatch = computed(() => {
     if (item.status.value === 'done') return false;
 

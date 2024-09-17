@@ -11,10 +11,7 @@
         <Button
           class="ms-auto btn-sm p-button-outlined"
           outlined=""
-          @click="
-            visibleShow = true;
-            in_verifications = false;
-          "
+          @click="sHowModal"
           label="Аккредитация"
         />
       </template>
@@ -126,39 +123,53 @@
 </template>
 
 <script setup>
-// import { User } from '@/services/user';
-import { useUserStore } from '@/store/userStore';
-import { useGlobalStore } from '@/store/globalStore';
-import { useAccreditationStore } from '@/store/accreditationStore';
+  // import { User } from '@/services/user';
+  import { useUserStore } from '@/store/userStore';
+  import { useGlobalStore } from '@/store/globalStore';
+  import { useAccreditationStore } from '@/store/accreditationStore';
 
-const userStore = useUserStore();
-const globalStore = useGlobalStore();
-const accreditation = useAccreditationStore();
+  const userStore = useUserStore();
+  const globalStore = useGlobalStore();
+  const accreditation = useAccreditationStore();
 
-const { userData, in_verifications } = storeToRefs(globalStore);
-const { data, typeUSer } = storeToRefs(accreditation);
+  const { userData, in_verifications } = storeToRefs(globalStore);
+  const { data, typeUSer } = storeToRefs(accreditation);
 
-const visibleShow = ref(false);
+  const visibleShow = ref(false);
 
-const customBase64Uploader = async (event) => {
-  const filepage = event.files[0];
-  const reader = new FileReader();
-  let blob = await fetch(filepage.objectURL).then((r) => r.blob());
+  // console.log(globalStore.isNotAllUserData());
 
-  reader.readAsDataURL(blob);
-
-  reader.onloadend = function () {
-    const base64data = reader.result;
-    data.file = filepage;
-    accreditation.setFile(filepage);
+  const sHowModal = () => {
+    if (globalStore.isNotAllUserData()) {
+      globalStore.showToast(
+        'error',
+        'Ошибка',
+        'Для аккредитации необходимо заполнить все данные в профиле',
+      );
+      return;
+    }
+    visibleShow.value = true;
   };
-};
 
-onMounted(() => {
-  if (userStore.educational_institutions.length === 0) userStore.getEducationalInstitutions();
-});
+  const customBase64Uploader = async (event) => {
+    const filepage = event.files[0];
+    const reader = new FileReader();
+    let blob = await fetch(filepage.objectURL).then((r) => r.blob());
+
+    reader.readAsDataURL(blob);
+
+    reader.onloadend = function () {
+      const base64data = reader.result;
+      data.file = filepage;
+      accreditation.setFile(filepage);
+    };
+  };
+
+  onMounted(() => {
+    if (userStore.educational_institutions.length === 0) userStore.getEducationalInstitutions();
+  });
 </script>
 
 <style lang="scss" scoped>
-/* Your component's styles here */
+  /* Your component's styles here */
 </style>

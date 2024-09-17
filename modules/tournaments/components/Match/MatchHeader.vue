@@ -1,6 +1,6 @@
 <template>
   <div class="sMatchHeader">
-    <div class="sMatchHeader__item">
+    <div class="sMatchHeader__item" v-if="dataMatch.a?.command">
       <RouterLink class="sMatchHeader__item-inner" :to="'/ratings/team-' + dataMatch.a?.command.ID">
         <div class="img-wrap">
           <img :src="dataMatch.a?.command.post_thumbnail" alt="Avatar" class="img" />
@@ -19,12 +19,12 @@
         <img v-if="disciplineIcon" :src="disciplineIcon" alt="" />
         {{ data.discipline[0].name }}
       </span>
-      <div class="sMatchHeader__score h2">
+      <div class="sMatchHeader__score h2" v-if="dataMatch.a && dataMatch.b">
         {{ dataMatch.a?.counter }} : {{ dataMatch.b?.counter }}
       </div>
       <p>{{ dataMatch.status?.label }}</p>
     </div>
-    <div class="sMatchHeader__item">
+    <div class="sMatchHeader__item" v-if="dataMatch.b?.command">
       <RouterLink class="sMatchHeader__item-inner" :to="'/ratings/team-' + dataMatch.b?.command.ID">
         <div class="img-wrap">
           <img :src="dataMatch.b?.command.post_thumbnail" alt="" class="img" />

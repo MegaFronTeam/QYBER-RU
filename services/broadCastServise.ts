@@ -1,4 +1,5 @@
 export default function broadCast(broadcast: string): string {
+  if (!broadcast) return '';
   if (broadcast.includes('rutube')) {
     return broadcast.replace('video/', 'play/embed/') + '?skinColor=dbaf4f&autoplay=1' || '';
   } else if (broadcast.includes('vk.com')) {

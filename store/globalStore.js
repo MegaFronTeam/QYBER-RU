@@ -36,16 +36,44 @@ export const useGlobalStore = defineStore(
 
     const mainBannerContent = ref({});
     const welcomeBannerContent = ref({});
+    const toast = useToast();
 
     const isAdmin = computed(() => {
       return userData.value.roles && userData.value.roles.includes('administrator');
     });
+
+    const isNotAllUserData = () => {
+      const data = JSON.parse(JSON.stringify(userData.value || []));
+      delete data.id;
+      delete data.in_verifications;
+      delete data.leagues;
+      delete data.roles;
+      delete data.user_inn;
+      delete data.user_nickname;
+      delete data.user_steam;
+      delete data.user_steam;
+      delete data.user_educational_institution;
+      delete data.user_company;
+      delete data.user_verification;
+      delete data.user_vk_id;
+
+      console.log(data, Object.values(data));
+
+      if (
+        data &&
+        Object.values(data).some(
+          (item) => item === undefined || item === null || item === '' || item === false,
+        )
+      ) {
+        return true;
+      }
+    };
+
     const setAPI_KEY = (key) => {
       API_KEY.value = key;
     };
 
     const showToast = (severity, summary, detail) => {
-      const toast = useToast();
       toast.add({
         severity,
         summary,
@@ -196,6 +224,7 @@ export const useGlobalStore = defineStore(
       mainBannerContent,
       welcomeBannerContent,
       getMainBanner,
+      isNotAllUserData,
     };
   },
   { persist: { storage: persistedState.localStorage } },

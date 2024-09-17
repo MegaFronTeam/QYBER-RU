@@ -327,9 +327,13 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
         function findLastPendingMatch(matches) {
           for (let i = matches.length - 1; i >= 0; i--) {
             const match = matches[i];
-            if (match.some((group) => group.some((item) => item.status.value === 'pending'))) {
-              return match;
+
+            if (match.some((item) => item.status.value === 'done')) {
+              return i;
             }
+            // else{
+            //   return i§;
+            // }
           }
         }
 

@@ -18,14 +18,21 @@ export const useMyMatchStore = defineStore('matchStore', {
     isPlayerInMatch(state): boolean {
       const globalStore = useGlobalStore();
 
-      if (state.dataMatch.a.members.find((member) => member.id === globalStore.userData.ID))
+      if (
+        state.dataMatch.a.command &&
+        state.dataMatch.a.members.find((member) => member.id === globalStore.userData.ID)
+      )
         return true;
-      if (state.dataMatch.b.members.find((member) => member.id === globalStore.userData.ID))
+      if (
+        state.dataMatch.b.command &&
+        state.dataMatch.b.members.find((member) => member.id === globalStore.userData.ID)
+      )
         return true;
 
       return false;
     },
   },
+
   actions: {
     async fetchData(id: string): Promise<void> {
       const response: MatchInterface = await fetchData(id);

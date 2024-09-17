@@ -192,7 +192,7 @@
           <NuxtLink to="/cabinet">
             <Button class="header__btn d-lg-flex" variant="primary">
               <svg-icon name="user.svg" />
-              <span class="p-button-label d-none d-lg-flex">Кабинет</span>
+              <span class="p-button-label d-none d-lg-flex">Профиль</span>
             </Button>
           </NuxtLink>
           <Button
