@@ -3,8 +3,9 @@
     <Button label="Регистрация на турнир" class="w-full" />
   </NuxtLink>
   <template v-else>
+    <!-- v-if="!matchesGrid || !matchesGrid.length" -->
     <Button
-      v-if="!matchesGrid || !matchesGrid.length"
+      v-if=""
       @click="
         showRegModal = true;
         currentID = id;

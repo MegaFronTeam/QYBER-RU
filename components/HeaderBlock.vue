@@ -3,7 +3,7 @@
     <div class="container">
       <div class="sHeaderBlock__wrap bg-wrap">
         <img v-if="bg" :src="`${bg}`" alt="bg" class="picture-bg" />
-        <Breadcrumbs />
+        <ShareBreadcrumbs />
         <h1 v-html="title"></h1>
         <slot></slot>
       </div>
@@ -13,7 +13,7 @@
 
 <script setup>
   import { ref } from 'vue';
-  import Breadcrumbs from '@/components/share/Breadcrumbs.vue';
+  // import Breadcrumbs from '@/components/share/Breadcrumbs.vue';
   const props = defineProps({
     title: {
       type: String,

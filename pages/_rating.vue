@@ -34,6 +34,12 @@
 </template>
 
 <script setup lang="ts">
+  import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
+
+  const breadcrumbsStore = useBreadcrumbsStore();
+
+  breadcrumbsStore.setNameFromIds();
+
   const title = 'Рейтинги';
 
   definePageMeta({

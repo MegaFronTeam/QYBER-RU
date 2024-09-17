@@ -10,6 +10,12 @@
 </template>
 
 <script setup>
+  import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
+
+  const breadcrumbsStore = useBreadcrumbsStore();
+
+  breadcrumbsStore.setNameFromIds();
+
   definePageMeta({
     breadcrumbName: 'Контакты',
   });

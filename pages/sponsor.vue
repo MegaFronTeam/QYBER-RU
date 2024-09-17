@@ -17,6 +17,12 @@
 <script setup>
   import { useSponsorsStore } from '@/store/sponsorsStore';
 
+  import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
+
+  const breadcrumbsStore = useBreadcrumbsStore();
+
+  breadcrumbsStore.setNameFromIds();
+
   definePageMeta({
     breadcrumbName: 'Спонсоры',
   });

@@ -8,6 +8,7 @@ export const useBreadcrumbsStore = defineStore('breadcrumbs', {
   }),
   getters: {
     itemsWithChildren(state) {
+      if (!state.items.length) return [];
       if (!state.lastBreadcrumb.length) return state.items;
       return [...state.items, ...state.lastBreadcrumb];
     },

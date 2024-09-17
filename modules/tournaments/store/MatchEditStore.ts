@@ -55,7 +55,7 @@ export const useMatchEditStore = defineStore('MatchEdit', {
     setModalData(item: MatchInterface) {
       this.editMatch = {
         ...item,
-        checked: item.status?.valueOf() === 'play',
+        checked: item.status?.value === 'play',
       };
       // console.log(new Date(this.editMatch.date));
 

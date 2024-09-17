@@ -13,6 +13,11 @@
 
 <script setup>
   import { useAboutStore } from '~/store/AboutStore';
+  import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
+
+  const breadcrumbsStore = useBreadcrumbsStore();
+
+  breadcrumbsStore.setNameFromIds();
 
   definePageMeta({
     breadcrumbName: 'О QYBER',

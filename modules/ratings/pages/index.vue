@@ -9,6 +9,11 @@
 <script setup>
   import RaitingBlock from '@/modules/ratings/components/RaitingBlock';
   import { UseRatingStore } from '../store/RatingStore';
+  import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
+
+  const breadcrumbsStore = useBreadcrumbsStore();
+
+  breadcrumbsStore.setNameFromIds();
 
   definePageMeta({
     title: 'Рейтинги',

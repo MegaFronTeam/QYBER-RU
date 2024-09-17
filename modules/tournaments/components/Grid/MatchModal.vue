@@ -13,9 +13,12 @@
     modal
     :header="item.indexPlus !== underfind ? 'Игра ' + item.indexPlus : 'Игра'"
   >
-    <div class="d-flex switch-wrap" v-if="editMatch.a.command && editMatch.b.command">
-      <InputSwitch v-if="!isFinished" :disabled="isFinished" v-model="editMatch.checked" />
-      <span class="">{{ editMatch.status.label }}</span>
+    <div
+      class="d-flex switch-wrap"
+      v-if="!isFinished && editMatch.a.command && editMatch.b.command"
+    >
+      <InputSwitch :disabled="isFinished" v-model="editMatch.checked" />
+      <span class="">В процессе </span>
     </div>
     <TabView>
       <TabPanel header="Настройки">
