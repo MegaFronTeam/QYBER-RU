@@ -13,9 +13,9 @@
     modal
     :header="item.indexPlus !== underfind ? 'Игра ' + item.indexPlus : 'Игра'"
   >
-    <div class="d-flex switch-wrap">
-      <InputSwitch v-model="editMatch.checked" />
-      <span class="">В процессе</span>
+    <div class="d-flex switch-wrap" v-if="editMatch.a.command && editMatch.b.command">
+      <InputSwitch v-if="!isFinished" :disabled="isFinished" v-model="editMatch.checked" />
+      <span class="">{{ editMatch.status.label }}</span>
     </div>
     <TabView>
       <TabPanel header="Настройки">
@@ -134,7 +134,7 @@
 
         <Button @click="matchEditStore.updateMatch" class="btn-lg">Сохранить</Button>
       </TabPanel>
-      <TabPanel header="Результаты">
+      <TabPanel header="Результаты" v-if="editMatch.a.command && editMatch.b.command">
         <div class="game-item__card game-item__card--center">
           <div class="">
             <div class="table-wrap game-item__title">
@@ -151,7 +151,7 @@
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
-                <InputSwitch v-model="editMatch.a.disqualification" />
+                <InputSwitch :disabled="!isFinished" v-model="editMatch.a.disqualification" />
                 <div class="secondary">Дисквалифицировать</div>
               </div>
             </div>
@@ -164,7 +164,7 @@
             showButtons
             buttonLayout="horizontal"
             :step="1.0"
-            :disabled="editMatch.status.value === 'done'"
+            :disabled="isFinished"
           >
             <template #incrementbuttonicon>
               <span>+</span>
@@ -190,7 +190,7 @@
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
-                <InputSwitch v-model="editMatch.b.disqualification" />
+                <InputSwitch :disabled="!isFinished" v-model="editMatch.b.disqualification" />
                 <div class="secondary">Дисквалифицировать</div>
               </div>
             </div>
@@ -203,7 +203,7 @@
             showButtons
             buttonLayout="horizontal"
             :step="1.0"
-            :disabled="editMatch.status.value === 'done'"
+            :disabled="isFinished"
           >
             <template #incrementbuttonicon>
               <span>+</span>
@@ -228,7 +228,11 @@
             Команда 2
           </div>
         </div>
-        <Button @click="matchEditStore.updateMatch(true)" class="btn-lg">Завершить матч</Button>
+        <!-- v-if="" -->
+        <!-- TODO: add disabled -->
+        <Button @click="matchEditStore.updateMatch(true)" :disabled="isFinished" class="btn-lg"
+          >Завершить матч</Button
+        >
       </TabPanel>
     </TabView>
   </Dialog>

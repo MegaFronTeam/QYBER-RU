@@ -6,12 +6,10 @@ export interface MatchInterface {
   };
   a: commandInterface;
   b: commandInterface;
-  status:
-    | {
-        label: string;
-        value: string;
-      }
-    | MatchStatus;
+  status: {
+    label: string;
+    value: 'done' | 'play' | 'pending';
+  };
   server: string;
   steam_id: string;
   discord: string;
