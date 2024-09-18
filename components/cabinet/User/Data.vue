@@ -31,7 +31,7 @@
               v-model="userData.user_nickname"
               placeholder="Введите никнейм"
               required
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
             />
           </InputGroup>
           <InputGroup>
@@ -74,7 +74,7 @@
               v-model="userData.user_first_name"
               placeholder="Введите имя "
               required
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
             />
           </InputGroup>
           <InputGroup>
@@ -85,7 +85,7 @@
               v-model="userData.user_second_name"
               placeholder="Введите отчество "
               required
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
             />
           </InputGroup>
 
@@ -97,7 +97,7 @@
               v-model="userData.user_last_name"
               placeholder="Введите фамилию"
               required
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
             />
           </InputGroup>
 
@@ -109,7 +109,7 @@
               v-model="userData.user_phone"
               placeholder="Введите телефон"
               required
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
             />
             <!-- mask="+7 (999) 999-99-99" -->
           </InputGroup>
@@ -120,7 +120,7 @@
               dateFormat="dd.mm.yy"
               placeholder="__.__.____"
               required
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
             />
           </InputGroup>
           <InputGroup>
@@ -133,7 +133,7 @@
               minDate="2020-01-01"
               :placeholder="userData.user_gender"
               required
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
             />
           </InputGroup>
           <InputGroup>
@@ -143,7 +143,7 @@
               v-model="userData.user_telegram"
               placeholder="Введите свой Telegram"
               required
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
             />
           </InputGroup>
 
@@ -161,7 +161,7 @@
               filterPlaceholder="Поиск"
               emptyFilterMessage="Нет данных"
               required
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
             />
           </InputGroup>
 
@@ -171,7 +171,7 @@
               type="text"
               v-model="userData.user_city"
               required
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
               placeholder="Введите город"
             />
           </InputGroup>
@@ -188,7 +188,7 @@
               filterPlaceholder="Поиск"
               emptyFilterMessage="Нет данных"
               required
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
             >
               <template #option="slotProps">
                 <div v-html="slotProps.option.title.rendered"></div>
@@ -204,7 +204,7 @@
               v-model="userData.user_company"
               required
               placeholder="Введите компанию"
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
             />
           </InputGroup>
 
@@ -215,7 +215,7 @@
               v-model="userData.user_inn"
               required
               placeholder="Введите ИНН "
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
             />
           </InputGroup>
 
@@ -226,7 +226,7 @@
               v-model="userData.user_vk_id"
               required
               placeholder="Введите VK ID"
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
             />
           </InputGroup>
 
@@ -236,7 +236,7 @@
               type="text"
               v-model="userData.user_gto"
               required
-              :disabled="userData.user_verification"
+              :disabled="userData.user_verification === true"
               placeholder="Введите ГТО"
             />
           </InputGroup>

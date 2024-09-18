@@ -11,7 +11,7 @@
   import Grid from '@/modules/tournaments/components/Grid/Grid.vue';
   import { useTournamentPageStore } from '~/modules/tournaments/store/TournamentPageStore';
   const tournamentStorePage = useTournamentPageStore();
-  const { currentID } = storeToRefs(tournamentStorePage);
+  const { data, currentID } = storeToRefs(tournamentStorePage);
 
   import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
 
@@ -24,10 +24,11 @@
   }
   onMounted(() => {
     breadcrumbsStore.setNameFromIds(tournamentStorePage.data.title);
-  });
-
-  useSeoMeta({
-    title: 'Сетка - ' + tournamentStorePage.data.title,
-    // meta: [{ name: 'description', content: 'My amazing site.' }],
+    if (data.title) {
+      useSeoMeta({
+        title: 'Сетка - ' + data.title,
+        // meta: [{ name: 'description', content: 'My amazing site.' }],
+      });
+    }
   });
 </script>

@@ -13,10 +13,7 @@
     modal
     :header="item.indexPlus !== underfind ? 'Игра ' + item.indexPlus : 'Игра'"
   >
-    <div
-      class="d-flex switch-wrap"
-      v-if="!isFinished && editMatch.a.command && editMatch.b.command"
-    >
+    <div class="d-flex switch-wrap" v-if="!isFinished && editMatch.a.command">
       <InputSwitch :disabled="isFinished" v-model="editMatch.checked" />
       <span class="">В процессе </span>
     </div>
@@ -137,7 +134,7 @@
 
         <Button @click="matchEditStore.updateMatch" class="btn-lg">Сохранить</Button>
       </TabPanel>
-      <TabPanel header="Результаты" v-if="editMatch.a.command && editMatch.b.command">
+      <TabPanel header="Результаты" v-if="editMatch.a.command">
         <div class="game-item__card game-item__card--center">
           <div class="">
             <div class="table-wrap game-item__title">

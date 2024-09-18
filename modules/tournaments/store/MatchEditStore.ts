@@ -33,10 +33,10 @@ export const useMatchEditStore = defineStore('MatchEdit', {
     },
 
     getStatus: (state) => {
-      return state.editMatch.checked ? 'play' : 'pending';
+      if (state.editMatch.checked) return state.editMatch.checked ? 'play' : 'pending';
     },
     isFinished: (state) => {
-      return state.editMatch.status.value === 'done';
+      if (state.editMatch.status) return state.editMatch.status.value === 'done';
     },
   },
   actions: {

@@ -44,6 +44,12 @@
   import { useGlobalStore } from '@/store/globalStore';
   import { useUserStore } from '@/store/userStore';
 
+  import { useBreadcrumbsStore } from '~/store/BreadcrumbStore';
+
+  const breadcrumbsStore = useBreadcrumbsStore();
+
+  breadcrumbsStore.setNameFromIds();
+
   const userStore = useUserStore();
 
   const globalStore = useGlobalStore();

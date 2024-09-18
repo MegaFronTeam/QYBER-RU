@@ -221,6 +221,15 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       );
       return current && current.icon ? current.icon.sizes.thumbnail : '';
     },
+    checkIsCanRegTeam: (state) => {
+      const isCanReg = state.teamsForReg.some(
+        (team) =>
+          state.data.comand_list &&
+          state.data.comand_list.some((registeredTeam) => registeredTeam.team.ID === team.ID),
+      );
+
+      return isCanReg;
+    },
   },
   actions: {
     reset() {
