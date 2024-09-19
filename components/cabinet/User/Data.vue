@@ -5,27 +5,29 @@
       <div class="form-wrap">
         <form @submit.prevent="userStore.updateMyProfileData">
           <!-- TODO: доделать отпарвку аватара кабинета -->
-          <InputGroup>
-            <label for="textarea"
-              >Загрузить аватар <span style="color: var(--red-500)">*</span></label
-            >
-            <div>
-              <FileUpload
-                mode="basic"
-                name="logo"
-                id="logo"
-                accept="image/*"
-                maxFileSize="5000000"
-                url="/api/upload"
-                @select="customBase64Uploader"
-                chooseLabel="Загрузить аватар "
+          <template v-if="userData.user_verification !== true">
+            <InputGroup>
+              <label for="textarea"
+                >Загрузить аватар <span style="color: var(--red-500)">*</span></label
               >
-              </FileUpload>
+              <div>
+                <FileUpload
+                  mode="basic"
+                  name="logo"
+                  id="logo"
+                  accept="image/*"
+                  maxFileSize="5000000"
+                  url="/api/upload"
+                  @select="customBase64Uploader"
+                  chooseLabel="Загрузить аватар "
+                >
+                </FileUpload>
+              </div>
+            </InputGroup>
+            <div style="margin-bottom: 1rem">
+              Внимание! Фото должно содержать реальное фото игрока без фона в формате PNG или WEBP
             </div>
-          </InputGroup>
-          <div style="margin-bottom: 1rem">
-            Внимание! Фото должно содержать реальное фото игрока без фона в формате PNG или WEBP
-          </div>
+          </template>
           <InputGroup>
             <label for="nickname">Никнейм <span style="color: var(--red-500)">*</span></label>
             <InputText
@@ -52,6 +54,7 @@
               type="text"
               v-model="userData.user_steam"
               placeholder="Введите Steam"
+              disabled=""
             />
           </InputGroup>
 

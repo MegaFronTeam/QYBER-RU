@@ -51,7 +51,6 @@ export const useGlobalStore = defineStore(
       delete data.user_inn;
       delete data.user_nickname;
       delete data.user_steam;
-      delete data.user_steam;
       delete data.user_educational_institution;
       delete data.user_company;
       delete data.user_verification;
