@@ -23,6 +23,9 @@
               </FileUpload>
             </div>
           </InputGroup>
+          <div style="margin-bottom: 1rem">
+            Внимание! Фото должно содержать реальное фото игрока без фона в формате PNG или WEBP
+          </div>
           <InputGroup>
             <label for="nickname">Никнейм <span style="color: var(--red-500)">*</span></label>
             <InputText

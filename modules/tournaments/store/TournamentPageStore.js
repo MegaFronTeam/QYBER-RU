@@ -222,11 +222,17 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
       return current && current.icon ? current.icon.sizes.thumbnail : '';
     },
     checkIsCanRegTeam: (state) => {
-      const isCanReg = state.teamsForReg.some(
-        (team) =>
-          state.data.comand_list &&
+      let isCanReg = false;
+      if (!state.teamsForReg.length) return isCanReg;
+      if (
+        state.teamsForReg.some((team) =>
           state.data.comand_list.some((registeredTeam) => registeredTeam.team.ID === team.ID),
-      );
+        )
+      ) {
+        isCanReg = false;
+      } else {
+        isCanReg = true;
+      }
 
       return isCanReg;
     },
