@@ -33,7 +33,7 @@ export const useMatchEditStore = defineStore('MatchEdit', {
     },
 
     getStatus: (state) => {
-      if (state.editMatch.checked) return state.editMatch.checked ? 'play' : 'pending';
+      return state.editMatch.checked ? 'play' : 'pending';
     },
     isFinished: (state) => {
       if (state.editMatch.status) return state.editMatch.status.value === 'done';
@@ -55,7 +55,7 @@ export const useMatchEditStore = defineStore('MatchEdit', {
     setModalData(item: MatchInterface) {
       this.editMatch = {
         ...item,
-        checked: item.status?.value === 'play',
+        checked: item.status.value === 'play',
       };
       // console.log(new Date(this.editMatch.date));
 
@@ -63,7 +63,7 @@ export const useMatchEditStore = defineStore('MatchEdit', {
       // this.editMatch.date = formatDate(item.date, 'dd.MM.yyyy HH:mm');
     },
 
-    async updateMatch(finish: boolean, team: 'a' | 'b') {
+    async updateMatch(finish: boolean, team?: 'a' | 'b') {
       const tournamentStore = useTournamentPageStore();
       if (team) {
         const winnerTeam = team === 'a' ? 'b' : 'a';
@@ -83,9 +83,12 @@ export const useMatchEditStore = defineStore('MatchEdit', {
         disqualification_a: this.editMatch.a.disqualification,
         disqualification_b: this.editMatch.b.disqualification,
       };
+
       if (finish === true) {
         dataForm.status = 'done';
+        this.editMatch.status = { value: 'done', label: 'Завершен' };
       }
+      console.log(dataForm.status);
 
       try {
         const response = await MatchService.updateMatch(this.editMatch.id, dataForm);

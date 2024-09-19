@@ -18,7 +18,7 @@
         <div
           class="sGridCard sGridCard__team"
           :class="
-            item.status.value === 'done' && item.a.counter > item.b.counter ? 'team-success' : ''
+            item.status.value == 'done' && item.a.counter > item.b.counter ? 'team-success' : ''
           "
         >
           <!-- :class="{ 'team-success': product.team.success }" -->
@@ -32,7 +32,7 @@
         <div
           class="sGridCard sGridCard__team"
           :class="
-            item.status.value === 'done' && item.a.counter < item.b.counter ? 'team-success' : ''
+            item.status.value == 'done' && item.a.counter < item.b.counter ? 'team-success' : ''
           "
         >
           <!-- :class="{ 'team-success': product.team.success }" -->
@@ -78,8 +78,6 @@
     },
   });
 
-  const { item } = props;
-
   const globalStore = useGlobalStore();
   const { isReferee, isUserAuth } = storeToRefs(globalStore);
 
@@ -96,6 +94,7 @@
   const tournamentPageStore = useTournamentPageStore();
   const { currentID } = storeToRefs(tournamentPageStore);
   const isPlayerInMatch = computed(() => {
+    const { item } = props;
     if (item.status.value === 'done') return false;
 
     if (item.a.members && item.a.members.find((member) => member.id === globalStore.userData.ID))

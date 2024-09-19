@@ -48,13 +48,14 @@
                   <!-- {{ index + 1 === matchesGrid.length ? 'asd' : '' }} -->
                   <template v-for="(item, indexSub) in match" :key="item.id">
                     <div class="tournament-table__group" v-if="indexSub % 2 === 0">
-                      <Card :item="item" :index="indexSub" />
+                      <Card :item="match[indexSub]" :index="indexSub" />
                       <span
                         v-if="index + 1 === matchesGrid.length && match.length === 2"
                         class="mt-2 mb-2"
                       >
                         Матч за 3 место
                       </span>
+                      <!-- {{ match[indexSub + 1].status.value }} -->
                       <Card
                         v-if="match[indexSub + 1]"
                         :item="match[indexSub + 1]"
