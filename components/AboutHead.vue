@@ -5,7 +5,7 @@
         <div class="col">
           <div class="sAboutHead__item">
             <svg-icon name="users-medical.svg" />
-            <h4>{{ aboutStore.services.views }} зрителей</h4>
+            <h4>{{ aboutStore.data.verification_users }} аккредитованных игроков</h4>
             <p>Набирают трансляции наших киберспортивных событий</p>
           </div>
         </div>
@@ -268,7 +268,7 @@
 </template>
 
 <script setup>
-import { useAboutStore } from '~/store/AboutStore';
+  import { useAboutStore } from '~/store/AboutStore';
 
-const aboutStore = useAboutStore();
+  const aboutStore = useAboutStore();
 </script>

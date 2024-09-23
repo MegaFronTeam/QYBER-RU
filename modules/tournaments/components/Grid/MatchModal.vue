@@ -134,7 +134,7 @@
 
         <Button @click="matchEditStore.updateMatch" class="btn-lg">Сохранить</Button>
       </TabPanel>
-      <TabPanel header="Результаты" v-if="editMatch.a.command">
+      <TabPanel header="Результаты" v-if="editMatch.a.command || editMatch.b.command">
         <div class="game-item__card game-item__card--center">
           <div class="">
             <div class="table-wrap game-item__title">
