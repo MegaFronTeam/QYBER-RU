@@ -58,9 +58,7 @@
                 Зарегистрирована
               </span>
               <!-- Выбыла в 1/32  -->
-              <span class="p-badge p-badge-gray" v-else>
-                Выбыла в раунде {{ slotProps.data.exit }}</span
-              >
+              <span class="p-badge p-badge-gray" v-else> {{ slotProps.data.exit }}</span>
             </template>
           </Column>
         </DataTable>

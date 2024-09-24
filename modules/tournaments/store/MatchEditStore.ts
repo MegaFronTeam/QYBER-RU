@@ -1,3 +1,4 @@
+import { tr } from 'date-fns/locale';
 import type { MatchInterface } from '../interfaces/interface';
 import MatchService from '../services/matchEditService';
 
@@ -84,6 +85,9 @@ export const useMatchEditStore = defineStore('MatchEdit', {
         disqualification_b: this.editMatch.b.disqualification,
       };
 
+      if (this.editMatch.b.command === false) {
+        dataForm.disqualification_b = true;
+      }
       if (finish === true) {
         dataForm.status = 'done';
         this.editMatch.status = { value: 'done', label: 'Завершен' };

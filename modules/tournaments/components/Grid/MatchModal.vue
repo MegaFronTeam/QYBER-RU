@@ -134,7 +134,7 @@
 
         <Button @click="matchEditStore.updateMatch" class="btn-lg">Сохранить</Button>
       </TabPanel>
-      <TabPanel header="Результаты" v-if="editMatch.a.command || editMatch.b.command">
+      <TabPanel header="Результаты">
         <div class="game-item__card game-item__card--center">
           <div class="">
             <div class="table-wrap game-item__title">
@@ -151,7 +151,7 @@
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
-                <InputSwitch :disabled="!isFinished" v-model="editMatch.a.disqualification" />
+                <InputSwitch :disabled="isFinished" v-model="editMatch.a.disqualification" />
                 <div class="secondary">Дисквалифицировать</div>
               </div>
             </div>
@@ -190,7 +190,7 @@
             </div>
             <div class="table-wrap">
               <div class="game-item__list">
-                <InputSwitch :disabled="!isFinished" v-model="editMatch.b.disqualification" />
+                <InputSwitch :disabled="isFinished" v-model="editMatch.b.disqualification" />
                 <div class="secondary">Дисквалифицировать</div>
               </div>
             </div>

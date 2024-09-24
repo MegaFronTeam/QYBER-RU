@@ -146,9 +146,9 @@ export const useUserStore = defineStore('user', () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      const data = await response.data;
+      const data = await response;
       console.log(data);
-      if (data === true) {
+      if (data.statusText === 'OK') {
         showToast('success', 'Данные успешно изменены');
         await getUserData();
       }
