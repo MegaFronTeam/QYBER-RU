@@ -6,20 +6,27 @@
           <div class="tournament-table__item" v-if="data.winners">
             <div class="tournament-table__item-title">Победители</div>
             <div class="tournament-table__winner-row row">
-              <div class="col-auto" v-for="(item, index) in data.winners" :key="index">
+              <div
+                class="col-auto"
+                v-for="(item, index) in data.winners"
+                :key="index"
+                :style="{ order: item.position }"
+              >
                 <div class="sGridCardItem sGridCardItem--winner">
                   <div class="teams-group">
                     <div
                       class="sGridCard sGridCard__team"
-                      :class="index === 0 ? 'team-winner' : ''"
+                      :class="+item.position === 1 ? 'team-winner' : ''"
                     >
-                      <div class="sGridCard__score">{{ index + 1 }}</div>
+                      <div class="sGridCard__score">{{ item.position }}</div>
                       <div class="sGridCard__wrap">
                         <img v-if="item.avatar" :src="item.avatar" alt="Avatar" class="img" />
                         <span>{{ item.team.post_title }}</span>
                       </div>
                     </div>
-                    <div class="sGridCard__price">Приз: {{ item.amount }}</div>
+                    <div class="sGridCard__price">
+                      Приз: {{ data.prize[+item.position - 1].amount }}
+                    </div>
                   </div>
                 </div>
               </div>
