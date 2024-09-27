@@ -66,9 +66,13 @@ export const useMatchEditStore = defineStore('MatchEdit', {
 
     async updateMatch(finish: boolean, team?: 'a' | 'b') {
       const tournamentStore = useTournamentPageStore();
-      if (team) {
-        const winnerTeam = team === 'a' ? 'b' : 'a';
-        this.editMatch[team].counter = 0;
+      if (
+        this.editMatch.a.disqualification === true ||
+        this.editMatch.b.disqualification === true
+      ) {
+        const winnerTeam = this.editMatch.a.disqualification === true ? 'b' : 'a';
+        const looserTeam = this.editMatch.a.disqualification === true ? 'a' : 'b';
+        this.editMatch[looserTeam].counter = 0;
         this.editMatch[winnerTeam].counter =
           +this.editMatch[winnerTeam].counter === 0 ? 1 : +this.editMatch[winnerTeam].counter;
       }

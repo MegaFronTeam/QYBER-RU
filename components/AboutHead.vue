@@ -5,29 +5,29 @@
         <div class="col">
           <div class="sAboutHead__item">
             <svg-icon name="users-medical.svg" />
-            <h4>{{ aboutStore.data.verification_users }} аккредитованных игроков</h4>
-            <p>Набирают трансляции наших киберспортивных событий</p>
+            <h4>{{ data.verification_users }} аккредитованных игроков</h4>
+            <p>{{ services.blocks.block_1 }}</p>
           </div>
         </div>
         <div class="col">
           <div class="sAboutHead__item">
             <svg-icon name="users-medical.svg" />
-            <h4>{{ aboutStore.data.teams.publish }} команд</h4>
-            <p>Зарегистрировано на нашем турнире</p>
+            <h4>{{ data.teams.publish }} команд</h4>
+            <p>{{ services.blocks.block_2 }}</p>
           </div>
         </div>
         <div class="col">
           <div class="sAboutHead__item">
             <svg-icon name="users-medical.svg" />
-            <h4>{{ aboutStore.data.total_sum }}</h4>
-            <p>Cоставил общий фонд всех турниров на QYBER.RU</p>
+            <h4>{{ data.total_sum }}</h4>
+            <p>{{ services.blocks.block_3 }}</p>
           </div>
         </div>
         <div class="col">
           <div class="sAboutHead__item">
             <svg-icon name="users-medical.svg" />
-            <h4>{{ aboutStore.data.sponsors.publish }}</h4>
-            <p>Организаций являются прямыми партнерами</p>
+            <h4>{{ data.sponsors.publish }}</h4>
+            <p>{{ services.blocks.block_4 }}</p>
           </div>
         </div>
       </div>
@@ -271,4 +271,5 @@
   import { useAboutStore } from '~/store/AboutStore';
 
   const aboutStore = useAboutStore();
+  const { data, services } = storeToRefs(aboutStore);
 </script>
