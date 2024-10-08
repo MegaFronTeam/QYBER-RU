@@ -375,7 +375,7 @@ export const useTournamentPageStore = defineStore('tournamentPage', {
               return (
                 data.leagues[0].slug === item.leagues.slug &&
                 data.discipline[0].slug === item.discipline.slug &&
-                +item.count_members >= +data.format[0] &&
+                +item.count_members >= +data.discipline[0].count_members &&
                 +item.post_author === +globalStore.userData.ID
               );
             }
