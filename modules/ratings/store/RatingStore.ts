@@ -24,6 +24,9 @@ export const UseRatingStore = defineStore({
         console.log(ratings);
 
         this.data = ratings.data;
+        this.data.forEach((item: any, index: number) => {
+          item.index = index + 1;
+        });
         this.pages.total = ratings.headers['x-wp-total'];
         this.pages.totalPages = ratings.headers['x-wp-totalpages'];
       } catch (error) {

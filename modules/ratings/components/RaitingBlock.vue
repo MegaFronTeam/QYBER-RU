@@ -20,7 +20,7 @@
                 />
               </svg>
             </template> -->
-            <template #body="slotProps">{{ slotProps.data.place }} </template>
+            <template #body="slotProps">{{ slotProps.data.index }} </template>
           </Column>
           <Column field="post_title" header="Название команды">
             <!-- <template #sorticon="slotProps">
